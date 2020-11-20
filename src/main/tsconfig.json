@@ -1,27 +1,14 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "downlevelIteration": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
       "/@main/*": [
         "./*"
       ]
-    },
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    }
   },
   "include": [
-    "**/*",
-    "../../types/*.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
+    "./**/*"
   ]
 }

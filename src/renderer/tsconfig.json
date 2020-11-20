@@ -1,27 +1,20 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "downlevelIteration": true,
-    "resolveJsonModule": true,
-    "strict": true,
-    "moduleResolution": "node",
-    "baseUrl": ".",
     "paths": {
       "/@/*": [
         "./*"
       ]
     },
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
   },
   "include": [
-    "**/*",
-    "../../types/*.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
+    "./**/*.ts",
+    "./**/*.vue"
   ]
 }
