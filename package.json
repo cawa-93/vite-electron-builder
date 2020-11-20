@@ -6,13 +6,24 @@
   "watch": {
     "run:electron": {
       "patterns": [
-        "dist/source/main"
+        "dist/source/main",
+        "dist/source/preload"
       ],
-      "extensions": ["js"]
+      "extensions": [
+        "js"
+      ]
     },
     "build:main": {
       "patterns": [
         "src/main"
+      ],
+      "extensions": [
+        "ts"
+      ]
+    },
+    "build:preload": {
+      "patterns": [
+        "src/preload"
       ],
       "extensions": [
         "ts",
@@ -22,13 +33,20 @@
   },
   "scripts": {
     "build": "npm run build:main && npm run build:preload && npm run build:renderer",
-    "watch:build:main": "npm-watch build:main",
+
     "build:main": "vite build --config ./config/main.vite.js",
     "build:preload": "vite build --config ./config/preload.vite.js",
     "build:renderer": "vite build --config ./config/renderer.vite.js",
-    "dev:renderer": "vite serve --config ./config/renderer.vite.js",
-    "run:electron": "electron .",
+
+    "watch": "npm-watch",
+
+    "watch:build:main": "npm-watch build:main",
+    "watch:run:preload": "npm-watch build:preload",
+    "watch:build:renderer": "vite serve --config ./config/renderer.vite.js",
+
     "watch:run:electron": "npm-watch run:electron",
+    "run:electron": "electron .",
+
     "electron-builder": "electron-builder build --config ./config/electron-builder.js"
   },
   "keywords": [],

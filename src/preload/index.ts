@@ -1,7 +1,6 @@
-import {clipboard, contextBridge, shell} from 'electron'
+import {clipboard, contextBridge} from 'electron'
 
 const api = {
-  shell,
   clipboard,
 }
 
