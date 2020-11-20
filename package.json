@@ -2,10 +2,11 @@
   "name": "vite-electron-boilerplate",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/index.js",
+  "main": "dist/source/main/entry.js",
   "scripts": {
-    "build": "npm run build:main && npm run build:renderer",
-    "build:main": "vite build --config ./config/main.vite.js",
+    "build": "npm run build:main && npm run build:preload && npm run build:renderer",
+    "build:main": "vite build --config ./config/main.vite.js && cp ./src/main/entry.js ./dist/source/main/entry.js",
+    "build:preload": "vite build --config ./config/preload.vite.js && cp ./src/preload/entry.js ./dist/source/preload/entry.js",
     "build:renderer": "vite build --config ./config/renderer.vite.js",
     "run:electron": "electron .",
     "electron-builder": "electron-builder build --config ./config/electron-builder.js"
