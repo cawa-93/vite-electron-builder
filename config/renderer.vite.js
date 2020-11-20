@@ -11,7 +11,11 @@ module.exports = {
   optimizeDeps: {
     exclude: ['electron-updater'],
   },
-  // root: join(__dirname, '../src/main'),
+  rollupOutputOptions: {
+    entryFileNames: `[name].js`,
+    chunkFileNames: `[name].js`,
+    assetFileNames: `[name].[ext]`
+  },
   alias: {
     '/@/': join(__dirname, '../src/renderer'),
   },

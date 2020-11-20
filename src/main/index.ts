@@ -4,12 +4,11 @@ import {format} from 'url'
 
 let win = null
 
-
 function createWindow() {
   win = new BrowserWindow({
     webPreferences: {
       contextIsolation: true,
-      preload: join(__dirname, '../preload/entry.js'),
+      preload: join(__dirname, '../preload/index.js'),
     },
   })
 

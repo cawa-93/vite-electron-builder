@@ -11,13 +11,14 @@ module.exports = {
   entry: 'src/main/index',
   outDir: 'dist/source/main',
   assetsDir: '.',
-  // root: join(__dirname, '../src/main'),
-  emitManifest: true,
   alias: {
     '/@main/': join(__dirname, '../src/main'),
   },
   rollupOutputOptions: {
     format: 'cjs',
+    entryFileNames: `[name].js`,
+    chunkFileNames: `[name].js`,
+    assetFileNames: `[name].[ext]`
   },
   rollupInputOptions: {
     external: [...builtins, 'electron', 'electron-updater'],
