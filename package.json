@@ -5,9 +5,12 @@
   "main": "dist/source/main/entry.js",
   "scripts": {
     "build": "npm run build:main && npm run build:preload && npm run build:renderer",
-    "build:main": "vite build --config ./config/main.vite.js && cp ./src/main/entry.js ./dist/source/main/entry.js",
-    "build:preload": "vite build --config ./config/preload.vite.js && cp ./src/preload/entry.js ./dist/source/preload/entry.js",
+    "build:main": "vite build --config ./config/main.vite.js",
+    "postbuild:main": "cp ./src/main/entry.js ./dist/source/main/entry.js",
+    "build:preload": "vite build --config ./config/preload.vite.js",
+    "postbuild:preload": "cp ./src/preload/entry.js ./dist/source/preload/entry.js",
     "build:renderer": "vite build --config ./config/renderer.vite.js",
+    "dev:renderer": "vite serve --config ./config/renderer.vite.js",
     "run:electron": "electron .",
     "electron-builder": "electron-builder build --config ./config/electron-builder.js"
   },
@@ -16,6 +19,7 @@
   "license": "ISC",
   "devDependencies": {
     "builtin-modules": "^3.1.0",
+    "cross-env": "^7.0.2",
     "electron": "^11.0.2",
     "electron-builder": "^22.9.1",
     "electron-reloader": "^1.0.1",
