@@ -1,8 +1,8 @@
 export const conf = {
-  str: 'Hello from object'
+  str: 'Hello from object',
 }
 
 
 export const non = {
-  foo: '123'
+  foo: '123',
 }

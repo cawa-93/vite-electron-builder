@@ -1,4 +1,4 @@
-const { join } = require('path')
+const {join} = require('path')
 
 /**
  * Vite shared config, assign alias and root dir
@@ -11,5 +11,5 @@ module.exports = {
   // root: join(__dirname, '../src/main'),
   alias: {
     '/@/': join(__dirname, '../src/renderer'),
-  }
+  },
 }

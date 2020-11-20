@@ -4,6 +4,6 @@
  */
 module.exports = {
   directories: {
-    output: 'dist/app'
+    output: 'dist/app',
   },
 }

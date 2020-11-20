@@ -1,7 +1,7 @@
 const builtins = require('builtin-modules')
 
 
-const { join } = require('path')
+const {join} = require('path')
 
 /**
  * Vite shared config, assign alias and root dir
