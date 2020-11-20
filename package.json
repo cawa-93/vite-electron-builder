@@ -4,9 +4,11 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
+    "build": "npm run build:main && npm run build:renderer",
     "build:main": "vite build --config ./config/main.vite.js",
-
-    "run:electron": "electron ."
+    "build:renderer": "vite build --config ./config/renderer.vite.js",
+    "run:electron": "electron .",
+    "electron-builder": "electron-builder build --config ./config/electron-builder.js"
   },
   "keywords": [],
   "author": "",
@@ -16,8 +18,9 @@
     "electron": "^11.0.2",
     "electron-builder": "^22.9.1",
     "electron-reloader": "^1.0.1",
-    "electron-updater": "^4.3.5",
     "vite": "^1.0.0-rc.9"
   },
-  "dependencies": {}
+  "dependencies": {
+    "electron-updater": "^4.3.5"
+  }
 }
