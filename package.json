@@ -1,0 +1,23 @@
+{
+  "name": "vite-electron-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build:main": "vite build --config ./config/main.vite.js",
+
+    "run:electron": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "builtin-modules": "^3.1.0",
+    "electron": "^11.0.2",
+    "electron-builder": "^22.9.1",
+    "electron-reloader": "^1.0.1",
+    "electron-updater": "^4.3.5",
+    "vite": "^1.0.0-rc.9"
+  },
+  "dependencies": {}
+}
