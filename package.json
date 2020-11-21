@@ -42,7 +42,8 @@
     "watch:build:renderer": "vite serve --config ./config/renderer.vite.js",
     "watch:run:electron": "npm-watch run:electron",
     "run:electron": "electron .",
-    "electron-builder": "electron-builder build --config ./config/electron-builder.js"
+    "electron-builder": "electron-builder build --config ./config/electron-builder.js",
+    "typecheck": "typecheck"
   },
   "keywords": [],
   "author": "",
@@ -50,10 +51,8 @@
   "devDependencies": {
     "@vuedx/typecheck": "^0.2.4-0",
     "builtin-modules": "^3.1.0",
-    "cross-env": "^7.0.2",
     "electron": "^11.0.2",
     "electron-builder": "^22.9.1",
-    "electron-reloader": "^1.0.1",
     "npm-watch": "^0.7.0",
     "vite": "^1.0.0-rc.9"
   },
