@@ -3,12 +3,30 @@
 name: Lint
 
 # Controls when the action will run.
-on: [push, pull_request]
+on: 
+  push:
+    branches: 
+      - main
+    paths: 
+      - 'src/**/*.ts'
+      - 'src/**/*.vue'
+      - 'config/**/*.js'
+      - 'tasks/**/*.js'
+  pull_request:
+    branches: 
+      - main
+    paths: 
+      - 'src/**/*.ts'
+      - 'src/**/*.vue'
+      - 'config/**/*.js'
+      - 'tasks/**/*.js'
+  
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   lint:
+    if: github.actor != "github-actions"
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -28,6 +46,8 @@ jobs:
         with:
           auto_fix: true
           github_token: ${{ secrets.github_token }}
+          git_name: github-actions
+          git_email: github-actions@users.noreply.github.com
           eslint: true
           eslint_args: src/**/*.{ts,vue} {tasks,config}/**/*.js  -c ./config/.eslintrc.js
           eslint_extensions: js,ts,vue
