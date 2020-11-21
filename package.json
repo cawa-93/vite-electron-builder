@@ -49,7 +49,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@vuedx/typecheck": "^0.2.4-0",
+    "@vuedx/typecheck": "insiders",
     "builtin-modules": "^3.1.0",
     "electron": "^11.0.2",
     "electron-builder": "^22.9.1",
