@@ -2,12 +2,7 @@ import {app, BrowserWindow} from 'electron'
 import {join} from 'path'
 import {format} from 'url'
 
-console.log(import.meta.env)
-
-let win = null
-
-
-var a = 13
+let win = null;
 
 function createWindow() {
   win = new BrowserWindow({
@@ -43,4 +38,3 @@ app.whenReady()
   .then(createWindow)
   .then(() => import('electron-updater'))
   .then(({autoUpdater}) => autoUpdater.checkForUpdatesAndNotify())
-

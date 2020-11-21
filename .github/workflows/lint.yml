@@ -3,13 +3,29 @@
 name: Lint
 
 # Controls when the action will run.
-on: [push, pull_request]
+on: 
+  push:
+    branches: 
+      - main
+    paths: 
+      - 'src/**/*.ts'
+      - 'src/**/*.vue'
+      - 'config/**/*.js'
+      - 'tasks/**/*.js'
+  pull_request:
+    branches: 
+      - main
+    paths: 
+      - 'src/**/*.ts'
+      - 'src/**/*.vue'
+      - 'config/**/*.js'
+      - 'tasks/**/*.js'
+  
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  lint:
-    # The type of runner that the job will run on
+  ESLint:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -22,14 +38,21 @@ jobs:
 
       - name: Install eslint and plugins
         run: npm i -D eslint eslint-plugin-vue @typescript-eslint/parser @typescript-eslint/eslint-plugin typescript
-      - run: ls
-      - name: Run linters
-        uses: wearerequired/lint-action@v1
+        
+      - uses: haya14busa/action-cond@v1
+        id: reporter
         with:
-          auto_fix: true
+          cond: ${{ github.event_name == 'pull_request' }}
+          if_true: "github-pr-review"
+          if_false: "github-check"
+    
+      - name: Run ESLint
+        uses: reviewdog/action-eslint@v1
+        with:
+          fail_on_error: true
+          filter: nofilter
           github_token: ${{ secrets.github_token }}
-          eslint: true
-          eslint_args: src/**/*.{ts,vue} {tasks,config}/**/*.js  -c ./config/.eslintrc.js
-          eslint_extensions: js,ts,vue
+          eslint_flags: 'src/**/*.{ts,vue} {tasks,config}/**/*.js  -c ./config/.eslintrc.js'
+          reporter: ${{ steps.reporter.outputs.value }}
 
 
