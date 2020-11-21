@@ -4,11 +4,11 @@ import {format} from 'url'
 
 console.log(import.meta.env)
 
-let win = null
+      let win = null;;
 
-const foo: boolean = 'bar'
 
-const a: string = 13
+
+
 
 function createWindow() {
   win = new BrowserWindow({
