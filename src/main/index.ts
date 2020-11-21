@@ -2,7 +2,9 @@ import {app, BrowserWindow} from 'electron'
 import {join} from 'path'
 import {format} from 'url'
 
-let win:string = null
+console.log(import.meta.env)
+
+let win: string = null
 
 function createWindow() {
   win = new BrowserWindow({

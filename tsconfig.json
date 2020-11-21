@@ -1,21 +1,3 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "resolveJsonModule": true,
-    "strict": true,
-    "moduleResolution": "node",
-    "isolatedModules": false,
-    "forceConsistentCasingInFileNames": true,
-    "importHelpers": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
-  },
-  "include": [
-    "./types/*.d.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "extends": "./config/tsconfig.json"
 }
