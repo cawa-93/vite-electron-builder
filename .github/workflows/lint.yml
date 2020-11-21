@@ -40,16 +40,19 @@ jobs:
 
       - name: Install eslint and plugins
         run: npm i -D eslint eslint-plugin-vue @typescript-eslint/parser @typescript-eslint/eslint-plugin typescript
-      - run: ls
-      - name: Run linters
-        uses: wearerequired/lint-action@v1
+        
+      - uses: haya14busa/action-cond@v1
+        id: reporter
         with:
-          auto_fix: true
+          cond: ${{ github.event_name == 'pull_request' }}
+          if_true: "github-pr-review"
+          if_false: "github-check"
+    
+      - name: eslint
+        uses: reviewdog/action-eslint@v1
+        with:
           github_token: ${{ secrets.github_token }}
-          git_name: github-actions
-          git_email: github-actions@users.noreply.github.com
-          eslint: true
-          eslint_args: src/**/*.{ts,vue} {tasks,config}/**/*.js  -c ./config/.eslintrc.js
-          eslint_extensions: js,ts,vue
+          eslint_flags: 'src/**/*.{ts,vue} {tasks,config}/**/*.js  -c ./config/.eslintrc.js'
+          reporter: ${{ steps.reporter.outputs.value }}
 
 
