@@ -6,6 +6,7 @@ console.log(import.meta.env)
 
 let win = null
 
+crash code stuff
 
 const a = 13
 
