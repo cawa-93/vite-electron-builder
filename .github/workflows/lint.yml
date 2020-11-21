@@ -26,8 +26,10 @@ jobs:
       - name: Run linters
         uses: wearerequired/lint-action@v1
         with:
+          auto_fix: true
           github_token: ${{ secrets.github_token }}
           eslint: true
+          eslint_args: --config ./config/.eslintrc.js
           eslint_dir: src
           eslint_extensions: js,ts,vue
 
