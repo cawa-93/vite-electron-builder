@@ -6,11 +6,9 @@ console.log(import.meta.env)
 
 let win = null
 
-crash code stuff
+const foo: boolean = 'bar'
 
-const foo = 'bar'
-
-const a = 13
+const a: string = 13
 
 function createWindow() {
   win = new BrowserWindow({
