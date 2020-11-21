@@ -7,7 +7,7 @@ console.log(import.meta.env)
 let win = null
 
 
-var a = 13
+const a = 13
 
 function createWindow() {
   win = new BrowserWindow({
