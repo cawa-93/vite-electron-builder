@@ -25,7 +25,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  lint:
+  ESLint:
     if: github.actor != "github-actions"
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -48,9 +48,11 @@ jobs:
           if_true: "github-pr-review"
           if_false: "github-check"
     
-      - name: eslint
+      - name: Run ESLint
         uses: reviewdog/action-eslint@v1
         with:
+          fail_on_error: true
+          filter: nofilter
           github_token: ${{ secrets.github_token }}
           eslint_flags: 'src/**/*.{ts,vue} {tasks,config}/**/*.js  -c ./config/.eslintrc.js'
           reporter: ${{ steps.reporter.outputs.value }}
