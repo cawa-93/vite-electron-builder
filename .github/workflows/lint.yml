@@ -22,7 +22,7 @@ jobs:
 
       - name: Install eslint and plugins
         run: npm i -D eslint eslint-plugin-vue @typescript-eslint/parser @typescript-eslint/eslint-plugin typescript
-
+      - run: ls
       - name: Run linters
         uses: wearerequired/lint-action@v1
         with:
