@@ -4,7 +4,7 @@ import {format} from 'url'
 
 console.log(import.meta.env)
 
-      let win = null;;
+      let win = null;
 
 
 
@@ -44,4 +44,3 @@ app.whenReady()
   .then(createWindow)
   .then(() => import('electron-updater'))
   .then(({autoUpdater}) => autoUpdater.checkForUpdatesAndNotify())
-
