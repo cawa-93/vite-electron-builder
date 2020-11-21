@@ -43,17 +43,22 @@
     "watch:run:electron": "npm-watch run:electron",
     "run:electron": "electron .",
     "electron-builder": "electron-builder build --config ./config/electron-builder.js",
-    "typecheck": "typecheck"
+    "typecheck": "typecheck",
+    "lint": "eslint src/**/*.{ts,vue} {tasks,config}/**/*.js  -c ./config/.eslintrc.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@vuedx/typecheck": "insiders",
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
     "builtin-modules": "^3.1.0",
     "electron": "^11.0.2",
     "electron-builder": "^22.9.1",
+    "eslint": "^7.14.0",
+    "eslint-plugin-vue": "^7.1.0",
     "npm-watch": "^0.7.0",
+    "typescript": "^4.1.2",
     "vite": "^1.0.0-rc.9"
   },
   "dependencies": {

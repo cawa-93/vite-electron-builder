@@ -4,7 +4,10 @@ import {format} from 'url'
 
 console.log(import.meta.env)
 
-let win: string = null
+let win = null
+
+
+var a = 13
 
 function createWindow() {
   win = new BrowserWindow({
