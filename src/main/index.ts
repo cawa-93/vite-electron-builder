@@ -8,6 +8,8 @@ let win = null
 
 crash code stuff
 
+const foo = 'bar'
+
 const a = 13
 
 function createWindow() {
