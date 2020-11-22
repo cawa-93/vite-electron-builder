@@ -50,4 +50,4 @@ All additional dependencies for linter or typechecking well be install, if neces
   Contains all declaration files to be applied globally to the entire project
 
 # Contributing
-See contributing.md  
+See [contributing.md](/contributing.md)
