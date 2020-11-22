@@ -34,8 +34,8 @@ jobs:
         with:
           reviewdog_version: latest
 
-      - name: Install eslint and plugins
-        run: npm ci
+#       - name: Install eslint and plugins
+#         run: npm ci
 
       - uses: haya14busa/action-cond@v1
         id: reporter
@@ -57,6 +57,6 @@ jobs:
       - run: npm i @vuedx/typecheck@insiders -D
       - env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
-        run: npm run typecheck -- --json | reviewdog -f=rdjson -reporter=github-pr-review
+        run: npm run typecheck -- --json
 
 
