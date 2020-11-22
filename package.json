@@ -45,16 +45,10 @@
     "lint": "eslint src/**/*.{ts,vue} {tasks,config}/**/*.js"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.8.1",
-    "@typescript-eslint/parser": "^4.8.1",
-    "@vuedx/typecheck": "^0.3.1-insiders-1606047354.0",
     "builtin-modules": "^3.1.0",
     "electron": "^11.0.2",
     "electron-builder": "^22.9.1",
-    "eslint": "^7.14.0",
-    "eslint-plugin-vue": "^7.1.0",
     "npm-watch": "^0.7.0",
-    "typescript": "^4.1.2",
     "vite": "^1.0.0-rc.9"
   },
   "dependencies": {
