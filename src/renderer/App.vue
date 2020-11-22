@@ -10,10 +10,6 @@
 import { defineComponent } from 'vue';
 import HelloWorld from './components/HelloWorld.vue';
 
-Promise.all()
-
-let win: string = null
-
 export default defineComponent({
   name: 'App',
   components: {
