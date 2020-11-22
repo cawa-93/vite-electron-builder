@@ -48,4 +48,6 @@ All additional dependencies for linter or typechecking well be install, if neces
   It is believed any scripts for build the application will be located here.
 - `/types` 
   Contains all declaration files to be applied globally to the entire project
-  
+
+# Contributing
+See contributing.md  
