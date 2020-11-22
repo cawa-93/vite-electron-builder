@@ -15,4 +15,4 @@ This is a minimalist template created mainly for my personal needs and is design
 - ⚠ Typechecking in `.ts` and `.vue` files -- works but needs improvement. I want to integrate it with [reviewdog](https://github.com/reviewdog/reviewdog). Typechecking use [@vuedx/typecheck](https://github.com/znck/vue-developer-experience/tree/master/packages/typecheck)
 - ⚠ Linting -- work fine, but need review the configuration files and refactor its. It may also intersect somewhat with Typechecking.
 - ⏳ Add Vue dev tools -- planned.
- 
+- ⏳ Refactor and simplify the set of npm scripts -- planned.
