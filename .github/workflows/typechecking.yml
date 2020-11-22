@@ -7,17 +7,13 @@ on:
   push:
     branches:
       - main
-      - typechecking
+#      - typechecking
 #    paths:
 #      - '*.ts'
 #      - '*.vue'
-#  pull_request:
-#    branches:
-#      - main
-#    paths:
-#      - '.github'
-#      - '*.ts'
-#      - '*.vue'
+  pull_request:
+    branches:
+      - main
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
