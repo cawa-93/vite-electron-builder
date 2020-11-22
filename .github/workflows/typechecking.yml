@@ -7,19 +7,21 @@ on:
   push:
     branches:
       - main
-#      - typechecking
-#    paths:
-#      - '*.ts'
-#      - '*.vue'
+    paths:
+      - '**.ts'
+      - '**.vue'
   pull_request:
     branches:
       - main
+    paths:
+      - '**.ts'
+      - '**.vue'
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  eslint:
+  typecheck:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -30,33 +32,22 @@ jobs:
         with:
           node-version: 14
 
-      - uses: reviewdog/action-setup@v1
-        with:
-          reviewdog_version: latest
+#       - uses: reviewdog/action-setup@v1
+#         with:
+#           reviewdog_version: latest
 
-#       - name: Install eslint and plugins
-#         run: npm ci
-
-      - uses: haya14busa/action-cond@v1
-        id: reporter
-        with:
-          cond: ${{ github.event_name == 'pull_request' }}
-          if_true: "github-pr-review"
-          if_false: "github-check"
-
-#      - name: Run Typechecking
-#        uses: reviewdog/action-eslint@v1
-#        with:
-#          fail_on_error: true
-#          filter: nofilter
-#          github_token: ${{ secrets.github_token }}
-#          eslint_flags: 'src/**/*.{ts,vue} {tasks,config}/**/*.js'
-#          reporter: ${{ steps.reporter.outputs.value }}
+#       - uses: haya14busa/action-cond@v1
+#         id: reporter
+#         with:
+#           cond: ${{ github.event_name == 'pull_request' }}
+#           if_true: "github-pr-review"
+#           if_false: "github-check"
 
 
       - run: npm i @vuedx/typecheck@insiders -D
-      - env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
-        run: npm run typecheck -- --json
+      - name: Run Typechecking
+#         env:
+#           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
+        run: npx -no-install typecheck # | reviewdog -f=rdjson -reporter=${{ steps.reporter.outputs.value }}
 
 
