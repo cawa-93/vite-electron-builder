@@ -44,7 +44,7 @@
     "run:electron": "electron .",
     "electron-builder": "electron-builder build --config ./config/electron-builder.js",
     "typecheck": "typecheck",
-    "lint": "eslint src/**/*.{ts,vue} {tasks,config}/**/*.js  -c ./config/.eslintrc.js"
+    "lint": "eslint src/**/*.{ts,vue} {tasks,config}/**/*.js"
   },
   "keywords": [],
   "author": "",
