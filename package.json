@@ -40,9 +40,7 @@
     "watch:build:renderer": "vite serve --config ./config/renderer.vite.js",
     "watch:run:electron": "npm-watch run:electron",
     "run:electron": "electron .",
-    "electron-builder": "electron-builder build --config ./config/electron-builder.js",
-    "typecheck": "typecheck",
-    "lint": "eslint src/**/*.{ts,vue} {tasks,config}/**/*.js"
+    "electron-builder": "electron-builder build --config ./config/electron-builder.js"
   },
   "devDependencies": {
     "builtin-modules": "^3.1.0",

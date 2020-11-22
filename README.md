@@ -4,7 +4,7 @@
 
 This template uses [Vite](https://github.com/vitejs/vite/) as bundler and [Electron builder](https://www.electron.build/) as compiler.
 
-This is a minimalist template created mainly for my personal needs and is designed for a **simple and flexible start of your project**.
+This is a minimalist template designed for a **simple and flexible start of your project**.
 
 ## Status
 - ✅ Building main and renderer endpoints in production mode -- works great.
@@ -19,7 +19,7 @@ This is a minimalist template created mainly for my personal needs and is design
 - ⏳ Refactor and simplify the set of npm scripts -- planned.
 
 ## How it works
-The template holds a minimum number of [dependencies](https://github.com/cawa-93/vite-electron-builder/blob/main/package.json). Only **Vite** is used for building. nothing more.
+The template required a minimum [dependencies](https://github.com/cawa-93/vite-electron-builder/blob/main/package.json). Only **Vite** is used for building, nothing more.
 
 All additional dependencies for linter or typechecking well be install, if necessary in the CI workflow.
 
