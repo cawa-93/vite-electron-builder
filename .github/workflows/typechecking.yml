@@ -3,13 +3,26 @@
 name: Typechecking
 
 # Controls when the action will run.
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '*.ts'
+      - '*.vue'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github'
+      - '*.ts'
+      - '*.vue'
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  typechecking:
-    # The type of runner that the job will run on
+  eslint:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -20,7 +33,31 @@ jobs:
         with:
           node-version: 14
 
-      - run: npm i @vuedx/typecheck@insiders
-      - run: npm run typecheck
+      - uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+
+      - name: Install eslint and plugins
+        run: npm ci
+
+      - uses: haya14busa/action-cond@v1
+        id: reporter
+        with:
+          cond: ${{ github.event_name == 'pull_request' }}
+          if_true: "github-pr-review"
+          if_false: "github-check"
+
+#      - name: Run Typechecking
+#        uses: reviewdog/action-eslint@v1
+#        with:
+#          fail_on_error: true
+#          filter: nofilter
+#          github_token: ${{ secrets.github_token }}
+#          eslint_flags: 'src/**/*.{ts,vue} {tasks,config}/**/*.js'
+#          reporter: ${{ steps.reporter.outputs.value }}
+
+
+      - run: npm i @vuedx/typecheck@insiders -D
+      - run: npm run typecheck -- --json | reviewdog -f=rdjson -reporter=github-pr-review
 
 
