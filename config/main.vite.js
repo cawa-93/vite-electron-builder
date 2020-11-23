@@ -20,6 +20,6 @@ module.exports = {
     assetFileNames: `[name].[ext]`
   },
   rollupInputOptions: {
-    external: [...builtins, 'electron', 'electron-updater'],
+    external: [...builtins, 'electron', 'electron-updater', 'electron-devtools-installer'],
   },
 }
