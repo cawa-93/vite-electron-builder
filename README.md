@@ -55,7 +55,7 @@ All additional dependencies for linter or typechecking well be install, if neces
   Contain packages and ready-to-distribute electron apps for any platform. Files in this directory created using [electron-builder](https://www.electron.build/).
 - `/config`
   Contains various configuration files for Vite, TypeScript, electron builder, etc.
-- `/tasks`
+- `/bin`
   It is believed any scripts for build the application will be located here.
 - `/types` 
   Contains all declaration files to be applied globally to the entire project

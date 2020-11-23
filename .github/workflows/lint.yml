@@ -1,43 +1,34 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Lint
 
-# Controls when the action will run.
 on:
   push:
     branches:
       - main
     paths:
-      - 'src/**/*.ts'
-      - 'src/**/*.vue'
-      - 'config/**/*.js'
-      - 'tasks/**/*.js'
+      - '**.ts'
+      - '**.vue'
+      - '**.js'
   pull_request:
     branches:
       - main
     paths:
-      - 'src/**/*.ts'
-      - 'src/**/*.vue'
-      - 'config/**/*.js'
-      - 'tasks/**/*.js'
+      - '**.ts'
+      - '**.vue'
+      - '**.js'
 
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   eslint:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 14
 
       - name: Install eslint and plugins
-        run: npm i -D eslint eslint-plugin-vue @typescript-eslint/parser @typescript-eslint/eslint-plugin typescript
+        run: npm i -O eslint eslint-plugin-vue @typescript-eslint/parser @typescript-eslint/eslint-plugin typescript
 
       - uses: haya14busa/action-cond@v1
         id: reporter
@@ -52,7 +43,5 @@ jobs:
           fail_on_error: true
           filter: nofilter
           github_token: ${{ secrets.github_token }}
-          eslint_flags: 'src/**/*.{ts,vue} {tasks,config}/**/*.js'
+          eslint_flags: 'src/**/*.{ts,vue} {bin,config}/**/*.js'
           reporter: ${{ steps.reporter.outputs.value }}
-
-

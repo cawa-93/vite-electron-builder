@@ -69,4 +69,4 @@ This project requires at least 14 versions or later.
 1. Compile Electron app -- `npm run electron-builder`
 1. Build single entry point for production -- `npm run build:<entrypoint>`
 1. Run development watching build -- `npm run watch:build:<entrypoint>`
-1. Run electron in development mode -- `npm run run:electron`
+1. Run electron in development mode -- `npm run electron`

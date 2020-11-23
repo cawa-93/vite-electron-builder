@@ -1,8 +1,4 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Typechecking
-
-# Controls when the action will run.
 on:
   push:
     branches:
@@ -17,16 +13,10 @@ on:
       - '**.ts'
       - '**.vue'
 
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   typecheck:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
@@ -44,10 +34,8 @@ jobs:
 #           if_false: "github-check"
 
 
-      - run: npm i @vuedx/typecheck@insiders -D
+      - run: npm i @vuedx/typecheck@insiders -O
       - name: Run Typechecking
 #         env:
 #           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
         run: npx --no-install @vuedx/typecheck # | reviewdog -f=rdjson -reporter=${{ steps.reporter.outputs.value }}
-
-

@@ -1,56 +1,30 @@
 {
   "private": true,
   "main": "dist/source/main/index.js",
-  "watch": {
-    "run:electron": {
-      "patterns": [
-        "dist/source/main",
-        "dist/source/preload"
-      ],
-      "extensions": [
-        "js"
-      ]
-    },
-    "build:main": {
-      "patterns": [
-        "src/main"
-      ],
-      "extensions": [
-        "ts"
-      ]
-    },
-    "build:preload": {
-      "patterns": [
-        "src/preload"
-      ],
-      "extensions": [
-        "ts",
-        "json"
-      ]
-    }
-  },
   "scripts": {
-    "build": "npm run build:main && npm run build:preload && npm run build:renderer",
+    "build": "npm run build:main & npm run build:renderer & npm run build:preload",
     "build:main": "vite build --config ./config/main.vite.js",
     "build:preload": "vite build --config ./config/preload.vite.js",
     "build:renderer": "vite build --config ./config/renderer.vite.js",
-    "watch": "npm-watch",
-    "watch:build:main": "npm-watch build:main",
-    "watch:run:preload": "npm-watch build:preload",
+    "preelectron": "npm run watch:build:main & npm run watch:build:renderer & npm run watch:build:preload",
+    "watch:build:main": "nodemon --exec \"npm run build:main -- --mode development\" --watch src/main -e ts",
+    "watch:build:preload": "nodemon --exec \"npm run build:preload -- --mode development\" --watch src/preload -e ts",
     "watch:build:renderer": "vite serve --config ./config/renderer.vite.js",
-    "watch:run:electron": "npm-watch run:electron",
-    "run:electron": "electron .",
+    "watch:electron": "nodemon --exec \"electron .\" --watch dist/source/main --watch dist/source/preload",
+    "electron": "electron .",
     "electron-builder": "electron-builder build --config ./config/electron-builder.js"
   },
   "devDependencies": {
     "builtin-modules": "^3.1.0",
     "electron": "^11.0.2",
     "electron-builder": "^22.9.1",
-    "npm-watch": "^0.7.0",
-    "typescript": "^4.1.2",
     "vite": "^1.0.0-rc.9"
   },
   "dependencies": {
     "electron-updater": "^4.3.5"
+  },
+  "optionalDependencies": {
+    "nodemon": "^2.0.6",
+    "typescript": "^4.1.2"
   }
 }
