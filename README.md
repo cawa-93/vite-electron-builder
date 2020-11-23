@@ -6,6 +6,15 @@ This template uses [Vite](https://github.com/vitejs/vite/) as bundler and [Elect
 
 This is a minimalist template designed for a **simple and flexible start of your project**.
 
+## Features
+- [Vue 3](https://v3.vuejs.org/)
+- Latest [Electron](https://www.electronjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://github.com/vitejs/vite/) for bundling
+- [electron-builder](https://www.electron.build/)
+- Auto releases when push to main
+- Auto Updates
+
 ## Status
 - ✅ Building main and renderer endpoints in production mode -- works great.
 - ✅ Development mode with hot reload for renderer endpoint -- works great.
