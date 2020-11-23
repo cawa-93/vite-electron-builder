@@ -41,7 +41,7 @@ jobs:
         uses: reviewdog/action-eslint@v1
         with:
           fail_on_error: true
-          filter: nofilter
+          filter_mode: nofilter
           github_token: ${{ secrets.github_token }}
           eslint_flags: 'src/**/*.{ts,vue} {bin,config}/**/*.js'
           reporter: ${{ steps.reporter.outputs.value }}
