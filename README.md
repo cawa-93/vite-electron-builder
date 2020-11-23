@@ -26,6 +26,8 @@ This is a minimalist template designed for a **simple and flexible start of your
 - ⚠ Linting -- work fine, but need review the configuration files and refactor its. It may also intersect somewhat with Typechecking.
 - ⏳ Add Vue dev tools -- planned.
 - ⏳ Refactor and simplify the set of npm scripts -- planned.
+- ⏳ Refactor and simplify typescript configs -- planned.
+- ⏳ Refactor and simplify eslint configs -- planned.
 
 ## How it works
 The template required a minimum [dependencies](https://github.com/cawa-93/vite-electron-builder/blob/main/package.json). Only **Vite** is used for building, nothing more.
