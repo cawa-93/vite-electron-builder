@@ -60,5 +60,15 @@ All additional dependencies for linter or typechecking well be install, if neces
 - `/types` 
   Contains all declaration files to be applied globally to the entire project
 
+### Development Setup
+This project requires at least 14 versions or later.
+1. Fork this repository
+1. Run `npm install` to install all dependencies
+1. Build all entry points for production -- `npm run build`
+1. Compile Electron app -- `npm run electron-builder`
+1. Build single entry point for production -- `npm run build:<entrypoint>`
+1. Run development watching build -- `npm run watch:build:<entrypoint>`
+1. Run electron in development mode -- `npm run electron`
+
 # Contributing
 See [contributing.md](/contributing.md)
