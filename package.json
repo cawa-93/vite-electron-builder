@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "builtin-modules": "^3.1.0",
-    "electron": "^11.0.2",
+    "electron": "^11.0.3",
     "electron-builder": "^22.9.1",
     "vite": "^1.0.0-rc.9"
   },
