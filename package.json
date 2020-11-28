@@ -4,7 +4,7 @@
   "private": true,
   "main": "dist/source/main/index.js",
   "scripts": {
-    "build": "npm run build:main & npm run build:renderer & npm run build:preload",
+    "build": "npm run build:main && npm run build:renderer && npm run build:preload",
     "build:main": "vite build --config ./config/main.vite.js",
     "build:preload": "vite build --config ./config/preload.vite.js",
     "build:renderer": "vite build --config ./config/renderer.vite.js",
@@ -20,7 +20,7 @@
     "builtin-modules": "^3.1.0",
     "electron": "^11.0.3",
     "electron-builder": "^22.9.1",
-    "vite": "^1.0.0-rc.9"
+    "vite": "^1.0.0-rc.13"
   },
   "dependencies": {
     "electron-updater": "^4.3.5"
