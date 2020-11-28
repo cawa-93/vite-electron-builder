@@ -14,6 +14,7 @@ This is a minimalist template designed for a **simple and flexible start of your
 - [electron-builder](https://www.electron.build/)
 - Auto releases when push to main
 - Auto Updates
+- Typed `.env` files supports
 
 ## Status
 - ✅ Building main and renderer endpoints in production mode -- works great.
@@ -33,6 +34,29 @@ This is a minimalist template designed for a **simple and flexible start of your
 The template required a minimum [dependencies](https://github.com/cawa-93/vite-electron-builder/blob/main/package.json). Only **Vite** is used for building, nothing more.
 
 All additional dependencies for linter or typechecking well be install, if necessary in the CI workflow.
+
+### Modes and Environment Variables
+All environment variables set as part of the `import.meta`, so you can access them as follows: `import.meta.env`. 
+
+You can also build type definitions of your variables by running '/bin/buildEnvTypes.js'. This command will create `/types/env.d.ts` file with describing all environment variables for all modes.
+
+The mode option is used to specify the value of `import.meta.env.MODE` and the corresponding environment variables files that needs to be loaded.
+
+By default, there are two modes:
+  - `production` is used by `build:*` scripts
+  - `development` is used by `watch:build:*` scripts
+
+
+When running `build:*` or `watch:build:*`, environment variables are loaded from the following files in your project root:
+
+```
+.env                # loaded in all cases
+.env.local          # loaded in all cases, ignored by git
+.env.[mode]         # only loaded in specified env mode
+.env.[mode].local   # only loaded in specified env mode, ignored by git
+```
+
+**Note:** only variables prefixed with `VITE_` are exposed to your code. e.g. `VITE_SOME_KEY=123` will be exposed as `import.meta.env.VITE_SOME_KEY`, but `SOME_KEY=123` will not. This is because the `.env` files may be used by some users for server-side or build scripts and may contain sensitive information that should not be exposed in code shipped to browsers.
 
 ### Project Structure
 - `/src`
