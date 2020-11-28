@@ -1,17 +1,6 @@
 /**
  * @see https://github.com/vitejs/vite/blob/03acecd797d8393e38c8a78f920c8e0927762018/importMeta.d.ts
  */
-declare interface ImportMetaEnv {
-  [key: string]: string | boolean | undefined
-  BASE_URL: string
-  MODE: string
-  DEV: boolean
-  PROD: boolean
-}
-
-/**
- * @see https://github.com/vitejs/vite/blob/03acecd797d8393e38c8a78f920c8e0927762018/importMeta.d.ts
- */
 declare interface ImportMeta {
   readonly hot?: {
     readonly data: any

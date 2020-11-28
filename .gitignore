@@ -3,6 +3,7 @@ node_modules
 dist
 *.local
 thumbs.db
+types/env.d.ts
 
 
 
