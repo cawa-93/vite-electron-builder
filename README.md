@@ -38,7 +38,7 @@ All additional dependencies for linter or typechecking well be install, if neces
 ### Modes and Environment Variables
 All environment variables set as part of the `import.meta`, so you can access them as follows: `import.meta.env`. 
 
-You can also build type definitions of your variables by running '/bin/buildEnvTypes.js'. This command will create `/types/env.d.ts` file with describing all environment variables for all modes.
+You can also build type definitions of your variables by running `/bin/buildEnvTypes.js`. This command will create `/types/env.d.ts` file with describing all environment variables for all modes.
 
 The mode option is used to specify the value of `import.meta.env.MODE` and the corresponding environment variables files that needs to be loaded.
 
