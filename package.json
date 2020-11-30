@@ -8,7 +8,6 @@
     "build:main": "vite build --config ./config/main.vite.js",
     "build:preload": "vite build --config ./config/preload.vite.js",
     "build:renderer": "vite build --config ./config/renderer.vite.js",
-    "preelectron": "npm run watch:build:main & npm run watch:build:renderer & npm run watch:build:preload",
     "watch:build:main": "nodemon --exec \"npm run build:main -- --mode development\" --watch src/main -e ts",
     "watch:build:preload": "nodemon --exec \"npm run build:preload -- --mode development\" --watch src/preload -e ts",
     "watch:build:renderer": "vite serve --config ./config/renderer.vite.js",
@@ -23,7 +22,8 @@
     "vite": "^1.0.0-rc.13"
   },
   "dependencies": {
-    "electron-updater": "^4.3.5"
+    "electron-updater": "^4.3.5",
+    "vue-router": "^4.0.0-rc.6"
   },
   "optionalDependencies": {
     "nodemon": "^2.0.6",
