@@ -27,7 +27,7 @@ jobs:
           reviewdog_version: latest
 
       - uses: haya14busa/action-cond@v1
-       id: reporter
+        id: reporter
         with:
           cond: ${{ github.event_name == 'pull_request' }}
           if_true: "github-pr-review"
