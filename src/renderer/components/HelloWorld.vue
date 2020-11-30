@@ -6,8 +6,8 @@
       check out the
       <a
         href="https://cli.vuejs.org"
-        target="_blank"
         rel="noopener"
+        target="_blank"
       >vue-cli documentation</a>.
     </p>
     <h3>Installed CLI Plugins</h3>
@@ -15,8 +15,8 @@
       <li>
         <a
           href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript"
-          target="_blank"
           rel="noopener"
+          target="_blank"
         >typescript</a>
       </li>
     </ul>
@@ -25,36 +25,36 @@
       <li>
         <a
           href="https://vuejs.org"
-          target="_blank"
           rel="noopener"
+          target="_blank"
         >Core Docs</a>
       </li>
       <li>
         <a
           href="https://forum.vuejs.org"
-          target="_blank"
           rel="noopener"
+          target="_blank"
         >Forum</a>
       </li>
       <li>
         <a
           href="https://chat.vuejs.org"
-          target="_blank"
           rel="noopener"
+          target="_blank"
         >Community Chat</a>
       </li>
       <li>
         <a
           href="https://twitter.com/vuejs"
-          target="_blank"
           rel="noopener"
+          target="_blank"
         >Twitter</a>
       </li>
       <li>
         <a
           href="https://news.vuejs.org"
-          target="_blank"
           rel="noopener"
+          target="_blank"
         >News</a>
       </li>
     </ul>
@@ -63,36 +63,36 @@
       <li>
         <a
           href="https://router.vuejs.org"
-          target="_blank"
           rel="noopener"
+          target="_blank"
         >vue-router</a>
       </li>
       <li>
         <a
           href="https://vuex.vuejs.org"
-          target="_blank"
           rel="noopener"
+          target="_blank"
         >vuex</a>
       </li>
       <li>
         <a
           href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
           rel="noopener"
+          target="_blank"
         >vue-devtools</a>
       </li>
       <li>
         <a
           href="https://vue-loader.vuejs.org"
-          target="_blank"
           rel="noopener"
+          target="_blank"
         >vue-loader</a>
       </li>
       <li>
         <a
           href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
           rel="noopener"
+          target="_blank"
         >awesome-vue</a>
       </li>
     </ul>
@@ -100,17 +100,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import {defineComponent} from 'vue'
 
 export default defineComponent({
   name: 'HelloWorld',
   props: {
     msg: {
       type: String,
-      required: false
+      required: false,
     },
   },
-});
+})
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -118,14 +118,17 @@ export default defineComponent({
 h3 {
   margin: 40px 0 0;
 }
+
 ul {
   list-style-type: none;
   padding: 0;
 }
+
 li {
   display: inline-block;
   margin: 0 10px;
 }
+
 a {
   color: #42b983;
 }
