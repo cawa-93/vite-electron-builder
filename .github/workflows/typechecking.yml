@@ -22,20 +22,20 @@ jobs:
         with:
           node-version: 14
 
-#       - uses: reviewdog/action-setup@v1
-#         with:
-#           reviewdog_version: latest
+      - uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
 
-#       - uses: haya14busa/action-cond@v1
-#         id: reporter
-#         with:
-#           cond: ${{ github.event_name == 'pull_request' }}
-#           if_true: "github-pr-review"
-#           if_false: "github-check"
+      - uses: haya14busa/action-cond@v1
+       id: reporter
+        with:
+          cond: ${{ github.event_name == 'pull_request' }}
+          if_true: "github-pr-review"
+          if_false: "github-check"
 
 
       - run: npm i @vuedx/typecheck@insiders -O
       - name: Run Typechecking
-#         env:
-#           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
-        run: npx --no-install @vuedx/typecheck # | reviewdog -f=rdjson -reporter=${{ steps.reporter.outputs.value }}
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
+        run: npx --no-install @vuedx/typecheck | reviewdog -f=rdjson -reporter=${{ steps.reporter.outputs.value }}
