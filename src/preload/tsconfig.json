@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "sourceMap": true,
+    "moduleResolution": "Node",
+    "skipLibCheck": true,
+    "strict": true,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "/@preload/*": ["./*"]
+    },
+    "types": [
+      "../../types/importMeta"
+    ]
+  },
+
+  "files": ["./index.ts"],
+  "exclude": [
+    "**/node_modules",
+    "**/.*"
+  ]
+}

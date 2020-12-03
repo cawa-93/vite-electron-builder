@@ -1,6 +1,5 @@
 import {clipboard, contextBridge} from 'electron'
 
-
 console.log(import.meta.env)
 
 const api = {
