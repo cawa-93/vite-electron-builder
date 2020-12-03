@@ -11,7 +11,7 @@ module.exports = {
   outDir: 'dist/source/main',
   assetsDir: '.',
   alias: {
-    '/@main/': join(__dirname, '../src/main'),
+    '/@/': join(__dirname, '../src/main'),
   },
   rollupOutputOptions: {
     format: 'cjs',

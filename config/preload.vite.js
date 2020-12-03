@@ -1,6 +1,5 @@
 const builtins = require('builtin-modules')
 
-
 const {join} = require('path')
 
 /**
@@ -13,7 +12,7 @@ module.exports = {
   assetsDir: '.',
   // root: join(__dirname, '../src/main'),
   alias: {
-    '/@preload/': join(__dirname, '../src/preload'),
+    '/@/': join(__dirname, '../src/preload'),
   },
   rollupOutputOptions: {
     format: 'cjs',

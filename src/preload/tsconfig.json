@@ -9,7 +9,7 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
-      "/@preload/*": ["./*"]
+      "/@/*": ["./*"]
     },
     "types": [
       "../../types/importMeta"
