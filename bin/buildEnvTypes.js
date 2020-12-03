@@ -17,7 +17,8 @@ function buildMode(modes, filePath) {
       DEV: mode !== 'production',
       ...loadEnv(mode, process.cwd(), ''),
     }
-    const interfaceDeclaration = `declare interface ${name} ${JSON.stringify(envs)}`
+
+    const interfaceDeclaration = `interface ${name} ${JSON.stringify(envs)}`
 
     return {name, interfaceDeclaration}
   })
@@ -25,7 +26,7 @@ function buildMode(modes, filePath) {
   const str = interfaces.map(({interfaceDeclaration}) => interfaceDeclaration).join('\n')
   const name = interfaces.map(({name}) => name).join(' | ')
 
-  writeFileSync(filePath, `${str}\ndeclare type ImportMetaEnv = ${name}\n`, {encoding: 'utf-8'})
+  writeFileSync(filePath, `${str}\nexport type ImportMetaEnv = ${name}\n`, {encoding: 'utf-8'})
 }
 
 buildMode(['production', 'development'], resolve(process.cwd(), './types/env.d.ts'))
