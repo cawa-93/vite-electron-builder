@@ -22,12 +22,11 @@ This is a minimalist template designed for a **simple and flexible start of your
 - ⚠ Development mode for main and preload endpoints -- work fine, but it is possible to reboot the backend faster ([vite#972](https://github.com/vitejs/vite/issues/972))
 - ✅ Compile the app with electron builder in CD -- work.
 - ✅ Auto update -- work.
-- ⏳ Code signing -- planned. 
-- ⚠ Typechecking in `.ts` and `.vue` files -- works but needs improvement. I want to integrate it with [reviewdog](https://github.com/reviewdog/reviewdog). Typechecking use [@vuedx/typecheck](https://github.com/znck/vue-developer-experience/tree/master/packages/typecheck)
+- ✅ Typechecking in `.ts` and `.vue` files -- work thanks [@vuedx/typecheck](https://github.com/znck/vue-developer-experience/tree/master/packages/typecheck)
 - ⚠ Linting -- work fine, but need review the configuration files and refactor its. It may also intersect somewhat with Typechecking.
+- ⏳ Code signing -- planned. 
 - ⏳ Add Vue dev tools -- planned.
 - ⏳ Refactor and simplify the set of npm scripts -- planned.
-- ⏳ Refactor and simplify typescript configs -- planned.
 - ⏳ Refactor and simplify eslint configs -- planned.
 
 ## How it works
