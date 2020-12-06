@@ -6,15 +6,35 @@ This template uses [Vite](https://github.com/vitejs/vite/) as bundler and [Elect
 
 This is a minimalist template designed for a **simple and flexible start of your project**.
 
+
+## Important
+I work on this template in my free time, and work on it on my own. If you want to use it but do not understand some things: do not hesitate to create issue with a question.
+
+Also, if you have ideas or suggestions - **PR are welcome**. 😊
+
 ## Features
-- [Vue 3](https://v3.vuejs.org/)
-- Latest [Electron](https://www.electronjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Vite](https://github.com/vitejs/vite/) for bundling
-- [electron-builder](https://www.electron.build/)
-- Auto releases when push to main
-- Auto Updates
-- Typed `.env` files supports
+
+- **Electron**
+  - Template use the latest electron version with all the latest security patches.
+  - The architecture of the application is built according to the security [guids](https://www.electronjs.org/docs/tutorial/security) and best practices.
+  - The latest version of the [electron-builder](https://www.electron.build/) is used to compile the application.
+  - Automatic updates from GitHub releases is supported thanks to [electron-builder](https://www.electron.build/auto-update).
+- **Vite**
+  - [Vite](https://github.com/vitejs/vite/) is used to package all source codes. This is an extremely fast packer that has a bunch of great features. You can learn more about how it is arranged in [this](https://youtu.be/xXrhg26VCSc) video.
+  - Vite [supports](https://github.com/vitejs/vite/#modes-and-environment-variables) reading `.env` files. My template has a separate command to generate `.d.ts` file with type definition your environment variables.
+- **TypeScript**
+  - The Latest TypeScript is used for all source code. 
+  - **Vite** supports TypeScript out of the box. However, it does not support type checking.
+  - Type checking is performed in both `.ts` and `.vue` files thanks to [@vuedx/typecheck](https://github.com/znck/vue-developer-experience/tree/master/packages/typecheck).
+  - Code formatting rules follow the latest TypeScript recommendations and best practices thanks to [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin).
+- **Vue 3**
+  - By default, web pages are built using the latest version of the [Vue](https://github.com/vuejs/vue-next). However, there are no problems with using any other frameworks or technologies.
+  - ~~The latest version of the [Vue router](https://github.com/vuejs/vue-router-next) is also used~~. See [#6](https://github.com/cawa-93/vite-electron-builder/pull/6).
+  - Code formatting rules follow the latest Vue recommendations and best practices thanks to [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue).
+- **GitHub Actions**
+  - The configured workflow for automatically creating a draft release each time when you push to main branch.
+  - The configured workflow for check the types for each push and PR.
+  - The configured workflow for check the code style for each push and PR.
 
 ## Status
 - ✅ Building main and renderer endpoints in production mode -- works great.
@@ -92,6 +112,3 @@ This project requires at least 14 versions or later.
 1. Build single entry point for production -- `npm run build:<entrypoint>`
 1. Run development watching build -- `npm run watch:build:<entrypoint>`
 1. Run electron in development mode -- `npm run electron`
-
-# Contributing
-See [contributing.md](/contributing.md)
