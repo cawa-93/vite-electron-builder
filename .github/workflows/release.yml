@@ -52,9 +52,7 @@ jobs:
       
       - run: npm ci
       - run: npm run build
-      - run: npm run electron-builder
-        env: 
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: npm run electron-builder -- -p never
           
           
       - name: Upload a Build Artifact
@@ -76,29 +74,38 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: build-artifact
+          path: dist/app
           
       - uses: actions/download-artifact@v2
         with:
           name: release-notes
+          path: build
           
       - run: ls
       
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: v1.0.1
-          release_name: v1.0.1
-          body_path: release-notes.md
-          draft: true
-          prerelease: false
-
-#       - name: Try Build
-#         uses: samuelmeuli/action-electron-builder@v1
+#       - name: Create Release
+#         id: create_release
+#         uses: actions/create-release@v1
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
 #         with:
-#           github_token: ${{ secrets.github_token }}
-#           release: ${{ github.event_name == 'pull_request' }}
-#           max_attempts: 2
-#           args: --config ./config/electron-builder.js
+#           tag_name: v1.0.1
+#           release_name: v1.0.1
+#           body_path: release-notes.md
+#           draft: true
+#           prerelease: false
+
+      - uses: pCYSl5EDgo/cat@master
+        id: release-notes
+        with:
+          path: ./build/release-notes.md
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./dist/app/*
+          file_glob: true
+          tag: v1.0.1
+          overwrite: true
+          body: ${{ steps.release-notes.outputs.text }}
