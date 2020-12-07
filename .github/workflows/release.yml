@@ -57,8 +57,12 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: release-notes
-      
-      - run: touch ./build/release-notes.md
+          
+      - run: |
+          ls
+          cd ./build
+          ls
+          cat ./build/release-notes.md
         
 
       - name: Try Build
