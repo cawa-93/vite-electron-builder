@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    paths-ignore: 
+    paths-ignore:
       - "**.md"
     branches:
       - main
@@ -13,25 +13,36 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       body: ${{ steps.release-drafter.output.body }}
-      
+
     steps:
       - uses: actions/checkout@v1
+
       - name: get-npm-version
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
-      
-      - uses: release-drafter/release-drafter@v5
-        id: release-drafter
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Conventional Changelog Action
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v3
         with:
-          version: ${{ steps.package-version.outputs.current-version }}
-          tag: v${{ steps.package-version.outputs.current-version }}
-          name: v${{ steps.package-version.outputs.current-version }}
-   
+          github-token: ${{ secrets.github_token }}
+          output-file: "false"
+          skip-version-file: true
+          skip-commit: true
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+        with:
+          tag_name: v${{ steps.package-version.outputs.current-version }}
+          release_name: ${{ steps.package-version.outputs.current-version }}
+          body: ${{ steps.changelog.outputs.clean_changelog }}
+
   build:
     needs: [draft_release]
-    
+
     strategy:
       matrix:
         os: [windows-latest]
@@ -44,14 +55,14 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14
-      
+
       - run: npm ci
       - run: npm run build
       - run: npm run electron-builder
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          
-          
+
+
 #   release:
 #     needs: [build]
 #     if: github.event_name == 'pull_request'
@@ -61,7 +72,7 @@ jobs:
 #         with:
 #           name: build-artifact
 #           path: dist/app
-          
+
 #       - uses: actions/download-artifact@v2
 #         with:
 #           name: release-notes
