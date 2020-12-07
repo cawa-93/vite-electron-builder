@@ -12,7 +12,7 @@ on:
 
 jobs:
   changelog:
-    if: github.event_name == 'pull_request'
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -56,6 +56,7 @@ jobs:
           
           
       - name: Upload a Build Artifact
+        if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v2
         with:
           name: build-artifact
@@ -68,7 +69,7 @@ jobs:
           
   release:
     needs: [build]
-    if: github.event_name == 'pull_request'
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v2
@@ -80,20 +81,6 @@ jobs:
         with:
           name: release-notes
           path: build
-          
-      - run: ls
-      
-#       - name: Create Release
-#         id: create_release
-#         uses: actions/create-release@v1
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-#         with:
-#           tag_name: v1.0.1
-#           release_name: v1.0.1
-#           body_path: release-notes.md
-#           draft: true
-#           prerelease: false
 
       - uses: pCYSl5EDgo/cat@master
         id: release-notes
