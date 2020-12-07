@@ -12,7 +12,7 @@ jobs:
   draft_release:
     runs-on: ubuntu-latest
     outputs:
-      body: ${{ steps.release-drafter.output.body }}
+      changelog: ${{ steps.changelog.outputs.clean_changelog }}
 
     steps:
       - uses: actions/checkout@v2
@@ -38,7 +38,7 @@ jobs:
         with:
           draft: true
           tag_name: v${{ steps.package-version.outputs.current-version }}
-          release_name: ${{ steps.package-version.outputs.current-version }}
+          release_name: v${{ steps.package-version.outputs.current-version }}
           body: ${{ steps.changelog.outputs.clean_changelog }}
 
   build:
@@ -59,37 +59,6 @@ jobs:
 
       - run: npm ci
       - run: npm run build
-      - run: npm run electron-builder
+      - run: npm run electron-builder -- --config.releaseInfo.releaseNotes="${{ needs.draft_release.outputs.changelog }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-
-#   release:
-#     needs: [build]
-#     if: github.event_name == 'pull_request'
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/download-artifact@v2
-#         with:
-#           name: build-artifact
-#           path: dist/app
-
-#       - uses: actions/download-artifact@v2
-#         with:
-#           name: release-notes
-#           path: build
-
-#       - uses: pCYSl5EDgo/cat@master
-#         id: release-notes
-#         with:
-#           path: ./build/release-notes.md
-
-#       - name: Upload binaries to release
-#         uses: svenstaro/upload-release-action@v2
-#         with:
-#           repo_token: ${{ secrets.GITHUB_TOKEN }}
-#           file: ./dist/app/*
-#           file_glob: true
-#           tag: v1.0.1
-#           overwrite: true
-#           body: ${{ steps.release-notes.outputs.text }}
