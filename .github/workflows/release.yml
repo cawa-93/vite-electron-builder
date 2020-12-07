@@ -24,15 +24,13 @@ jobs:
           REPO: ${{ github.repository }}
            
       - name: Save Changelog to file
-        run: |
-          mkdir -p ./build
-          echo "${{ steps.Changelog.outputs.changelog }}" > ./build/release-notes.md
+        run: echo "${{ steps.Changelog.outputs.changelog }}" > release-notes.md
            
       - name: Archive release-notes
         uses: actions/upload-artifact@v2
         with:
           name: release-notes
-          path: ./build/release-notes.md
+          path: release-notes.md
           retention-days: 1
       
    
@@ -57,6 +55,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: release-notes
+          path: "./build"
           
       - run: |
           ls
