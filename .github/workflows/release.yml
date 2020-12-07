@@ -26,7 +26,7 @@ jobs:
       - name: Save Changelog to file
         run: |
           mkdir -p ./build
-          echo ${{ steps.Changelog.outputs.changelog }} > ./build/release-notes.md
+          echo "${{ steps.Changelog.outputs.changelog }}" > ./build/release-notes.md
            
       - name: Archive release-notes
         uses: actions/upload-artifact@v2
