@@ -36,6 +36,7 @@ jobs:
    
   build:
     needs: [changelog]
+    if: always()
     
     strategy:
       matrix:
