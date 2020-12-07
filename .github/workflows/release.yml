@@ -34,7 +34,7 @@ jobs:
           retention-days: 1
       
    
-  release:
+  build:
     needs: [changelog]
     
     strategy:
@@ -49,19 +49,53 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14
+      - run: |
+          npm ci
+          npm run build
+          npm run electron-builder
+          
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: build-artifact
+          path: |
+            dist/app/*.exe
+            dist/app/*.exe.blockmap
+            dist/app/latest*
+          retention-days: 1
           
           
-      - if: github.event_name == 'pull_request'
-        uses: actions/download-artifact@v2
+  release:
+    needs: [build]
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: build-artifact
+          
+      - uses: actions/download-artifact@v2
         with:
           name: release-notes
-          path: "./build"
-        
-
-      - name: Try Build
-        uses: samuelmeuli/action-electron-builder@v1
+          
+      - run: ls
+      
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          github_token: ${{ secrets.github_token }}
-          release: ${{ github.event_name == 'pull_request' }}
-          max_attempts: 2
-          args: --config ./config/electron-builder.js
+          tag_name: v1.0.1
+          release_name: v1.0.1
+          body_path: release-notes.md
+          draft: true
+          prerelease: false
+
+#       - name: Try Build
+#         uses: samuelmeuli/action-electron-builder@v1
+#         with:
+#           github_token: ${{ secrets.github_token }}
+#           release: ${{ github.event_name == 'pull_request' }}
+#           max_attempts: 2
+#           args: --config ./config/electron-builder.js
