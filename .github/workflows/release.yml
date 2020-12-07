@@ -17,35 +17,34 @@ jobs:
     outputs:
       body: ${{ steps.release-drafter.output.body }}
       
-    steps:        
+    steps:       
+      - uses: actions/checkout@v1 
       - uses: release-drafter/release-drafter@v5
         id: release-drafter
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with: 
-          version: 1.0.0
    
-  build:
-    needs: [draft_release]
+#   build:
+#     needs: [draft_release]
     
-    strategy:
-      matrix:
-        os: [windows-latest]
-#        os: [macos-latest, ubuntu-latest, windows-latest]
+#     strategy:
+#       matrix:
+#         os: [windows-latest]
+# #        os: [macos-latest, ubuntu-latest, windows-latest]
 
-    runs-on: ${{ matrix.os }}
+#     runs-on: ${{ matrix.os }}
 
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14
+#     steps:
+#       - uses: actions/checkout@v1
+#       - uses: actions/setup-node@v1
+#         with:
+#           node-version: 14
       
-      - run: npm ci
-      - run: npm run build
-      - run: npm run electron-builder -- -p always
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#       - run: npm ci
+#       - run: npm run build
+#       - run: npm run electron-builder -- -p always
+#         env:
+#           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
           
 #   release:
