@@ -12,7 +12,7 @@ on:
 
 jobs:
   changelog:
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -57,7 +57,7 @@ jobs:
           
           
       - name: Upload a Build Artifact
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'pull_request'
         uses: actions/upload-artifact@v2
         with:
           name: build-artifact
@@ -70,7 +70,7 @@ jobs:
           
   release:
     needs: [build]
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v2
