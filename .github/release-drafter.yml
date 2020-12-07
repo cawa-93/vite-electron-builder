@@ -1,21 +1,11 @@
-name-template: v$NEXT_PATCH_VERSION 🌈
+name-template: v$NEXT_PATCH_VERSION
 tag-template: v$NEXT_PATCH_VERSION
 categories:
   - title: 🚀 New features
-    label: new
+    label: feat
   - title: 🚨 Bug Fixes
-    label: bug
-  - title: 💉 Updated features
-    label: update
-  - title: 🧹 Cleaned or removed features
-    label: remove
-  - title: 📝 Documentation updates
-    label: doc
-  - title: 🚦 Tests
-    label: test
-change-template: '- #$NUMBER: $TITLE (thanks to @$AUTHOR)'
+    label: fix
+change-template: '$TITLE (#$NUMBER)'
 template: |
   ## What's Changed
   $CHANGES
-  ## Thanks to
-  $CONTRIBUTORS
