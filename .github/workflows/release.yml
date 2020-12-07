@@ -12,7 +12,7 @@ on:
 
 jobs:
   changelog:
-    if: github.event_name != 'pull_request'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - name: Generate Changelog
@@ -47,7 +47,7 @@ jobs:
           node-version: 14
           
           
-      - if: github.event_name != 'pull_request'
+      - if: github.event_name == 'pull_request'
         uses: actions/download-artifact@v2
         with:
           name: release-notes
@@ -59,6 +59,6 @@ jobs:
         uses: samuelmeuli/action-electron-builder@v1
         with:
           github_token: ${{ secrets.github_token }}
-          release: ${{ github.event_name != 'pull_request' }}
+          release: ${{ github.event_name == 'pull_request' }}
           max_attempts: 2
           args: --config ./config/electron-builder.js
