@@ -24,6 +24,19 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14
+          
+          
+      - name: Generate Changelog
+        uses: scottbrenner/generate-changelog-action@master
+        id: Changelog
+        env:
+          REPO: ${{ github.repository }}
+          
+          
+      - name: Save Changelog to file
+        run: ${{ steps.Changelog.outputs.changelog }} > ./build/release-notes.md
+      
+      - run: touch ./build/release-notes.md
         
 
       - name: Try Build
