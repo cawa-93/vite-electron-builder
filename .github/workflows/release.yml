@@ -11,6 +11,27 @@ on:
       - "**.md"
 
 jobs:
+  changelog:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate Changelog
+        uses: scottbrenner/generate-changelog-action@master
+        id: Changelog
+        env:
+          REPO: ${{ github.repository }}
+           
+      - name: Save Changelog to file
+        run: ${{ steps.Changelog.outputs.changelog }} > ./build/release-notes.md
+           
+      - name: Archive release-notes
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-notes
+          path: ./build/release-notes.md
+          retention-days: 1
+      
+   
   release:
     runs-on: ${{ matrix.os }}
 
@@ -26,15 +47,10 @@ jobs:
           node-version: 14
           
           
-      - name: Generate Changelog
-        uses: scottbrenner/generate-changelog-action@master
-        id: Changelog
-        env:
-          REPO: ${{ github.repository }}
-          
-          
-      - name: Save Changelog to file
-        run: ${{ steps.Changelog.outputs.changelog }} > ./build/release-notes.md
+      - if: github.event_name != 'pull_request'
+        uses: actions/download-artifact@v2
+        with:
+          name: release-notes
       
       - run: touch ./build/release-notes.md
         
