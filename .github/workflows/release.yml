@@ -35,12 +35,14 @@ jobs:
       
    
   release:
-    runs-on: ${{ matrix.os }}
-
+    needs: [changelog]
+    
     strategy:
       matrix:
         os: [windows-latest]
 #        os: [macos-latest, ubuntu-latest, windows-latest]
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v1
