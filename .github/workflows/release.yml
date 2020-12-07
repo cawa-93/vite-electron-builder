@@ -6,30 +6,70 @@ on:
       - "**.md"
     branches:
       - main
-  pull_request:
-    paths-ignore: 
-      - "**.md"
+
 
 jobs:
-  release:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [windows-latest]
-#        os: [macos-latest, ubuntu-latest, windows-latest]
-
+  draft_release:
+    runs-on: ubuntu-latest
+    outputs:
+      body: ${{ steps.release-drafter.output.body }}
+      
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14
-        
+      - uses: actions/checkout@v1 
+      - uses: release-drafter/release-drafter@v5
+        id: release-drafter
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+   
+#   build:
+#     needs: [draft_release]
+    
+#     strategy:
+#       matrix:
+#         os: [windows-latest]
+# #        os: [macos-latest, ubuntu-latest, windows-latest]
 
-      - name: Try Build
-        uses: samuelmeuli/action-electron-builder@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          release: ${{ github.event_name != 'pull_request' }}
-          max_attempts: 2
-          args: --config ./config/electron-builder.js
+#     runs-on: ${{ matrix.os }}
+
+#     steps:
+#       - uses: actions/checkout@v1
+#       - uses: actions/setup-node@v1
+#         with:
+#           node-version: 14
+      
+#       - run: npm ci
+#       - run: npm run build
+#       - run: npm run electron-builder -- -p always
+#         env:
+#           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+          
+#   release:
+#     needs: [build]
+#     if: github.event_name == 'pull_request'
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/download-artifact@v2
+#         with:
+#           name: build-artifact
+#           path: dist/app
+          
+#       - uses: actions/download-artifact@v2
+#         with:
+#           name: release-notes
+#           path: build
+
+#       - uses: pCYSl5EDgo/cat@master
+#         id: release-notes
+#         with:
+#           path: ./build/release-notes.md
+
+#       - name: Upload binaries to release
+#         uses: svenstaro/upload-release-action@v2
+#         with:
+#           repo_token: ${{ secrets.GITHUB_TOKEN }}
+#           file: ./dist/app/*
+#           file_glob: true
+#           tag: v1.0.1
+#           overwrite: true
+#           body: ${{ steps.release-notes.outputs.text }}
