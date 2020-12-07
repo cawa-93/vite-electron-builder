@@ -49,10 +49,13 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14
-      - run: |
-          npm ci
-          npm run build
-          npm run electron-builder
+      
+      - run: npm ci
+      - run: npm run build
+      - run: npm run electron-builder
+        env: 
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
           
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v2
