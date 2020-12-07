@@ -25,9 +25,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          version: ${{ steps.package-version.output.current-version }}
-          tag: v${{ steps.package-version.output.current-version }}
-          name: v${{ steps.package-version.output.current-version }}
+          version: ${{ steps.package-version.outputs.current-version }}
+          tag: v${{ steps.package-version.outputs.current-version }}
+          name: v${{ steps.package-version.outputs.current-version }}
    
   build:
     needs: [draft_release]
