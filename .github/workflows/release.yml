@@ -22,7 +22,9 @@ jobs:
           REPO: ${{ github.repository }}
            
       - name: Save Changelog to file
-        run: ${{ steps.Changelog.outputs.changelog }} > ./build/release-notes.md
+        run: |
+          mkdir -p ./build
+          echo ${{ steps.Changelog.outputs.changelog }} > ./build/release-notes.md
            
       - name: Archive release-notes
         uses: actions/upload-artifact@v2
