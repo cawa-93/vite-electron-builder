@@ -36,6 +36,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
         with:
+          draft: true
           tag_name: v${{ steps.package-version.outputs.current-version }}
           release_name: ${{ steps.package-version.outputs.current-version }}
           body: ${{ steps.changelog.outputs.clean_changelog }}
