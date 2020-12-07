@@ -17,7 +17,7 @@
     "electron-builder": "electron-builder build --config ./config/electron-builder.js"
   },
   "devDependencies": {
-    "@vuedx/typecheck": "^0.3.1-insiders-1606884529.0",
+    "@vuedx/typecheck": "^0.3.1-insiders-1607121235.0",
     "builtin-modules": "^3.1.0",
     "electron": "^11.0.3",
     "electron-builder": "^22.9.1",
