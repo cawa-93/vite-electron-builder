@@ -10,33 +10,23 @@ on:
     paths-ignore: 
       - "**.md"
 
+
 jobs:
-  changelog:
-    if: github.event_name == 'pull_request'
+  draft_release:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-        
-      - name: Generate Changelog
-        uses: scottbrenner/generate-changelog-action@master
-        id: Changelog
-        env:
-          REPO: ${{ github.repository }}
-           
-      - name: Save Changelog to file
-        run: echo "${{ steps.Changelog.outputs.changelog }}" > release-notes.md
-           
-      - name: Archive release-notes
-        uses: actions/upload-artifact@v2
-        with:
-          name: release-notes
-          path: release-notes.md
-          retention-days: 1
+    outputs:
+      body: ${{ steps.release-drafter.output.body }}
       
+    steps:        
+      - uses: release-drafter/release-drafter@v5
+        id: release-drafter
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with: 
+          version: 1.0.0
    
   build:
-    needs: [changelog]
-    if: always()
+    needs: [draft_release]
     
     strategy:
       matrix:
@@ -53,47 +43,37 @@ jobs:
       
       - run: npm ci
       - run: npm run build
-      - run: npm run electron-builder -- -p never
+      - run: npm run electron-builder -- -p always
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
           
-      - name: Upload a Build Artifact
-        if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v2
-        with:
-          name: build-artifact
-          path: |
-            dist/app/*.exe
-            dist/app/*.exe.blockmap
-            dist/app/latest*
-          retention-days: 1
+#   release:
+#     needs: [build]
+#     if: github.event_name == 'pull_request'
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/download-artifact@v2
+#         with:
+#           name: build-artifact
+#           path: dist/app
           
-          
-  release:
-    needs: [build]
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v2
-        with:
-          name: build-artifact
-          path: dist/app
-          
-      - uses: actions/download-artifact@v2
-        with:
-          name: release-notes
-          path: build
+#       - uses: actions/download-artifact@v2
+#         with:
+#           name: release-notes
+#           path: build
 
-      - uses: pCYSl5EDgo/cat@master
-        id: release-notes
-        with:
-          path: ./build/release-notes.md
+#       - uses: pCYSl5EDgo/cat@master
+#         id: release-notes
+#         with:
+#           path: ./build/release-notes.md
 
-      - name: Upload binaries to release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./dist/app/*
-          file_glob: true
-          tag: v1.0.1
-          overwrite: true
-          body: ${{ steps.release-notes.outputs.text }}
+#       - name: Upload binaries to release
+#         uses: svenstaro/upload-release-action@v2
+#         with:
+#           repo_token: ${{ secrets.GITHUB_TOKEN }}
+#           file: ./dist/app/*
+#           file_glob: true
+#           tag: v1.0.1
+#           overwrite: true
+#           body: ${{ steps.release-notes.outputs.text }}
