@@ -56,12 +56,6 @@ jobs:
         with:
           name: release-notes
           path: "./build"
-          
-      - run: |
-          ls
-          cd ./build
-          ls
-          cat ./build/release-notes.md
         
 
       - name: Try Build
