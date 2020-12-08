@@ -8,9 +8,9 @@ This is a minimalist template designed for a **simple and flexible start of your
 
 
 ## Important
-I work on this template in my free time, and work on it on my own. If you want to use it but do not understand some things: do not hesitate to create discussion with a question.
+I work on this template in my free time, and work on it on my own. 
 
-Also, if you have ideas or suggestions - **PR are welcome**. 😊
+If you have ideas, questions or suggestions - **Welcome to [discussions](https://github.com/cawa-93/vite-electron-builder/discussions)**. 😊
 
 ## Features
 
