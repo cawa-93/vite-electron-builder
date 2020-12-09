@@ -1,20 +1,44 @@
-name: Typechecking
+name: CI
 on:
   push:
     branches:
       - main
-    paths:
-      - '**.ts'
-      - '**.vue'
+    paths-ignore:
+      - '**.md'
   pull_request:
-    branches:
-      - main
-    paths:
-      - '**.ts'
-      - '**.vue'
+    paths-ignore:
+      - '**.md'
 
 jobs:
+  eslint:
+    continue-on-error: true
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - run: npm ci
+
+      - uses: haya14busa/action-cond@v1
+        id: reporter
+        with:
+          cond: ${{ github.event_name == 'pull_request' }}
+          if_true: "github-pr-review"
+          if_false: "github-check"
+
+      - name: Run ESLint
+        uses: reviewdog/action-eslint@v1
+        with:
+          fail_on_error: true
+          github_token: ${{ secrets.github_token }}
+          eslint_flags: 'src/**/*.{ts,vue} {bin,config}/**/*.js'
+          reporter: ${{ steps.reporter.outputs.value }}
+
   typecheck:
+    continue-on-error: true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -35,7 +59,8 @@ jobs:
 
       - run: npm ci
 
-      - env:
+      - name: Run @vuedx/vuedx-typecheck
+        env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
         run: |
           npx --no-install @vuedx/vuedx-typecheck --rdjson ./src/main | reviewdog -f=rdjson -reporter=${{ steps.reporter.outputs.value }}

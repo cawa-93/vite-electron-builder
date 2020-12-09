@@ -1,11 +1,6 @@
 name: Release
 
-on:
-  push:
-    paths-ignore:
-      - "**.md"
-    branches:
-      - main
+on: [workflow_dispatch]
 
 
 jobs:
