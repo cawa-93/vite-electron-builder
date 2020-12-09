@@ -39,13 +39,15 @@ jobs:
 
       - uses: reviewdog/action-setup@v1
 
-      - name: Run @vuedx/vuedx-typecheck
+      - run: npx --no-install @vuedx/vuedx-typecheck ./src/main --rdjson  | reviewdog -name typecheck -f rdjson -reporter=${{ steps.reporter.outputs.value }}
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
-        run: |
-          npx --no-install @vuedx/vuedx-typecheck --rdjson ./src/main | reviewdog -name typecheck -f rdjson -reporter=${{ steps.reporter.outputs.value }}
-          npx --no-install @vuedx/vuedx-typecheck --rdjson ./src/preload | reviewdog -name typecheck -f rdjson -reporter=${{ steps.reporter.outputs.value }}
-          npx --no-install @vuedx/vuedx-typecheck --rdjson ./src/renderer | reviewdog -name typecheck -f rdjson -reporter=${{ steps.reporter.outputs.value }}
+      - run: npx --no-install @vuedx/vuedx-typecheck ./src/preload --rdjson  | reviewdog -name typecheck -f rdjson -reporter=${{ steps.reporter.outputs.value }}
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
+      - run: npx --no-install @vuedx/vuedx-typecheck ./src/renderer --rdjson  | reviewdog -name typecheck -f rdjson -reporter=${{ steps.reporter.outputs.value }}
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
 
   draft_release:
     needs: [ checks ]
