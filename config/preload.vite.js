@@ -1,5 +1,3 @@
-const builtins = require('builtin-modules')
-
 const {join} = require('path')
 
 /**
@@ -15,7 +13,11 @@ module.exports = {
     '/@/': join(__dirname, '../src/preload'),
   },
   rollupOutputOptions: {
-    format: 'cjs',
+                                     format: 'cjs',
+
+
+
+
     entryFileNames: `[name].js`,
     chunkFileNames: `[name].js`,
     assetFileNames: `[name].[ext]`

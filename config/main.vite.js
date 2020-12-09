@@ -1,5 +1,3 @@
-const builtins = require('builtin-modules')
-
 const {join} = require('path')
 
 /**
