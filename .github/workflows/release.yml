@@ -13,20 +13,21 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       changelog: ${{ steps.changelog.outputs.changelog }}
+      version: ${{ steps.version.outputs.current-version }}
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: get-npm-version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@master
+      - name: Get version from current date
+        id: version
+        run: echo "::set-output name=current-version::$(date '+%y.%m.%d')"
 
       - name: Changelog
         uses: scottbrenner/generate-changelog-action@master
         id: changelog
         env:
           REPO: ${{ github.repository }}
-          
+
       - name: Delete outdated drafts
         uses: hugo19941994/delete-draft-releases@v0.1.0
         env:
@@ -38,8 +39,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.github_token }}
         with:
           draft: true
-          tag_name: v${{ steps.package-version.outputs.current-version }}
-          release_name: v${{ steps.package-version.outputs.current-version }}
+          tag_name: v${{ steps.version.outputs.current-version }}
+          release_name: v${{ steps.version.outputs.current-version }}
           body: ${{ steps.changelog.outputs.changelog }}
 
   build:
@@ -64,6 +65,6 @@ jobs:
         run: |
           mkdir ./build
           echo "${{ needs.draft_release.outputs.changelog }}" > ./build/release-notes.md
-      - run: npm run electron-builder
+      - run: npm run electron-builder --  -c.extraMetadata.version=${{ needs.draft_release.outputs.version }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
