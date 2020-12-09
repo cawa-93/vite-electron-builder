@@ -6,7 +6,6 @@ on:
     branches: [main]
     types:
       - completed
-      - requested
 
 jobs:
   draft_release:
@@ -16,12 +15,11 @@ jobs:
       version: ${{ steps.version.outputs.current-version }}
 
     steps:
+      - uses: hmarr/debug-action
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: 14
-
-      - run: echo ${{ github.event }}
 
       - name: Get version from current date
         id: version
