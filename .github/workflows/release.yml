@@ -12,7 +12,7 @@ jobs:
   draft_release:
     runs-on: ubuntu-latest
     outputs:
-      changelog: ${{ steps.changelog.outputs.clean_changelog }}
+      changelog: ${{ steps.changelog.outputs.changelog }}
 
     steps:
       - uses: actions/checkout@v2
@@ -21,25 +21,21 @@ jobs:
         id: package-version
         uses: martinbeentjes/npm-get-version-action@master
 
-      - name: Conventional Changelog Action
+      - name: Changelog
+        uses: scottbrenner/generate-changelog-action@master
         id: changelog
-        uses: TriPSs/conventional-changelog-action@v3
-        with:
-          github-token: ${{ secrets.github_token }}
-          output-file: "false"
-          skip-version-file: true
-          skip-commit: true
+        env:
+          REPO: ${{ github.repository }}
 
       - name: Create Release
         uses: actions/create-release@v1
-        if: ${{ steps.changelog.outputs.skipped == 'false' }}
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
         with:
           draft: true
           tag_name: v${{ steps.package-version.outputs.current-version }}
           release_name: v${{ steps.package-version.outputs.current-version }}
-          body: ${{ steps.changelog.outputs.clean_changelog }}
+          body: ${{ steps.changelog.outputs.changelog }}
 
   build:
     needs: [draft_release]
@@ -59,6 +55,8 @@ jobs:
 
       - run: npm ci
       - run: npm run build
-      - run: npm run electron-builder -- --config.releaseInfo.releaseNotes="${{ needs.draft_release.outputs.changelog }}"
+      - name: Save changelog to file
+        run: echo "${{ steps.changelog.outputs.changelog }}" > ./build/release-notes.md
+      - run: npm run electron-builder
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
