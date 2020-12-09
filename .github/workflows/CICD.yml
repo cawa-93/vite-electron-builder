@@ -1,21 +1,62 @@
-name: CD
-
+name: CI/CD
 on:
-  workflow_run:
-    workflows: ["CI"]
-    branches: [main]
-    types:
-      - completed
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
 
 jobs:
+  checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      # TODO: Install not all dependencies, but only those required for this workflow
+      - run: npm ci
+
+      - uses: haya14busa/action-cond@v1
+        id: reporter
+        with:
+          cond: ${{ github.event_name == 'pull_request' }}
+          if_true: "github-pr-review"
+          if_false: "github-check"
+
+      - name: Run ESLint
+        uses: reviewdog/action-eslint@v1
+        with:
+          fail_on_error: true
+          github_token: ${{ secrets.github_token }}
+          eslint_flags: '. --ext js,ts,vue'
+          reporter: ${{ steps.reporter.outputs.value }}
+
+      - uses: reviewdog/action-setup@v1
+
+      - name: Run @vuedx/vuedx-typecheck
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
+        run: |
+          npx --no-install @vuedx/vuedx-typecheck --rdjson ./src/main | reviewdog -f=rdjson -reporter=${{ steps.reporter.outputs.value }}
+          npx --no-install @vuedx/vuedx-typecheck --rdjson ./src/preload | reviewdog -f=rdjson -reporter=${{ steps.reporter.outputs.value }}
+          npx --no-install @vuedx/vuedx-typecheck --rdjson ./src/renderer | reviewdog -f=rdjson -reporter=${{ steps.reporter.outputs.value }}
+
   draft_release:
+    needs: [checks]
+    if: github.event_name == 'push' && github.ref == 'main'
     runs-on: ubuntu-latest
     outputs:
       changelog: ${{ steps.changelog.outputs.changelog }}
       version: ${{ steps.version.outputs.current-version }}
 
     steps:
-      - uses: hmarr/debug-action
+      - uses: hmarr/debug-action@master
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
@@ -54,8 +95,8 @@ jobs:
 
     strategy:
       matrix:
-#        os: [ windows-latest ]
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        #        os: [ windows-latest ]
+        os: [ macos-latest, ubuntu-latest, windows-latest ]
 
     runs-on: ${{ matrix.os }}
 
@@ -65,6 +106,7 @@ jobs:
         with:
           node-version: 14
 
+      # TODO: Install not all dependencies, but only those required for this workflow
       - run: npm ci
 
       - name: Set version to package.json
