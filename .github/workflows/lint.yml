@@ -27,8 +27,7 @@ jobs:
         with:
           node-version: 14
 
-      - name: Install eslint and plugins
-        run: npm i -O eslint eslint-plugin-vue @typescript-eslint/parser @typescript-eslint/eslint-plugin typescript
+      - run: npm ci
 
       - uses: haya14busa/action-cond@v1
         id: reporter
@@ -41,7 +40,6 @@ jobs:
         uses: reviewdog/action-eslint@v1
         with:
           fail_on_error: true
-          filter_mode: nofilter
           github_token: ${{ secrets.github_token }}
           eslint_flags: 'src/**/*.{ts,vue} {bin,config}/**/*.js'
           reporter: ${{ steps.reporter.outputs.value }}
