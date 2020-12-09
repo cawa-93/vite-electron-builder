@@ -49,7 +49,7 @@ jobs:
 
   draft_release:
     needs: [checks]
-    if: github.event_name == 'push' && github.ref == 'main'
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
       changelog: ${{ steps.changelog.outputs.changelog }}
