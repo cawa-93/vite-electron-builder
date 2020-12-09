@@ -2,8 +2,7 @@ import {createApp} from 'vue'
 import App from './App.vue'
 
 
-const tempVar: number = 'foo'
-tempVar = {}
+const tempVar = 'foo'
 console.log(tempVar)
 
 createApp(App).mount('#app')
