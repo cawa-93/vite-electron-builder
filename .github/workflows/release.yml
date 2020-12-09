@@ -56,7 +56,9 @@ jobs:
       - run: npm ci
       - run: npm run build
       - name: Save changelog to file
-        run: echo "${{ steps.changelog.outputs.changelog }}" > ./build/release-notes.md
+        run: |
+          mkdir ./build
+          echo "${{ needs.draft_release.outputs.changelog }}" > ./build/release-notes.md
       - run: npm run electron-builder
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
