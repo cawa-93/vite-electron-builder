@@ -1,6 +1,6 @@
 {
   "name": "vite-electron-builder",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "private": true,
   "main": "dist/source/main/index.js",
   "scripts": {

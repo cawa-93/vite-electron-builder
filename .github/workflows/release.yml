@@ -17,10 +17,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
 
       - name: Get version from current date
         id: version
         run: echo "::set-output name=current-version::$(date '+%-y.%-m.%-d')"
+
+      - name: Set version to package.json
+        run: npm --no-git-tag-version version ${{ steps.version.outputs.current-version }}
 
       - name: Changelog
         uses: scottbrenner/generate-changelog-action@master
@@ -44,12 +50,12 @@ jobs:
           body: ${{ steps.changelog.outputs.changelog }}
 
   build:
-    needs: [draft_release]
+    needs: [ draft_release ]
 
     strategy:
       matrix:
-        os: [windows-latest]
-#        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [ windows-latest ]
+    #        os: [macos-latest, ubuntu-latest, windows-latest]
 
     runs-on: ${{ matrix.os }}
 
@@ -60,11 +66,17 @@ jobs:
           node-version: 14
 
       - run: npm ci
+
+      - name: Set version to package.json
+        run: npm --no-git-tag-version version ${{ needs.draft_release.outputs.version }}
+
       - run: npm run build
+
       - name: Save changelog to file
         run: |
           mkdir ./build
           echo "${{ needs.draft_release.outputs.changelog }}" > ./build/release-notes.md
-      - run: npm run electron-builder --  "-c.extraMetadata.version=${{ needs.draft_release.outputs.version }}"
+
+      - run: npm run electron-builder
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
