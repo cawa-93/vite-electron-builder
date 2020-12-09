@@ -26,8 +26,13 @@ jobs:
         id: changelog
         env:
           REPO: ${{ github.repository }}
+          
+      - name: Delete outdated drafts
+        uses: hugo19941994/delete-draft-releases@v0.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create Release
+      - name: Create Release Draft
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
