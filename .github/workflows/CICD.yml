@@ -48,7 +48,7 @@ jobs:
           npx --no-install @vuedx/vuedx-typecheck --rdjson ./src/renderer | reviewdog -name typecheck -f rdjson -reporter=${{ steps.reporter.outputs.value }}
 
   draft_release:
-    needs: [checks]
+    needs: [ checks ]
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
@@ -95,8 +95,8 @@ jobs:
 
     strategy:
       matrix:
-        #        os: [ windows-latest ]
-        os: [ macos-latest, ubuntu-latest, windows-latest ]
+        os: [ windows-latest ]
+    #    os: [ macos-latest, ubuntu-latest, windows-latest ]
 
     runs-on: ${{ matrix.os }}
 
