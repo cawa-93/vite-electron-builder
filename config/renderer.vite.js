@@ -13,6 +13,9 @@ module.exports = {
     chunkFileNames: `[name].js`,
     assetFileNames: `[name].[ext]`
   },
+  optimizeDeps: {
+    exclude: require('./external-packages')
+  },
   alias: {
     '/@/': join(__dirname, '../src/renderer'),
   },

@@ -21,6 +21,6 @@ module.exports = {
     assetFileNames: `[name].[ext]`
   },
   rollupInputOptions: {
-    external: [...builtins, 'electron'],
+    external: require('./external-packages'),
   },
 }
