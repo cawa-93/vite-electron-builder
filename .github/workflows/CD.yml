@@ -1,7 +1,12 @@
-name: Release
+name: CD
 
-on: [workflow_dispatch]
-
+on:
+  workflow_run:
+    workflows: ["CI"]
+    branches: [main]
+    types:
+      - completed
+      - requested
 
 jobs:
   draft_release:
@@ -15,6 +20,8 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 14
+
+      - run: echo ${{ github.event }}
 
       - name: Get version from current date
         id: version
@@ -49,8 +56,8 @@ jobs:
 
     strategy:
       matrix:
-        os: [ windows-latest ]
-    #        os: [macos-latest, ubuntu-latest, windows-latest]
+#        os: [ windows-latest ]
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     runs-on: ${{ matrix.os }}
 

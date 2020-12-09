@@ -10,8 +10,7 @@ on:
       - '**.md'
 
 jobs:
-  eslint:
-    continue-on-error: true
+  lint-and-typecheck:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,6 +19,7 @@ jobs:
         with:
           node-version: 14
 
+      # TODO: Install not all dependencies, but only those required for this workflow
       - run: npm ci
 
       - uses: haya14busa/action-cond@v1
@@ -34,30 +34,8 @@ jobs:
         with:
           fail_on_error: true
           github_token: ${{ secrets.github_token }}
-          eslint_flags: 'src/**/*.{ts,vue} {bin,config}/**/*.js'
+          eslint_flags: '. --ext js,ts,vue'
           reporter: ${{ steps.reporter.outputs.value }}
-
-  typecheck:
-    continue-on-error: true
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 14
-
-      - uses: reviewdog/action-setup@v1
-        with:
-          reviewdog_version: latest
-
-      - uses: haya14busa/action-cond@v1
-        id: reporter
-        with:
-          cond: ${{ github.event_name == 'pull_request' }}
-          if_true: "github-pr-review"
-          if_false: "github-check"
-
-      - run: npm ci
 
       - name: Run @vuedx/vuedx-typecheck
         env:
