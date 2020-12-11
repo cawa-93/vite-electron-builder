@@ -121,9 +121,11 @@ jobs:
       # The easiest way to transfer release notes to a compiled application is create `release-notes.md` in the build resources.
       # See https://github.com/electron-userland/electron-builder/issues/1511#issuecomment-310160119
       - name: Save changelog to file
+        env: 
+          notes: ${{ needs.draft_release.outputs.changelog }} # This needs to Escape quotes
         run: |
           mkdir ./build
-          echo "${{ needs.draft_release.outputs.changelog }}" > ./build/release-notes.md
+          echo $notes > ./build/release-notes.md
 
       - run: npm run electron-builder
         env:
