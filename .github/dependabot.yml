@@ -9,4 +9,7 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    commit-message:
+      prefix: "deps(prod):"
+      prefix-development: "deps(dev):"
       
