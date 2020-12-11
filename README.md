@@ -6,15 +6,38 @@ This template uses [Vite](https://github.com/vitejs/vite/) as bundler and [Elect
 
 This is a minimalist template designed for a **simple and flexible start of your project**.
 
+
+## Important
+I work on this template in my free time, and work on it on my own. 
+
+If you have ideas, questions or suggestions - **Welcome to [discussions](https://github.com/cawa-93/vite-electron-builder/discussions)**. 😊
+
 ## Features
-- [Vue 3](https://v3.vuejs.org/)
-- Latest [Electron](https://www.electronjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Vite](https://github.com/vitejs/vite/) for bundling
-- [electron-builder](https://www.electron.build/)
-- Auto releases when push to main
-- Auto Updates
-- Typed `.env` files supports
+
+- **Electron**
+  - Template use the latest electron version with all the latest security patches.
+  - The architecture of the application is built according to the security [guids](https://www.electronjs.org/docs/tutorial/security) and best practices.
+  - The latest version of the [electron-builder](https://www.electron.build/) is used to compile the application.
+- **Vite**
+  - [Vite](https://github.com/vitejs/vite/) is used to package all source codes. This is an extremely fast packer that has a bunch of great features. You can learn more about how it is arranged in [this](https://youtu.be/xXrhg26VCSc) video.
+  - Vite [supports](https://github.com/vitejs/vite/#modes-and-environment-variables) reading `.env` files. My template has a separate command to generate `.d.ts` file with type definition your environment variables.
+- **TypeScript**
+  - The Latest TypeScript is used for all source code. 
+  - **Vite** supports TypeScript out of the box. However, it does not support type checking.
+  - Type checking is performed in both `.ts` and `.vue` files thanks to [@vuedx/typecheck](https://github.com/znck/vue-developer-experience/tree/master/packages/typecheck).
+  - Code formatting rules follow the latest TypeScript recommendations and best practices thanks to [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin).
+- **Vue 3**
+  - By default, web pages are built using the latest version of the [Vue](https://github.com/vuejs/vue-next). However, there are no problems with using any other frameworks or technologies.
+  - ~~The latest version of the [Vue router](https://github.com/vuejs/vue-router-next) is also used~~. See [#6](https://github.com/cawa-93/vite-electron-builder/pull/6).
+  - Code formatting rules follow the latest Vue recommendations and best practices thanks to [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue).
+- **Continuous Integration**
+  - The configured workflow for check the types for each push and PR.
+  - The configured workflow for check the code style for each push and PR.
+- **Continuous delivery**
+  - Each time you push changes to the main branch, a workflow starts, which creates a new github release.
+    - The version number is automatically set based on the current date in the format "yy.mm.dd".
+    - Notes are automatically generated and added to the new release.
+  - Automatic update from GitHub releases is supported.
 
 ## Status
 - ✅ Building main and renderer endpoints in production mode -- works great.
@@ -22,12 +45,11 @@ This is a minimalist template designed for a **simple and flexible start of your
 - ⚠ Development mode for main and preload endpoints -- work fine, but it is possible to reboot the backend faster ([vite#972](https://github.com/vitejs/vite/issues/972))
 - ✅ Compile the app with electron builder in CD -- work.
 - ✅ Auto update -- work.
-- ⏳ Code signing -- planned. 
-- ⚠ Typechecking in `.ts` and `.vue` files -- works but needs improvement. I want to integrate it with [reviewdog](https://github.com/reviewdog/reviewdog). Typechecking use [@vuedx/typecheck](https://github.com/znck/vue-developer-experience/tree/master/packages/typecheck)
+- ✅ Typechecking in `.ts` and `.vue` files -- work thanks [@vuedx/typecheck](https://github.com/znck/vue-developer-experience/tree/master/packages/typecheck) (🚨 Pre Alpha)
 - ⚠ Linting -- work fine, but need review the configuration files and refactor its. It may also intersect somewhat with Typechecking.
+- ⏳ Code signing -- planned. 
 - ⏳ Add Vue dev tools -- planned.
 - ⏳ Refactor and simplify the set of npm scripts -- planned.
-- ⏳ Refactor and simplify typescript configs -- planned.
 - ⏳ Refactor and simplify eslint configs -- planned.
 
 ## How it works
@@ -93,6 +115,3 @@ This project requires at least 14 versions or later.
 1. Build single entry point for production -- `npm run build:<entrypoint>`
 1. Run development watching build -- `npm run watch:build:<entrypoint>`
 1. Run electron in development mode -- `npm run electron`
-
-# Contributing
-See [contributing.md](/contributing.md)

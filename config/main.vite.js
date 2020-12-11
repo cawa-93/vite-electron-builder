@@ -1,5 +1,3 @@
-const builtins = require('builtin-modules')
-
 const {join} = require('path')
 
 /**
@@ -11,7 +9,7 @@ module.exports = {
   outDir: 'dist/source/main',
   assetsDir: '.',
   alias: {
-    '/@main/': join(__dirname, '../src/main'),
+    '/@/': join(__dirname, '../src/main'),
   },
   rollupOutputOptions: {
     format: 'cjs',
@@ -20,6 +18,6 @@ module.exports = {
     assetFileNames: `[name].[ext]`
   },
   rollupInputOptions: {
-    external: [...builtins, 'electron', 'electron-updater', 'electron-devtools-installer'],
+    external: require('./external-packages'),
   },
 }

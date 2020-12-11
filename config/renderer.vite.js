@@ -8,13 +8,12 @@ module.exports = {
   root: join(process.cwd(), './src/renderer'),
   outDir: join(process.cwd(), 'dist/source/renderer'),
   base: '',
-  optimizeDeps: {
-    exclude: ['electron-updater'],
-  },
   rollupOutputOptions: {
     entryFileNames: `[name].js`,
-    chunkFileNames: `[name].js`,
-    assetFileNames: `[name].[ext]`
+    chunkFileNames: `[name].js`, assetFileNames: `[name].[ext]`
+  },
+                             optimizeDeps: {
+          exclude: require('./external-packages')
   },
   alias: {
     '/@/': join(__dirname, '../src/renderer'),

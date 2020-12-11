@@ -1,0 +1,126 @@
+name: CI/CD
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      # TODO: Install not all dependencies, but only those required for this workflow
+      - run: npm ci
+
+      - uses: haya14busa/action-cond@v1
+        id: reporter
+        with:
+          cond: ${{ github.event_name == 'pull_request' }}
+          if_true: "github-pr-review"
+          if_false: "github-check"
+
+      - name: Run ESLint
+        uses: reviewdog/action-eslint@v1
+        with:
+          fail_on_error: true
+          github_token: ${{ secrets.github_token }}
+          eslint_flags: '. --ext js,ts,vue'
+          reporter: ${{ steps.reporter.outputs.value }}
+
+      - uses: reviewdog/action-setup@v1
+
+      - run: npx --no-install @vuedx/vuedx-typecheck ./src/main --rdjson  | reviewdog -name typecheck -f rdjson -fail-on-error -reporter=${{ steps.reporter.outputs.value }}
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
+      - run: npx --no-install @vuedx/vuedx-typecheck ./src/preload --rdjson  | reviewdog -name typecheck -f rdjson -fail-on-error -reporter=${{ steps.reporter.outputs.value }}
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
+      - run: npx --no-install @vuedx/vuedx-typecheck ./src/renderer --rdjson  | reviewdog -name typecheck -f rdjson -fail-on-error -reporter=${{ steps.reporter.outputs.value }}
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
+
+  draft_release:
+    needs: [ checks ]
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    outputs:
+      changelog: ${{ steps.changelog.outputs.changelog }}
+      version: ${{ steps.version.outputs.current-version }}
+
+    steps:
+      - uses: hmarr/debug-action@master
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Get version from current date
+        id: version
+        run: echo "::set-output name=current-version::$(date '+%-y.%-m.%-d')"
+
+      - name: Set version to package.json
+        run: npm --no-git-tag-version version ${{ steps.version.outputs.current-version }}
+
+      - name: Changelog
+        uses: scottbrenner/generate-changelog-action@master
+        id: changelog
+        env:
+          REPO: ${{ github.repository }}
+
+      - name: Delete outdated drafts
+        uses: hugo19941994/delete-draft-releases@v0.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release Draft
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+        with:
+          draft: true
+          tag_name: v${{ steps.version.outputs.current-version }}
+          release_name: v${{ steps.version.outputs.current-version }}
+          body: ${{ steps.changelog.outputs.changelog }}
+
+  build:
+    needs: [ draft_release ]
+
+    strategy:
+      matrix:
+        os: [ windows-latest ]
+    #    os: [ macos-latest, ubuntu-latest, windows-latest ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      # TODO: Install not all dependencies, but only those required for this workflow
+      - run: npm ci
+
+      - name: Set version to package.json
+        run: npm --no-git-tag-version version ${{ needs.draft_release.outputs.version }}
+
+      - run: npm run build
+
+      - name: Save changelog to file
+        run: |
+          mkdir ./build
+          echo "${{ needs.draft_release.outputs.changelog }}" > ./build/release-notes.md
+
+      - run: npm run electron-builder
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
