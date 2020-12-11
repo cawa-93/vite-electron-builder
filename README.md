@@ -33,7 +33,7 @@ If you have ideas, questions or suggestions - **Welcome to [discussions](https:/
 - **Continuous Integration**
   - The configured workflow for check the types for each push and PR.
   - The configured workflow for check the code style for each push and PR.
-- **Continuous delivery**
+- **Continuous deployment**
   - Each time you push changes to the main branch, a workflow starts, which creates a new github release.
     - The version number is automatically set based on the current date in the format "yy.mm.dd".
     - Notes are automatically generated and added to the new release.
