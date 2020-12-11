@@ -9,6 +9,11 @@ on:
     paths-ignore:
       - '**.md'
 
+defaults:
+  run:
+    shell: 'bash'
+        
+
 jobs:
   checks:
     name: Lint & Typecheck
