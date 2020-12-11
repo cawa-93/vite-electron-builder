@@ -7,7 +7,4 @@ module.exports = {
     output: 'dist/app',
     buildResources: 'build'
   },
-  electronDownload: {
-    cache: './.cache/electron'
-  }
 }

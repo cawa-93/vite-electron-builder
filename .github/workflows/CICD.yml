@@ -125,12 +125,6 @@ jobs:
           mkdir ./build
           echo "${{ needs.draft_release.outputs.changelog }}" > ./build/release-notes.md
 
-      - name: Cache electron-builder
-        uses: actions/cache@v2
-        with:
-          path: .cache/electron
-          key: electron-builder
-
       - run: npm run electron-builder
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
