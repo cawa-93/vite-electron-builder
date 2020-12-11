@@ -4,6 +4,7 @@ dist
 *.local
 thumbs.db
 types/env.d.ts
+.cache
 
 
 
