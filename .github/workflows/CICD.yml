@@ -11,6 +11,7 @@ on:
 
 jobs:
   checks:
+    name: Lint & Typecheck
     runs-on: ubuntu-latest
 
     steps:
@@ -51,7 +52,7 @@ jobs:
 
   draft_release:
     needs: [ checks ]
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' & github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     outputs:
       changelog: ${{ steps.changelog.outputs.changelog }}
@@ -98,6 +99,7 @@ jobs:
     strategy:
       matrix:
         os: [ windows-latest ]
+    #    To compile the application for different platforms, use:
     #    os: [ macos-latest, ubuntu-latest, windows-latest ]
 
     runs-on: ${{ matrix.os }}
@@ -116,6 +118,8 @@ jobs:
 
       - run: npm run build
 
+      # The easiest way to transfer release notes to a compiled application is create `release-notes.md` in the build resources.
+      # See https://github.com/electron-userland/electron-builder/issues/1511#issuecomment-310160119
       - name: Save changelog to file
         run: |
           mkdir ./build
