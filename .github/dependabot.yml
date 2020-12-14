@@ -10,6 +10,5 @@ updates:
     schedule:
       interval: "weekly"
     commit-message:
-      prefix: "deps(prod):"
-      prefix-development: "deps(dev):"
+      prefix: "build(deps):"
       
