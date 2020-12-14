@@ -4,7 +4,11 @@
     "baseUrl": ".",
     "paths": {
       "/@/*": ["./*"]
-    }
+    },
+    "types": [
+      "../../types/importMeta",
+      "electron-devtools-installer"
+    ]
   },
 
   "files": ["./index.ts"]

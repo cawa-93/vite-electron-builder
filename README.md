@@ -30,6 +30,7 @@ If you have ideas, questions or suggestions - **Welcome to [discussions](https:/
   - By default, web pages are built using the latest version of the [Vue](https://github.com/vuejs/vue-next). However, there are no problems with using any other frameworks or technologies.
   - ~~The latest version of the [Vue router](https://github.com/vuejs/vue-router-next) is also used~~. See [#6](https://github.com/cawa-93/vite-electron-builder/pull/6).
   - Code formatting rules follow the latest Vue recommendations and best practices thanks to [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue).
+  - Installed [Vue.js devtools beta](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg) with Vue 3 support.
 - **Continuous Integration**
   - The configured workflow for check the types for each push and PR.
   - The configured workflow for check the code style for each push and PR.
@@ -48,8 +49,8 @@ If you have ideas, questions or suggestions - **Welcome to [discussions](https:/
 - ✅ Auto update -- work.
 - ✅ Typechecking in `.ts` and `.vue` files -- work thanks [@vuedx/typecheck](https://github.com/znck/vue-developer-experience/tree/master/packages/typecheck) (🚨 Pre Alpha)
 - ⚠ Linting -- work fine, but need review the configuration files and refactor its. It may also intersect somewhat with Typechecking.
+- ✅ Vue.js devtools beta.
 - ⏳ Code signing -- planned. 
-- ⏳ Add Vue dev tools -- planned.
 - ⏳ Refactor and simplify the set of npm scripts -- planned.
 - ⏳ Refactor and simplify eslint configs -- planned.
 

@@ -4,6 +4,18 @@ import {format} from 'url'
 
 let win: BrowserWindow | null = null
 
+// Install "Vue.js devtools BETA"
+if (import.meta.env.DEV) {
+  app.whenReady()
+    .then(() => import('electron-devtools-installer'))
+    .then(({default: installExtension}) => {
+      /** @see https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg */
+      const VUE_DEVTOOLS_BETA = 'ljjemllljcmogpfapbkkighbhhppjdbg'
+      return installExtension(VUE_DEVTOOLS_BETA)
+    })
+    .catch(e => console.error('Can not install extension:', e))
+}
+
 async function createWindow() {
   win = new BrowserWindow({
     show: false,
@@ -50,14 +62,3 @@ if (import.meta.env.PROD) {
     .then(({autoUpdater}) => autoUpdater.checkForUpdatesAndNotify())
     .catch((err) => console.error('Check updates:', err))
 }
-
-// TODO
-// Install Vue devtools
-// if (import.meta.env.DEV) {
-//   app.whenReady()
-//     .then(() => import('electron-devtools-installer'))
-//     .then(({default: installExtension, VUEJS_DEVTOOLS}) => installExtension(VUEJS_DEVTOOLS))
-//     .catch((err) => console.error('Install Extension: ', err));
-// }
-
-
