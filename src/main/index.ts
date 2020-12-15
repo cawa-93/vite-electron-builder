@@ -2,63 +2,79 @@ import {app, BrowserWindow} from 'electron'
 import {join} from 'path'
 import {format} from 'url'
 
-let win: BrowserWindow | null = null
+const gotTheLock = app.requestSingleInstanceLock()
 
-// Install "Vue.js devtools BETA"
-if (import.meta.env.DEV) {
-  app.whenReady()
-    .then(() => import('electron-devtools-installer'))
-    .then(({default: installExtension}) => {
-      /** @see https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg */
-      const VUE_DEVTOOLS_BETA = 'ljjemllljcmogpfapbkkighbhhppjdbg'
-      return installExtension(VUE_DEVTOOLS_BETA)
+if (!gotTheLock) {
+  app.quit()
+} else {
+
+  // Install "Vue.js devtools BETA"
+  if (import.meta.env.DEV) {
+    app.whenReady()
+      .then(() => import('electron-devtools-installer'))
+      .then(({default: installExtension}) => {
+        /** @see https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg */
+        const VUE_DEVTOOLS_BETA = 'ljjemllljcmogpfapbkkighbhhppjdbg'
+        return installExtension(VUE_DEVTOOLS_BETA)
+      })
+      .catch(e => console.error('Failed install extension:', e))
+  }
+
+  let mainWindow: BrowserWindow | null = null
+
+  async function createWindow() {
+    mainWindow = new BrowserWindow({
+      show: false,
+      webPreferences: {
+        contextIsolation: true,
+        preload: join(__dirname, '../preload/index.js'),
+      },
     })
-    .catch(e => console.error('Can not install extension:', e))
-}
 
-async function createWindow() {
-  win = new BrowserWindow({
-    show: false,
-    webPreferences: {
-      contextIsolation: true,
-      preload: join(__dirname, '../preload/index.js'),
-    },
+    const URL = import.meta.env.DEV
+      ? `http://localhost:3000` // TODO: Vite server can run on a non-3000 port. Need to fix this
+      : format({
+        protocol: 'file',
+        pathname: join(__dirname, '../renderer/index.html'),
+        slashes: true,
+      })
+
+    await mainWindow.loadURL(URL)
+    mainWindow.maximize()
+    mainWindow.show()
+
+    if (import.meta.env.DEV) {
+      mainWindow.webContents.openDevTools()
+    }
+  }
+
+
+  app.on('second-instance', (event, commandLine, workingDirectory) => {
+    // Someone tried to run a second instance, we should focus our window.
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore()
+      mainWindow.focus()
+    }
   })
 
-  const URL = import.meta.env.DEV
-    ? `http://localhost:3000`
-    : format({
-      protocol: 'file',
-      pathname: join(__dirname, '../renderer/index.html'),
-      slashes: true,
-    })
 
-  await win.loadURL(URL)
-  win.maximize()
-  win.show()
-
-  if (import.meta.env.DEV) {
-    win.webContents.openDevTools()
-  }
-}
+  app.on('window-all-closed', () => {
+    if (process.platform !== 'darwin') {
+      app.quit()
+    }
+  })
 
 
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-
-
-app.whenReady()
-  .then(createWindow)
-  .catch((err) => console.error('Create window:', err))
-
-
-// Auto-updates
-if (import.meta.env.PROD) {
   app.whenReady()
-    .then(() => import('electron-updater'))
-    .then(({autoUpdater}) => autoUpdater.checkForUpdatesAndNotify())
-    .catch((err) => console.error('Check updates:', err))
+    .then(createWindow)
+    .catch((e) => console.error('Failed create window:', e))
+
+
+  // Auto-updates
+  if (import.meta.env.PROD) {
+    app.whenReady()
+      .then(() => import('electron-updater'))
+      .then(({autoUpdater}) => autoUpdater.checkForUpdatesAndNotify())
+      .catch((e) => console.error('Failed check updates:', e))
+  }
 }
