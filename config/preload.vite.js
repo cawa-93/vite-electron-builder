@@ -8,7 +8,7 @@ module.exports = {
   entry: 'src/preload/index',
   outDir: 'dist/source/preload',
   assetsDir: '.',
-  // root: join(__dirname, '../src/main'),
+  mode: process.env.NODE_ENV || 'production',
   alias: {
     '/@/': join(__dirname, '../src/preload'),
   },

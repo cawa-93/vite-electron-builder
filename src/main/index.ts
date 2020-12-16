@@ -9,7 +9,7 @@ if (!gotTheLock) {
 } else {
 
   // Install "Vue.js devtools BETA"
-  if (import.meta.env.DEV) {
+  if (import.meta.env.MODE === 'development') {
     app.whenReady()
       .then(() => import('electron-devtools-installer'))
       .then(({default: installExtension}) => {
@@ -31,7 +31,7 @@ if (!gotTheLock) {
       },
     })
 
-    const URL = import.meta.env.DEV
+    const URL = import.meta.env.MODE === 'development'
       ? `http://localhost:3000` // TODO: Vite server can run on a non-3000 port. Need to fix this
       : format({
         protocol: 'file',
@@ -43,7 +43,7 @@ if (!gotTheLock) {
     mainWindow.maximize()
     mainWindow.show()
 
-    if (import.meta.env.DEV) {
+    if (import.meta.env.MODE === 'development') {
       mainWindow.webContents.openDevTools()
     }
   }

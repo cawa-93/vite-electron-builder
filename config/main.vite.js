@@ -8,6 +8,7 @@ module.exports = {
   entry: 'src/main/index',
   outDir: 'dist/source/main',
   assetsDir: '.',
+  mode: process.env.NODE_ENV || 'production',
   alias: {
     '/@/': join(__dirname, '../src/main'),
   },
