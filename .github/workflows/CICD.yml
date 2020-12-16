@@ -11,7 +11,7 @@ on:
 
 defaults:
   run:
-    shell: 'bash'       
+    shell: 'bash'
 
 jobs:
   checks:
@@ -54,8 +54,24 @@ jobs:
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
 
+  test:
+    strategy:
+      matrix:
+        os: [ windows-latest ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - run: npm ci
+      - run: npm test
+
   draft_release:
-    needs: [ checks ]
+    needs: [ test, checks ]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     outputs:
@@ -66,7 +82,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-          
+
       - uses: actions/setup-node@v1
         with:
           node-version: 14
@@ -123,22 +139,22 @@ jobs:
         run: npm --no-git-tag-version version ${{ needs.draft_release.outputs.version }}
 
       - run: npm run build
-      
+
       - run: mkdir ./build
 
       # The easiest way to transfer release notes to a compiled application is create `release-notes.md` in the build resources.
       # See https://github.com/electron-userland/electron-builder/issues/1511#issuecomment-310160119
       - name: Prepare release notes
-        env: 
+        env:
           RELEASE_NOTES: ${{ needs.draft_release.outputs.changelog }} # This needs to Escape quotes
         run: echo "$RELEASE_NOTES" > ./build/release-notes.md
-        
+
       - run: echo "$RELEASE_NOTES"
-        env: 
+        env:
           RELEASE_NOTES: ${{ needs.draft_release.outputs.changelog }} # This needs to Escape quotes
-            
+
       - run: cat ./build/release-notes.md # For debug
 
-      - run: npm run electron-builder
+      - run: electron-builder build --config ./config/electron-builder.js
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
