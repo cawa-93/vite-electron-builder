@@ -5,10 +5,10 @@
   "main": "dist/source/main/index.js",
   "scripts": {
     "build": "bin/build.sh",
-    "pretest": "cross-env NODE_ENV=test bin/build.sh",
-    "test": "",
+    "pretest": "cross-env NODE_ENV=test bin/build.sh && electron-builder build --config ./config/electron-builder.js --dir",
+    "test": "node tests/spectron.js",
     "watch": "cross-env NODE_ENV=development bin/watch.sh",
-    "electron-builder": "electron-builder build --config ./config/electron-builder.js"
+    "electron-builder": "electron-builder build --config ./config/electron-builder.js --dir"
   },
   "devDependencies": {
     "@types/electron-devtools-installer": "^2.2.0",

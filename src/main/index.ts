@@ -4,6 +4,8 @@ import {format} from 'url'
 
 const gotTheLock = app.requestSingleInstanceLock()
 
+console.log({foo: 'FOOOO 222'})
+
 if (!gotTheLock) {
   app.quit()
 } else {
@@ -26,7 +28,9 @@ if (!gotTheLock) {
     mainWindow = new BrowserWindow({
       show: false,
       webPreferences: {
-        contextIsolation: true,
+        nodeIntegration: false,
+        contextIsolation: import.meta.env.MODE !== 'test',
+        enableRemoteModule: import.meta.env.MODE === 'test',
         preload: join(__dirname, '../preload/index.js'),
       },
     })
