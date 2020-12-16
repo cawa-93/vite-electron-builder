@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash
 
 #
 # Start the application and its prerequisites at localhost:8000, and
