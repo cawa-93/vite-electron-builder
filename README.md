@@ -53,7 +53,6 @@ If you have ideas, questions or suggestions - **Welcome to [discussions](https:/
 - ⚠ Linting -- work fine, but need review the configuration files and refactor its. It may also intersect somewhat with Typechecking.
 - ✅ Vue.js devtools beta.
 - ⏳ Code signing -- planned. 
-- ⏳ Refactor and simplify the set of npm scripts -- planned.
 - ⏳ Refactor and simplify eslint configs -- planned.
 
 ## How it works
