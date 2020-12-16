@@ -107,13 +107,14 @@ When running `build:*` or `watch:build:*`, environment variables are loaded from
   It is believed any scripts for build the application will be located here.
 - `/types` 
   Contains all declaration files to be applied globally to the entire project
+- `/test`
+  Contains all tests
 
 ### Development Setup
 This project requires at least 14 versions or later.
 1. Fork this repository
 1. Run `npm install` to install all dependencies
 1. Build all entry points for production -- `npm run build`
+1. Run development environment with file watching -- `npm run watch`
 1. Compile Electron app -- `npm run electron-builder`
-1. Build single entry point for production -- `npm run build:<entrypoint>`
-1. Run development watching build -- `npm run watch:build:<entrypoint>`
-1. Run electron in development mode -- `npm run electron`
+1. Run tests -- `npm test`
