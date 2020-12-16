@@ -4,15 +4,10 @@
   "private": true,
   "main": "dist/source/main/index.js",
   "scripts": {
-    "build": "npm run build:main && npm run build:renderer && npm run build:preload",
-    "build:main": "vite build --config ./config/main.vite.js",
-    "build:preload": "vite build --config ./config/preload.vite.js",
-    "build:renderer": "vite build --config ./config/renderer.vite.js",
-    "watch:build:main": "nodemon --exec \"npm run build:main -- --mode development\" --watch src/main -e ts",
-    "watch:build:preload": "nodemon --exec \"npm run build:preload -- --mode development\" --watch src/preload -e ts",
-    "watch:build:renderer": "vite serve --config ./config/renderer.vite.js",
-    "watch:electron": "nodemon --exec \"electron .\" --watch dist/source/main --watch dist/source/preload",
-    "electron": "electron .",
+    "build": "bin/build.sh",
+    "pretest": "cross-env NODE_ENV=test bin/build.sh",
+    "test": "",
+    "watch": "cross-env NODE_ENV=development bin/watch.sh",
     "electron-builder": "electron-builder build --config ./config/electron-builder.js"
   },
   "devDependencies": {
@@ -20,11 +15,13 @@
     "@typescript-eslint/eslint-plugin": "^4.9.1",
     "@typescript-eslint/parser": "^4.9.1",
     "@vuedx/typecheck": "^0.3.1-insiders-1607632537.0",
+    "cross-env": "^7.0.3",
     "electron": "^11.1.0",
     "electron-builder": "^22.9.1",
     "electron-devtools-installer": "^3.1.1",
     "eslint": "^7.15.0",
     "eslint-plugin-vue": "^7.2.0",
+    "spectron": "^13.0.0",
     "typescript": "^4.1.3",
     "vite": "^1.0.0-rc.13"
   },

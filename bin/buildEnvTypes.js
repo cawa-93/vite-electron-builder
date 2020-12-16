@@ -29,4 +29,4 @@ function buildMode(modes, filePath) {
   writeFileSync(filePath, `${str}\nexport type ImportMetaEnv = ${name}\n`, {encoding: 'utf-8'})
 }
 
-buildMode(['production', 'development'], resolve(process.cwd(), './types/env.d.ts'))
+buildMode(['production', 'development', 'test'], resolve(process.cwd(), './types/env.d.ts'))

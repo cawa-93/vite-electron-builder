@@ -8,6 +8,7 @@ module.exports = {
   root: join(process.cwd(), './src/renderer'),
   outDir: join(process.cwd(), 'dist/source/renderer'),
   base: '',
+  mode: process.env.NODE_ENV || 'production',
   rollupOutputOptions: {
     entryFileNames: `[name].js`,
     chunkFileNames: `[name].js`, assetFileNames: `[name].[ext]`
