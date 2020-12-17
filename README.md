@@ -115,7 +115,6 @@ When running `build:*` or `watch:build:*`, environment variables are loaded from
 This project requires at least 14 versions or later.
 1. Fork this repository
 1. Run `npm install` to install all dependencies
-1. Build all entry points for production -- `npm run build`
+1. Build compile app for production -- `npm run compile`
 1. Run development environment with file watching -- `npm run watch`
-1. Compile Electron app -- `npm run electron-builder`
 1. Run tests -- `npm test`

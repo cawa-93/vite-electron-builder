@@ -138,8 +138,6 @@ jobs:
       - name: Set version to package.json
         run: npm --no-git-tag-version version ${{ needs.draft_release.outputs.version }}
 
-      - run: npm run build
-
       - run: mkdir ./build
 
       # The easiest way to transfer release notes to a compiled application is create `release-notes.md` in the build resources.
@@ -155,6 +153,6 @@ jobs:
 
       - run: cat ./build/release-notes.md # For debug
 
-      - run: electron-builder build --config ./config/electron-builder.js
+      - run: npm run compile
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
