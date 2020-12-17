@@ -115,7 +115,7 @@ jobs:
           release_name: v${{ steps.version.outputs.current-version }}
           body: ${{ steps.changelog.outputs.changelog }}
 
-  build:
+  compile:
     needs: [ draft_release ]
 
     strategy:
@@ -132,26 +132,20 @@ jobs:
         with:
           node-version: 14
 
-      # TODO: Install not all dependencies, but only those required for this workflow
+      # TODO: Install not all dependencies, but only those required for this job
       - run: npm ci
 
       - name: Set version to package.json
         run: npm --no-git-tag-version version ${{ needs.draft_release.outputs.version }}
-
-      - run: mkdir ./build
 
       # The easiest way to transfer release notes to a compiled application is create `release-notes.md` in the build resources.
       # See https://github.com/electron-userland/electron-builder/issues/1511#issuecomment-310160119
       - name: Prepare release notes
         env:
           RELEASE_NOTES: ${{ needs.draft_release.outputs.changelog }} # This needs to Escape quotes
-        run: echo "$RELEASE_NOTES" > ./build/release-notes.md
-
-      - run: echo "$RELEASE_NOTES"
-        env:
-          RELEASE_NOTES: ${{ needs.draft_release.outputs.changelog }} # This needs to Escape quotes
-
-      - run: cat ./build/release-notes.md # For debug
+        run: |
+          mkdir ./build
+          echo "$RELEASE_NOTES" > ./build/release-notes.md
 
       - run: npm run compile
         env:
