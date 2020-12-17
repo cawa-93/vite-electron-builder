@@ -4,8 +4,6 @@ import {format} from 'url'
 
 const gotTheLock = app.requestSingleInstanceLock()
 
-console.log({foo: 'FOOOO 222'})
-
 if (!gotTheLock) {
   app.quit()
 } else {
