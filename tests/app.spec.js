@@ -1,21 +1,21 @@
-const Application = require('spectron').Application
-const assert = require('assert').strict
-const path = require('path')
+const {Application} = require('spectron')
+const {strict: assert} = require('assert')
+const {join} = require('path')
 
 const app = new Application({
-  path: path.resolve(process.cwd(), 'dist/app/win-unpacked/vite-electron-builder.exe'),
+  path: require('electron'),
   requireName: 'electronRequire',
+  args: [join(__dirname, '..')],
 })
 
 app.start()
   .then(async () => {
-    const isVisible = await app.browserWindow.isVisible()
-    assert.ok(isVisible, 'Main window not opened')
+    const windowCount = await app.client.getWindowCount()
+    assert.strictEqual(windowCount, 1, 'Main window not opened')
   })
 
   .then(async function () {
     // Get the window content
-    await app.client.waitUntilWindowLoaded()
     const content = await app.client.$('#app')
     assert.notStrictEqual(await content.getHTML(), '<div id="app"></div>', 'Window content is empty')
   })
@@ -26,8 +26,13 @@ app.start()
     }
   })
 
-  .catch(function (error) {
+  .then(() => process.exit(0))
+
+  .catch(async function (error) {
     console.error(error)
+    if (app && app.isRunning()) {
+      return app.stop()
+    }
     process.exit(1)
   })
 
