@@ -10,8 +10,13 @@ const app = new Application({
 
 app.start()
   .then(async () => {
-    const windowCount = await app.client.getWindowCount()
-    assert.strictEqual(windowCount, 1, 'Main window not opened')
+    const isVisible = await app.browserWindow.isVisible()
+    assert.ok(isVisible,'Main window not visible')
+  })
+
+  .then(async () => {
+    const isDevtoolsOpen = await app.webContents.isDevToolsOpened()
+    assert.ok(!isDevtoolsOpen, 'DevTools opened')
   })
 
   .then(async function () {

@@ -1,5 +1,8 @@
 import {ipcRenderer, contextBridge} from 'electron'
 
+/**
+ * @see https://github.com/electron/electron/issues/21437#issuecomment-573522360
+ */
 const api = {
   data: ['foo', 'bar'],
   doThing: () => ipcRenderer.send('do-a-thing')
@@ -7,15 +10,18 @@ const api = {
 
 export type ExposedInMainWorld = typeof api
 
-/**
- * The "Main World" is the JavaScript context that your main renderer code runs in.
- * By default, the page you load in your renderer executes code in this world.
- *
- * @see https://www.electronjs.org/docs/api/context-bridge
- */
-contextBridge.exposeInMainWorld('electron', api)
-
 if (import.meta.env.MODE === 'test') {
-  // @ts-expect-error The Electron helpers provided by Spectron require accessing the core Electron APIs in the renderer processes of your application. So, either your Electron application has nodeIntegration set to true or you'll need to expose a require window global to Spectron so it can access the core Electron APIs.
+  // @ts-expect-error https://github.com/electron-userland/spectron#node-integration
   window.electronRequire = require
+
+  // @ts-expect-error https://github.com/electron-userland/spectron/issues/693#issuecomment-747872160
+  window.electron = api
+} else {
+  /**
+   * The "Main World" is the JavaScript context that your main renderer code runs in.
+   * By default, the page you load in your renderer executes code in this world.
+   *
+   * @see https://www.electronjs.org/docs/api/context-bridge
+   */
+  contextBridge.exposeInMainWorld('electron', api)
 }

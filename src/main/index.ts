@@ -27,8 +27,8 @@ if (!gotTheLock) {
       show: false,
       webPreferences: {
         nodeIntegration: false,
-        contextIsolation: true,
-        enableRemoteModule: true,
+        contextIsolation: import.meta.env.MODE !== 'test',
+        enableRemoteModule: import.meta.env.MODE === 'test',
         preload: join(__dirname, '../preload/index.js'),
       },
     })
