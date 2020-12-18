@@ -5,9 +5,13 @@ on:
       - main
     paths-ignore:
       - '**.md'
+      - '.idea'
+      - '.gitignore'
   pull_request:
     paths-ignore:
       - '**.md'
+      - '.idea'
+      - '.gitignore'
 
 defaults:
   run:
