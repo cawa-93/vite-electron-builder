@@ -26,10 +26,9 @@ if (!gotTheLock) {
     mainWindow = new BrowserWindow({
       show: false,
       webPreferences: {
-        nodeIntegration: false,
-        contextIsolation: import.meta.env.MODE !== 'test',
-        enableRemoteModule: import.meta.env.MODE === 'test',
         preload: join(__dirname, '../preload/index.js'),
+        contextIsolation: import.meta.env.MODE !== 'test',   // Spectron tests can't work with contextIsolation: true
+        enableRemoteModule: import.meta.env.MODE === 'test', // Spectron tests can't work with enableRemoteModule: false
       },
     })
 
