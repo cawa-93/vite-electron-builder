@@ -5,10 +5,10 @@ import {ipcRenderer, contextBridge} from 'electron'
  */
 const api = {
   data: ['foo', 'bar'],
-  doThing: () => ipcRenderer.send('do-a-thing')
-}
+  doThing: () => ipcRenderer.send('do-a-thing'),
+} as const
 
-export type ExposedInMainWorld = typeof api
+export type ExposedInMainWorld = Readonly<typeof api>
 
 if (import.meta.env.MODE === 'test') {
   // @ts-expect-error https://github.com/electron-userland/spectron#node-integration
