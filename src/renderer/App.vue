@@ -20,7 +20,7 @@ export default defineComponent({
   setup() {
     const {data} = useElectron()
     return {data}
-  }
+  },
 })
 </script>
 

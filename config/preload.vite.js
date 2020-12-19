@@ -13,14 +13,12 @@ module.exports = {
     '/@/': join(__dirname, '../src/preload'),
   },
   rollupOutputOptions: {
-                                     format: 'cjs',
-
-
+    format: 'cjs',
 
 
     entryFileNames: `[name].js`,
     chunkFileNames: `[name].js`,
-    assetFileNames: `[name].[ext]`
+    assetFileNames: `[name].[ext]`,
   },
   rollupInputOptions: {
     external: require('./external-packages'),

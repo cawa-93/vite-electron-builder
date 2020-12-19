@@ -107,7 +107,7 @@ export default defineComponent({
   props: {
     msg: {
       type: String,
-      default: ''
+      default: '',
     },
   },
 })

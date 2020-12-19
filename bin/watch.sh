@@ -9,25 +9,24 @@
 # Triggered when the user interrupts the script to stop it.
 trap quitjobs INT
 quitjobs() {
-    echo ""
-    pkill -P $$
-    echo "Killed all running jobs".
-    scriptCancelled="true"
-    trap - INT
-    exit
+  echo ""
+  pkill -P $$
+  echo "Killed all running jobs".
+  scriptCancelled="true"
+  trap - INT
+  exit
 }
 
 # Wait for user input so the jobs can be quit afterwards.
 scriptCancelled="false"
 waitforcancel() {
-    while :
-    do
-        if [ "$scriptCancelled" == "true" ]; then
-            return
-        fi
+  while :; do
+    if [ "$scriptCancelled" == "true" ]; then
+      return
+    fi
 
-        sleep 1
-    done
+    sleep 1
+  done
 }
 
 # The actual commands we want to execute.

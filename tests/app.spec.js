@@ -11,7 +11,7 @@ const app = new Application({
 app.start()
   .then(async () => {
     const isVisible = await app.browserWindow.isVisible()
-    assert.ok(isVisible,'Main window not visible')
+    assert.ok(isVisible, 'Main window not visible')
   })
 
   .then(async () => {

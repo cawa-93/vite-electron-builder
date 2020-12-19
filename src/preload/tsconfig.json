@@ -9,14 +9,17 @@
     "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
-      "/@/*": ["./*"]
+      "/@/*": [
+        "./*"
+      ]
     },
     "types": [
       "../../types/importMeta"
     ]
   },
-
-  "files": ["./index.ts"],
+  "files": [
+    "./index.ts"
+  ],
   "exclude": [
     "**/node_modules",
     "**/.*"

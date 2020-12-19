@@ -11,10 +11,10 @@ module.exports = {
   mode: process.env.NODE_ENV || 'production',
   rollupOutputOptions: {
     entryFileNames: `[name].js`,
-    chunkFileNames: `[name].js`, assetFileNames: `[name].[ext]`
+    chunkFileNames: `[name].js`, assetFileNames: `[name].[ext]`,
   },
-                             optimizeDeps: {
-          exclude: require('./external-packages')
+  optimizeDeps: {
+    exclude: require('./external-packages'),
   },
   alias: {
     '/@/': join(__dirname, '../src/renderer'),
