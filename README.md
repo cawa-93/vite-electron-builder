@@ -2,9 +2,7 @@
 
 > Vite+Electron = 🔥
 
-This template uses [Vite](https://github.com/vitejs/vite/) as bundler and [Electron builder](https://www.electron.build/) as compiler.
-
-This template designed for a **simple and flexible start of your project**. 
+This template uses [Vite](https://github.com/vitejs/vite/) as bundler and [Electron builder](https://www.electron.build/) as compiler. By default, the interface using **Vue**, but you can easily use any other frameworks such as **React**, **Preact**, **Angular** or anything else.
 
 ## Support
 This template maintained by [Alex Kozack](https://github.com/cawa-93/). You can [💖 sponsor him](https://www.patreon.com/Kozack) for continued development of this template.
