@@ -7,4 +7,4 @@ module.exports = {
     output: 'dist/app',
     buildResources: 'build',
   },
-}
+};

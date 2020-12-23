@@ -8,9 +8,9 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
-import {useElectron} from '/@/use/electron'
+import {defineComponent} from 'vue';
+import HelloWorld from './components/HelloWorld.vue';
+import {useElectron} from '/@/use/electron';
 
 export default defineComponent({
   name: 'App',
@@ -18,10 +18,10 @@ export default defineComponent({
     HelloWorld,
   },
   setup() {
-    const {data} = useElectron()
+    const {data} = useElectron();
 
-    return {data}
+    return {data};
   },
-})
+});
 </script>
 

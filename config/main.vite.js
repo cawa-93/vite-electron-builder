@@ -1,4 +1,4 @@
-const {join} = require('path')
+const {join} = require('path');
 
 /**
  * Vite shared config, assign alias and root dir
@@ -14,11 +14,11 @@ module.exports = {
   },
   rollupOutputOptions: {
     format: 'cjs',
-    entryFileNames: `[name].js`,
-    chunkFileNames: `[name].js`,
-    assetFileNames: `[name].[ext]`,
+    entryFileNames: '[name].js',
+    chunkFileNames: '[name].js',
+    assetFileNames: '[name].[ext]',
   },
   rollupInputOptions: {
     external: require('./external-packages'),
   },
-}
+};

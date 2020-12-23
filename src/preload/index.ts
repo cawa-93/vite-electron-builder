@@ -1,6 +1,6 @@
-import {ContextBridge, contextBridge, ipcRenderer} from 'electron'
+import {ContextBridge, contextBridge, ipcRenderer} from 'electron';
 
-const apiKey = 'electron'
+const apiKey = 'electron';
 
 /**
  * @see https://github.com/electron/electron/issues/21437#issuecomment-573522360
@@ -8,10 +8,10 @@ const apiKey = 'electron'
 const api = {
   data: ['foo', 'bar'],
   doThing: () => ipcRenderer.send('do-a-thing'),
-} as const
+} as const;
 
 
-export type ExposedInMainWorld = Readonly<typeof api>
+export type ExposedInMainWorld = Readonly<typeof api>;
 
 
 if (import.meta.env.MODE !== 'test') {
@@ -22,7 +22,7 @@ if (import.meta.env.MODE !== 'test') {
    *
    * @see https://www.electronjs.org/docs/api/context-bridge
    */
-  contextBridge.exposeInMainWorld(apiKey, api)
+  contextBridge.exposeInMainWorld(apiKey, api);
 
 
 } else {
@@ -34,25 +34,25 @@ if (import.meta.env.MODE !== 'test') {
    * @param obj Object on which to lock the attributes
    */
   function deepFreeze<T extends API>(obj: T): Readonly<T> {
-    Object.freeze(obj)
+    Object.freeze(obj);
 
     Object.getOwnPropertyNames(obj).forEach(prop => {
       if (obj.hasOwnProperty(prop)
         && obj[prop] !== null
         && (typeof obj[prop] === 'object' || typeof obj[prop] === 'function')
         && !Object.isFrozen(obj[prop])) {
-        deepFreeze(obj[prop])
+        deepFreeze(obj[prop]);
       }
-    })
+    });
 
-    return obj
+    return obj;
   }
 
   deepFreeze(api);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-var-requires
-  (window as any).electronRequire = (require as any)
+  (window as any).electronRequire = require;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  (window as any)[apiKey] = api
+  (window as any)[apiKey] = api;
 }

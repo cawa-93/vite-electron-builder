@@ -1,4 +1,4 @@
-const {join} = require('path')
+const {join} = require('path');
 
 /**
  * Vite shared config, assign alias and root dir
@@ -10,8 +10,8 @@ module.exports = {
   base: '',
   mode: process.env.NODE_ENV || 'production',
   rollupOutputOptions: {
-    entryFileNames: `[name].js`,
-    chunkFileNames: `[name].js`, assetFileNames: `[name].[ext]`,
+    entryFileNames: '[name].js',
+    chunkFileNames: '[name].js', assetFileNames: '[name].[ext]',
   },
   optimizeDeps: {
     exclude: require('./external-packages'),
@@ -19,4 +19,4 @@ module.exports = {
   alias: {
     '/@/': join(__dirname, '../src/renderer'),
   },
-}
+};

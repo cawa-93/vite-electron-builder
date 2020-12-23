@@ -42,4 +42,4 @@ module.exports = [
   'v8',
   'vm',
   'zlib',
-]
+];
