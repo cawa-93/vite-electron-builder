@@ -1,6 +1,6 @@
 import {ContextBridge, contextBridge, ipcRenderer} from 'electron'
-import apiKey from '/@/apiKey'
 
+const apiKey = 'electron'
 
 /**
  * @see https://github.com/electron/electron/issues/21437#issuecomment-573522360
@@ -48,11 +48,11 @@ if (import.meta.env.MODE !== 'test') {
     return obj
   }
 
-  deepFreeze(api)
+  deepFreeze(api);
 
-  // @ts-expect-error https://github.com/electron-userland/spectron#node-integration
-  window.electronRequire = require
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/no-var-requires
+  (window as any).electronRequire = (require as any)
 
-  // @ts-expect-error https://github.com/electron-userland/spectron/issues/693#issuecomment-747872160
-  window[apiKey] = api
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (window as any)[apiKey] = api
 }
