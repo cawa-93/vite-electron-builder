@@ -137,7 +137,7 @@ When running building, environment variables are loaded from the following files
   Contains all tests
 
 ### Development Setup
-This project requires at least 14 versions or later.
+This project requires Node 14 or later.
 1. Fork this repository
 1. Run `npm install` to install all dependencies
 1. Build compile app for production -- `npm run compile`
