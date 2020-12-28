@@ -150,7 +150,21 @@ jobs:
         run: |
           mkdir ./build
           echo "$RELEASE_NOTES" > ./build/release-notes.md
+          
+      - name: Build/release Electron app
+        uses: samuelmeuli/action-electron-builder@v1
+        with:
+          build_script_name: build
+          args: --config ./config/electron-builder.js
+          
+          # GitHub token, automatically provided to the action
+          # (No need to define this secret in the repo settings)
+          github_token: ${{ secrets.github_token }}
 
-      - run: npm run compile
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # If the commit is tagged with a version (e.g. "v1.0.0"),
+          # release the app after building
+          release: true
+          
+          # Sometimes the build may fail due to a connection problem with Apple, GitHub, etc. servers. 
+          # This option will restart the build as many attempts as possible
+          max_attempts: 3
