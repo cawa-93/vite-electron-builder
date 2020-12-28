@@ -18,6 +18,10 @@ If you have ideas, questions or suggestions - **Welcome to [discussions](https:/
 ### Vite
 - [Vite](https://github.com/vitejs/vite/) is used to package all source codes. This is an extremely fast packer that has a bunch of great features. You can learn more about how it is arranged in [this](https://youtu.be/xXrhg26VCSc) video.
 - Vite [supports](https://github.com/vitejs/vite/#modes-and-environment-variables) reading `.env` files. My template has a separate command to generate `.d.ts` file with type definition your environment variables.
+
+Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS / JSON Importing`, `CSS Modules`, `Web Assembly` and much more.
+
+[See all Vite features](https://github.com/vitejs/vite/#features).
 ### TypeScript
 - The Latest TypeScript is used for all source code. 
 - **Vite** supports TypeScript out of the box. However, it does not support type checking.
