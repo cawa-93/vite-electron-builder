@@ -20,7 +20,7 @@
     "@typescript-eslint/parser": "^4.10.0",
     "@vuedx/typecheck": "^0.3.1-insiders-1608294809.0",
     "cross-env": "^7.0.3",
-    "electron": "^11.1.0",
+    "electron": "^11.1.1",
     "electron-builder": "^22.9.1",
     "electron-devtools-installer": "^3.1.1",
     "eslint": "^7.16.0",
