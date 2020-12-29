@@ -51,7 +51,7 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 - ⚠ Development mode for main and preload endpoints -- work fine, but it is possible to reboot the backend faster ([vite#972](https://github.com/vitejs/vite/issues/972))
 - ✅ Compile the app with electron builder in CD -- work.
 - ✅ Auto update -- work.
-- ✅ Typechecking in `.ts` and `.vue` files -- work thanks [@vuedx/typecheck](https://github.com/znck/vue-developer-experience/tree/master/packages/typecheck) (🚨 Pre Alpha)
+- ✅ Typechecking in `.ts` and `.vue` files -- work thanks [@vuedx/typecheck](https://github.com/znck/vue-developer-experience/tree/master/packages/typecheck) (🚨Alpha)
 - ⚠ Linting -- work fine, but need review the configuration files and refactor its.
 - ✅ Vue.js devtools beta.
 - ⏳ Code signing -- planned.
