@@ -1,4 +1,4 @@
-import {ExposedInMainWorld} from '../../preload';
+import type {ExposedInMainWorld} from '../../preload';
 
 export function useElectron(): ExposedInMainWorld {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
