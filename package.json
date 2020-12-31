@@ -18,7 +18,7 @@
     "@types/electron-devtools-installer": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^4.11.0",
     "@typescript-eslint/parser": "^4.11.0",
-    "@vuedx/typecheck": "^0.3.1-insiders-1609034385.0",
+    "@vuedx/typecheck": "^0.4.1",
     "cross-env": "^7.0.3",
     "electron": "^11.1.1",
     "electron-builder": "^22.9.1",
