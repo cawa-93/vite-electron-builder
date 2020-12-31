@@ -3,7 +3,7 @@ import {join} from 'path';
 import {format} from 'url';
 
 const a: string = 11;
-
+console.log(a);
 const gotTheLock = app.requestSingleInstanceLock();
 
 if (!gotTheLock) {
