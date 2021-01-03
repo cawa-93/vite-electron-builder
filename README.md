@@ -4,9 +4,11 @@
 
 This is a secure template for electron applications. Written following the latest safety requirements, recommendations and best practices.
 
-Under the hood is used as a super fast bundler -- [Vite 2.0](https://vitejs.dev/) and [Electron builder](https://www.electron.build/) for compilation.
+Under the hood is used as a super fast, nextgen bundler -- [Vite 2.0](https://vitejs.dev/) and [Electron builder](https://www.electron.build/) for compilation.
 
-By default, the interface use **Vue**, but you can easily use any other frameworks such as **React**, **Preact**, **Angular** or anything else.
+By default, the **Vue framework** is used for the interface, but you can easily use any other frameworks such as **React**, **Preact**, **Angular**, **Svelte** or anything else.
+
+> Vite is framework agnostic
 
 ## Support
 This template maintained by [Alex Kozack](https://github.com/cawa-93/). You can [💖 sponsor him](https://www.patreon.com/Kozack) for continued development of this template.
