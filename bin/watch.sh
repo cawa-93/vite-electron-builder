@@ -29,11 +29,13 @@ waitforcancel() {
   done
 }
 
+RESOLVED_MODE=${MODE:-production}
+
 # The actual commands we want to execute.
 nodemon --exec "electron ." --watch dist/source/main --watch dist/source/preload --on-change-only &
-nodemon --exec "vite build --config ./config/main.vite.js" --watch src/main -e ts &
-nodemon --exec "vite build --config ./config/preload.vite.js" --watch src/preload -e ts &
-vite serve --config ./config/renderer.vite.js
+nodemon --exec "vite build --config ./config/main.vite.js --mode \"$RESOLVED_MODE\"" --watch src/main -e ts &
+nodemon --exec "vite build --config ./config/preload.vite.js --mode \"$RESOLVED_MODE\"" --watch src/preload -e ts &
+vite serve --config ./config/renderer.vite.js --mode "$RESOLVED_MODE"
 
 # Trap the input and wait for the script to be cancelled.
 waitforcancel

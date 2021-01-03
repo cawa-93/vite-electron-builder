@@ -1,26 +1,29 @@
 const {join} = require('path');
 
 /**
- * Vite shared config, assign alias and root dir
  * @type {import('vite').UserConfig}
  */
 module.exports = {
-  entry: 'src/preload/index',
-  outDir: 'dist/source/preload',
-  assetsDir: '.',
-  mode: process.env.NODE_ENV || 'production',
-  alias: {
-    '/@/': join(__dirname, '../src/preload'),
-  },
-  rollupOutputOptions: {
-    format: 'cjs',
-
-
-    entryFileNames: '[name].js',
-    chunkFileNames: '[name].js',
-    assetFileNames: '[name].[ext]',
-  },
-  rollupInputOptions: {
-    external: require('./external-packages'),
+  alias: [
+    {
+      find: /^\/@\//,
+      replacement: join(process.cwd(), './src/preload') + '/',
+    },
+  ],
+  build: {
+    outDir: 'dist/source/preload',
+    assetsDir: '.',
+    lib: {
+      entry: 'src/preload/index.ts',
+      formats: ['cjs'],
+    },
+    rollupOptions: {
+      external: require('./external-packages'),
+      output: {
+        entryFileNames: '[name].[format].js',
+        chunkFileNames: '[name].[format].js',
+        assetFileNames: '[name].[ext]',
+      },
+    },
   },
 };
