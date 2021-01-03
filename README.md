@@ -2,7 +2,11 @@
 
 > Vite+Electron = 🔥
 
-This template uses [Vite](https://github.com/vitejs/vite/) as bundler and [Electron builder](https://www.electron.build/) as compiler. By default, the interface use **Vue**, but you can easily use any other frameworks such as **React**, **Preact**, **Angular** or anything else.
+This is a secure template for electron applications. Written following the latest safety requirements, recommendations and best practices.
+
+Under the hood is used as a super fast bundler -- [Vite 2.0](https://vitejs.dev/) and [Electron builder](https://www.electron.build/) for compilation.
+
+By default, the interface use **Vue**, but you can easily use any other frameworks such as **React**, **Preact**, **Angular** or anything else.
 
 ## Support
 This template maintained by [Alex Kozack](https://github.com/cawa-93/). You can [💖 sponsor him](https://www.patreon.com/Kozack) for continued development of this template.
@@ -15,13 +19,13 @@ If you have ideas, questions or suggestions - **Welcome to [discussions](https:/
 - Template use the latest electron version with all the latest security patches.
 - The architecture of the application is built according to the security [guids](https://www.electronjs.org/docs/tutorial/security) and best practices.
 - The latest version of the [electron-builder](https://www.electron.build/) is used to compile the application.
-### Vite
-- [Vite](https://github.com/vitejs/vite/) is used to package all source codes. This is an extremely fast packer that has a bunch of great features. You can learn more about how it is arranged in [this](https://youtu.be/xXrhg26VCSc) video.
-- Vite [supports](https://github.com/vitejs/vite/#modes-and-environment-variables) reading `.env` files. My template has a separate command to generate `.d.ts` file with type definition your environment variables.
+### Vite 2.0
+- [Vite 2.0 BETA](https://vitejs.dev/) is used to package all source codes. This is an extremely fast packer that has a bunch of great features. You can learn more about how it is arranged in [this](https://youtu.be/xXrhg26VCSc) video.
+- Vite [supports](https://vitejs.dev/guide/env-and-mode.html) reading `.env` files. My template has a separate command to generate `.d.ts` file with type definition your environment variables.
 
 Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS / JSON Importing`, `CSS Modules`, `Web Assembly` and much more.
 
-[See all Vite features](https://github.com/vitejs/vite/#features).
+[See all Vite features](https://vitejs.dev/guide/features.html).
 ### TypeScript
 - The Latest TypeScript is used for all source code. 
 - **Vite** supports TypeScript out of the box. However, it does not support type checking.
@@ -55,7 +59,7 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 - ⚠ Linting -- work fine, but need review the configuration files and refactor its.
 - ✅ Vue.js devtools beta.
 - ⏳ Code signing -- planned.
-- ⏳ Vite 2.0 support -- planed.
+- ⚠ Vite 2.0 -- still in beta.
 
 ## How it works
 The template required a minimum [dependencies](https://github.com/cawa-93/vite-electron-builder/blob/main/package.json). Only **Vite** is used for building, nothing more.
