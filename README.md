@@ -35,7 +35,7 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 - Code formatting rules follow the latest TypeScript recommendations and best practices thanks to [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin).
 ### Vue 3
 - By default, web pages are built using the latest version of the [Vue](https://github.com/vuejs/vue-next). However, there are no problems with using any other frameworks or technologies.
-- ~~The latest version of the [Vue router](https://github.com/vuejs/vue-router-next) is also used~~. See [#6](https://github.com/cawa-93/vite-electron-builder/pull/6).
+- The latest version of the [Vue router](https://github.com/vuejs/vue-router-next) is also used.
 - Code formatting rules follow the latest Vue recommendations and best practices thanks to [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue).
 - Installed [Vue.js devtools beta](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg) with Vue 3 support.
 ### Continuous Integration
