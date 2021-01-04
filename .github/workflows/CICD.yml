@@ -5,12 +5,21 @@ on:
       - main
     paths-ignore:
       - '**.md'
+      - '.idea'
+      - '.gitignore'
   pull_request:
     paths-ignore:
       - '**.md'
+      - '.idea'
+      - '.gitignore'
+
+defaults:
+  run:
+    shell: 'bash'
 
 jobs:
   checks:
+    name: Lint & Typecheck
     runs-on: ubuntu-latest
 
     steps:
@@ -49,17 +58,35 @@ jobs:
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
 
+  test:
+    strategy:
+      matrix:
+        os: [ windows-latest ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - run: npm ci
+      - run: npm test
+
   draft_release:
-    needs: [ checks ]
-    if: github.event_name == 'push'
+    needs: [ test, checks ]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     outputs:
       changelog: ${{ steps.changelog.outputs.changelog }}
       version: ${{ steps.version.outputs.current-version }}
 
     steps:
-      - uses: hmarr/debug-action@master
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
       - uses: actions/setup-node@v1
         with:
           node-version: 14
@@ -92,12 +119,13 @@ jobs:
           release_name: v${{ steps.version.outputs.current-version }}
           body: ${{ steps.changelog.outputs.changelog }}
 
-  build:
+  compile:
     needs: [ draft_release ]
 
     strategy:
       matrix:
         os: [ windows-latest ]
+    #    To compile the application for different platforms, use:
     #    os: [ macos-latest, ubuntu-latest, windows-latest ]
 
     runs-on: ${{ matrix.os }}
@@ -108,19 +136,35 @@ jobs:
         with:
           node-version: 14
 
-      # TODO: Install not all dependencies, but only those required for this workflow
+      # TODO: Install not all dependencies, but only those required for this job
       - run: npm ci
 
       - name: Set version to package.json
         run: npm --no-git-tag-version version ${{ needs.draft_release.outputs.version }}
 
-      - run: npm run build
-
-      - name: Save changelog to file
+      # The easiest way to transfer release notes to a compiled application is create `release-notes.md` in the build resources.
+      # See https://github.com/electron-userland/electron-builder/issues/1511#issuecomment-310160119
+      - name: Prepare release notes
+        env:
+          RELEASE_NOTES: ${{ needs.draft_release.outputs.changelog }} # This needs to Escape quotes
         run: |
           mkdir ./build
-          echo "${{ needs.draft_release.outputs.changelog }}" > ./build/release-notes.md
+          echo "$RELEASE_NOTES" > ./build/release-notes.md
+          
+      - name: Build/release Electron app
+        uses: samuelmeuli/action-electron-builder@v1
+        with:
+          build_script_name: build
+          args: --config ./config/electron-builder.js
+          
+          # GitHub token, automatically provided to the action
+          # (No need to define this secret in the repo settings)
+          github_token: ${{ secrets.github_token }}
 
-      - run: npm run electron-builder
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # If the commit is tagged with a version (e.g. "v1.0.0"),
+          # release the app after building
+          release: true
+          
+          # Sometimes the build may fail due to a connection problem with Apple, GitHub, etc. servers. 
+          # This option will restart the build as many attempts as possible
+          max_attempts: 3

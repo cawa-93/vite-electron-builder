@@ -3,6 +3,6 @@ module.exports = {
     node: true,
   },
   rules: {
-    '@typescript-eslint/no-var-requires': 'off'
+    '@typescript-eslint/no-var-requires': 'off',
   },
-}
+};

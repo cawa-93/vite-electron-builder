@@ -21,5 +21,23 @@ module.exports = {
     'node_modules/**',
     'dist/**',
   ],
-}
+
+  rules: {
+    /**
+     * Having a semicolon helps the optimizer interpret your code correctly.
+     * This avoids rare errors in optimized code.
+     */
+    semi: ['error', 'always'],
+
+    /**
+     * This will make the history of changes in the hit a little cleaner
+     */
+    'comma-dangle': ['warn', 'always-multiline'],
+
+    /**
+     * Just for beauty
+     */
+    quotes: ['warn', 'single'],
+  },
+};
 
