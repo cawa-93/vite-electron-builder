@@ -20,16 +20,9 @@ import {useElectron} from '/@/use/electron';
 export default defineComponent({
   name: 'App',
   setup() {
-    const {versions: unsortedVersions} = useElectron();
+    const {versions} = useElectron();
 
-    const versions = Object.keys(unsortedVersions).sort().reduce(
-      (obj, key) => {
-        obj[key] = unsortedVersions[key];
-        return obj;
-      },
-      {} as NodeJS.ProcessVersions,
-    );
-
+    // It makes no sense to make "versions" reactive
     return {versions};
   },
 });
