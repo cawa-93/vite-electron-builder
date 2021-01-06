@@ -15,6 +15,7 @@ module.exports = {
   plugins: [vue()],
   build: {
     target: `chrome${chrome}`,
+    polyfillDynamicImport: false,
     base: '',
     outDir: join(process.cwd(), './dist/source/renderer'),
     assetsDir: '.',
