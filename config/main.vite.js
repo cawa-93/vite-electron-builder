@@ -5,12 +5,9 @@ const {node} = require('./electron-dep-versions');
  * @type {import('vite').UserConfig}
  */
 module.exports = {
-  alias: [
-    {
-      find: /^\/@\//,
-      replacement: join(process.cwd(), './src/main') + '/',
-    },
-  ],
+  alias: {
+    '/@/': join(process.cwd(), './src/main') + '/',
+  },
   build: {
     target: `node${node}`,
     outDir: 'dist/source/main',

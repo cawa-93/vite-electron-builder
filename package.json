@@ -8,7 +8,7 @@
     "prebuild": "npm run buildEnvTypes",
     "build": "bash ./bin/build.sh",
     "precompile": "cross-env MODE=production npm run build",
-    "compile": "electron-builder build --config ./config/electron-builder.js",
+    "compile": "electron-builder build --config ./config/electron-builder.js --dir",
     "pretest": "cross-env MODE=test npm run build",
     "test": "node ./tests/app.spec.js",
     "prewatch": "npm run buildEnvTypes",
@@ -30,7 +30,7 @@
     "eslint-plugin-vue": "^7.4.0",
     "spectron": "^13.0.0",
     "typescript": "^4.1.3",
-    "vite": "^2.0.0-beta.9"
+    "vite": "^2.0.0-beta.10"
   },
   "dependencies": {
     "electron-updater": "^4.3.5",

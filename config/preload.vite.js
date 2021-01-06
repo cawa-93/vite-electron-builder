@@ -5,12 +5,9 @@ const {chrome} = require('./electron-dep-versions');
  * @type {import('vite').UserConfig}
  */
 module.exports = {
-  alias: [
-    {
-      find: /^\/@\//,
-      replacement: join(process.cwd(), './src/preload') + '/',
-    },
-  ],
+  alias: {
+    '/@/': join(process.cwd(), './src/preload') + '/',
+  },
   build: {
     target: `chrome${chrome}`,
     outDir: 'dist/source/preload',
