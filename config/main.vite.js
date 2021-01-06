@@ -1,4 +1,5 @@
 const {join} = require('path');
+const {node} = require('./electron-dep-versions');
 
 /**
  * @type {import('vite').UserConfig}
@@ -11,6 +12,7 @@ module.exports = {
     },
   ],
   build: {
+    target: `node${node}`,
     outDir: 'dist/source/main',
     assetsDir: '.',
     lib: {
