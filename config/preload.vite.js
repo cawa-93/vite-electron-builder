@@ -15,6 +15,7 @@ module.exports = {
     target: `chrome${chrome}`,
     outDir: 'dist/source/preload',
     assetsDir: '.',
+    minify: process.env.MODE === 'development' ? false : 'terser',
     lib: {
       entry: 'src/preload/index.ts',
       formats: ['cjs'],

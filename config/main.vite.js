@@ -15,6 +15,7 @@ module.exports = {
     target: `node${node}`,
     outDir: 'dist/source/main',
     assetsDir: '.',
+    minify: process.env.MODE === 'development' ? false : 'terser',
     lib: {
       entry: 'src/main/index.ts',
       formats: ['cjs'],
