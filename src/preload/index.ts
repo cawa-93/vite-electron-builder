@@ -1,6 +1,5 @@
 import {ContextBridge, contextBridge} from 'electron';
-
-const apiKey = 'electron';
+import {apiKey} from '/@/apiKey';
 
 /**
  * @see https://github.com/electron/electron/issues/21437#issuecomment-573522360
