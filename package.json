@@ -5,9 +5,9 @@
   "main": "main/index.cjs.js",
   "scripts": {
     "buildEnvTypes": "node ./bin/buildEnvTypes.js",
-    "__prebuild": "npm run buildEnvTypes",
+    "prebuild": "npm run buildEnvTypes",
     "build": "node ./bin/build.js",
-    "__precompile": "cross-env MODE=production npm run build",
+    "precompile": "cross-env MODE=production npm run build",
     "compile": "electron-builder build --config ./config/electron-builder.js --dir",
     "pretest": "cross-env MODE=test npm run build",
     "test": "node ./tests/app.spec.js",
