@@ -38,6 +38,6 @@
     "vue-router": "^4.0.2"
   },
   "optionalDependencies": {
-    "nodemon": "^2.0.6"
+    "nodemon": "^2.0.7"
   }
 }
