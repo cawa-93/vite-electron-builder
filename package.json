@@ -7,11 +7,11 @@
     "prebuild": "npm run buildEnvTypes",
     "build": "node ./bin/build.js",
     "precompile": "cross-env MODE=production npm run build",
-    "compile": "electron-builder build --config ./config/electron-builder.js --dir",
+    "compile": "electron-builder build --config ./config/electron-builder.js",
     "pretest": "cross-env MODE=test npm run build",
     "test": "node ./tests/app.spec.js",
     "prewatch": "npm run buildEnvTypes",
-    "watch": "cross-env MODE=development ./bin/watch.sh"
+    "watch": "node ./bin/watch.js"
   },
   "devDependencies": {
     "@types/electron-devtools-installer": "^2.2.0",
@@ -27,7 +27,7 @@
     "electron-releases": "^3.581.0",
     "eslint": "^7.17.0",
     "eslint-plugin-vue": "^7.4.1",
-    "nodemon": "^2.0.7",
+    "slash": "^3.0.0",
     "spectron": "^13.0.0",
     "typescript": "^4.1.3",
     "vite": "^2.0.0-beta.21"
