@@ -5,7 +5,7 @@ const {join} = require('path');
 const app = new Application({
   path: require('electron'),
   requireName: 'electronRequire',
-  args: [join(__dirname, '..')],
+  args: [join(__dirname, '../dist/source')],
 });
 
 app.start()
