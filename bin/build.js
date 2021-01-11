@@ -19,6 +19,10 @@ const generatePacjJson = () => {
   // Remove all bundled dependencies
   const external = require('../config/external-packages');
   for (const type of ['dependencies', 'devDependencies', 'optionalDependencies']) {
+    if (pjson[type] === undefined) {
+      continue;
+    }
+
     for (const key of Object.keys(pjson[type])) {
       if (!external.includes(key)) {
         delete pjson[type][key];
