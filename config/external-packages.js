@@ -1,9 +1,10 @@
-module.exports = [
+module.exports.external = [
   'electron',
   'electron-updater',
-  'electron-devtools-installer',
+];
 
-  // builtins
+
+module.exports.builtins = [
   'assert',
   'async_hooks',
   'buffer',
@@ -42,4 +43,9 @@ module.exports = [
   'v8',
   'vm',
   'zlib',
+];
+
+module.exports = [
+  ...module.exports.builtins,
+  ...module.exports.external,
 ];
