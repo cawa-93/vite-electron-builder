@@ -18,7 +18,7 @@ module.exports = {
       formats: ['cjs'],
     },
     rollupOptions: {
-      external: require('./external-packages'),
+      external: require('./external-packages').default,
       output: {
         entryFileNames: '[name].[format].js',
         chunkFileNames: '[name].[format].js',

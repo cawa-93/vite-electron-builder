@@ -11,15 +11,20 @@ const entryPoints = [
   join(process.cwd(), 'config/renderer.vite.js'),
 ];
 
+
 const buildEntryPoint = (configFile) => build({configFile, mode});
 
 const generatePackageJson = () => {
   const {writeFile} = require('fs/promises');
   const packageJson = require(join(process.cwd(), 'package.json'));
 
+  // Cleanup
+  delete packageJson.scripts;
+
   // Remove all bundled dependencies
-  const external = require('../config/external-packages');
-  for (const type of ['dependencies', 'devDependencies', 'optionalDependencies']) {
+  delete packageJson.devDependencies;
+  const {default: external} = require('../config/external-packages');
+  for (const type of ['dependencies', 'optionalDependencies']) {
     if (packageJson[type] === undefined) {
       continue;
     }
@@ -38,6 +43,7 @@ const generatePackageJson = () => {
   // Create new package.json
   return writeFile(join(process.cwd(), 'dist/source/package.json'), JSON.stringify(packageJson));
 };
+
 
 Promise.all(entryPoints.map(buildEntryPoint))
   .then(generatePackageJson)
