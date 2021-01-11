@@ -2,6 +2,9 @@ import {app, BrowserWindow} from 'electron';
 import {join} from 'path';
 import {format} from 'url';
 
+
+console.log(2);
+
 const gotTheLock = app.requestSingleInstanceLock();
 
 if (!gotTheLock) {
