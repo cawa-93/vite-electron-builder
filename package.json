@@ -25,7 +25,7 @@
     "electron": "^11.1.1",
     "electron-builder": "^22.9.1",
     "electron-devtools-installer": "^3.1.1",
-    "electron-releases": "^3.580.0",
+    "electron-releases": "^3.581.0",
     "eslint": "^7.17.0",
     "eslint-plugin-vue": "^7.4.0",
     "spectron": "^13.0.0",
