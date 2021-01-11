@@ -22,6 +22,7 @@ const generatePackageJson = () => {
   delete packageJson.scripts;
 
   // Remove all bundled dependencies
+  // Keep only `external` dependencies
   delete packageJson.devDependencies;
   const {default: external} = require('../config/external-packages');
   for (const type of ['dependencies', 'optionalDependencies']) {
