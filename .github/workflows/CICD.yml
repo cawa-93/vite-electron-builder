@@ -80,7 +80,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       changelog: ${{ steps.changelog.outputs.changelog }}
-      version: ${{ steps.version.outputs.current-version }}
 
     steps:
       - uses: actions/checkout@v2
@@ -94,9 +93,6 @@ jobs:
       - name: Get version from current date
         id: version
         run: echo "::set-output name=current-version::$(date '+%-y.%-m.%-d')"
-
-      - name: Set version to package.json
-        run: npm --no-git-tag-version version ${{ steps.version.outputs.current-version }}
 
       - name: Changelog
         uses: scottbrenner/generate-changelog-action@master
@@ -139,9 +135,6 @@ jobs:
       # TODO: Install not all dependencies, but only those required for this job
       - run: npm ci
 
-      - name: Set version to package.json
-        run: npm --no-git-tag-version version ${{ needs.draft_release.outputs.version }}
-
       # The easiest way to transfer release notes to a compiled application is create `release-notes.md` in the build resources.
       # See https://github.com/electron-userland/electron-builder/issues/1511#issuecomment-310160119
       - name: Prepare release notes
@@ -150,13 +143,13 @@ jobs:
         run: |
           mkdir ./build
           echo "$RELEASE_NOTES" > ./build/release-notes.md
-          
+
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:
           build_script_name: build
           args: --config ./config/electron-builder.js
-          
+
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
           github_token: ${{ secrets.github_token }}
@@ -164,7 +157,7 @@ jobs:
           # If the commit is tagged with a version (e.g. "v1.0.0"),
           # release the app after building
           release: true
-          
-          # Sometimes the build may fail due to a connection problem with Apple, GitHub, etc. servers. 
+
+          # Sometimes the build may fail due to a connection problem with Apple, GitHub, etc. servers.
           # This option will restart the build as many attempts as possible
           max_attempts: 3
