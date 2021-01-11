@@ -17,7 +17,7 @@ module.exports = {
     outDir: join(process.cwd(), './dist/source/renderer'),
     assetsDir: '.',
     rollupOptions: {
-      external: require('./external-packages'),
+      external: require('./external-packages').default,
     },
   },
 };
