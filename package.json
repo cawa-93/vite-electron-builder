@@ -1,6 +1,5 @@
 {
   "name": "vite-electron-builder",
-  "version": "0.0.0",
   "private": true,
   "main": "main/index.cjs.js",
   "scripts": {
