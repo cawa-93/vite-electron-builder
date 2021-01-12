@@ -3,7 +3,6 @@ import {join} from 'path';
 import {format} from 'url';
 
 
-
 const gotTheLock = app.requestSingleInstanceLock();
 
 if (!gotTheLock) {
