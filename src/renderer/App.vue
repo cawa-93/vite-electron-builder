@@ -11,9 +11,7 @@
 import {defineComponent} from 'vue';
 import AppNavigation from '/@/components/AppNavigation.vue';
 
-import {str} from '/@/demo';
 
-console.log(str);
 
 export default defineComponent({
   name: 'App',
