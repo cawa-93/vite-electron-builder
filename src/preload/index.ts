@@ -1,4 +1,4 @@
-import {ContextBridge, contextBridge, ipcRenderer} from 'electron';
+import {ContextBridge, contextBridge} from 'electron';
 
 const apiKey = 'electron';
 
@@ -6,8 +6,7 @@ const apiKey = 'electron';
  * @see https://github.com/electron/electron/issues/21437#issuecomment-573522360
  */
 const api = {
-  data: ['foo', 'bar'],
-  doThing: () => ipcRenderer.send('do-a-thing'),
+  versions: process.versions,
 } as const;
 
 

@@ -1,38 +1,40 @@
 {
   "name": "vite-electron-builder",
-  "version": "0.0.0",
   "private": true,
-  "main": "dist/source/main/index.js",
+  "main": "main/index.cjs.js",
   "scripts": {
     "buildEnvTypes": "node ./bin/buildEnvTypes.js",
     "prebuild": "npm run buildEnvTypes",
-    "build": "bash ./bin/build.sh",
-    "precompile": "cross-env NODE_ENV=production npm run build",
+    "build": "node ./bin/build.js",
+    "precompile": "cross-env MODE=production npm run build",
     "compile": "electron-builder build --config ./config/electron-builder.js",
-    "pretest": "cross-env NODE_ENV=test npm run build",
+    "pretest": "cross-env MODE=test npm run build",
     "test": "node ./tests/app.spec.js",
     "prewatch": "npm run buildEnvTypes",
-    "watch": "cross-env NODE_ENV=development ./bin/watch.sh"
+    "watch": "node ./bin/watch.js"
   },
   "devDependencies": {
     "@types/electron-devtools-installer": "^2.2.0",
-    "@typescript-eslint/eslint-plugin": "^4.11.0",
-    "@typescript-eslint/parser": "^4.11.0",
-    "@vuedx/typecheck": "^0.4.1",
+    "@typescript-eslint/eslint-plugin": "^4.12.0",
+    "@typescript-eslint/parser": "^4.12.0",
+    "@vitejs/plugin-vue": "^1.0.5",
+    "@vue/compiler-sfc": "^3.0.5",
+    "@vuedx/typecheck": "^0.3.1-insiders-1609034385.0",
     "cross-env": "^7.0.3",
     "electron": "^11.1.1",
     "electron-builder": "^22.9.1",
     "electron-devtools-installer": "^3.1.1",
-    "eslint": "^7.16.0",
-    "eslint-plugin-vue": "^7.4.0",
+    "electron-releases": "^3.581.0",
+    "eslint": "^7.17.0",
+    "eslint-plugin-vue": "^7.4.1",
+    "slash": "^3.0.0",
     "spectron": "^13.0.0",
     "typescript": "^4.1.3",
-    "vite": "^1.0.0-rc.13"
+    "vite": "^2.0.0-beta.23"
   },
   "dependencies": {
-    "electron-updater": "^4.3.5"
-  },
-  "optionalDependencies": {
-    "nodemon": "^2.0.6"
+    "electron-updater": "^4.3.5",
+    "vue": "^3.0.5",
+    "vue-router": "^4.0.2"
   }
 }

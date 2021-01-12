@@ -1,26 +1,29 @@
 const {join} = require('path');
+const {chrome} = require('./electron-dep-versions');
 
 /**
- * Vite shared config, assign alias and root dir
  * @type {import('vite').UserConfig}
  */
 module.exports = {
-  entry: 'src/preload/index',
-  outDir: 'dist/source/preload',
-  assetsDir: '.',
-  mode: process.env.NODE_ENV || 'production',
   alias: {
-    '/@/': join(__dirname, '../src/preload'),
+    '/@/': join(process.cwd(), './src/preload') + '/',
   },
-  rollupOutputOptions: {
-    format: 'cjs',
-
-
-    entryFileNames: '[name].js',
-    chunkFileNames: '[name].js',
-    assetFileNames: '[name].[ext]',
-  },
-  rollupInputOptions: {
-    external: require('./external-packages'),
+  build: {
+    target: `chrome${chrome}`,
+    outDir: 'dist/source/preload',
+    assetsDir: '.',
+    minify: process.env.MODE === 'development' ? false : 'terser',
+    lib: {
+      entry: 'src/preload/index.ts',
+      formats: ['cjs'],
+    },
+    rollupOptions: {
+      external: require('./external-packages').default,
+      output: {
+        entryFileNames: '[name].[format].js',
+        chunkFileNames: '[name].[format].js',
+        assetFileNames: '[name].[ext]',
+      },
+    },
   },
 };

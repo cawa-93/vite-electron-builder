@@ -1,24 +1,29 @@
 const {join} = require('path');
+const {node} = require('./electron-dep-versions');
 
 /**
- * Vite shared config, assign alias and root dir
  * @type {import('vite').UserConfig}
  */
 module.exports = {
-  entry: 'src/main/index',
-  outDir: 'dist/source/main',
-  assetsDir: '.',
-  mode: process.env.NODE_ENV || 'production',
   alias: {
-    '/@/': join(__dirname, '../src/main'),
+    '/@/': join(process.cwd(), './src/main') + '/',
   },
-  rollupOutputOptions: {
-    format: 'cjs',
-    entryFileNames: '[name].js',
-    chunkFileNames: '[name].js',
-    assetFileNames: '[name].[ext]',
-  },
-  rollupInputOptions: {
-    external: require('./external-packages'),
+  build: {
+    target: `node${node}`,
+    outDir: 'dist/source/main',
+    assetsDir: '.',
+    minify: process.env.MODE === 'development' ? false : 'terser',
+    lib: {
+      entry: 'src/main/index.ts',
+      formats: ['cjs'],
+    },
+    rollupOptions: {
+      external: require('./external-packages').default,
+      output: {
+        entryFileNames: '[name].[format].js',
+        chunkFileNames: '[name].[format].js',
+        assetFileNames: '[name].[ext]',
+      },
+    },
   },
 };

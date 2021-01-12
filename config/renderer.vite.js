@@ -1,22 +1,24 @@
 const {join} = require('path');
-
+const vue = require('@vitejs/plugin-vue');
+const {chrome} = require('./electron-dep-versions');
 /**
- * Vite shared config, assign alias and root dir
  * @type {import('vite').UserConfig}
  */
 module.exports = {
   root: join(process.cwd(), './src/renderer'),
-  outDir: join(process.cwd(), 'dist/source/renderer'),
-  base: '',
-  mode: process.env.NODE_ENV || 'production',
-  rollupOutputOptions: {
-    entryFileNames: '[name].js',
-    chunkFileNames: '[name].js', assetFileNames: '[name].[ext]',
-  },
-  optimizeDeps: {
-    exclude: require('./external-packages'),
-  },
   alias: {
-    '/@/': join(__dirname, '../src/renderer'),
+    '/@/': join(process.cwd(), './src/renderer') + '/',
+  },
+  plugins: [vue()],
+  build: {
+    target: `chrome${chrome}`,
+    polyfillDynamicImport: false,
+    base: '',
+    outDir: '../../dist/source/renderer',
+    assetsDir: '.',
+    rollupOptions: {
+      external: require('./external-packages').default,
+    },
   },
 };
+
