@@ -65,6 +65,13 @@ function startElectron() {
   });
 
 
+  // Run Vite server
+  await server.listen();
+
+
+  // Pass current Vite dev server port to Main process
+  process.env.VITE_DEV_SERVER_PORT = server.config.server.port;
+
   // Build main entrypoint
   const buildMain = () => build({mode, configFile: join(process.cwd(), 'config/main.vite.js')});
   await buildMain();
@@ -82,8 +89,6 @@ function startElectron() {
   });
 
 
-  // Run Vite server
-  await server.listen();
 
   // Run electron app
   startElectron();

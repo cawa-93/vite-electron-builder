@@ -14,7 +14,7 @@ module.exports = {
     target: `chrome${chrome}`,
     polyfillDynamicImport: false,
     base: '',
-    outDir: join(process.cwd(), './dist/source/renderer'),
+    outDir: '../../dist/source/renderer',
     assetsDir: '.',
     rollupOptions: {
       external: require('./external-packages').default,

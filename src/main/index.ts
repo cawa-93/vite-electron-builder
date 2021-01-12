@@ -3,7 +3,6 @@ import {join} from 'path';
 import {format} from 'url';
 
 
-console.log(2);
 
 const gotTheLock = app.requestSingleInstanceLock();
 
@@ -11,8 +10,16 @@ if (!gotTheLock) {
   app.quit();
 } else {
 
+
+  /**
+   * Workaround for TypeScript bug
+   * @see https://github.com/microsoft/TypeScript/issues/41468#issuecomment-727543400
+   */
+  const env = import.meta.env;
+
+
   // Install "Vue.js devtools BETA"
-  if (import.meta.env.MODE === 'development') {
+  if (env.MODE === 'development') {
     app.whenReady()
       .then(() => import('electron-devtools-installer'))
       .then(({default: installExtension}) => {
@@ -30,13 +37,18 @@ if (!gotTheLock) {
       show: false,
       webPreferences: {
         preload: join(__dirname, '../preload/index.cjs.js'),
-        contextIsolation: import.meta.env.MODE !== 'test',   // Spectron tests can't work with contextIsolation: true
-        enableRemoteModule: import.meta.env.MODE === 'test', // Spectron tests can't work with enableRemoteModule: false
+        contextIsolation: env.MODE !== 'test',   // Spectron tests can't work with contextIsolation: true
+        enableRemoteModule: env.MODE === 'test', // Spectron tests can't work with enableRemoteModule: false
       },
     });
 
-    const URL = import.meta.env.MODE === 'development'
-      ? 'http://localhost:3000' // TODO: Vite server can run on a non-3000 port. Need to fix this
+    /**
+     * URL for main window.
+     * Vite dev server for development.
+     * `file://../renderer/index.html` for production and test
+     */
+    const URL = env.MODE === 'development'
+      ? `http://localhost:${env.VITE_DEV_SERVER_PORT || 3000}`
       : format({
         protocol: 'file',
         pathname: join(__dirname, '../renderer/index.html'),
@@ -47,7 +59,7 @@ if (!gotTheLock) {
     mainWindow.maximize();
     mainWindow.show();
 
-    if (import.meta.env.MODE === 'development') {
+    if (env.MODE === 'development') {
       mainWindow.webContents.openDevTools();
     }
   }
@@ -75,7 +87,7 @@ if (!gotTheLock) {
 
 
   // Auto-updates
-  if (import.meta.env.PROD) {
+  if (env.PROD) {
     app.whenReady()
       .then(() => import('electron-updater'))
       .then(({autoUpdater}) => autoUpdater.checkForUpdatesAndNotify())
