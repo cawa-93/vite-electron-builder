@@ -1,0 +1,13 @@
+runner:
+  typecheck-main:
+    cmd: npx vuedx-typecheck ./src/main --no-pretty --format rdjson # (required)
+    errorformat: # (optional if there is supported format for <tool-name>. see reviewdog -list)
+      - rdjson
+  typecheck-preload:
+    cmd: npx @vuedx/vuedx-typecheck ./src/preload --no-pretty --format rdjson # (required)
+    errorformat: # (optional if there is supported format for <tool-name>. see reviewdog -list)
+      - rdjson
+  typecheck-renderer:
+    cmd: npx vuedx-typecheck ./src/renderer --no-pretty --format rdjson # (required)
+    errorformat: # (optional if there is supported format for <tool-name>. see reviewdog -list)
+      - rdjson
