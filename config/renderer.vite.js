@@ -3,6 +3,7 @@ const vue = require('@vitejs/plugin-vue');
 const {chrome} = require('./electron-dep-versions');
 /**
  * @type {import('vite').UserConfig}
+ * @see https://vitejs.dev/config/
  */
 module.exports = {
   root: join(process.cwd(), './src/renderer'),

@@ -3,6 +3,7 @@ const {node} = require('./electron-dep-versions');
 
 /**
  * @type {import('vite').UserConfig}
+ * @see https://vitejs.dev/config/
  */
 module.exports = {
   alias: {
