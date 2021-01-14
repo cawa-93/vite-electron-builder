@@ -7,7 +7,7 @@
     "prebuild": "npm run buildEnvTypes",
     "build": "node ./bin/build.js",
     "precompile": "cross-env MODE=production npm run build",
-    "compile": "electron-builder build --config ./config/electron-builder.js --dir",
+    "compile": "electron-builder build --config ./config/electron-builder.js",
     "pretest": "cross-env MODE=test npm run build",
     "test": "node ./tests/app.spec.js",
     "prewatch": "npm run buildEnvTypes",
@@ -34,7 +34,6 @@
   },
   "dependencies": {
     "electron-updater": "^4.3.5",
-    "element3": "0.0.39",
     "vue": "^3.0.5",
     "vue-router": "^4.0.2"
   }
