@@ -48,7 +48,7 @@ if (!gotTheLock) {
      * `file://../renderer/index.html` for production and test
      */
     const URL = env.MODE === 'development'
-      ? `http://localhost:${env.VITE_DEV_SERVER_PORT || 3000}`
+      ? env.VITE_DEV_SERVER_URL
       : format({
         protocol: 'file',
         pathname: join(__dirname, '../renderer/index.html'),
