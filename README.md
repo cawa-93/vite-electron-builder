@@ -17,23 +17,23 @@ If you have ideas, questions or suggestions - **Welcome to [discussions](https:/
 
 ## Features
 
-### Electron
+### Electron ![Electron version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/electron?label=version)
 - Template use the latest electron version with all the latest security patches.
 - The architecture of the application is built according to the security [guids](https://www.electronjs.org/docs/tutorial/security) and best practices.
 - The latest version of the [electron-builder](https://www.electron.build/) is used to compile the application.
-### Vite 2.0
+### Vite ![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vite?label=version)
 - [Vite 2.0 BETA](https://vitejs.dev/) is used to package all source codes. This is an extremely fast packer that has a bunch of great features. You can learn more about how it is arranged in [this](https://youtu.be/xXrhg26VCSc) video.
 - Vite [supports](https://vitejs.dev/guide/env-and-mode.html) reading `.env` files. My template has a separate command to generate `.d.ts` file with type definition your environment variables.
 
 Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS / JSON Importing`, `CSS Modules`, `Web Assembly` and much more.
 
 [See all Vite features](https://vitejs.dev/guide/features.html).
-### TypeScript
+### TypeScript ![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/typescript?label=version)
 - The Latest TypeScript is used for all source code. 
 - **Vite** supports TypeScript out of the box. However, it does not support type checking.
 - Type checking is performed in both `.ts` and `.vue` files thanks to [@vuedx/typecheck](https://github.com/znck/vue-developer-experience/tree/master/packages/typecheck).
 - Code formatting rules follow the latest TypeScript recommendations and best practices thanks to [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin).
-### Vue 3
+### Vue ![GitHub package.json dependency version (prod)](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/vue?label=version)
 - By default, web pages are built using the latest version of the [Vue](https://github.com/vuejs/vue-next). However, there are no problems with using any other frameworks or technologies.
 - The latest version of the [Vue router](https://github.com/vuejs/vue-router-next) is also used.
 - Code formatting rules follow the latest Vue recommendations and best practices thanks to [eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue).
@@ -57,7 +57,7 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 - ⚠ Development mode for main and preload endpoints -- work fine, but it is possible to reboot the backend faster ([vite#972](https://github.com/vitejs/vite/issues/972))
 - ✅ Compile the app with electron builder in CD -- work.
 - ✅ Auto update -- work.
-- ✅ Typechecking in `.ts` and `.vue` files -- work thanks [@vuedx/typecheck](https://github.com/znck/vue-developer-experience/tree/master/packages/typecheck) (🚨Alpha)
+- ✅ Typechecking in `.ts` and `.vue` files -- work thanks [@vuedx/typecheck](https://github.com/znck/vue-developer-experience/tree/master/packages/typecheck) ![GitHub package.json dependency version (dev dep on branch)](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/@vuedx/typecheck?label=%20)
 - ⚠ Linting -- work fine, but need review the configuration files and refactor its.
 - ✅ Vue.js devtools beta.
 - ⏳ Code signing -- planned.
