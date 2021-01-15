@@ -26,5 +26,6 @@ module.exports = {
         assetFileNames: '[name].[ext]',
       },
     },
+    emptyOutDir: true,
   },
 };

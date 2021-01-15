@@ -20,6 +20,7 @@ module.exports = {
     rollupOptions: {
       external: require('./external-packages').default,
     },
+    emptyOutDir: true,
   },
 };
 
