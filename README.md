@@ -4,7 +4,7 @@
 
 This is a secure template for electron applications. Written following the latest safety requirements, recommendations and best practices.
 
-Under the hood is used [Vite 2.0][vite] -- super fast, nextgen bundler, and [electron-builder] for compilation.
+Under the hood is used [Vite 2.0][vite] — super fast, nextgen bundler, and [electron-builder] for compilation.
 
 By default, the **Vue framework** is used for the interface, but you can easily use any other frameworks such as **React**, **Preact**, **Angular**, **Svelte** or anything else.
 
@@ -68,16 +68,16 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 
 
 ## Status
-- ✅ Building main and renderer endpoints in production mode -- works great.
-- ✅ Development mode with hot reload for renderer endpoint -- works great.
-- ⚠ Development mode for main and preload endpoints -- work fine, but it is possible to reboot the backend faster ([vite#1434](https://github.com/vitejs/vite/issues/1434))
-- ✅ Compile the app with electron builder in CD -- work.
-- ✅ Auto update -- work.
-- ✅ Typechecking in `.ts` and `.vue` files -- work thanks [![@vuedx/typecheck](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/@vuedx/typecheck)][@vuedx/typecheck]
-- ⚠ Linting -- work fine, but need review the configuration files and refactor its.
+- ✅ Building main and renderer endpoints in production mode — works great.
+- ✅ Development mode with hot reload for renderer endpoint — works great.
+- ⚠ Development mode for main and preload endpoints — work fine, but it is possible to reboot the backend faster ([vite#1434](https://github.com/vitejs/vite/issues/1434))
+- ✅ Compile the app with electron builder in CD — work.
+- ✅ Auto update — work.
+- ✅ Typechecking in `.ts` and `.vue` files — work thanks [![@vuedx/typecheck](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/@vuedx/typecheck)][@vuedx/typecheck]
+- ⚠ Linting — work fine, but need review the configuration files and refactor its.
 - ✅ Vue.js devtools beta.
-- ⏳ Code signing -- planned.
-- ⚠ Vite 2.0 -- still in beta.
+- ⏳ Code signing — planned.
+- ⚠ Vite 2.0 — still in beta.
 
 
 
@@ -176,9 +176,9 @@ When running building, environment variables are loaded from the following files
 This project requires Node 14 or later.
 1. Fork this repository
 1. Run `npm install` to install all dependencies
-1. Build compile app for production -- `npm run compile`
-1. Run development environment with file watching -- `npm run watch`
-1. Run tests -- `npm test`
+1. Build compile app for production — `npm run compile`
+1. Run development environment with file watching — `npm run watch`
+1. Run tests — `npm test`
 
 
 
