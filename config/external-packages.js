@@ -1,4 +1,4 @@
-/*
+/**
  By default, vite optimizes and packs all the necessary dependencies into your bundle,
  so there is no need to supply them in your application as a node module.
  Unfortunately, vite cannot optimize any dependencies:
