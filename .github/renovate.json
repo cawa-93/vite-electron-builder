@@ -1,0 +1,40 @@
+{
+  "extends": ["config:base", ":semanticCommits"],
+  "baseBranches": ["main"],
+  "bumpVersion": "patch",
+  "packageRules": [
+    {
+      "packagePatterns": ["*"],
+      "semanticCommitType": "build"
+    },
+    {
+      "depTypeList": ["dependencies"],
+      "semanticCommitType": "fix"
+    },
+    {
+      "depTypeList": ["devDependencies"],
+      "updateTypes": ["patch", "pin", "digest"],
+      "automerge": true
+    },
+    {
+      "packagePatterns": ["^eslint", "^@typescript-eslint"],
+      "groupName": "eslint"
+    },
+    {
+      "packageNames": ["vite"],
+      "packagePatterns": ["^@vite"],
+      "groupName": "vite monorepo"
+    },
+    {
+      "packageNames": ["electron", "electron-releases"],
+      "groupName": "electron"
+    },
+    {
+      "packageNames": ["electron-releases"],
+      "automerge": true
+    }
+  ],
+  "prHourlyLimit": 10,
+  "prConcurrentLimit": 10,
+  "rangeStrategy": "bump"
+}

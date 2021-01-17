@@ -64,13 +64,19 @@ function startElectron() {
     });
   });
 
-
   // Run Vite server
   await server.listen();
 
 
-  // Pass current Vite dev server port to Main process
-  process.env.VITE_DEV_SERVER_PORT = server.config.server.port;
+  // Determining the current URL of the server. It depend on /config/renderer.vite.js
+  // Write a value to an environment variable to pass it to the main process.
+  {
+    const protocol = `http${server.config.server.https ? 's' : ''}:`;
+    const host = server.config.server.host || 'localhost';
+    const port = server.config.server.port; // Vite searches for and occupies the first free port: 3000, 3001, 3002 and so on
+    const path = '/';
+    process.env.VITE_DEV_SERVER_URL = `${protocol}//${host}:${port}${path}`;
+  }
 
   // Build main entrypoint
   const buildMain = () => build({mode, configFile: join(process.cwd(), 'config/main.vite.js')});
@@ -87,7 +93,6 @@ function startElectron() {
 
     return buildMain();
   });
-
 
 
   // Run electron app
