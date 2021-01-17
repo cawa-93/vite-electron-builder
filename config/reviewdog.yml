@@ -1,10 +1,10 @@
 runner:
   typecheck-main:
-    cmd: npx vuedx-typecheck ./src/main --no-pretty --format rdjson | grep "\{"
+    cmd: npx vuedx-typecheck ./src/main --no-pretty --format rdjson
     format: rdjson
   typecheck-preload:
-    cmd: npx @vuedx/vuedx-typecheck ./src/preload --no-pretty --format rdjson | grep "\{"
+    cmd: npx vuedx-typecheck ./src/preload --no-pretty --format rdjson
     format:  rdjson
   typecheck-renderer:
-    cmd: npx vuedx-typecheck ./src/renderer --no-pretty --format rdjson | grep "\{"
+    cmd: npx vuedx-typecheck ./src/renderer --no-pretty --format rdjson
     format:  rdjson
