@@ -188,7 +188,7 @@ This project requires Node 14 or later.
 [electron-builder]: https://www.electron.build/
 [vue]: https://v3.vuejs.org/
 [vue-router]: https://github.com/vuejs/vue-router-next/
-[typescript]: https://typescriptlang.org/
+[typescript]: https://www.typescriptlang.org/
 [spectron]: https://www.electronjs.org/spectron/
 [@vuedx/typecheck]: https://github.com/znck/vue-developer-experience/tree/master/packages/typecheck
 [eslint-plugin-vue]: https://github.com/vuejs/eslint-plugin-vue
