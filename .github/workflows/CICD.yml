@@ -38,23 +38,25 @@ jobs:
           if_true: "github-pr-review"
           if_false: "github-check"
 
-#      - name: Run ESLint
-#        uses: reviewdog/action-eslint@v1
-#        with:
-#          fail_on_error: true
-#          github_token: ${{ secrets.github_token }}
-#          eslint_flags: '. --ext js,ts,vue'
-#          reporter: ${{ steps.reporter.outputs.value }}
+      - name: Run ESLint
+        uses: reviewdog/action-eslint@v1
+        with:
+          fail_on_error: true
+          github_token: ${{ secrets.github_token }}
+          eslint_flags: '. --ext js,ts,vue'
+          reporter: ${{ steps.reporter.outputs.value }}
 
 
       - uses: reviewdog/action-setup@v1
 
-      - run: reviewdog -conf ./config/reviewdog.yml -fail-on-error -reporter=${{ steps.reporter.outputs.value }}
-        env:
+      - env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
+        run: |
+          npx vuedx-typecheck ./src/main --no-pretty --format rdjson | reviewdog -name typecheck -f rdjson -fail-on-error -reporter=${{ steps.reporter.outputs.value }}
+          npx vuedx-typecheck ./src/preload --no-pretty --format rdjson | reviewdog -name typecheck -f rdjson -fail-on-error -reporter=${{ steps.reporter.outputs.value }}
+          npx vuedx-typecheck ./src/renderer --no-pretty --format rdjson | reviewdog -name typecheck -f rdjson -fail-on-error -reporter=${{ steps.reporter.outputs.value }}
 
   test:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     strategy:
       matrix:
         os: [ windows-latest ]
