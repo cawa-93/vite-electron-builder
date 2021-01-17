@@ -11,8 +11,7 @@
     "pretest": "cross-env MODE=test npm run build",
     "test": "node ./tests/app.spec.js",
     "prewatch": "npm run buildEnvTypes",
-    "watch": "node ./bin/watch.js",
-    "tc": "vuedx-typecheck ./src/renderer --no-pretty --format rdjson"
+    "watch": "node ./bin/watch.js"
   },
   "devDependencies": {
     "@types/electron-devtools-installer": "^2.2.0",
