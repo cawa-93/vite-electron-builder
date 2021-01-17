@@ -51,7 +51,7 @@ jobs:
 
       - env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
-        run: npx vuedx-typecheck ./src/main --no-pretty
+        run: reviewdog -conf ./config/reviewdog.yml -fail-on-error -reporter=${{ steps.reporter.outputs.value }}
 
   test:
     strategy:
