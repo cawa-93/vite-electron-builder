@@ -1,40 +1,52 @@
 {
-  "extends": ["config:base", ":semanticCommits"],
-  "baseBranches": ["main"],
+  "extends": [
+    "config:base",
+    ":semanticCommits",
+    ":automergeTypes"
+  ],
+  "baseBranches": [
+    "main"
+  ],
   "bumpVersion": "patch",
   "packageRules": [
     {
-      "packagePatterns": ["*"],
+      "packagePatterns": [
+        "*"
+      ],
       "semanticCommitType": "build"
     },
     {
-      "depTypeList": ["dependencies"],
+      "depTypeList": [
+        "dependencies"
+      ],
       "semanticCommitType": "fix"
     },
     {
-      "depTypeList": ["devDependencies"],
-      "updateTypes": ["patch", "pin", "digest"],
+      "depTypeList": [
+        "devDependencies"
+      ],
+      "updateTypes": [
+        "patch",
+        "pin",
+        "digest"
+      ],
       "automerge": true
     },
     {
-      "packagePatterns": ["^eslint", "^@typescript-eslint"],
-      "groupName": "eslint"
+      "sourceUrlPrefixes": [
+        "https://github.com/vitejs/vite/"
+      ],
+      "groupName": "Vite monorepo packages"
     },
     {
-      "packageNames": ["vite"],
-      "packagePatterns": ["^@vite"],
-      "groupName": "vite monorepo"
-    },
-    {
-      "packageNames": ["electron", "electron-releases"],
-      "groupName": "electron"
-    },
-    {
-      "packageNames": ["electron-releases"],
-      "automerge": true
+      "packageNames": [
+        "electron-releases"
+      ],
+      "automerge": true,
+      "requiredStatusChecks": null,
+      "commitBody": "[skip ci]"
     }
   ],
   "prHourlyLimit": 10,
-  "prConcurrentLimit": 10,
   "rangeStrategy": "bump"
 }
