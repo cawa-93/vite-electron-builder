@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const {loadEnv} = require('vite');
+const {resolveConfig} = require('vite');
 const {writeFileSync} = require('fs');
 const {resolve} = require('path');
 
@@ -8,25 +8,21 @@ const {resolve} = require('path');
  * @param {string[]} modes
  * @param {string} filePath
  */
-function buildMode(modes, filePath) {
-  const interfaces = modes.map(mode => {
-    const name = `${mode}Env`;
-    const envs = {
-      MODE: mode,
-      PROD: mode === 'production',
-      DEV: mode !== 'production',
-      ...loadEnv(mode, process.cwd(), ''),
-    };
+async function buildMode(modes, filePath) {
+  const interfaces = await Promise.all(modes.map(async mode => {
+    const modeInterfaceName = `${mode}Env`;
+    const {env} = await resolveConfig({mode, configFile: resolve(process.cwd(), 'config/main.vite.js')}, 'build');
 
-    const interfaceDeclaration = `interface ${name} ${JSON.stringify(envs)}`;
+    const interfaceDeclaration = `interface ${modeInterfaceName} ${JSON.stringify(env)}`;
 
-    return {name, interfaceDeclaration};
-  });
+    return {modeInterfaceName, interfaceDeclaration};
+  }));
 
-  const str = interfaces.map(({interfaceDeclaration}) => interfaceDeclaration).join('\n');
-  const name = interfaces.map(({name}) => name).join(' | ');
+  const interfacesDeclarations = interfaces.map(({interfaceDeclaration}) => interfaceDeclaration).join('\n');
+  const type = interfaces.map(({modeInterfaceName}) => modeInterfaceName).join(' | ');
 
-  writeFileSync(filePath, `${str}\nexport type ImportMetaEnv = ${name}\n`, {encoding: 'utf-8'});
+  writeFileSync(filePath, `${interfacesDeclarations}\nexport type ImportMetaEnv = ${type}\n`, {encoding: 'utf-8'});
 }
 
-buildMode(['production', 'development', 'test'], resolve(process.cwd(), './types/env.d.ts'));
+buildMode(['production', 'development', 'test'], resolve(process.cwd(), './types/env.d.ts'))
+  .catch(console.error);
