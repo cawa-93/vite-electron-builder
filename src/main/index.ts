@@ -2,7 +2,7 @@ import {app, BrowserWindow} from 'electron';
 import {join} from 'path';
 import {format} from 'url';
 
-
+const a: number = 'asd';
 
 const gotTheLock = app.requestSingleInstanceLock();
 
