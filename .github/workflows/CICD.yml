@@ -7,18 +7,37 @@ on:
       - '**.md'
       - '.idea'
       - '.gitignore'
+      - '.github'
+      - '!.github/workflows/CICD.yml'
   pull_request:
     paths-ignore:
       - '**.md'
       - '.idea'
       - '.gitignore'
+      - '.github'
+      - '!.github/workflows/CICD.yml'
 
 defaults:
   run:
     shell: 'bash'
 
 jobs:
+  skip-ci-check:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.ci-skip-step.outputs.ci-skip }}
+      skip-not: ${{ steps.ci-skip-step.outputs.ci-skip-not }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - id: ci-skip-step
+        uses: mstachniuk/ci-skip@master
+
   lint:
+    needs: skip-ci-check
+    if: ${{ needs.skip-ci-check.outputs.skip == 'false' }}
+
     runs-on: ubuntu-latest
 
     steps:
@@ -46,6 +65,9 @@ jobs:
           reporter: ${{ steps.reporter.outputs.value }}
 
   typechecking:
+    needs: skip-ci-check
+    if: ${{ needs.skip-ci-check.outputs.skip == 'false' }}
+
     runs-on: ubuntu-latest
 
     steps:
@@ -77,6 +99,9 @@ jobs:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
 
   test:
+    needs: skip-ci-check
+    if: ${{ needs.skip-ci-check.outputs.skip == 'false' }}
+
     strategy:
       matrix:
         os: [ windows-latest ]
