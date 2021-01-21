@@ -4,6 +4,9 @@
     ":semanticCommits",
     ":automergeTypes"
   ],
+  "labels": [
+    "dependencies"
+  ],
   "baseBranches": [
     "main"
   ],
