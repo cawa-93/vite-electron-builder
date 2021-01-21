@@ -33,6 +33,9 @@ jobs:
           fetch-depth: 0
       - id: ci-skip-step
         uses: mstachniuk/ci-skip@master
+        with:
+          commit-filter: '[ci skip];[skip ci]'
+          commit-filter-separator: ';'
 
   lint:
     needs: skip-ci-check
