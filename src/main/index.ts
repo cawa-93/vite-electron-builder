@@ -2,7 +2,7 @@ import {app, BrowserWindow} from 'electron';
 import {join} from 'path';
 import {format} from 'url';
 
-// @ts-expect-error
+// @ts-expect-error for tests
 const a: number = 'asd';
 console.log(a);
 
