@@ -4,7 +4,7 @@ import {format} from 'url';
 
 // @ts-expect-error
 const a: number = 'asd';
-console.log(a)
+console.log(a);
 
 const gotTheLock = app.requestSingleInstanceLock();
 
