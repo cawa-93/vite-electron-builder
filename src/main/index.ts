@@ -2,7 +2,9 @@ import {app, BrowserWindow} from 'electron';
 import {join} from 'path';
 import {format} from 'url';
 
+// @ts-expect-error
 const a: number = 'asd';
+console.log(a)
 
 const gotTheLock = app.requestSingleInstanceLock();
 
