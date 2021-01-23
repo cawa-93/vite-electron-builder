@@ -43,6 +43,13 @@
     },
     {
       "packageNames": [
+        "electron",
+        "electron-releases"
+      ],
+      "groupName": "Electron"
+    },
+    {
+      "packageNames": [
         "electron-releases"
       ],
       "automerge": true,
