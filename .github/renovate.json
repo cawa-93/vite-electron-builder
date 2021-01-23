@@ -11,6 +11,7 @@
     "main"
   ],
   "bumpVersion": "patch",
+  "rebaseWhen": "behind-base-branch",
   "packageRules": [
     {
       "packagePatterns": [
@@ -55,6 +56,12 @@
       "automerge": true,
       "requiredStatusChecks": null,
       "commitBody": "[skip ci]"
+    },
+    {
+      "packageNames": [
+        "electron"
+      ],
+      "stabilityDays": 14
     }
   ],
   "prHourlyLimit": 10,
