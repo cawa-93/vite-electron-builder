@@ -11,10 +11,10 @@ module.exports = {
     '/@/': join(process.cwd(), './src/renderer') + '/',
   },
   plugins: [vue()],
+  base: '',
   build: {
     target: `chrome${chrome}`,
     polyfillDynamicImport: false,
-    base: '',
     outDir: join(process.cwd(), 'dist/source/renderer'),
     assetsDir: '.',
     rollupOptions: {
