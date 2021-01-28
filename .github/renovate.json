@@ -11,29 +11,18 @@
     "main"
   ],
   "bumpVersion": "patch",
+  "patch": {
+    "automerge": true
+  },
+  "minor": {
+    "automerge": true
+  },
   "packageRules": [
-    {
-      "packagePatterns": [
-        "*"
-      ],
-      "semanticCommitType": "build"
-    },
-    {
-      "depTypeList": [
-        "dependencies"
-      ],
-      "semanticCommitType": "fix"
-    },
     {
       "depTypeList": [
         "devDependencies"
       ],
-      "updateTypes": [
-        "patch",
-        "pin",
-        "digest"
-      ],
-      "automerge": true
+      "semanticCommitType": "build"
     },
     {
       "sourceUrlPrefixes": [
@@ -43,26 +32,25 @@
     },
     {
       "packageNames": [
-        "electron",
-        "electron-releases"
-      ],
-      "groupName": "Electron"
-    },
-    {
-      "packageNames": [
         "electron-releases"
       ],
       "automerge": true,
+      "automergeType": "branch",
+      "schedule": "at any time",
       "requiredStatusChecks": null,
       "commitBody": "[skip ci]"
     },
     {
-      "packageNames": [
-        "electron"
+      "packagePatterns": [
+        "^@typescript-eslint",
+        "^eslint"
       ],
-      "stabilityDays": 14
+      "automerge": true,
+      "automergeType": "branch",
+      "schedule": "on the first day of the month",
+      "groupName": "eslint"
     }
   ],
-  "prHourlyLimit": 10,
+  "prHourlyLimit": 5,
   "rangeStrategy": "bump"
 }
