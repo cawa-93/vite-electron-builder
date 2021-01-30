@@ -28,7 +28,8 @@
       "sourceUrlPrefixes": [
         "https://github.com/vitejs/vite/"
       ],
-      "groupName": "Vite monorepo packages"
+      "groupName": "Vite monorepo packages",
+      "automerge": false
     },
     {
       "packageNames": [
