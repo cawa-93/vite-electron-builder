@@ -17,7 +17,7 @@
     "@types/electron-devtools-installer": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^4.14.1",
     "@typescript-eslint/parser": "^4.14.1",
-    "@vitejs/plugin-vue": "^1.1.3",
+    "@vitejs/plugin-vue": "^1.1.4",
     "@vue/compiler-sfc": "^3.0.5",
     "@vuedx/typecheck": "^0.3.1-insiders-1609034385.0",
     "cross-env": "^7.0.3",
