@@ -7,14 +7,14 @@ on:
       - '**.md'
       - '.idea'
       - '.gitignore'
-      - '.github'
+      - '.github/**'
       - '!.github/workflows/CICD.yml'
   pull_request:
     paths-ignore:
       - '**.md'
       - '.idea'
       - '.gitignore'
-      - '.github'
+      - '.github/**'
       - '!.github/workflows/CICD.yml'
 
 defaults:
