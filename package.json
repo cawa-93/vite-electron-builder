@@ -21,7 +21,7 @@
     "@vue/compiler-sfc": "^3.0.5",
     "@vuedx/typecheck": "^0.3.1-insiders-1609034385.0",
     "cross-env": "^7.0.3",
-    "electron": "^11.2.1",
+    "electron": "^11.2.2",
     "electron-builder": "^22.9.1",
     "electron-devtools-installer": "^3.1.1",
     "electron-releases": "^3.599.0",
