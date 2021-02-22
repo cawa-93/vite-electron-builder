@@ -6,8 +6,10 @@ const {node} = require('./electron-dep-versions');
  * @see https://vitejs.dev/config/
  */
 module.exports = {
-  alias: {
-    '/@/': join(process.cwd(), './src/main') + '/',
+  resolve: {
+    alias: {
+      '/@/': join(process.cwd(), './src/main') + '/',
+    },
   },
   build: {
     target: `node${node}`,

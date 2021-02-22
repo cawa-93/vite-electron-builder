@@ -7,8 +7,10 @@ const {chrome} = require('./electron-dep-versions');
  */
 module.exports = {
   root: join(process.cwd(), './src/renderer'),
-  alias: {
-    '/@/': join(process.cwd(), './src/renderer') + '/',
+  resolve: {
+    alias: {
+      '/@/': join(process.cwd(), './src/renderer') + '/',
+    },
   },
   plugins: [vue()],
   base: '',
