@@ -11,10 +11,14 @@ module.exports = {
       snippetFolder: './.vscode/vetur/snippets',
       globalComponents: [
         './components/**/*.vue',
-      ]
+      ],
     },
     {
       root: './src/main',
+      tsconfig: './tsconfig.json',
+    },
+    {
+      root: './src/preload',
       tsconfig: './tsconfig.json',
     },
   ],
