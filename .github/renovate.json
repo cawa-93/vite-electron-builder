@@ -25,33 +25,29 @@
       "semanticCommitType": "build"
     },
     {
-      "sourceUrlPrefixes": [
+      "matchSourceUrlPrefixes": [
         "https://github.com/vitejs/vite/"
       ],
       "groupName": "Vite monorepo packages",
       "automerge": false
     },
     {
-      "packageNames": [
-        "electron-releases"
-      ],
-      "automerge": true,
-      "automergeType": "branch",
-      "schedule": "at any time",
-      "requiredStatusChecks": null,
-      "commitBody": "[skip ci]"
-    },
-    {
-      "packagePatterns": [
+      "matchPackagePatterns": [
         "^@typescript-eslint",
         "^eslint"
       ],
       "automerge": true,
       "automergeType": "branch",
-      "schedule": "on the first day of the month",
       "groupName": "eslint"
+    },
+    {
+      "stabilityDays": 1,
+      "matchPackageNames": [
+        "electron",
+        "electron-releases"
+      ],
+      "groupName": "electron"
     }
   ],
-  "prHourlyLimit": 5,
   "rangeStrategy": "bump"
 }
