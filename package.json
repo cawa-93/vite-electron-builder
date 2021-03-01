@@ -18,7 +18,7 @@
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
     "@vitejs/plugin-vue": "^1.1.5",
-    "@vue/compiler-sfc": "^3.0.6",
+    "@vue/compiler-sfc": "^3.0.7",
     "@vuedx/typecheck": "^0.3.1-insiders-1609034385.0",
     "cross-env": "^7.0.3",
     "electron": "^11.3.0",
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "electron-updater": "^4.3.5",
-    "vue": "^3.0.6",
+    "vue": "^3.0.7",
     "vue-router": "^4.0.4"
   }
 }
