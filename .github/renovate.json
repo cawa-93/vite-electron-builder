@@ -41,11 +41,12 @@
       "groupName": "eslint"
     },
     {
-      "stabilityDays": 1,
       "matchPackageNames": [
         "electron",
-        "electron-releases"
+        "electron-releases",
+        "spectron"
       ],
+      "separateMajorMinor": false,
       "groupName": "electron"
     }
   ],
