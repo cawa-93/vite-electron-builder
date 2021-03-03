@@ -1,7 +1,6 @@
 import {ContextBridge, contextBridge} from 'electron';
 
 const apiKey = 'electron';
-
 /**
  * @see https://github.com/electron/electron/issues/21437#issuecomment-573522360
  */
