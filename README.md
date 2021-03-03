@@ -18,6 +18,9 @@ This template maintained by [Alex Kozack][cawa-93-github]. You can [💖 sponsor
 If you have ideas, questions or suggestions - **Welcome to [discussions](https://github.com/cawa-93/vite-electron-builder/discussions)**. 😊
 
 
+## Recommended requirements
+- **Node**: >=14.16
+- **npm**: >7.6
 
 ## Features
 
@@ -172,7 +175,7 @@ When running building, environment variables are loaded from the following files
 
 
 ### Development Setup
-This project requires Node 14 or later.
+This project was tested on Node 14.
 1. Fork this repository
 1. Run `npm install` to install all dependencies
 1. Build compile app for production — `npm run compile`

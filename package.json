@@ -1,6 +1,10 @@
 {
   "name": "vite-electron-builder",
   "private": true,
+  "engines": {
+    "node": ">=14",
+    "npm": ">=7"
+  },
   "main": "main/index.cjs.js",
   "scripts": {
     "buildEnvTypes": "node ./bin/buildEnvTypes.js",
