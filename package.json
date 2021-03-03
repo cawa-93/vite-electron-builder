@@ -25,7 +25,7 @@
     "@typescript-eslint/parser": "^4.15.2",
     "@vitejs/plugin-vue": "^1.1.5",
     "@vue/compiler-sfc": "^3.0.7",
-    "@vuedx/typecheck": "^0.3.1-insiders-1609034385.0",
+    "@vuedx/typecheck": "^0.6.3",
     "cross-env": "^7.0.3",
     "electron": "^11.3.0",
     "electron-builder": "^22.10.5",
