@@ -18,6 +18,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   ignorePatterns: [
+    'types/env.d.ts',
     'node_modules/**',
     'dist/**',
   ],

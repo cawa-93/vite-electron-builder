@@ -51,21 +51,7 @@ jobs:
 
       # TODO: Install not all dependencies, but only those required for this workflow
       - run: npm ci
-
-      - uses: haya14busa/action-cond@v1
-        id: reporter
-        with:
-          cond: ${{ github.event_name == 'pull_request' }}
-          if_true: "github-pr-review"
-          if_false: "github-check"
-
-      - name: Run ESLint
-        uses: reviewdog/action-eslint@v1
-        with:
-          fail_on_error: true
-          github_token: ${{ secrets.github_token }}
-          eslint_flags: '. --ext js,ts,vue'
-          reporter: ${{ steps.reporter.outputs.value }}
+      - run: npm run lint
 
   typechecking:
     needs: skip-ci-check

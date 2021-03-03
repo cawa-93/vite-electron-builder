@@ -15,7 +15,8 @@
     "pretest": "cross-env MODE=test npm run build",
     "test": "node ./tests/app.spec.js",
     "prewatch": "npm run buildEnvTypes",
-    "watch": "node ./bin/watch.js"
+    "watch": "node ./bin/watch.js",
+    "lint": "eslint . --ext js,ts,vue"
   },
   "devDependencies": {
     "@types/electron-devtools-installer": "^2.2.0",
