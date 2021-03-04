@@ -1,12 +1,9 @@
-const {readFileSync} = require('fs');
-const {join} = require('path');
-const lockJSON = readFileSync(join(process.cwd(), 'package-lock.json'), 'utf8');
-const installedElectronVersion = JSON.parse(lockJSON).packages['node_modules/electron'].version;
+const {version: installedElectronVersion} = require('electron/package.json');
 const releases = require('electron-releases/lite.json');
 
-const release = releases.find(r => r.version === installedElectronVersion);
+const currentReleaseInfo = releases.find(r => r.version === installedElectronVersion);
 
-if (!release) {
+if (!currentReleaseInfo) {
   throw new Error(`Can't find electron release info for version: ${installedElectronVersion}
   Try run:
 
@@ -15,6 +12,6 @@ if (!release) {
   And try again`);
 }
 
-module.exports.chrome = release.deps.chrome.split('.')[0];
-module.exports.node = release.deps.node;
+module.exports.chrome = currentReleaseInfo.deps.chrome.split('.')[0];
+module.exports.node = currentReleaseInfo.deps.node;
 
