@@ -8,8 +8,8 @@ const mode = process.env.MODE || 'production';
 
 const configs = [
   join(process.cwd(), 'config/main.vite.js'),
-  join(process.cwd(), 'config/preload.vite.js'),
-  join(process.cwd(), 'config/renderer.vite.js'),
+  // join(process.cwd(), 'config/preload.vite.js'),
+  // join(process.cwd(), 'config/renderer.vite.js'),
 ];
 
 
