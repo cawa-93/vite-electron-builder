@@ -48,7 +48,7 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 **Note**: If you do not need a TypeScript, you can easily abandon it. To do this, You do not need to make any bundler configuration changes, etc. Just replace all `.ts` files with `.js` files. Additionally, it will be useful to delete TS-specific files, plug-ins and dependencies like `tsconfig.json`, `@typescript-eslint/*`, etc.
 
 
-### Vue [![Vue version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/vue?label=%20)][vue]
+### Vue [![Vue version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/vue?label=%20)][vue] (optional)
 - By default, web pages are built using the latest version of the [Vue]. However, there are no problems with using any other frameworks or technologies.
 - Also, by default, the [vue-router] version [![Vue-router version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/vue-router?label=%20)][vue-router] is included.
 - Code formatting rules follow the latest Vue recommendations and best practices thanks to [eslint-plugin-vue].
