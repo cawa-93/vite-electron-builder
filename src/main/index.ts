@@ -1,7 +1,6 @@
 import {app, BrowserWindow} from 'electron';
 import {join} from 'path';
-import {format} from 'url';
-
+import {URL} from 'url';
 
 
 const gotTheLock = app.requestSingleInstanceLock();
@@ -47,15 +46,11 @@ if (!gotTheLock) {
      * Vite dev server for development.
      * `file://../renderer/index.html` for production and test
      */
-    const URL = env.MODE === 'development'
+    const pageUrl = env.MODE === 'development'
       ? env.VITE_DEV_SERVER_URL
-      : format({
-        protocol: 'file',
-        pathname: join(__dirname, '../renderer/index.html'),
-        slashes: true,
-      });
+      : new URL('renderer/index.html', 'file://' + __dirname).toString();
 
-    await mainWindow.loadURL(URL);
+    await mainWindow.loadURL(pageUrl);
     mainWindow.maximize();
     mainWindow.show();
 
