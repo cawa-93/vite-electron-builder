@@ -1,4 +1,4 @@
-import {chrome} from './electron-vendors';
+const {chrome} = require('./electron-vendors');
 const {join} = require('path');
 
 /**
