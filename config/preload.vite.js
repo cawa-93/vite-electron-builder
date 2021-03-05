@@ -1,5 +1,5 @@
+const {chrome} = require('./electron-vendors');
 const {join} = require('path');
-const {chrome} = require('./electron-dep-versions');
 
 /**
  * @type {import('vite').UserConfig}
