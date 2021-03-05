@@ -1,6 +1,6 @@
 const {join} = require('path');
 const vue = require('@vitejs/plugin-vue');
-const {chrome} = require('./electron-dep-versions');
+const {chrome} = require('./electron-vendors');
 /**
  * @type {import('vite').UserConfig}
  * @see https://vitejs.dev/config/

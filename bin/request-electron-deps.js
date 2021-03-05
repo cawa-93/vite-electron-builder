@@ -1,57 +1,88 @@
-const fs = require('fs');
-const fetch = require('fetch');
-const {version: installedElectronVersion} = require('electron/package.json');
+/**
+ * Temporally
+ * @deprecated
+ * @see https://github.com/electron/electron/issues/28006
+ */
+
 
 /**
- * Data from the last tested versions of electron
- * @type {{node: string, chrome: string}}
+ * @typedef Vendors
+ * @type {{
+ *   node: string,
+ *   v8: string,
+ *   uv: string,
+ *   zlib: string,
+ *   brotli: string,
+ *   ares: string,
+ *   modules: string,
+ *   nghttp2: string,
+ *   napi: string,
+ *   llhttp: string,
+ *   http_parser: string,
+ *   openssl: string,
+ *   cldr: string,
+ *   icu: string,
+ *   tz: string,
+ *   unicode: string,
+ *   electron: string,
+ * }}
  */
-const FALLBACK_ELECTRON_DIST = {
-  node: '12.18.3',
-  chrome: '87.0.4280.141',
-  version: '11.3.0',
-};
 
-const CACHE_FILE_PATH = '~/.cache/vite-electron-builder/electron-deps.json';
+/**
+ *
+ * @type {null | Vendors}
+ */
+let runtimeCache = null;
 
 /**
  * Returns information about dependencies of the specified version of the electron
- * @return {Promise<{node: string, chrome: string}>}
+ * @return {Vendors}
  *
  * @see https://electronjs.org/headers/index.json
  */
-const fetchElectronDeps = () => {
-    return fetch('https://electronjs.org/headers/index.json')
-    .then(r => r.json())
-    .then((releases) => {
-      const {node, chrome, version} = releases.find(dist => dist.version === installedElectronVersion);
-      return {node, chrome, version};
-    })
-    .catch(err => {
-      console.error('Can\'t find Electron dist', err || '', 'Will be used fallback data');
-      return FALLBACK_ELECTRON_DIST;
-    });
+const loadDeps = () => {
+  const stringifiedDeps = require('child_process').execSync(
+    'electron -p JSON.stringify(process.versions)',
+    {
+      encoding: 'utf-8',
+      env: {
+        ELECTRON_RUN_AS_NODE: '1',
+      },
+    },
+  );
+
+  return JSON.parse(stringifiedDeps);
 };
 
 const saveToCache = (dist) => {
-  return fs.writeFileSync(CACHE_FILE_PATH, JSON.stringify(dist), {encoding: 'utf-8'});
+  runtimeCache = dist;
 };
 
-const loadFromCache = () => {
-  if (!fs.existsSync(CACHE_FILE_PATH)) {
-    return;
+/**
+ *
+ * @return {null|Vendors}
+ */
+const loadFromCache = () => runtimeCache;
+
+/**
+ *
+ * @return {Vendors}
+ */
+const getElectronDist = () => {
+  let dist = loadFromCache();
+
+  if (dist) {
+    return dist;
   }
 
-  const cachedDist = JSON.parse(fs.readFileSync(CACHE_FILE_PATH, {encoding: 'utf-8'}));
+  dist = loadDeps();
 
-  return cachedDist.version === installedElectronVersion ? cachedDist : undefined;
+  saveToCache(dist);
+
+  return dist;
 };
 
-const getElectronDist = () => {
-  const dist = loadFromCache();
-  return dist || FALLBACK_ELECTRON_DIST;
-};
+const {node, modules} = getElectronDist();
 
-fetchElectronDeps().then(saveToCache);
-
-module.exports.getElectronDist = getElectronDist;
+module.exports.node = node;
+module.exports.chrome = modules;//.split('.')[0];

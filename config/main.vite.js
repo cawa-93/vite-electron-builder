@@ -1,4 +1,4 @@
-const {getElectronDist} = require('../bin/request-electron-deps');
+const {node} = require('./electron-vendors');
 const {join} = require('path');
 
 /**
@@ -6,8 +6,6 @@ const {join} = require('path');
  * @see https://vitejs.dev/config/
  */
 module.exports = () => {
-
-  const {node} = getElectronDist();
 
   return {
     resolve: {
