@@ -7,7 +7,6 @@
   },
   "main": "main/index.cjs.js",
   "scripts": {
-    "post-dependencies-solving": "node ./config/electron-dep-versions.js",
     "buildEnvTypes": "node ./bin/buildEnvTypes.js",
     "prebuild": "npm run buildEnvTypes",
     "build": "node ./bin/build.js",
@@ -31,6 +30,7 @@
     "@vitejs/plugin-vue": "^1.1.5",
     "@vue/compiler-sfc": "^3.0.7",
     "@vuedx/typecheck": "^0.6.3",
+    "chokidar": "^3.5.1",
     "cross-env": "^7.0.3",
     "electron": "^11.3.0",
     "electron-builder": "^22.10.5",
