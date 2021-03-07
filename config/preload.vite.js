@@ -12,6 +12,7 @@ module.exports = {
     },
   },
   build: {
+    sourcemap: 'inline',
     target: `chrome${chrome}`,
     outDir: 'dist/source/preload',
     assetsDir: '.',

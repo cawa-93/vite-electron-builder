@@ -14,6 +14,7 @@ module.exports = () => {
       },
     },
     build: {
+      sourcemap: 'inline',
       target: `node${node}`,
       outDir: 'dist/source/main',
       assetsDir: '.',

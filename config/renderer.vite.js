@@ -15,6 +15,7 @@ module.exports = {
   plugins: [vue()],
   base: '',
   build: {
+    sourcemap: 'inline',
     target: `chrome${chrome}`,
     polyfillDynamicImport: false,
     outDir: join(process.cwd(), 'dist/source/renderer'),
