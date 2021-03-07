@@ -69,10 +69,12 @@ jobs:
       # TODO: Install not all dependencies, but only those required for this workflow
       - run: npm ci
 
+      - run: npm run buildEnvTypes
+
       # Type checking is divided into three separate commands for more convenient logs
-      - run: npx --no-install tsc --noEmit -p ./src/main/tsconfig.json
-      - run: npx --no-install tsc --noEmit -p ./src/preload/tsconfig.json
-      - run: npx --no-install vuedx-typecheck ./src/renderer --no-pretty
+      - run: npm run typecheck-main
+      - run: npm run typecheck-preload
+      - run: npm run typecheck-renderer
 
   test:
     needs: skip-ci-check

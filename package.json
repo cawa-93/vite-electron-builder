@@ -19,7 +19,10 @@
     "watch": "node ./bin/watch.js",
     "lint": "eslint . --ext js,ts,vue",
     "pretypecheck": "npm run buildEnvTypes",
-    "typecheck": "vuedx-typecheck ./src/main --no-pretty && vuedx-typecheck ./src/preload --no-pretty && vuedx-typecheck ./src/renderer --no-pretty"
+    "typecheck-main": "tsc --noEmit -p ./src/main/tsconfig.json",
+    "typecheck-preload": "tsc --noEmit -p ./src/preload/tsconfig.json",
+    "typecheck-renderer": "vuedx-typecheck ./src/renderer --no-pretty",
+    "typecheck": "npm run typecheck-main && npm run typecheck-preload && npm run typecheck-renderer"
   },
   "devDependencies": {
     "@types/electron-devtools-installer": "^2.2.0",
