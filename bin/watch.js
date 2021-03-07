@@ -2,6 +2,7 @@
 
 // TODO:
 // - Disable dependency optimization during development.
+// - Need more tests
 // - Refactoring
 
 const slash = require('slash');
