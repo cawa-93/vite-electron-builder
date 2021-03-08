@@ -22,26 +22,7 @@ defaults:
     shell: 'bash'
 
 jobs:
-#  Just skip workflow if commit message contain [skip ci]
-  skip-ci-check:
-    runs-on: ubuntu-latest
-    outputs:
-      skip: ${{ steps.ci-skip-step.outputs.ci-skip }}
-      skip-not: ${{ steps.ci-skip-step.outputs.ci-skip-not }}
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - id: ci-skip-step
-        uses: mstachniuk/ci-skip@master
-        with:
-          commit-filter: '[ci skip];[skip ci]'
-          commit-filter-separator: ';'
-
   lint:
-    needs: skip-ci-check
-    if: ${{ needs.skip-ci-check.outputs.skip == 'false' }}
-
     runs-on: ubuntu-latest
 
     steps:
@@ -55,9 +36,6 @@ jobs:
       - run: npm run lint
 
   typechecking:
-    needs: skip-ci-check
-    if: ${{ needs.skip-ci-check.outputs.skip == 'false' }}
-
     runs-on: ubuntu-latest
 
     steps:
@@ -77,9 +55,6 @@ jobs:
       - run: npm run typecheck-renderer
 
   test:
-    needs: skip-ci-check
-    if: ${{ needs.skip-ci-check.outputs.skip == 'false' }}
-
     strategy:
       matrix:
         os: [ windows-latest ]
