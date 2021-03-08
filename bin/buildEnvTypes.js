@@ -26,7 +26,7 @@ async function buildMode(modes, filePath) {
     mkdirSync(dir);
   }
 
-  writeFileSync(filePath, `${interfacesDeclarations}\nexport type ImportMetaEnv = ${type}\n`, {encoding: 'utf-8', flag: 'w'});
+  writeFileSync(filePath, `${interfacesDeclarations}\ntype ImportMetaEnv = ${type}\n`, {encoding: 'utf-8', flag: 'w'});
 }
 
 buildMode(['production', 'development', 'test'], resolve(process.cwd(), './types/env.d.ts'))
