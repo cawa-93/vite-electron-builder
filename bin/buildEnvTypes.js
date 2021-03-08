@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 const {resolveConfig} = require('vite');
-const {writeFileSync} = require('fs');
-const {resolve} = require('path');
+const {writeFileSync, mkdirSync, existsSync} = require('fs');
+const {resolve, dirname} = require('path');
 
 /**
  * @param {string[]} modes
@@ -21,7 +21,12 @@ async function buildMode(modes, filePath) {
   const interfacesDeclarations = interfaces.map(({interfaceDeclaration}) => interfaceDeclaration).join('\n');
   const type = interfaces.map(({modeInterfaceName}) => modeInterfaceName).join(' | ');
 
-  writeFileSync(filePath, `${interfacesDeclarations}\nexport type ImportMetaEnv = ${type}\n`, {encoding: 'utf-8'});
+  const dir = dirname(filePath);
+  if (!existsSync(dir)) {
+    mkdirSync(dir);
+  }
+
+  writeFileSync(filePath, `${interfacesDeclarations}\nexport type ImportMetaEnv = ${type}\n`, {encoding: 'utf-8', flag: 'w'});
 }
 
 buildMode(['production', 'development', 'test'], resolve(process.cwd(), './types/env.d.ts'))
