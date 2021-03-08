@@ -30,4 +30,7 @@ async function buildMode(modes, filePath) {
 }
 
 buildMode(['production', 'development', 'test'], resolve(process.cwd(), './types/env.d.ts'))
-  .catch(console.error);
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
