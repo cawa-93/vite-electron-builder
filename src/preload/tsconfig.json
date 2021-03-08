@@ -14,7 +14,8 @@
       ]
     },
     "types": [
-      "../../types/importMeta"
+      "../../types/env",
+      "vite/client",
     ]
   },
   "files": [

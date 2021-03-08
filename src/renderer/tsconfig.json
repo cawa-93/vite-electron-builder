@@ -8,7 +8,8 @@
       ]
     },
     "types": [
-      "../../types/importMeta",
+      "../../types/env",
+      "vite/client",
       "./types/shims-vue"
     ]
   },

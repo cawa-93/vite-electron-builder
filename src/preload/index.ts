@@ -13,7 +13,6 @@ export type ExposedInMainWorld = Readonly<typeof api>;
 
 
 if (import.meta.env.MODE !== 'test') {
-
   /**
    * The "Main World" is the JavaScript context that your main renderer code runs in.
    * By default, the page you load in your renderer executes code in this world.
