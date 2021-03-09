@@ -1,6 +1,11 @@
+/*
+ *  TODO: Refactor this file
+ */
+
 import {app, BrowserWindow} from 'electron';
 import {join} from 'path';
 import {URL} from 'url';
+
 
 
 const gotTheLock = app.requestSingleInstanceLock();
