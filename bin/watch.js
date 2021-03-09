@@ -5,7 +5,6 @@
 // - Need more tests
 // - Refactoring
 
-const slash = require('slash');
 const chokidar = require('chokidar');
 const {createServer, build, normalizePath} = require('vite');
 const electronPath = require('electron');
@@ -74,7 +73,6 @@ function debounce(f, ms) {
   const runPreload = debounce((file) => {
     viteDevServer.ws.send({
       type: 'full-reload',
-      path: '/' + slash(relative(viteDevServer.config.root, file)),
     });
 
   }, TIMEOUT);
