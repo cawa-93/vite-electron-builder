@@ -10,6 +10,8 @@ By default, the **Vue framework** is used for the interface, but you can easily 
 
 > Vite is framework agnostic
 
+## Please note:
+**If you are interested in using this template, please note this discussion: [Discussion on Rethinking File Structure](https://github.com/cawa-93/vite-electron-builder/discussions/150)**
 
 
 ## Support
