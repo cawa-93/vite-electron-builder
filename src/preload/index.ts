@@ -1,4 +1,4 @@
-import {ContextBridge, contextBridge} from 'electron';
+import {contextBridge} from 'electron';
 
 const apiKey = 'electron';
 /**
@@ -23,26 +23,24 @@ if (import.meta.env.MODE !== 'test') {
 
 
 } else {
-  type API = Parameters<ContextBridge['exposeInMainWorld']>[1]
 
   /**
    * Recursively Object.freeze() on objects and functions
    * @see https://github.com/substack/deep-freeze
    * @param obj Object on which to lock the attributes
    */
-  function deepFreeze<T extends API>(obj: T): Readonly<T> {
-    Object.freeze(obj);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function deepFreeze(obj: any) {
+    if (typeof obj === 'object' && obj !== null) {
+      Object.keys(obj).forEach((prop) => {
+        const val = obj[prop];
+        if ((typeof val === 'object' || typeof val === 'function') && !Object.isFrozen(val)) {
+          deepFreeze(val);
+        }
+      });
+    }
 
-    Object.getOwnPropertyNames(obj).forEach(prop => {
-      if (obj.hasOwnProperty(prop)
-        && obj[prop] !== null
-        && (typeof obj[prop] === 'object' || typeof obj[prop] === 'function')
-        && !Object.isFrozen(obj[prop])) {
-        deepFreeze(obj[prop]);
-      }
-    });
-
-    return obj;
+    return Object.freeze(obj);
   }
 
   deepFreeze(api);
