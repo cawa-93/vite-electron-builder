@@ -32,7 +32,7 @@
     "@vuedx/typecheck": "^0.6.3",
     "chokidar": "^3.5.1",
     "cross-env": "^7.0.3",
-    "electron": "^12.0.0",
+    "electron": "^12.0.1",
     "electron-builder": "^22.10.5",
     "electron-devtools-installer": "^3.1.1",
     "eslint": "^7.21.0",
