@@ -1,4 +1,4 @@
 module.exports = {
-  chrome: 85,
-  node: 12,
+  chrome: 89,
+  node: 14,
 };
