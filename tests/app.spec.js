@@ -1,11 +1,10 @@
 const {Application} = require('spectron');
 const {strict: assert} = require('assert');
-const {join} = require('path');
 
 const app = new Application({
   path: require('electron'),
   requireName: 'electronRequire',
-  args: [join(__dirname, '../dist/source')],
+  args: ['.'],
 });
 
 app.start()

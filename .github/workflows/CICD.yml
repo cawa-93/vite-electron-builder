@@ -88,7 +88,7 @@ jobs:
 
       - name: Get version from current date
         id: version
-        run: echo "::set-output name=current-version::$(date '+%-y.%-m.%-d')"
+        run: echo "::set-output name=current-version::$(node -e "console.log(require('./config/electron-builder').extraMetadata.version)")"
 
       - name: Changelog
         uses: scottbrenner/generate-changelog-action@master

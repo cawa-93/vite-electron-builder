@@ -5,7 +5,7 @@
     "node": ">=v14.16.0",
     "npm": ">=7.6.3"
   },
-  "main": "main/index.cjs.js",
+  "main": "dist/source/main/index.cjs.js",
   "scripts": {
     "buildEnvTypes": "node ./bin/buildEnvTypes.js",
     "prebuild": "npm run buildEnvTypes",
@@ -21,7 +21,8 @@
     "typecheck-main": "tsc --noEmit -p ./src/main/tsconfig.json",
     "typecheck-preload": "tsc --noEmit -p ./src/preload/tsconfig.json",
     "typecheck-renderer": "vuedx-typecheck ./src/renderer --no-pretty",
-    "typecheck": "npm run typecheck-main && npm run typecheck-preload && npm run typecheck-renderer"
+    "typecheck": "npm run typecheck-main && npm run typecheck-preload && npm run typecheck-renderer",
+    "unpack": "npx asar extract dist/app/win-unpacked/resources/app.asar dist/app/asar-unpacked/ "
   },
   "devDependencies": {
     "@types/electron-devtools-installer": "^2.2.0",
