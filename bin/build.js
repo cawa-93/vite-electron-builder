@@ -1,6 +1,6 @@
 #!/usr/bin/node
 const {build, loadEnv} = require('vite');
-const {join} = require('path');
+const {dirname} = require('path');
 
 /** @type 'production' | 'development' | 'test' */
 const mode = process.env.MODE || 'production';
@@ -16,11 +16,11 @@ for (const envKey in env) {
   }
 }
 
-const packagesMap = new Map([
-  ['main', join(process.cwd(), 'packages/main/vite.config.js')],
-  ['preload', join(process.cwd(), 'packages/preload/vite.config.js')],
-  ['renderer', join(process.cwd(), 'packages/renderer/vite.config.js')],
-]);
+const packagesConfigs = [
+  'packages/main/vite.config.js',
+  'packages/preload/vite.config.js',
+  'packages/renderer/vite.config.js',
+];
 
 
 /**
@@ -32,10 +32,12 @@ const buildByConfig = (configFile) => build({configFile, mode});
     const totalTimeLabel = 'Total bundling time';
     console.time(totalTimeLabel);
 
-    for (const [packageName, packageConfigPath] of packagesMap) {
-      console.group(`Build ${packageName}:`);
+    for (const packageConfigPath of packagesConfigs) {
 
-      const timeLabel = `Build ${packageName} time`;
+      const consoleGroupName = `${dirname(packageConfigPath)}/`;
+      console.group(consoleGroupName);
+
+      const timeLabel = 'Bundling time';
       console.time(timeLabel);
 
       await buildByConfig(packageConfigPath);
