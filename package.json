@@ -8,13 +8,11 @@
   "main": "dist/source/main/index.cjs.js",
   "scripts": {
     "buildEnvTypes": "node ./bin/buildEnvTypes.js",
-    "prebuild": "npm run buildEnvTypes",
     "build": "node ./bin/build.js",
     "precompile": "cross-env MODE=production npm run build",
     "compile": "electron-builder build --config ./config/electron-builder.js",
     "pretest": "cross-env MODE=test npm run build",
     "test": "node ./tests/app.spec.js",
-    "prewatch": "npm run buildEnvTypes",
     "watch": "node ./bin/watch.js",
     "lint": "eslint . --ext js,ts,vue",
     "pretypecheck": "npm run buildEnvTypes",
@@ -24,6 +22,9 @@
     "typecheck": "npm run typecheck-main && npm run typecheck-preload && npm run typecheck-renderer",
     "unpack": "npx asar extract dist/app/win-unpacked/resources/app.asar dist/app/asar-unpacked/ "
   },
+  "browserslist": [
+    "Chrome 89"
+  ],
   "devDependencies": {
     "@types/electron-devtools-installer": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^4.17.0",
