@@ -169,7 +169,7 @@ When running building, environment variables are loaded from the following files
   It is believed any scripts for build the application will be located here.
 - [`types`](types) 
   Contains all declaration files to be applied globally to the entire project
-- [`tests`](tests)
+- [`tests`](packages/main/tests)
   Contains all tests
 
 
