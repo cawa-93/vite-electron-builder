@@ -11,7 +11,7 @@ const {resolve, dirname} = require('path');
 async function buildMode(modes, filePath) {
   const interfaces = await Promise.all(modes.map(async mode => {
     const modeInterfaceName = `${mode}Env`;
-    const {env} = await resolveConfig({mode, configFile: resolve(process.cwd(), 'packages/main/vite.config.ts')}, 'build');
+    const {env} = await resolveConfig({mode, configFile: resolve(process.cwd(), 'packages/main/vite.config.js')}, 'build');
 
     const interfaceDeclaration = `interface ${modeInterfaceName} ${JSON.stringify(env)}`;
 
