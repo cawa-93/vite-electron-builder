@@ -8,7 +8,7 @@ const buildVersion = `${now.getFullYear() - 2000}.${now.getMonth() + 1}.${now.ge
 const config = {
   directories: {
     output: 'dist/app',
-    buildResources: 'build',
+    buildResources: 'buildResources',
   },
   files: [
     'dist/source/**',
