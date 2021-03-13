@@ -1,6 +1,6 @@
-import {chrome} from '../../config/electron-vendors.js';
+import {chrome} from '../../electron-vendors.config.js';
 import {join} from 'path';
-import externalPackages from '../../config/external-packages.js';
+import externalPackages from '../../external-packages.config.js';
 import {defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
 /**

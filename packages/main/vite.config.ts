@@ -1,6 +1,6 @@
-import {node} from '../../config/electron-vendors.js';
+import {node} from '../../electron-vendors.config.js';
 import {join} from 'path';
-import externalPackages from '../../config/external-packages.js';
+import externalPackages from '../../external-packages.config.js';
 import {defineConfig} from 'vite';
 
 /**

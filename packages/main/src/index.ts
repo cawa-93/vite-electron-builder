@@ -40,7 +40,7 @@ if (!gotTheLock) {
     mainWindow = new BrowserWindow({
       show: false,
       webPreferences: {
-        preload: join(__dirname, '../preload/index.cjs.js'),
+        preload: join(__dirname, '../../preload/dist/index.cjs.cjs'),
         contextIsolation: env.MODE !== 'test',   // Spectron tests can't work with contextIsolation: true
         enableRemoteModule: env.MODE === 'test', // Spectron tests can't work with enableRemoteModule: false
       },
@@ -53,7 +53,7 @@ if (!gotTheLock) {
      */
     const pageUrl = env.MODE === 'development'
       ? env.VITE_DEV_SERVER_URL
-      : new URL('renderer/index.html', 'file://' + __dirname).toString();
+      : new URL('../renderer/dist/index.html', 'file://' + __dirname).toString();
 
     await mainWindow.loadURL(pageUrl);
     mainWindow.maximize();
