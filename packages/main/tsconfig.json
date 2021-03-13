@@ -4,16 +4,16 @@
     "baseUrl": ".",
     "paths": {
       "/@/*": [
-        "./*"
+        "./src/*"
       ]
     },
     "types": [
       "../../types/env",
       "vite/client",
-      "./types/shims-vue"
+      "electron-devtools-installer"
     ]
   },
   "files": [
-    "./index.ts"
+    "./src/index.ts"
   ]
 }

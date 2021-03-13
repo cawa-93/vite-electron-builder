@@ -1,7 +1,7 @@
 <template>
   <img
     alt="Vue logo"
-    src="./assets/logo.png"
+    src="../assets/logo.png"
   >
   <app-navigation />
   <router-view />
@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import AppNavigation from '/@/components/AppNavigation.vue';
+import AppNavigation from './components/AppNavigation.vue';
 
 export default defineComponent({
   name: 'App',

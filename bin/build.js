@@ -7,9 +7,9 @@ const {join} = require('path');
 const mode = process.env.MODE || 'production';
 
 const configs = [
-  join(process.cwd(), 'config/main.vite.js'),
-  join(process.cwd(), 'config/preload.vite.js'),
-  join(process.cwd(), 'config/renderer.vite.js'),
+  join(process.cwd(), 'packages/main/vite.config.ts'),
+  join(process.cwd(), 'packages/preload/vite.config.ts'),
+  join(process.cwd(), 'packages/renderer/vite.config.ts'),
 ];
 
 

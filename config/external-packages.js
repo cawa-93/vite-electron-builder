@@ -6,13 +6,13 @@
  Therefore, such dependencies should be marked as "external":
  they will not be optimized, will not be included in your bundle, and will be delivered as a separate node module.
 */
-module.exports.external = [
+export const external = [
   'electron',
   'electron-updater',
 ];
 
 
-module.exports.builtins = [
+export const builtins = [
   'assert',
   'async_hooks',
   'buffer',
@@ -53,7 +53,7 @@ module.exports.builtins = [
   'zlib',
 ];
 
-module.exports.default = [
-  ...module.exports.builtins,
-  ...module.exports.external,
+export default [
+  ...builtins,
+  ...external,
 ];
