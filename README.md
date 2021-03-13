@@ -71,6 +71,9 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 
 
 ## Status
+
+**[Work on new revesion](https://github.com/cawa-93/vite-electron-builder/pull/158).**
+
 - ✅ Building main and renderer endpoints in production mode — works great.
 - ✅ Development mode with hot reload for renderer endpoint — works great.
 - ⚠ Development mode for main and preload endpoints — work fine, but it is possible to reboot the backend faster ([vite#1434](https://github.com/vitejs/vite/issues/1434))
