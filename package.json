@@ -20,7 +20,7 @@
     "typecheck-preload": "tsc --noEmit -p packages/preload/tsconfig.json",
     "typecheck-renderer": "cd packages/renderer && vuedx-typecheck",
     "typecheck": "npm run typecheck-main && npm run typecheck-preload && npm run typecheck-renderer",
-    "unpack": "npx asar extract dist/app/win-unpacked/resources/app.asar dist/app/asar-unpacked/ "
+    "unpack": "npx asar extract dist/win-unpacked/resources/app.asar dist/asar-unpacked/ "
   },
   "browserslist": [
     "Chrome 89"
