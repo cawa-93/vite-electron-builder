@@ -37,7 +37,6 @@
         "^eslint"
       ],
       "automerge": true,
-      "automergeType": "branch",
       "groupName": "eslint"
     },
     {
