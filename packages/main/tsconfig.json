@@ -7,11 +7,6 @@
         "./src/*"
       ]
     },
-    "types": [
-      "../../types/env",
-      "vite/client",
-      "electron-devtools-installer"
-    ]
   },
   "files": [
     "./src/index.ts"

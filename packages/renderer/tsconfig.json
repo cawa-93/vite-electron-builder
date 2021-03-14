@@ -7,13 +7,9 @@
         "./src/*"
       ]
     },
-    "types": [
-      "../../types/env",
-      "vite/client",
-      "./types/shims-vue"
-    ]
   },
   "files": [
-    "./src/index.ts"
-  ]
+    "types/shims-vue",
+    "src/index.ts"
+  ],
 }

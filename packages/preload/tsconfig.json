@@ -1,28 +1,14 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "esnext",
-    "target": "esnext",
-    "sourceMap": true,
-    "moduleResolution": "Node",
-    "skipLibCheck": true,
-    "strict": true,
-    "isolatedModules": true,
     "baseUrl": ".",
     "paths": {
       "/@/*": [
         "./src/*"
       ]
     },
-    "types": [
-      "../../types/env",
-      "vite/client",
-    ]
   },
   "files": [
     "./src/index.ts"
   ],
-  "exclude": [
-    "**/node_modules",
-    "**/.*"
-  ]
 }
