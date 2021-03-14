@@ -21,7 +21,6 @@ export default defineComponent({
   name: 'App',
   setup() {
     const {versions} = useElectron();
-    versions.push('adad');
     // It makes no sense to make "versions" reactive
     return {versions};
   },
