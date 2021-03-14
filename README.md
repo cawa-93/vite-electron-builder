@@ -64,12 +64,22 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 
 
 
-## Status
+## Status -- WIP
+
+This template was created to make my work easier. It may not be universal, but I try to keep it that way.
+
+At the moment I am actively involved in its development. But I do not guarantee that this template will be maintained in the future.
+
+At the moment, there are the following problems:
+
 - ⚠ Some files require refactoring.
 - ⚠ Watch mode for the `main` and `preload` entry points should be improved. Blocked by  [vite#1434](https://github.com/vitejs/vite/issues/1434).
 - ⚠ Typechecking in `.vue` temporarily disabled due to a issue [znck/vue-developer-experience#208](https://github.com/znck/vue-developer-experience/issues/208)
 - ⏳ Automatic code signing — planned.
 
+Some areas for improvement can be presented in [issues](https://github.com/cawa-93/vite-electron-builder/issues).
+
+**Pull requests are welcome**.
 
 
 ## How it works
