@@ -11,7 +11,4 @@
       "vite/client"
     ]
   },
-  "include": [
-    "types/**/*.d.ts"
-  ]
 }
