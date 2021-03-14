@@ -5,7 +5,7 @@
   <div>
     <ul aria-labelledby="versions">
       <li
-        v-for="(version, lib) in versions"
+        v-for="(version, lib) in foo"
         :key="lib"
       >
         <strong>{{ lib }}</strong>: v{{ version }}
@@ -23,7 +23,7 @@ export default defineComponent({
     const {versions} = useElectron();
     versions.push('adad');
     // It makes no sense to make "versions" reactive
-    return {versions};
+    return {versions, foo: null};
   },
 });
 </script>
