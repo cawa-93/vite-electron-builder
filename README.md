@@ -8,7 +8,7 @@ Under the hood is used [Vite] — super fast, nextgen bundler, and [electron-bui
 
 
 ___
-## Support
+### Support
 This template maintained by [Alex Kozack][cawa-93-github]. You can [💖 sponsor him][cawa-93-sponsor] for continued development of this template.
 
 If you have ideas, questions or suggestions - **Welcome to [discussions](https://github.com/cawa-93/vite-electron-builder/discussions)**. 😊
