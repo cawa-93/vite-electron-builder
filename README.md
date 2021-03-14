@@ -74,7 +74,7 @@ At the moment, there are the following problems:
 
 - ⚠ Some files require refactoring.
 - ⚠ Watch mode for the `main` and `preload` entry points should be improved. Blocked by  [vite#1434](https://github.com/vitejs/vite/issues/1434).
-- ⚠ Typechecking in `.vue` temporarily disabled due to a issue [znck/vue-developer-experience#208](https://github.com/znck/vue-developer-experience/issues/208)
+- ⚠ Typechecking in `.vue` temporarily disabled due to an issue [znck/vue-developer-experience#208](https://github.com/znck/vue-developer-experience/issues/208)
 - ⏳ Automatic code signing — planned.
 
 Some areas for improvement can be presented in [issues](https://github.com/cawa-93/vite-electron-builder/issues).
@@ -86,7 +86,7 @@ The template required a minimum [dependencies](package.json). Only **Vite** is u
 
 ### Project Structure
 
-The structure of this template is very similar to the structure of a monorepository.
+The structure of this template is very similar to the structure of a monorepo.
 
 The entire source code of the program is divided into three modules (packages) that are bundled each independently:
 - [`packages/main`](packages/main)
@@ -95,15 +95,15 @@ The entire source code of the program is divided into three modules (packages) t
   Used in `BrowserWindow.webPreferences.preload`. See [Checklist: Security Recommendations](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content).
 - [`packages/renderer`](packages/renderer)
   Electron [**web page**](https://www.electronjs.org/docs/tutorial/quick-start#create-a-web-page).
-  
-`main` and `preload` packages are built in [library mode](https://vitejs.dev/guide/build.html#library-mode) as it is a simple javascript.
+
+Packages `main` and `preload` are built in [library mode](https://vitejs.dev/guide/build.html#library-mode) as it is a simple javascript.
 `renderer` package build as regular web app.
 
 
 
 ### Using electron API in renderer
 As per the security requirements, context isolation is enabled in this template.
-> Context Isolation is a feature that ensures that both your `preload` scripts and Electron's internal logic run in a separate context to the website you load in a [`webContents`](https://github.com/electron/electron/blob/master/docs/api/web-contents.md).  This is important for security purposes as it helps prevent the website from accessing Electron internals or the powerful APIs your preload script has access to.
+> Context Isolation is a feature that ensures that both your `preload` scripts and Electron's internal logic run in a separate context to the website you load in a [`webContents`](https://github.com/electron/electron/blob/master/docs/api/web-contents.md).  This is important for security purposes as it helps prevent the website from accessing Electron internals, or the powerful APIs your preload script has access to.
 >
 > This means that the `window` object that your preload script has access to is actually a **different** object than the website would have access to.  For example, if you set `window.hello = 'wave'` in your preload script and context isolation is enabled `window.hello` will be undefined if the website tries to access it.
 
