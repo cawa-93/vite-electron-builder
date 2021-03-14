@@ -1,4 +1,4 @@
-# Vite Electron Builder Boilerplate
+# Vite Electron Builder Boilerplate v2
 
 > Vite+Electron = 🔥
 
