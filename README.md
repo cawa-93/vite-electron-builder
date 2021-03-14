@@ -63,12 +63,12 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
   - Notes are automatically generated and added to the new release.
 
 
-
 ## Status — WIP
 
 This template was created to make my work easier. It may not be universal, but I try to keep it that way.
 
-At the moment I am actively involved in its development. But I do not guarantee that this template will be maintained in the future.
+I am actively involved in its development. But I do not guarantee that this template will be maintained in the future.
+
 
 At the moment, there are the following problems:
 
