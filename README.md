@@ -1,24 +1,19 @@
-# Vite Electron Builder Template
+# Vite Electron Builder Boilerplate
 
 > Vite+Electron = 🔥
 
 This is a secure template for electron applications. Written following the latest safety requirements, recommendations and best practices.
 
-Under the hood is used [Vite 2.0][vite] — super fast, nextgen bundler, and [electron-builder] for compilation.
+Under the hood is used [Vite] — super fast, nextgen bundler, and [electron-builder] for compilation.
 
-By default, the **Vue framework** is used for the interface, but you can easily use any other frameworks such as **React**, **Preact**, **Angular**, **Svelte** or anything else.
 
-> Vite is framework agnostic
-
+___
 ## Support
 This template maintained by [Alex Kozack][cawa-93-github]. You can [💖 sponsor him][cawa-93-sponsor] for continued development of this template.
 
 If you have ideas, questions or suggestions - **Welcome to [discussions](https://github.com/cawa-93/vite-electron-builder/discussions)**. 😊
+___
 
-
-## Recommended requirements
-- **Node**: >=14.16
-- **npm**: >7.6
 
 ## Features
 
@@ -37,18 +32,17 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 [See all Vite features](https://vitejs.dev/guide/features.html).
 
 
-### TypeScript [![TypeScript version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/typescript?label=%20) ][typescript] (optional)
+### TypeScript [![TypeScript version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/typescript?label=%20)][typescript] (optional)
 - The Latest TypeScript is used for all source code. 
 - **Vite** supports TypeScript out of the box. However, it does not support type checking.
-- Type checking is performed in both `.ts` and `.vue` files thanks to [@vuedx/typecheck].
 - Code formatting rules follow the latest TypeScript recommendations and best practices thanks to [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin).
 
 **Note**: If you do not need a TypeScript, you can easily abandon it. To do this, You do not need to make any bundler configuration changes, etc. Just replace all `.ts` files with `.js` files. Additionally, it will be useful to delete TS-specific files, plug-ins and dependencies like `tsconfig.json`, `@typescript-eslint/*`, etc.
 
 
 ### Vue [![Vue version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/vue?label=%20)][vue] (optional)
-- By default, web pages are built using the latest version of the [Vue]. However, there are no problems with using any other frameworks or technologies.
-- Also, by default, the [vue-router] version [![Vue-router version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/vue-router?label=%20)][vue-router] is included.
+- By default, web pages are built using [Vue]. However, you can easily change it. Or do not use additional frameworks at all. (See [React fork](https://github.com/soulsam480/vite-electron-react-starter))
+- Also, by default, the [vue-router] version [![Vue-router version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/vue-router?label=%20)][vue-router] is used.
 - Code formatting rules follow the latest Vue recommendations and best practices thanks to [eslint-plugin-vue].
 - Installed [Vue.js devtools beta](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg) with Vue 3 support.
 
@@ -57,9 +51,9 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 - The configured workflow for check the types for each push and PR.
 - The configured workflow for check the code style for each push and PR.
 - **Automatic tests** used [spectron]. Simple, automated test check:
-  - Does the main window open
-  - Is the main window not empty
-  - Is dev tools closed
+  - Does the main window open?
+  - Is the main window not empty?
+  - Is dev tools closed?
   
 
 ### Continuous deployment
@@ -71,15 +65,10 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 
 
 ## Status
-- ✅ Building main and renderer endpoints in production mode — works great.
-- ✅ Development mode with hot reload for renderer endpoint — works great.
-- ⚠ Development mode for main and preload endpoints — work fine, but it is possible to reboot the backend faster ([vite#1434](https://github.com/vitejs/vite/issues/1434))
-- ✅ Compile the app with electron builder in CD — work.
-- ✅ Auto update — work.
-- ⚠ Typechecking in `.ts` and `.vue` files — work thanks [![@vuedx/typecheck](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/@vuedx/typecheck)][@vuedx/typecheck]. Improvement needed.
-- ⚠ Linting — work fine, but need review the configuration files and refactor its.
-- ✅ Vue.js devtools beta.
-- ⏳ Code signing — planned.
+- ⚠ Some files require refactoring.
+- ⚠ Watch mode for the `main` and `preload` entry points should be improved. Blocked by  [vite#1434](https://github.com/vitejs/vite/issues/1434).
+- ⚠ Typechecking in `.vue` temporarily disabled due to a issue [znck/vue-developer-experience#208](https://github.com/znck/vue-developer-experience/issues/208)
+- ⏳ Automatic code signing — planned.
 
 
 
