@@ -9,7 +9,6 @@ const chokidar = require('chokidar');
 const {createServer, build, normalizePath} = require('vite');
 const electronPath = require('electron');
 const {spawn} = require('child_process');
-const {join} = require('path');
 
 const mode = process.env.MODE || 'development';
 
@@ -30,7 +29,7 @@ function debounce(f, ms) {
 // Create Vite dev server
   const viteDevServer = await createServer({
     mode,
-    configFile: join(process.cwd(), 'config/renderer.vite.js'),
+    configFile: 'packages/renderer/vite.config.js',
   });
 
   await viteDevServer.listen();
@@ -55,7 +54,7 @@ function debounce(f, ms) {
       spawnProcess = null;
     }
 
-    spawnProcess = spawn(electronPath, [join(process.cwd(), 'dist/source/main/index.cjs.js')]);
+    spawnProcess = spawn(electronPath, ['packages/main/dist/index.cjs.cjs']);
 
     spawnProcess.stdout.on('data', d => console.log(d.toString()));
     spawnProcess.stderr.on('data', d => console.error(d.toString()));
@@ -65,7 +64,7 @@ function debounce(f, ms) {
   }, TIMEOUT);
 
   const buildMain = () => {
-    return build({mode, configFile: join(process.cwd(), 'config/main.vite.js')});
+    return build({mode, configFile: 'packages/main/vite.config.js'});
   };
 
   const buildMainDebounced = debounce(buildMain, TIMEOUT);
@@ -78,7 +77,7 @@ function debounce(f, ms) {
   }, TIMEOUT);
 
   const buildPreload = () => {
-    return build({mode, configFile: join(process.cwd(), 'config/preload.vite.js')});
+    return build({mode, configFile: 'packages/preload/vite.config.js'});
   };
 
   const buildPreloadDebounced = debounce(buildPreload, TIMEOUT);
@@ -91,47 +90,47 @@ function debounce(f, ms) {
 
 
   const watcher = chokidar.watch([
-    join(process.cwd(), 'src/main/**'),
-    join(process.cwd(), 'src/preload/**'),
-    join(process.cwd(), 'dist/source/main/**'),
-    join(process.cwd(), 'dist/source/preload/**'),
+    'packages/main/src/**',
+    'packages/main/dist/**',
+    'packages/preload/src/**',
+    'packages/preload/dist/**',
   ], {ignoreInitial: true});
 
 
   watcher
     .on('unlink', path => {
       const normalizedPath = normalizePath(path);
-      if (spawnProcess !== null && normalizedPath.includes('/dist/source/main/')) {
+      if (spawnProcess !== null && normalizedPath.includes('/main/dist/')) {
         spawnProcess.kill('SIGINT');
         spawnProcess = null;
       }
     })
     .on('add', path => {
       const normalizedPath = normalizePath(path);
-      if (normalizedPath.includes('/dist/source/main/')) {
+      if (normalizedPath.includes('/main/dist/')) {
         return runMain();
       }
 
-      if (spawnProcess !== undefined && normalizedPath.includes('/dist/source/preload/')) {
+      if (spawnProcess !== undefined && normalizedPath.includes('/preload/dist/')) {
         return runPreload(normalizedPath);
       }
     })
     .on('change', (path) => {
       const normalizedPath = normalizePath(path);
 
-      if (normalizedPath.includes('/src/main/')) {
+      if (normalizedPath.includes('/main/src/')) {
         return buildMainDebounced();
       }
 
-      if (normalizedPath.includes('/dist/source/main/')) {
+      if (normalizedPath.includes('/main/dist/')) {
         return runMain();
       }
 
-      if (normalizedPath.includes('/src/preload/')) {
+      if (normalizedPath.includes('/preload/src/')) {
         return buildPreloadDebounced();
       }
 
-      if (normalizedPath.includes('/dist/source/preload/')) {
+      if (normalizedPath.includes('/preload/dist/')) {
         return runPreload(normalizedPath);
       }
     });
