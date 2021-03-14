@@ -6,19 +6,19 @@ module.exports = {
   },
   projects: [
     {
-      root: './src/renderer',
+      root: './packages/renderer',
       tsconfig: './tsconfig.json',
       snippetFolder: './.vscode/vetur/snippets',
       globalComponents: [
-        './components/**/*.vue',
+        './src/components/**/*.vue',
       ],
     },
     {
-      root: './src/main',
+      root: './packages/main',
       tsconfig: './tsconfig.json',
     },
     {
-      root: './src/preload',
+      root: './packages/preload',
       tsconfig: './tsconfig.json',
     },
   ],
