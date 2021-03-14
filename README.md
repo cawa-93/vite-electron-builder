@@ -64,7 +64,7 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 
 
 
-## Status -- WIP
+## Status — WIP
 
 This template was created to make my work easier. It may not be universal, but I try to keep it that way.
 
@@ -81,9 +81,23 @@ Some areas for improvement can be presented in [issues](https://github.com/cawa-
 
 **Pull requests are welcome**.
 
-
 ## How it works
 The template required a minimum [dependencies](package.json). Only **Vite** is used for building, nothing more.
+
+### Project Structure
+
+The structure of this template is very similar to the structure of a monorepository.
+
+The entire source code of the program is divided into three modules (packages) that are bundled each independently:
+- [`packages/main`](packages/main)
+  Electron [**main script**](https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file).
+- [`packages/preload`](packages/preload)
+  Used in `BrowserWindow.webPreferences.preload`. See [Checklist: Security Recommendations](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content).
+- [`packages/renderer`](packages/renderer)
+  Electron [**web page**](https://www.electronjs.org/docs/tutorial/quick-start#create-a-web-page).
+  
+`main` and `preload` packages are built in [library mode](https://vitejs.dev/guide/build.html#library-mode) as it is a simple javascript.
+`renderer` package build as regular web app.
 
 
 
@@ -95,9 +109,9 @@ As per the security requirements, context isolation is enabled in this template.
 
 [Read more about Context Isolation](https://github.com/electron/electron/blob/master/docs/tutorial/context-isolation.md).
 
-Exposing APIs from your `preload script` to the renderer is a common usecase and there is a dedicated module in Electron to help you do this in a painless way.
+Exposing APIs from your `preload script` to the renderer is a common use case and there is a dedicated module in Electron to help you do this in a painless way.
 ```ts
-// /src/preload/index.ts
+// packages/preload/src/index.ts
 const api = {
   data: ['foo', 'bar'],
   doThing: () => ipcRenderer.send('do-a-thing')
@@ -108,7 +122,7 @@ contextBridge.exposeInMainWorld('electron', api)
 
 To access this API use the `useElectron()` function:
 ```ts
-// /src/renderer/App.vue
+// packages/renderer/src/App.vue
 import {useElectron} from '/@/use/electron'
 
 const {doThing, data} = useElectron()
@@ -121,7 +135,7 @@ const {doThing, data} = useElectron()
 ### Modes and Environment Variables
 All environment variables set as part of the `import.meta`, so you can access them as follows: `import.meta.env`. 
 
-You can also build type definitions of your variables by running `bin/buildEnvTypes.js`. This command will create `types/env.d.ts` file with describing all environment variables for all modes.
+You can also build type definitions of your variables by running `scripts/buildEnvTypes.js`. This command will create `types/env.d.ts` file with describing all environment variables for all modes.
 
 The mode option is used to specify the value of `import.meta.env.MODE` and the corresponding environment variables files that needs to be loaded.
 
@@ -143,45 +157,9 @@ When running building, environment variables are loaded from the following files
 
 
 
-### Project Structure
-- [`src`](src)
-  Contains all source code.
-  - [`src/main`](src/main) 
-  Contain entrypoint for Electron [**main script**](https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file).
-  - [`src/renderer`](src/renderer)
-    Contain entrypoint for Electron [**web page**](https://www.electronjs.org/docs/tutorial/quick-start#create-a-web-page). All files in this directory work as a regular Vue application.
-  - [`src/preload`](src/preload)
-    Contain entrypoint for custom script. It uses as `preload` script in `BrowserWindow.webPreferences.preload`. See [Checklist: Security Recommendations](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content).
-  - [`src/*`](src) It is assumed any entry points will be added here, for custom scripts, web workers, webassembly compilations, etc.
-- [`dist`](dist) 
-  - [`dist/source`](dist/source)
-  Contains all bundled code.
-    - [`dist/source/main`](dist/source/main) Bundled *main* entrypoint.
-    - [`dist/source/renderer`](dist/source/renderer) Bundled *renderer* entrypoint.
-    - [`dist/source/preload`](dist/source/preload) Bundled *preload* entrypoint.
-    - [`dist/source/*`](dist/source) Bundled any custom files.
-  - [`dist/app`](dist/app)
-  Contain packages and ready-to-distribute electron apps for any platform. Files in this directory created using [electron-builder].
-- [`config`](config)
-  Contains various configuration files for Vite, TypeScript, electron builder, etc.
-- [`bin`](bin)
-  It is believed any scripts for build the application will be located here.
-- [`types`](types) 
-  Contains all declaration files to be applied globally to the entire project
-- [`tests`](packages/main/tests)
-  Contains all tests
+## Contribution
 
-
-
-### Development Setup
-This project was tested on Node 14.
-1. Fork this repository
-1. Run `npm install` to install all dependencies
-1. Build compile app for production — `npm run compile`
-1. Run development environment with file watching — `npm run watch`
-1. Run tests — `npm test`
-
-
+See [Contributing Guide](contributing.md).
 
 
 [vite]: https://vitejs.dev/
