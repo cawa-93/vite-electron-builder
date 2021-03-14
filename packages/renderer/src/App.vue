@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import {defineComponent} from 'vue';
-import AppNavigation from './components/AppNavigation.vue';
+import AppNavigation from '/@/components/AppNavigation.vue';
 
 export default defineComponent({
   name: 'App',

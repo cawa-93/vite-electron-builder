@@ -9,6 +9,7 @@
     },
   },
   "files": [
-    "./src/index.ts"
+    "types/electron-api.d.ts",
+    "src/index.ts"
   ],
 }

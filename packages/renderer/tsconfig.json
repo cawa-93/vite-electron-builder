@@ -9,6 +9,7 @@
     },
   },
   "files": [
+    "../preload/types/electron-api.d.ts",
     "types/shims-vue",
     "src/index.ts"
   ],
