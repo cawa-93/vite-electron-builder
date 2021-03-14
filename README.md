@@ -76,8 +76,9 @@ At the moment, there are the following problems:
 - ⚠ Watch mode for the `main` and `preload` entry points should be improved. Blocked by  [vite#1434](https://github.com/vitejs/vite/issues/1434).
 - ⚠ Typechecking in `.vue` temporarily disabled due to an issue [znck/vue-developer-experience#208](https://github.com/znck/vue-developer-experience/issues/208)
 - ⏳ Automatic code signing — planned.
+- ⏳ I want to migrate all code base on ESM. But because Nodejs  ecosystem is unprepared I not known whether this will give more benefits or more inconvenience.
 
-Some areas for improvement can be presented in [issues](https://github.com/cawa-93/vite-electron-builder/issues).
+Some improvement or problems can be listed in [issues](https://github.com/cawa-93/vite-electron-builder/issues).
 
 **Pull requests are welcome**.
 
