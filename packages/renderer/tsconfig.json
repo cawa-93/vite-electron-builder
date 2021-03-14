@@ -6,11 +6,11 @@
       "/@/*": [
         "./src/*"
       ]
-    },
+    }
   },
   "files": [
+    "src/index.ts",
+    "types/shims-vue.d.ts",
     "../preload/types/electron-api.d.ts",
-    "types/shims-vue",
-    "src/index.ts"
   ],
 }
