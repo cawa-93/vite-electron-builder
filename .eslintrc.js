@@ -1,6 +1,5 @@
 module.exports = {
   root: true,
-
   env: {
     es2021: true,
     node: true,
@@ -20,7 +19,7 @@ module.exports = {
   ignorePatterns: [
     'types/env.d.ts',
     'node_modules/**',
-    'packages/**/dist/**',
+    '**/dist/**',
   ],
 
   rules: {
