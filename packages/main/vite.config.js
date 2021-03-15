@@ -18,7 +18,7 @@ export default defineConfig({
     target: `node${node}`,
     outDir: 'dist',
     assetsDir: '.',
-    minify: process.env.MODE === 'development' ? false : 'terser',
+    minify: process.env.MODE === 'development' ? false : undefined, // undefined must set default value
     lib: {
       entry: 'src/index.ts',
       formats: ['cjs'],
@@ -26,7 +26,7 @@ export default defineConfig({
     rollupOptions: {
       external: externalPackages,
       output: {
-        entryFileNames: '[name].[format].cjs',
+        entryFileNames: '[name].cjs',
       },
     },
     emptyOutDir: true,
