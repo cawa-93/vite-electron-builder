@@ -9,7 +9,7 @@ const chokidar = require('chokidar');
 const {createServer, build, normalizePath} = require('vite');
 const electronPath = require('electron');
 const {spawn} = require('child_process');
-const {main: electronEntryPoint} = require('../package.json');
+
 
 /** @type 'production' | 'development' | 'test' */
 const mode = process.env.MODE = process.env.MODE || 'development';
@@ -56,7 +56,7 @@ function debounce(f, ms) {
       spawnProcess = null;
     }
 
-    spawnProcess = spawn(String(electronPath), [electronEntryPoint]);
+    spawnProcess = spawn(String(electronPath), ['.']);
 
     spawnProcess.stdout.on('data', d => console.log(d.toString()));
     spawnProcess.stderr.on('data', d => console.error(d.toString()));
