@@ -28,7 +28,7 @@ module.exports = {
      * Having a semicolon helps the optimizer interpret your code correctly.
      * This avoids rare errors in optimized code.
      */
-    semi: ['error', 'always'],
+    semi: ['error', 'never'],
 
     /**
      * This will make the history of changes in the hit a little cleaner
@@ -40,5 +40,5 @@ module.exports = {
      */
     quotes: ['warn', 'single'],
   },
-};
+}
 

@@ -9,7 +9,7 @@
 export const external = [
   'electron',
   'electron-updater',
-];
+]
 
 
 export const builtins = [
@@ -51,9 +51,9 @@ export const builtins = [
   'v8',
   'vm',
   'zlib',
-];
+]
 
 export default [
   ...builtins,
   ...external,
-];
+]
