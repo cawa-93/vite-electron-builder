@@ -1,24 +1,21 @@
-# Vite Electron Builder Template
+# Vite Electron Builder Boilerplate v2
 
 > Vite+Electron = 🔥
 
 This is a secure template for electron applications. Written following the latest safety requirements, recommendations and best practices.
 
-Under the hood is used [Vite 2.0][vite] — super fast, nextgen bundler, and [electron-builder] for compilation.
-
-By default, the **Vue framework** is used for the interface, but you can easily use any other frameworks such as **React**, **Preact**, **Angular**, **Svelte** or anything else.
-
-> Vite is framework agnostic
-
-## Support
-This template maintained by [Alex Kozack][cawa-93-github]. You can [💖 sponsor him][cawa-93-sponsor] for continued development of this template.
-
-If you have ideas, questions or suggestions - **Welcome to [discussions](https://github.com/cawa-93/vite-electron-builder/discussions)**. 😊
+Under the hood is used [Vite] — super fast, nextgen bundler, and [electron-builder] for compilation.
 
 
-## Recommended requirements
-- **Node**: >=14.16
-- **npm**: >7.6
+___
+### Support
+- This template maintained by [Alex Kozack][cawa-93-github]. You can [💖 sponsor him][cawa-93-sponsor] for continued development of this template.
+
+- Found a problem? Pull requests are welcome.
+
+- If you have ideas, questions or suggestions - **Welcome to [discussions](https://github.com/cawa-93/vite-electron-builder/discussions)**. 😊
+___
+
 
 ## Features
 
@@ -37,18 +34,17 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 [See all Vite features](https://vitejs.dev/guide/features.html).
 
 
-### TypeScript [![TypeScript version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/typescript?label=%20) ][typescript] (optional)
+### TypeScript [![TypeScript version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/typescript?label=%20)][typescript] (optional)
 - The Latest TypeScript is used for all source code. 
 - **Vite** supports TypeScript out of the box. However, it does not support type checking.
-- Type checking is performed in both `.ts` and `.vue` files thanks to [@vuedx/typecheck].
 - Code formatting rules follow the latest TypeScript recommendations and best practices thanks to [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin).
 
 **Note**: If you do not need a TypeScript, you can easily abandon it. To do this, You do not need to make any bundler configuration changes, etc. Just replace all `.ts` files with `.js` files. Additionally, it will be useful to delete TS-specific files, plug-ins and dependencies like `tsconfig.json`, `@typescript-eslint/*`, etc.
 
 
 ### Vue [![Vue version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/vue?label=%20)][vue] (optional)
-- By default, web pages are built using the latest version of the [Vue]. However, there are no problems with using any other frameworks or technologies.
-- Also, by default, the [vue-router] version [![Vue-router version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/vue-router?label=%20)][vue-router] is included.
+- By default, web pages are built using [Vue]. However, you can easily change it. Or do not use additional frameworks at all. (See [React fork](https://github.com/soulsam480/vite-electron-react-starter))
+- Also, by default, the [vue-router] version [![Vue-router version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/vue-router?label=%20)][vue-router] is used.
 - Code formatting rules follow the latest Vue recommendations and best practices thanks to [eslint-plugin-vue].
 - Installed [Vue.js devtools beta](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg) with Vue 3 support.
 
@@ -57,9 +53,9 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 - The configured workflow for check the types for each push and PR.
 - The configured workflow for check the code style for each push and PR.
 - **Automatic tests** used [spectron]. Simple, automated test check:
-  - Does the main window open
-  - Is the main window not empty
-  - Is dev tools closed
+  - Does the main window created and visible?
+  - Is the main window not empty?
+  - Is dev tools closed?
   
 
 ### Continuous deployment
@@ -69,39 +65,56 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
   - Notes are automatically generated and added to the new release.
 
 
+## Status — WIP
 
-## Status
+This template was created to make my work easier. It may not be universal, but I try to keep it that way.
 
-**[Work on new revision](https://github.com/cawa-93/vite-electron-builder/pull/158).**
-
-- ✅ Building main and renderer endpoints in production mode — works great.
-- ✅ Development mode with hot reload for renderer endpoint — works great.
-- ⚠ Development mode for main and preload endpoints — work fine, but it is possible to reboot the backend faster ([vite#1434](https://github.com/vitejs/vite/issues/1434))
-- ✅ Compile the app with electron builder in CD — work.
-- ✅ Auto update — work.
-- ⚠ Typechecking in `.ts` and `.vue` files — work thanks [![@vuedx/typecheck](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/@vuedx/typecheck)][@vuedx/typecheck]. Improvement needed.
-- ⚠ Linting — work fine, but need review the configuration files and refactor its.
-- ✅ Vue.js devtools beta.
-- ⏳ Code signing — planned.
+I am actively involved in its development. But I do not guarantee that this template will be maintained in the future.
 
 
+At the moment, there are the following problems:
+
+- ⚠ Some files require refactoring.
+- ⚠ Watch mode for the `main` and `preload` entry points should be improved. Blocked by  [vite#1434](https://github.com/vitejs/vite/issues/1434).
+- ⚠ Typechecking in `.vue` temporarily disabled due to an issue [znck/vue-developer-experience#208](https://github.com/znck/vue-developer-experience/issues/208)
+- ⏳ Automatic code signing — planned.
+- ⏳ I want to migrate all code base to ESM. But because Nodejs  ecosystem is unprepared I not known whether this will give more benefits or more inconvenience.
+
+Some improvement or problems can be listed in [issues](https://github.com/cawa-93/vite-electron-builder/issues).
+
+**Pull requests are welcome**.
 
 ## How it works
 The template required a minimum [dependencies](package.json). Only **Vite** is used for building, nothing more.
+
+### Project Structure
+
+The structure of this template is very similar to the structure of a monorepo.
+
+The entire source code of the program is divided into three modules (packages) that are bundled each independently:
+- [`packages/main`](packages/main)
+  Electron [**main script**](https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file).
+- [`packages/preload`](packages/preload)
+  Used in `BrowserWindow.webPreferences.preload`. See [Checklist: Security Recommendations](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content).
+- [`packages/renderer`](packages/renderer)
+  Electron [**web page**](https://www.electronjs.org/docs/tutorial/quick-start#create-a-web-page).
+
+Packages `main` and `preload` are built in [library mode](https://vitejs.dev/guide/build.html#library-mode) as it is a simple javascript.
+`renderer` package build as regular web app.
 
 
 
 ### Using electron API in renderer
 As per the security requirements, context isolation is enabled in this template.
-> Context Isolation is a feature that ensures that both your `preload` scripts and Electron's internal logic run in a separate context to the website you load in a [`webContents`](https://github.com/electron/electron/blob/master/docs/api/web-contents.md).  This is important for security purposes as it helps prevent the website from accessing Electron internals or the powerful APIs your preload script has access to.
+> Context Isolation is a feature that ensures that both your `preload` scripts and Electron's internal logic run in a separate context to the website you load in a [`webContents`](https://github.com/electron/electron/blob/master/docs/api/web-contents.md).  This is important for security purposes as it helps prevent the website from accessing Electron internals, or the powerful APIs your preload script has access to.
 >
 > This means that the `window` object that your preload script has access to is actually a **different** object than the website would have access to.  For example, if you set `window.hello = 'wave'` in your preload script and context isolation is enabled `window.hello` will be undefined if the website tries to access it.
 
 [Read more about Context Isolation](https://github.com/electron/electron/blob/master/docs/tutorial/context-isolation.md).
 
-Exposing APIs from your `preload script` to the renderer is a common usecase and there is a dedicated module in Electron to help you do this in a painless way.
+Exposing APIs from your `preload script` to the renderer is a common use case and there is a dedicated module in Electron to help you do this in a painless way.
 ```ts
-// /src/preload/index.ts
+// packages/preload/src/index.ts
 const api = {
   data: ['foo', 'bar'],
   doThing: () => ipcRenderer.send('do-a-thing')
@@ -112,7 +125,7 @@ contextBridge.exposeInMainWorld('electron', api)
 
 To access this API use the `useElectron()` function:
 ```ts
-// /src/renderer/App.vue
+// packages/renderer/src/App.vue
 import {useElectron} from '/@/use/electron'
 
 const {doThing, data} = useElectron()
@@ -125,7 +138,7 @@ const {doThing, data} = useElectron()
 ### Modes and Environment Variables
 All environment variables set as part of the `import.meta`, so you can access them as follows: `import.meta.env`. 
 
-You can also build type definitions of your variables by running `bin/buildEnvTypes.js`. This command will create `types/env.d.ts` file with describing all environment variables for all modes.
+You can also build type definitions of your variables by running `scripts/buildEnvTypes.js`. This command will create `types/env.d.ts` file with describing all environment variables for all modes.
 
 The mode option is used to specify the value of `import.meta.env.MODE` and the corresponding environment variables files that needs to be loaded.
 
@@ -147,45 +160,9 @@ When running building, environment variables are loaded from the following files
 
 
 
-### Project Structure
-- [`src`](src)
-  Contains all source code.
-  - [`src/main`](src/main) 
-  Contain entrypoint for Electron [**main script**](https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file).
-  - [`src/renderer`](src/renderer)
-    Contain entrypoint for Electron [**web page**](https://www.electronjs.org/docs/tutorial/quick-start#create-a-web-page). All files in this directory work as a regular Vue application.
-  - [`src/preload`](src/preload)
-    Contain entrypoint for custom script. It uses as `preload` script in `BrowserWindow.webPreferences.preload`. See [Checklist: Security Recommendations](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content).
-  - [`src/*`](src) It is assumed any entry points will be added here, for custom scripts, web workers, webassembly compilations, etc.
-- [`dist`](dist) 
-  - [`dist/source`](dist/source)
-  Contains all bundled code.
-    - [`dist/source/main`](dist/source/main) Bundled *main* entrypoint.
-    - [`dist/source/renderer`](dist/source/renderer) Bundled *renderer* entrypoint.
-    - [`dist/source/preload`](dist/source/preload) Bundled *preload* entrypoint.
-    - [`dist/source/*`](dist/source) Bundled any custom files.
-  - [`dist/app`](dist/app)
-  Contain packages and ready-to-distribute electron apps for any platform. Files in this directory created using [electron-builder].
-- [`config`](config)
-  Contains various configuration files for Vite, TypeScript, electron builder, etc.
-- [`bin`](bin)
-  It is believed any scripts for build the application will be located here.
-- [`types`](types) 
-  Contains all declaration files to be applied globally to the entire project
-- [`tests`](tests)
-  Contains all tests
+## Contribution
 
-
-
-### Development Setup
-This project was tested on Node 14.
-1. Fork this repository
-1. Run `npm install` to install all dependencies
-1. Build compile app for production — `npm run compile`
-1. Run development environment with file watching — `npm run watch`
-1. Run tests — `npm test`
-
-
+See [Contributing Guide](contributing.md).
 
 
 [vite]: https://vitejs.dev/

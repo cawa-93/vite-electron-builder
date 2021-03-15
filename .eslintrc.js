@@ -20,10 +20,11 @@ module.exports = {
   ignorePatterns: [
     'types/env.d.ts',
     'node_modules/**',
-    'dist/**',
+    'packages/**/dist/**',
   ],
 
   rules: {
+    '@typescript-eslint/no-var-requires': 'off',
     /**
      * Having a semicolon helps the optimizer interpret your code correctly.
      * This avoids rare errors in optimized code.
