@@ -40,7 +40,7 @@ if (!gotTheLock) {
     mainWindow = new BrowserWindow({
       show: false,
       webPreferences: {
-        preload: join(__dirname, '../../preload/dist/index.cjs.cjs'),
+        preload: join(__dirname, '../../preload/dist/index.cjs'),
         contextIsolation: env.MODE !== 'test',   // Spectron tests can't work with contextIsolation: true
         enableRemoteModule: env.MODE === 'test', // Spectron tests can't work with enableRemoteModule: false
       },
