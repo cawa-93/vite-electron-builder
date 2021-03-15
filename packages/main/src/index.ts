@@ -38,7 +38,7 @@ if (!gotTheLock) {
 
   async function createWindow() {
     mainWindow = new BrowserWindow({
-      show: false,
+      show: true,
       webPreferences: {
         preload: join(__dirname, '../../preload/dist/index.cjs'),
         contextIsolation: env.MODE !== 'test',   // Spectron tests can't work with contextIsolation: true
@@ -55,13 +55,11 @@ if (!gotTheLock) {
       ? env.VITE_DEV_SERVER_URL
       : new URL('../renderer/dist/index.html', 'file://' + __dirname).toString();
 
-    await mainWindow.loadURL(pageUrl);
-    mainWindow.maximize();
-    mainWindow.show();
-
     if (env.MODE === 'development') {
       mainWindow.webContents.openDevTools();
     }
+
+    await mainWindow.loadURL(pageUrl);
   }
 
 
