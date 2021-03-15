@@ -9,9 +9,11 @@ Under the hood is used [Vite] — super fast, nextgen bundler, and [electron-bui
 
 ___
 ### Support
-This template maintained by [Alex Kozack][cawa-93-github]. You can [💖 sponsor him][cawa-93-sponsor] for continued development of this template.
+- This template maintained by [Alex Kozack][cawa-93-github]. You can [💖 sponsor him][cawa-93-sponsor] for continued development of this template.
 
-If you have ideas, questions or suggestions - **Welcome to [discussions](https://github.com/cawa-93/vite-electron-builder/discussions)**. 😊
+- Found a problem? Pull requests are welcome.
+
+- If you have ideas, questions or suggestions - **Welcome to [discussions](https://github.com/cawa-93/vite-electron-builder/discussions)**. 😊
 ___
 
 
@@ -51,7 +53,7 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 - The configured workflow for check the types for each push and PR.
 - The configured workflow for check the code style for each push and PR.
 - **Automatic tests** used [spectron]. Simple, automated test check:
-  - Does the main window open?
+  - Does the main window created and visible?
   - Is the main window not empty?
   - Is dev tools closed?
   
@@ -76,7 +78,7 @@ At the moment, there are the following problems:
 - ⚠ Watch mode for the `main` and `preload` entry points should be improved. Blocked by  [vite#1434](https://github.com/vitejs/vite/issues/1434).
 - ⚠ Typechecking in `.vue` temporarily disabled due to an issue [znck/vue-developer-experience#208](https://github.com/znck/vue-developer-experience/issues/208)
 - ⏳ Automatic code signing — planned.
-- ⏳ I want to migrate all code base on ESM. But because Nodejs  ecosystem is unprepared I not known whether this will give more benefits or more inconvenience.
+- ⏳ I want to migrate all code base to ESM. But because Nodejs  ecosystem is unprepared I not known whether this will give more benefits or more inconvenience.
 
 Some improvement or problems can be listed in [issues](https://github.com/cawa-93/vite-electron-builder/issues).
 
