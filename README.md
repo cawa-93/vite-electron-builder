@@ -76,7 +76,7 @@ At the moment, there are the following problems:
 
 - ⚠ Some files require refactoring.
 - ⚠ Watch mode for the `main` and `preload` entry points should be improved. Blocked by  [vite#1434](https://github.com/vitejs/vite/issues/1434).
-- ⚠ Typechecking in `.vue` temporarily disabled due to an issue [znck/vue-developer-experience#208](https://github.com/znck/vue-developer-experience/issues/208)
+- ⚠ Typechecking in `.vue` temporarily disabled due to an issue [znck/vue-developer-experience#208](https://github.com/znck/vue-developer-experience/issues/208). Type checking should still work in your IDE, but it will not run in CI.
 - ⏳ Automatic code signing — planned.
 - ⏳ I want to migrate all code base to ESM. But because Nodejs  ecosystem is unprepared I not known whether this will give more benefits or more inconvenience.
 
