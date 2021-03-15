@@ -137,14 +137,14 @@ jobs:
         env:
           RELEASE_NOTES: ${{ needs.draft_release.outputs.changelog }} # This needs to Escape quotes
         run: |
-          mkdir ./build
-          echo "$RELEASE_NOTES" > ./build/release-notes.md
+          mkdir -p buildResources
+          echo "$RELEASE_NOTES" > buildResources/release-notes.md
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:
           build_script_name: build
-          args: --config ./config/electron-builder.js
+          args: --config electron-builder.config.js
 
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
