@@ -10,7 +10,8 @@ const {createServer, build, normalizePath} = require('vite');
 const electronPath = require('electron');
 const {spawn} = require('child_process');
 
-const mode = process.env.MODE || 'development';
+/** @type 'production' | 'development' | 'test' */
+const mode = process.env.MODE = process.env.MODE || 'development';
 
 const TIMEOUT = 500;
 

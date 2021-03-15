@@ -3,7 +3,7 @@ const {build, loadEnv} = require('vite');
 const {dirname} = require('path');
 
 /** @type 'production' | 'development' | 'test' */
-const mode = process.env.MODE || 'production';
+const mode = process.env.MODE = process.env.MODE || 'development';
 
 /**
  * Vite looks for `.env` files only in "packages/**" directories.
