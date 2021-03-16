@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - ci
     paths-ignore:
       - '**.md'
       - '.idea'
@@ -89,7 +88,7 @@ jobs:
 
       - name: Get version from current date
         id: version
-        run: echo "::set-output name=current-version::$(node -e "try{console.log(require('./config/electron-builder').extraMetadata.version)}catch(e){console.error(e);process.exit(1)}")"
+        run: echo "::set-output name=current-version::$(node -e "try{console.log(require('./electron-builder.config.js').extraMetadata.version)}catch(e){console.error(e);process.exit(1)}")"
 
       - name: Changelog
         uses: scottbrenner/generate-changelog-action@master
