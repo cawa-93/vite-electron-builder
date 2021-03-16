@@ -7,4 +7,3 @@ createApp(App)
   .mount('#app')
 
 
-const error: null = 'error'

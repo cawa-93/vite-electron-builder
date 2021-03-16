@@ -1,5 +1,5 @@
 interface ElectronApi {
-  readonly versions: Record<string, string>
+  readonly versions: Readonly<Record<string, string>>
 }
 
 declare interface Window {
