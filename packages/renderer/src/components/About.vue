@@ -21,8 +21,6 @@ export default defineComponent({
   name: 'App',
   setup() {
     const {versions} = useElectron()
-    var a : number  = '1'
-    console.log(a)
     // It makes no sense to make "versions" reactive
     return {versions: versions}
   },
