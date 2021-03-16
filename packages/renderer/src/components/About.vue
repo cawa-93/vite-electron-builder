@@ -22,7 +22,7 @@ export default defineComponent({
   setup() {
     const {versions} = useElectron()
     // It makes no sense to make "versions" reactive
-    return {versions: versions}
+    return {versions}
   },
 })
 </script>
