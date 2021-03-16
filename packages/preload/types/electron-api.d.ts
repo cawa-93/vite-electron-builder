@@ -1,5 +1,6 @@
+
 interface ElectronApi {
-  readonly versions: Readonly<Record<string, string>> & { [Symbol.iterator](): IterableIterator<Record<string, string>> }
+  readonly versions: Readonly<NodeJS.ProcessVersions>
 }
 
 declare interface Window {
