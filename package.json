@@ -18,7 +18,7 @@
     "pretypecheck": "npm run buildEnvTypes",
     "typecheck-main": "tsc --noEmit -p packages/main/tsconfig.json",
     "typecheck-preload": "tsc --noEmit -p packages/preload/tsconfig.json",
-    "typecheck-renderer": "cd packages/renderer && vue-tsc --noEmit",
+    "typecheck-renderer": "vue-tsc --noEmit -p packages/renderer/tsconfig.json",
     "typecheck": "npm run typecheck-main && npm run typecheck-preload && npm run typecheck-renderer",
     "unpack": "npx asar extract dist/win-unpacked/resources/app.asar dist/asar-unpacked/ "
   },
