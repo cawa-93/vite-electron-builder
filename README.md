@@ -76,7 +76,7 @@ At the moment, there are the following problems:
 
 - ⚠ Some files require refactoring.
 - ⚠ Watch mode for the `main` and `preload` entry points should be improved. Blocked by  [vite#1434](https://github.com/vitejs/vite/issues/1434).
-- ⚠ Typechecking in `.vue` temporarily disabled due to an issue [znck/vue-developer-experience#208](https://github.com/znck/vue-developer-experience/issues/208). Type checking should still work in your IDE, but it will not run in CI.
+- ⚠ Typechecking `renderer` package in CI implemented by [![vue-tsc](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vue-tsc)][vue-tsc], which has a very early version. This is not a problem if you do not use Vue or TypeScript.
 - ⏳ Automatic code signing — planned.
 - ⏳ I want to migrate all code base to ESM. But because Nodejs  ecosystem is unprepared I not known whether this will give more benefits or more inconvenience.
 
@@ -172,7 +172,7 @@ See [Contributing Guide](contributing.md).
 [vue-router]: https://github.com/vuejs/vue-router-next/
 [typescript]: https://www.typescriptlang.org/
 [spectron]: https://www.electronjs.org/spectron/
-[@vuedx/typecheck]: https://github.com/znck/vue-developer-experience/tree/master/packages/typecheck
+[vue-tsc]: https://github.com/johnsoncodehk/vue-tsc
 [eslint-plugin-vue]: https://github.com/vuejs/eslint-plugin-vue
 [cawa-93-github]: https://github.com/cawa-93/
 [cawa-93-sponsor]: https://www.patreon.com/Kozack/
