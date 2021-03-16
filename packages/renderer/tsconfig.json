@@ -7,11 +7,6 @@
         "./src/*"
       ]
     },
-    "plugins": [
-      {
-        "name": "@vuedx/typescript-plugin-vue"
-      }
-    ]
   },
 
   "include": [
@@ -19,7 +14,6 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "types/**/*.d.ts",
-    "../../types/**/*.d.ts",
-    "../preload/types/electron-api.d.ts"
+    "../../types/**/*.d.ts"
   ]
 }

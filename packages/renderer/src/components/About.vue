@@ -20,7 +20,10 @@ import {useElectron} from '/@/use/electron'
 export default defineComponent({
   name: 'App',
   setup() {
+    let a: number = 'asd'
+    console.log(a)
     const {versions} = useElectron()
+    versions.push('asd')
     // It makes no sense to make "versions" reactive
     return {versions}
   },
