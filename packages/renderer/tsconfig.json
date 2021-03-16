@@ -7,11 +7,7 @@
         "./src/*"
       ]
     },
-    "plugins": [
-      {
-        "name": "@vuedx/typescript-plugin-vue"
-      }
-    ]
+    "lib": ["ESNext", "dom", "dom.iterable"]
   },
 
   "include": [
