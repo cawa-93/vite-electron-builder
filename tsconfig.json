@@ -9,6 +9,7 @@
     "isolatedModules": true,
     "types": [
       "vite/client"
-    ]
+    ],
+    "lib": ["ESNext"]
   },
 }
