@@ -91,7 +91,7 @@ jobs:
         run: echo "::set-output name=current-version::$(node -e "try{console.log(require('./electron-builder.config.js').extraMetadata.version)}catch(e){console.error(e);process.exit(1)}")"
 
       - name: Changelog
-        uses: scottbrenner/generate-changelog-action@1.1.0
+        uses: scottbrenner/generate-changelog-action@v1.1.1
         id: changelog
         env:
           REPO: ${{ github.repository }}
