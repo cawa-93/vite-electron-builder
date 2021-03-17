@@ -165,13 +165,13 @@ When running building, environment variables are loaded from the following files
 See [Contributing Guide](contributing.md).
 
 
-[vite]: https://vitejs.dev/
-[electron]: https://electronjs.org/
-[electron-builder]: https://www.electron.build/
-[vue]: https://v3.vuejs.org/
+[vite]: https://github.com/vitejs/vite/
+[electron]: https://github.com/electron/electron
+[electron-builder]: https://github.com/electron-userland/electron-builder
+[vue]: https://github.com/vuejs/vue-next
 [vue-router]: https://github.com/vuejs/vue-router-next/
-[typescript]: https://www.typescriptlang.org/
-[spectron]: https://www.electronjs.org/spectron/
+[typescript]: https://github.com/microsoft/TypeScript/
+[spectron]: https://github.com/electron-userland/spectron
 [vue-tsc]: https://github.com/johnsoncodehk/vue-tsc
 [eslint-plugin-vue]: https://github.com/vuejs/eslint-plugin-vue
 [cawa-93-github]: https://github.com/cawa-93/
