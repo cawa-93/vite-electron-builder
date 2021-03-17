@@ -48,6 +48,7 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 - Code formatting rules follow the latest Vue recommendations and best practices thanks to [eslint-plugin-vue].
 - Installed [Vue.js devtools beta](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg) with Vue 3 support.
 
+See [examples of web pages for different frameworks](https://github.com/vitejs/vite/tree/main/packages/create-app).
 
 ### Continuous Integration
 - The configured workflow for check the types for each push and PR.
