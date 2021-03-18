@@ -10,7 +10,7 @@
     "buildEnvTypes": "node scripts/buildEnvTypes.js",
     "build": "node scripts/build.js",
     "precompile": "cross-env MODE=production npm run build",
-    "compile": "electron-builder build --config electron-builder.config.js --dir",
+    "compile": "electron-builder build --config electron-builder.config.js --dir --config.asar=false",
     "pretest": "cross-env MODE=test npm run build",
     "test": "node tests/app.spec.js",
     "watch": "node scripts/watch.js",
@@ -19,8 +19,7 @@
     "typecheck-main": "tsc --noEmit -p packages/main/tsconfig.json",
     "typecheck-preload": "tsc --noEmit -p packages/preload/tsconfig.json",
     "typecheck-renderer": "cd packages/renderer && vue-tsc --noEmit",
-    "typecheck": "npm run typecheck-main && npm run typecheck-preload && npm run typecheck-renderer",
-    "unpack": "npx asar extract dist/win-unpacked/resources/app.asar dist/asar-unpacked/ "
+    "typecheck": "npm run typecheck-main && npm run typecheck-preload && npm run typecheck-renderer"
   },
   "browserslist": [
     "Chrome 89"
