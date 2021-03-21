@@ -28,7 +28,7 @@ export default defineConfig({
   plugins: [vue()],
   base: '',
   build: {
-    sourcemap: 'inline',
+    sourcemap: true,
     target: `chrome${chrome}`,
     polyfillDynamicImport: false,
     outDir: 'dist',
