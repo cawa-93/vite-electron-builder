@@ -6,8 +6,6 @@ const {resolve, dirname} = require('path')
 
 const MODES = ['production', 'development', 'test']
 
-const configFile = resolve(process.cwd(), './packages/main/vite.config.js')
-
 const typeDefinitionFile = resolve(process.cwd(), './types/env.d.ts')
 
 /**
@@ -25,7 +23,7 @@ function getBaseInterface() {
  */
 async function getInterfaceByMode(mode) {
   const interfaceName = `${mode}Env`
-  const {env: envForMode} = await resolveConfig({mode, configFile}, 'build')
+  const {env: envForMode} = await resolveConfig({mode}, 'build')
   return {
     name: interfaceName,
     declaration: `interface ${interfaceName} extends IBaseEnv ${JSON.stringify(envForMode)}`,
