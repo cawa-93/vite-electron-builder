@@ -1,20 +1,9 @@
 #!/usr/bin/node
-const {build, loadEnv} = require('vite')
+const {build} = require('vite')
 const {dirname} = require('path')
 
 /** @type 'production' | 'development' | 'test' */
 const mode = process.env.MODE = process.env.MODE || 'production'
-
-/**
- * Vite looks for `.env` files only in "packages/**" directories.
- * Therefore, you must manually load and set the environment variables from the root directory above
- */
-const env = loadEnv(mode, process.cwd())
-for (const envKey in env) {
-  if (process.env[envKey] === undefined && env.hasOwnProperty(envKey)) {
-    process.env[envKey] = env[envKey]
-  }
-}
 
 const packagesConfigs = [
   'packages/main/vite.config.js',
