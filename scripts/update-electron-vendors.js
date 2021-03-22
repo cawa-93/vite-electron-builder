@@ -3,7 +3,6 @@ const electronVersion = require('../package-lock.json').dependencies['electron']
 const {writeFile} = require('fs/promises')
 
 function fetch(options) {
-  // console.log({options})
   return new Promise((resolve, reject) => {
 
     https.get(options, (resp) => {
