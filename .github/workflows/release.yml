@@ -1,4 +1,4 @@
-name: CI/CD
+name: Release
 on:
   push:
     branches:
@@ -8,71 +8,15 @@ on:
       - '.idea'
       - '.gitignore'
       - '.github/**'
-      - '!.github/workflows/CICD.yml'
-  pull_request:
-    paths-ignore:
-      - '**.md'
-      - '.idea'
-      - '.gitignore'
-      - '.github/**'
-      - '!.github/workflows/CICD.yml'
+      - '!.github/workflows/release.yml'
 
 defaults:
   run:
     shell: 'bash'
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14
-
-      # TODO: Install not all dependencies, but only those required for this workflow
-      - run: npm ci
-      - run: npm run lint
-
-  typechecking:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14
-
-      # TODO: Install not all dependencies, but only those required for this workflow
-      - run: npm ci
-
-      - run: npm run buildEnvTypes
-
-      # Type checking is divided into three separate commands for more convenient logs
-      - run: npm run typecheck-main
-      - run: npm run typecheck-preload
-      - run: npm run typecheck-renderer
-
-  test:
-    strategy:
-      matrix:
-        os: [ windows-latest ]
-
-    runs-on: ${{ matrix.os }}
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14
-
-      - run: npm ci
-      - run: npm test
 
   draft_release:
-    needs: [ test, lint, typechecking ]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     outputs:
       changelog: ${{ steps.changelog.outputs.changelog }}
@@ -81,6 +25,12 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - uses: lewagon/wait-on-check-action@v0.2
+        with:
+          ref: ${{ github.ref }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          running-workflow-name: 'draft_release'
 
       - uses: actions/setup-node@v2
         with:
