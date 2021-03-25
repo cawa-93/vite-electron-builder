@@ -1,6 +1,8 @@
 name: Typecheck
 on:
   push:
+    branches:
+      - main
     paths:
       - '**.ts'
       - '**.vue'
