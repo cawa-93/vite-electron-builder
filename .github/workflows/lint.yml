@@ -1,0 +1,35 @@
+name: Lint
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.js'
+      - '**.ts'
+      - '**.vue'
+      - '.github/workflows/lint.yml'
+  pull_request:
+    paths:
+      - '**.js'
+      - '**.ts'
+      - '**.vue'
+      - '.github/workflows/lint.yml'
+
+
+defaults:
+  run:
+    shell: 'bash'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      # TODO: Install not all dependencies, but only those required for this workflow
+      - run: npm ci
+      - run: npm run lint

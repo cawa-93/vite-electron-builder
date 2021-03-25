@@ -1,0 +1,38 @@
+name: Typecheck
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.ts'
+      - '**.vue'
+      - '.github/workflows/typechecking.yml'
+  pull_request:
+    paths:
+      - '**.ts'
+      - '**.vue'
+      - '.github/workflows/typechecking.yml'
+
+defaults:
+  run:
+    shell: 'bash'
+
+jobs:
+  typechecking:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+
+      # TODO: Install not all dependencies, but only those required for this workflow
+      - run: npm ci
+
+      - run: npm run buildEnvTypes
+
+      # Type checking is divided into three separate commands for more convenient logs
+      - run: npm run typecheck-main
+      - run: npm run typecheck-preload
+      - run: npm run typecheck-renderer
