@@ -26,12 +26,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: lewagon/wait-on-check-action@v0.2
-        with:
-          ref: ${{ github.ref }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          running-workflow-name: 'draft_release'
-
       - uses: actions/setup-node@v2
         with:
           node-version: 14
@@ -45,6 +39,13 @@ jobs:
         id: changelog
         env:
           REPO: ${{ github.repository }}
+
+      - name: Waiting on All checks
+        uses: lewagon/wait-on-check-action@v0.2
+        with:
+          ref: ${{ github.ref }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          running-workflow-name: 'draft_release'
 
       - name: Delete outdated drafts
         uses: hugo19941994/delete-draft-releases@v0.1.0
