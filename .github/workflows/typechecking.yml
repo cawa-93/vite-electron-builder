@@ -6,11 +6,15 @@ on:
     paths:
       - '**.ts'
       - '**.vue'
+      - '**/tsconfig.json'
+      - 'package-lock.json'
       - '.github/workflows/typechecking.yml'
   pull_request:
     paths:
       - '**.ts'
       - '**.vue'
+      - '**/tsconfig.json'
+      - 'package-lock.json'
       - '.github/workflows/typechecking.yml'
 
 defaults:

@@ -7,12 +7,14 @@ on:
       - '**.js'
       - '**.ts'
       - '**.vue'
+      - 'package-lock.json'
       - '.github/workflows/lint.yml'
   pull_request:
     paths:
       - '**.js'
       - '**.ts'
       - '**.vue'
+      - 'package-lock.json'
       - '.github/workflows/lint.yml'
 
 

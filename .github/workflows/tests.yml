@@ -6,11 +6,13 @@ on:
     paths:
       - 'packages/**'
       - 'tests/**'
+      - 'package-lock.json'
       - '.github/workflows/tests.yml'
   pull_request:
     paths:
       - 'packages/**'
       - 'tests/**'
+      - 'package-lock.json'
       - '.github/workflows/tests.yml'
 
 defaults:
