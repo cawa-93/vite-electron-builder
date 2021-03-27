@@ -15,7 +15,14 @@ ___
 
 - If you have ideas, questions or suggestions - **Welcome to [discussions](https://github.com/cawa-93/vite-electron-builder/discussions)**. 😊
 ___
+## Get started
+Follow these steps to get started with this template:
 
+1. Сlick the **[Use this template](https://github.com/cawa-93/vite-electron-builder/generate)** button.
+    
+   **Note**: Only the `main` branch matters. You do not need to include any other branches when creating the repository.
+   
+And that's all you need. 😉
 
 ## Features
 
