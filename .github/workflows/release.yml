@@ -109,3 +109,18 @@ jobs:
           # Sometimes the build may fail due to a connection problem with Apple, GitHub, etc. servers.
           # This option will restart the build as many attempts as possible
           max_attempts: 3
+
+
+          # Code Signing params
+
+          # Base64-encoded code signing certificate for Windows
+          # windows_certs: ''
+
+          # Password for decrypting `windows_certs`
+          # windows_certs_password: ''
+
+          # Base64-encoded code signing certificate for macOS
+          # mac_certs: ''
+
+          # Password for decrypting `mac_certs`
+          # mac_certs_password: ''
