@@ -66,11 +66,12 @@ See [examples of web pages for different frameworks](https://github.com/vitejs/v
   - Is dev tools closed?
   
 
-### Continuous deployment
-- An automatic update from GitHub releases is supported.
-- Each time you push changes to the main branch, a workflow starts, which creates a new github release.
-  - The version number is automatically set based on the current date in the format "yy.mm.dd".
-  - Notes are automatically generated and added to the new release.
+### Continuous delivery
+- Each time you push changes to the `main` branch, [`release`](.github/workflows/release.yml) workflow starts, which creates release draft.
+  - The version is automatically set based on the current date in the format "yy.mm.dd".
+  - Notes are automatically generated and added to the release draft.
+  - Code signing supported. See [`compile` job in `release` workflow](.github/workflows/release.yml).
+- **Auto-update is supported**. After the release will be published, all client applications will download the new version and install updates silently.
 
 
 ## Status — WIP
@@ -85,7 +86,6 @@ At the moment, there are the following problems:
 - ⚠ Some files require refactoring.
 - ⚠ Watch mode for the `main` and `preload` entry points should be improved. Blocked by  [vite#1434](https://github.com/vitejs/vite/issues/1434).
 - ⚠ Typechecking `renderer` package in CI implemented by [![vue-tsc](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vue-tsc)][vue-tsc], which has a very early version. This is not a problem if you do not use Vue or TypeScript.
-- ⏳ Automatic code signing — planned.
 - ⏳ I want to migrate all code base to ESM. But because Nodejs  ecosystem is unprepared I not known whether this will give more benefits or more inconvenience.
 
 Some improvement or problems can be listed in [issues](https://github.com/cawa-93/vite-electron-builder/issues).

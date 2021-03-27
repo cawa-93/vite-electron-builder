@@ -92,6 +92,8 @@ jobs:
           mkdir -p buildResources
           echo "$RELEASE_NOTES" > buildResources/release-notes.md
 
+
+      # Compile app and upload artifacts
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:
