@@ -58,7 +58,7 @@ jobs:
           draft: true
           tag_name: v${{ steps.version.outputs.current-version }}
           name: v${{ steps.version.outputs.current-version }}
-          body_path: ${{ github.workflow }}/buildResources/release-notes.md
+          body_path: ./buildResources/release-notes.md
 
   compile:
     needs: [ draft_release ]
