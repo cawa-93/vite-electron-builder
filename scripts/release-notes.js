@@ -55,7 +55,6 @@ async function getCommits() {
           return rawCommitText
             .replace(/	/g, '  ')
             .replace(/"/g, '\\\"')
-            .replace(/'/g, '\\\"')
             .replace(/\^\^\^\^/g, '"')
             .replace(/(\r)?\n/gm, '\\n')
 
