@@ -53,7 +53,7 @@ async function getCommits() {
       const jsonReady = `[${commitsArray
         .map(rawCommitText => {
           return rawCommitText
-            .replace(/	/g, ' ')
+            .replace(/	/g, '  ')
             .replace(/"/g, '\\\"')
             .replace(/'/g, '\\\"')
             .replace(/\^\^\^\^/g, '"')
