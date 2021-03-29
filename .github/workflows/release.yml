@@ -87,7 +87,7 @@ jobs:
 
 
       # Compile app and upload artifacts
-      - name: Build/release Electron app
+      - name: Compile & release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         with:
           build_script_name: build
