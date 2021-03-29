@@ -35,11 +35,9 @@ jobs:
         id: version
         run: echo "::set-output name=current-version::$(node -e "try{console.log(require('./electron-builder.config.js').extraMetadata.version)}catch(e){console.error(e);process.exit(1)}")"
 
-      - name: generate-changelog-action
-        uses: ScottBrenner/generate-changelog-action@1.0.3
+      - name:
         id: changelog
-        env:
-          REPO: ${{ github.repository }}
+        run: echo "::set-output name=changelog::$(node ./scripts/release-notes.js)"
 
       - name: Waiting on All checks
         uses: lewagon/wait-on-check-action@v0.2

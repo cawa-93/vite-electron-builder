@@ -249,6 +249,6 @@ function getChangeLog(groups) {
 getCommits()
   .then(getGroupedCommits)
   .then(getChangeLog)
-  .then(s => fs.promises.writeFile('../CHANGELOG.md', s, {encoding: 'utf-8'}))
-  // .then(console.log)
+  // .then(s => fs.promises.writeFile('../CHANGELOG.md', s, {encoding: 'utf-8'})) // For debug
+  .then(console.log)
   .catch(console.error)
