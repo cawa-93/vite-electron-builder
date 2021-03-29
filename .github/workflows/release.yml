@@ -36,8 +36,7 @@ jobs:
         run: echo "::set-output name=current-version::$(node -e "try{console.log(require('./electron-builder.config.js').extraMetadata.version)}catch(e){console.error(e);process.exit(1)}")"
 
       - name:
-        id: changelog
-        run: echo "::set-output name=changelog::$(node ./scripts/release-notes.js)"
+        run: npm run release-notes
 
       - name: Waiting on All checks
         uses: lewagon/wait-on-check-action@v0.2
@@ -52,14 +51,14 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release Draft
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
         with:
           draft: true
           tag_name: v${{ steps.version.outputs.current-version }}
-          release_name: v${{ steps.version.outputs.current-version }}
-          body: ${{ steps.changelog.outputs.changelog }}
+          name: v${{ steps.version.outputs.current-version }}
+          body_path: ${{ github.workflow }}/buildResources/release-notes.md
 
   compile:
     needs: [ draft_release ]
@@ -84,11 +83,7 @@ jobs:
       # The easiest way to transfer release notes to a compiled application is create `release-notes.md` in the build resources.
       # See https://github.com/electron-userland/electron-builder/issues/1511#issuecomment-310160119
       - name: Prepare release notes
-        env:
-          RELEASE_NOTES: ${{ needs.draft_release.outputs.changelog }} # This needs to Escape quotes
-        run: |
-          mkdir -p buildResources
-          echo "$RELEASE_NOTES" > buildResources/release-notes.md
+        run: npm run release-notes
 
 
       # Compile app and upload artifacts
