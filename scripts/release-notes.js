@@ -147,7 +147,13 @@ function getCommitsList(commits, pad = '') {
     changelog += `${pad}- ${commit.clearSubject || commit.subject}. (${commit.abbreviated_commit})\n`
     const body = commit.body.replace('[skip ci]', '').trim()
     if (body !== '') {
-      changelog += `\n${body.split('\n').map(s => `${pad}  ${s}`).join('\n')}\n`
+      changelog += `${
+        body
+        .split(/\n+/)
+        .map(s => `${pad}  ${s}`)
+        .filter(s => !!s.trim())
+        .join('\n')
+      }\n`
     }
   }
 
@@ -242,7 +248,7 @@ function getChangeLog(groups) {
     changelog += getGroupChangeLog(groups.get(''))
   }
 
-  return changelog
+  return changelog.trim()
 }
 
 
