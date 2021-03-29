@@ -1,3 +1,12 @@
+/*
+ *
+ * TODO:
+ * - [ ] Refactor this script
+ * - [ ] Add comments
+ * - [ ] Merge commits with same commit subject
+ *
+ */
+
 const fs = require('fs')
 const {spawn, execSync} = require('child_process')
 
@@ -19,7 +28,6 @@ async function getCommits() {
   return new Promise((resolve, reject) => {
 
     const startFrom = String(execSync('git describe --tags --abbrev=0 || git rev-list --max-parents=0 HEAD')).trim()
-
 
 
     const git = spawn('git', ['--no-pager', 'log', `${startFrom}..HEAD`, '--pretty=format:' + format])
@@ -131,6 +139,7 @@ function getGroupedCommits(commits) {
 /**
  *
  * @param {ICommitExtended[]} commits
+ * @param {string} pad
  */
 function getCommitsList(commits, pad = '') {
   let changelog = ''
@@ -145,6 +154,74 @@ function getCommitsList(commits, pad = '') {
   return changelog
 }
 
+function replaceHeader(str) {
+  switch (str) {
+    case 'feat':
+      return 'New Features'
+    case 'fix':
+      return 'Bug Fixes'
+    case 'docs':
+      return 'Documentation Changes'
+    case 'build':
+      return 'Build System'
+    case 'chore':
+      return 'Chores'
+    case 'ci':
+      return 'Continuous Integration'
+    case 'undefined':
+      return 'Other Changes'
+    case 'refactor':
+      return 'Refactors'
+    case 'style':
+      return 'Code Style Changes'
+    case 'test':
+      return 'Tests'
+    case 'perf':
+      return 'Performance improvements'
+    case 'revert':
+      return 'Reverts'
+    case 'deps':
+      return 'Dependency updates'
+    default:
+      return str
+  }
+}
+
+function getScopeChangeLog(scope) {
+  let changelog = ''
+  if (scope.commits.length) {
+    changelog += getCommitsList(scope.commits, '  ')
+  }
+
+  return changelog
+}
+
+
+function getGroupChangeLog(group) {
+  let changelog = ''
+
+  for (const [scopeId, scope] of group.scopes) {
+    if (scopeId !== '') {
+      changelog += `- #### ${replaceHeader(scopeId || 'undefined')}\n`
+      changelog += getScopeChangeLog(scope)
+    }
+  }
+
+  if (group.scopes.has('')) {
+    changelog += `- #### ${replaceHeader('undefined')}\n`
+    changelog += getScopeChangeLog(group.scopes.get(''))
+  }
+
+  if (group.commits.length) {
+    changelog += getCommitsList(group.commits)
+  }
+
+  changelog += '\n\n'
+
+  return changelog
+}
+
+
 /**
  *
  * @param {IGroupedCommits} groups
@@ -154,21 +231,15 @@ function getChangeLog(groups) {
   let changelog = ''
 
   for (const [typeId, group] of groups) {
-    changelog += `### ${typeId || 'undefined'}\n`
-
-    for (const [scopeId, scope] of group.scopes) {
-      changelog += `- #### ${scopeId || 'undefined'}\n`
-
-      if (scope.commits.length) {
-        changelog += getCommitsList(scope.commits, '  ')
-      }
+    if (typeId !== '') {
+      changelog += `### ${replaceHeader(typeId)}\n`
+      changelog += getGroupChangeLog(group)
     }
+  }
 
-    if (group.commits.length) {
-      changelog += getCommitsList(group.commits)
-    }
-
-    changelog += '\n\n'
+  if (groups.has('')) {
+    changelog += `### ${replaceHeader('undefined')}\n`
+    changelog += getGroupChangeLog(groups.get(''))
   }
 
   return changelog
