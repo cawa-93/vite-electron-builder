@@ -25,16 +25,34 @@ const {execSync} = require('child_process')
  * @typedef {Map<string, {scopes: Map<string, {commits: ICommitExtended[]}>, commits: ICommitExtended[]}>} IGroupedCommits
  */
 
+
+/**
+ * Any unique string that is guaranteed not to be used in committee text.
+ * Used to split data in the commit line
+ * @type {string}
+ */
 const commitInnerSeparator = '~~~~'
+
+/**
+ * Any unique string that is guaranteed not to be used in committee text.
+ * Used to split each commit line
+ * @type {string}
+ */
 const commitOuterSeparator = '₴₴₴₴'
+
+/**
+ * Commit data to be obtained.
+ * @type {Map<string, string>}
+ *
+ * @see https://git-scm.com/docs/git-log#Documentation/git-log.txt-emnem
+ */
 const commitDataMap = new Map([
   ['abbreviated_commit', '%h'],
   ['subject', '%s'],
-  // ['body', '%b'],
+  // ['body', '%b'], // Uncomment if you wand include commit body to release notes
 ])
 
 /**
- *
  * @param {string} commitString
  * @returns {ICommit}
  */
