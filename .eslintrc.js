@@ -23,11 +23,8 @@ module.exports = {
   ],
 
   rules: {
+    '@typescript-eslint/no-unused-vars': 'error',
     '@typescript-eslint/no-var-requires': 'off',
-    /**
-     * Having a semicolon helps the optimizer interpret your code correctly.
-     * This avoids rare errors in optimized code.
-     */
     semi: ['error', 'never'],
 
     /**
