@@ -42,7 +42,6 @@ jobs:
 
       # Just for debug
       - run: node scripts/release-notes.js
-      - run: node scripts/release-notes.js
 
       - name: Waiting on All checks
         uses: lewagon/wait-on-check-action@v0.2
