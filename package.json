@@ -46,11 +46,5 @@
     "electron-updater": "^4.3.8",
     "vue": "^3.0.8",
     "vue-router": "^4.0.5"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
-  },
-  "lint-staged": {
-    "*.{js,ts,vue}": "eslint --cache --fix"
   }
 }
