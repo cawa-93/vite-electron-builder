@@ -35,8 +35,11 @@ jobs:
         id: version
         run: echo "::set-output name=current-version::$(node -e "try{console.log(require('./electron-builder.config.js').extraMetadata.version)}catch(e){console.error(e);process.exit(1)}")"
 
-      - name:
+      - name: Generate release notes
         run: npm run release-notes
+
+      # Just for debug
+      - run: node scripts/release-notes.js
 
       - name: Waiting on All checks
         uses: lewagon/wait-on-check-action@v0.2
