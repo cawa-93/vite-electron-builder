@@ -27,6 +27,8 @@ jobs:
         with:
           fetch-depth: 0
 
+      - run: git log --oneline
+
       - uses: actions/setup-node@v2
         with:
           node-version: 14
@@ -39,6 +41,7 @@ jobs:
         run: npm run release-notes
 
       # Just for debug
+      - run: node scripts/release-notes.js
       - run: node scripts/release-notes.js
 
       - name: Waiting on All checks
