@@ -25,8 +25,8 @@ const {execSync} = require('child_process')
  * @typedef {Map<string, {scopes: Map<string, {commits: ICommitExtended[]}>, commits: ICommitExtended[]}>} IGroupedCommits
  */
 
-const commitInnerSeparator = '^^^^'
-const commitOuterSeparator = '$$$$'
+const commitInnerSeparator = '~~~~'
+const commitOuterSeparator = '₴₴₴₴'
 const commitDataMap = new Map([
   ['abbreviated_commit', '%h'],
   ['subject', '%s'],
