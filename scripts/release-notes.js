@@ -30,7 +30,7 @@ const commitOuterSeparator = '$$$$'
 const commitDataMap = new Map([
   ['abbreviated_commit', '%h'],
   ['subject', '%s'],
-  ['body', '%b'],
+  // ['body', '%b'],
 ])
 
 /**
@@ -151,6 +151,11 @@ function getCommitsList(commits, pad = '') {
   let changelog = ''
   for (const commit of commits) {
     changelog += `${pad}- ${commit.clearSubject || commit.subject}. (${commit.abbreviated_commit})\n`
+
+    if (commit.body === undefined) {
+      continue
+    }
+
     const body = commit.body.replace('[skip ci]', '').trim()
     if (body !== '') {
       changelog += `${
