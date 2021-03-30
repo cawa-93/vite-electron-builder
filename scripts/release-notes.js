@@ -7,13 +7,12 @@
  *
  */
 
-const {spawn, execSync} = require('child_process')
+const {execSync} = require('child_process')
 
-const format = '{^^^^commit^^^^: ^^^^%H^^^^,^^^^abbreviated_commit^^^^: ^^^^%h^^^^,^^^^subject^^^^: ^^^^%s^^^^,^^^^body^^^^: ^^^^%b^^^^}'
+const format = '{^^^^abbreviated_commit^^^^: ^^^^%h^^^^,^^^^subject^^^^: ^^^^%s^^^^,^^^^body^^^^: ^^^^%b^^^^}'
 
 /**
  * @typedef {Object} ICommit
- * @property {string} commit
  * @property {string} abbreviated_commit
  * @property {string} subject
  * @property {string} body
@@ -21,48 +20,26 @@ const format = '{^^^^commit^^^^: ^^^^%H^^^^,^^^^abbreviated_commit^^^^: ^^^^%h^^
 
 /**
  *
- * @return {Promise<ICommit[]>}
+ * @return {ICommit[]}
  */
-async function getCommits() {
-  return new Promise((resolve, reject) => {
+function getCommits() {
+  const startFrom = String(execSync('git describe --tags --abbrev=0 || git rev-list --max-parents=0 HEAD')).trim()
+  const logs = String(execSync(`git --no-pager log ${startFrom}..HEAD --pretty=format:"${format}"`)).trim()
 
-    const startFrom = String(execSync('git describe --tags --abbrev=0 || git rev-list --max-parents=0 HEAD')).trim()
+  const commitsArray = logs.split(/}\n{/)
 
+  const jsonReady = `[${commitsArray
+    .map(rawCommitText => {
+      return rawCommitText
+        .replace(/	/g, '  ')
+        .replace(/"/g, '\\\"')
+        .replace(/\^\^\^\^/g, '"')
+        .replace(/(\r)?\n/gm, '\\n')
 
-    const git = spawn('git', ['--no-pager', 'log', `${startFrom}..HEAD`, '--pretty=format:' + format])
-    let commits = ''
-    let errors = ''
+    }).join('}\n,{')
+  }]`
 
-    git.stdout.on('data', (data) => {
-      commits += data
-    })
-
-    git.stderr.on('data', (data) => {
-      errors += data
-    })
-
-    git.on('exit', (code) => {
-      if (code !== 0) {
-        reject(errors)
-        return
-      }
-
-      const commitsArray = commits.split(/}\n{/)
-
-      const jsonReady = `[${commitsArray
-        .map(rawCommitText => {
-          return rawCommitText
-            .replace(/	/g, '  ')
-            .replace(/"/g, '\\\"')
-            .replace(/\^\^\^\^/g, '"')
-            .replace(/(\r)?\n/gm, '\\n')
-
-        }).join('}\n,{')
-      }]`
-
-      resolve(JSON.parse(jsonReady))
-    })
-  })
+  return JSON.parse(jsonReady)
 }
 
 /**
@@ -251,10 +228,13 @@ function getChangeLog(groups) {
   return changelog.trim()
 }
 
-
-getCommits()
-  .then(getGroupedCommits)
-  .then(getChangeLog)
-  // .then(s => require('fs').promises.writeFile('../CHANGELOG.md', s, {encoding: 'utf-8'})) // For debug
-  .then(console.log)
-  .catch(console.error)
+try {
+  const commits = getCommits()
+  const grouped = getGroupedCommits(commits)
+  const changelog = getChangeLog(grouped)
+  console.log(changelog)
+// require('fs').writeFileSync('../CHANGELOG.md', changelog, {encoding: 'utf-8'})
+} catch (e) {
+  console.error(e)
+  process.exit(1)
+}
