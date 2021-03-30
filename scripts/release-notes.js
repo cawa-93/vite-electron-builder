@@ -7,7 +7,6 @@
  *
  */
 
-const fs = require('fs')
 const {spawn, execSync} = require('child_process')
 
 const format = '{^^^^commit^^^^: ^^^^%H^^^^,^^^^abbreviated_commit^^^^: ^^^^%h^^^^,^^^^subject^^^^: ^^^^%s^^^^,^^^^body^^^^: ^^^^%b^^^^}'
@@ -150,10 +149,10 @@ function getCommitsList(commits, pad = '') {
     if (body !== '') {
       changelog += `${
         body
-        .split(/\n+/)
-        .map(s => `${pad}  ${s}`)
-        .filter(s => !!s.trim())
-        .join('\n')
+          .split(/\n+/)
+          .map(s => `${pad}  ${s}`)
+          .filter(s => !!s.trim())
+          .join('\n')
       }\n`
     }
   }
@@ -256,6 +255,6 @@ function getChangeLog(groups) {
 getCommits()
   .then(getGroupedCommits)
   .then(getChangeLog)
-  // .then(s => fs.promises.writeFile('../CHANGELOG.md', s, {encoding: 'utf-8'})) // For debug
+  // .then(s => require('fs').promises.writeFile('../CHANGELOG.md', s, {encoding: 'utf-8'})) // For debug
   .then(console.log)
   .catch(console.error)
