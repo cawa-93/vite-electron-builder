@@ -27,19 +27,30 @@ const {execSync} = require('child_process')
 
 const commitInnerSeparator = '^^^^'
 const commitOuterSeparator = '$$$$'
-
+const commitDataMap = new Map([
+  ['abbreviated_commit', '%h'],
+  ['subject', '%s'],
+  ['body', '%b'],
+])
 
 /**
  *
- * @return {ICommit}
+ * @param {string} commitString
+ * @returns {ICommit}
  */
 function parseCommit(commitString) {
-  const [abbreviated_commit, subject = '', body = ''] =
+  /** @type {ICommit} */
+  const commitDataObj = {}
+  const commitDataArray =
     commitString
       .split(commitInnerSeparator)
       .map(s => s.trim())
 
-  return {abbreviated_commit, subject, body}
+  for (const [key] of commitDataMap) {
+    commitDataObj[key] = commitDataArray.shift()
+  }
+
+  return commitDataObj
 }
 
 /**
@@ -55,13 +66,7 @@ function getCommits() {
    */
   const startFrom = String(execSync('git describe --tags --abbrev=0 || git rev-list --max-parents=0 HEAD')).trim()
 
-  const format =
-    [
-      '%h', // abbreviated_commit
-      '%s', // subject
-      '%b', // body
-    ].join(commitInnerSeparator)
-    + commitOuterSeparator
+  const format = Array.from(commitDataMap.values()).join(commitInnerSeparator) + commitOuterSeparator
 
   const logs = String(execSync(`git --no-pager log ${startFrom}..HEAD --pretty=format:"${format}"`))
 
@@ -71,7 +76,6 @@ function getCommits() {
     .filter(r => !!r.trim()) // Skip empty lines
     .map(parseCommit)
 }
-
 
 
 /**
@@ -107,7 +111,6 @@ function getEmptyScope() {
     commits: [],
   }
 }
-
 
 
 /**
