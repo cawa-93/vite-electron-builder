@@ -9,7 +9,6 @@
 
 const {execSync} = require('child_process')
 
-const format = '{^^^^abbreviated_commit^^^^: ^^^^%h^^^^,^^^^subject^^^^: ^^^^%s^^^^,^^^^body^^^^: ^^^^%b^^^^}'
 
 /**
  * @typedef {Object} ICommit
@@ -19,32 +18,61 @@ const format = '{^^^^abbreviated_commit^^^^: ^^^^%h^^^^,^^^^subject^^^^: ^^^^%s^
  */
 
 /**
+ * @typedef {ICommit & {type: string, scope: string, clearSubject: string}} ICommitExtended
+ */
+
+/**
+ * @typedef {Map<string, {scopes: Map<string, {commits: ICommitExtended[]}>, commits: ICommitExtended[]}>} IGroupedCommits
+ */
+
+const commitInnerSeparator = '^^^^'
+const commitOuterSeparator = '$$$$'
+
+
+/**
+ *
+ * @return {ICommit}
+ */
+function parseCommit(commitString) {
+  const [abbreviated_commit, subject = '', body = ''] =
+    commitString
+      .split(commitInnerSeparator)
+      .map(s => s.trim())
+
+  return {abbreviated_commit, subject, body}
+}
+
+/**
  *
  * @return {ICommit[]}
  */
 function getCommits() {
+
+  /**
+   * Where to start load history.
+   * Could be last git tag or initial commit.
+   * @type {string}
+   */
   const startFrom = String(execSync('git describe --tags --abbrev=0 || git rev-list --max-parents=0 HEAD')).trim()
-  const logs = String(execSync(`git --no-pager log ${startFrom}..HEAD --pretty=format:"${format}"`)).trim()
 
-  const commitsArray = logs.split(/}\n{/)
+  const format =
+    [
+      '%h', // abbreviated_commit
+      '%s', // subject
+      '%b', // body
+    ].join(commitInnerSeparator)
+    + commitOuterSeparator
 
-  const jsonReady = `[${commitsArray
-    .map(rawCommitText => {
-      return rawCommitText
-        .replace(/	/g, '  ')
-        .replace(/"/g, '\\\"')
-        .replace(/\^\^\^\^/g, '"')
-        .replace(/(\r)?\n/gm, '\\n')
+  const logs = String(execSync(`git --no-pager log ${startFrom}..HEAD --pretty=format:"${format}"`))
 
-    }).join('}\n,{')
-  }]`
-
-  return JSON.parse(jsonReady)
+  return logs
+    .trim()
+    .split(commitOuterSeparator)
+    .filter(r => !!r.trim()) // Skip empty lines
+    .map(parseCommit)
 }
 
-/**
- * @typedef {ICommit & {type: string, scope: string, clearSubject: string}} ICommitExtended
- */
+
 
 /**
  *
@@ -80,9 +108,7 @@ function getEmptyScope() {
   }
 }
 
-/**
- * @typedef {Map<string, {scopes: Map<string, {commits: ICommitExtended[]}>, commits: ICommitExtended[]}>} IGroupedCommits
- */
+
 
 /**
  *
