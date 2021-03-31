@@ -33,6 +33,8 @@ jobs:
         with:
           node-version: 14
 
+      - run: npm -v
+
       # TODO: Install not all dependencies, but only those required for this workflow
       - run: npm ci
 
