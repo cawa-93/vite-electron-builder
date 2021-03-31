@@ -26,7 +26,7 @@
     "@types/electron-devtools-installer": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^4.20.0",
     "@typescript-eslint/parser": "^4.20.0",
-    "@vitejs/plugin-vue": "^1.2.0",
+    "@vitejs/plugin-vue": "^1.2.1",
     "@vue/compiler-sfc": "^3.0.8",
     "chokidar": "^3.5.1",
     "cross-env": "^7.0.3",
