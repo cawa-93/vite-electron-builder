@@ -85,8 +85,8 @@ jobs:
         with:
           node-version: 14
 
+      # By default, npm v6 is used, but the minimum required version is > v7.7
       - run: npm install -g npm@latest
-      - run: npm -v
 
       # TODO: Install not all dependencies, but only those required for this job
       - run: npm ci
