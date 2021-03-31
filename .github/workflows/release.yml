@@ -85,6 +85,9 @@ jobs:
         with:
           node-version: 14
 
+      - run: npm install -g npm@latest
+      - run: npm -v
+
       # TODO: Install not all dependencies, but only those required for this job
       - run: npm ci
 
