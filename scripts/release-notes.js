@@ -1,12 +1,3 @@
-/*
- *
- * TODO:
- * - [ ] Refactor this script
- * - [ ] Add comments
- * - [ ] Merge commits with same commit subject
- *
- */
-
 const {execSync} = require('child_process')
 
 
