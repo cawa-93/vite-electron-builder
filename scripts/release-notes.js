@@ -12,13 +12,13 @@ const {execSync} = require('child_process')
 
 /**
  * @typedef {Object} ICommit
- * @property {string} abbreviated_commit
- * @property {string} subject
- * @property {string} body
+ * @property {string | undefined} abbreviated_commit
+ * @property {string | undefined} subject
+ * @property {string | undefined} body
  */
 
 /**
- * @typedef {ICommit & {type: string, scope: string, clearSubject: string}} ICommitExtended
+ * @typedef {ICommit & {type: string | undefined, scope: string | undefined}} ICommitExtended
  */
 
 
@@ -45,8 +45,8 @@ const commitOuterSeparator = '₴₴₴₴'
  * @see https://git-scm.com/docs/git-log#Documentation/git-log.txt-emnem
  */
 const commitDataMap = new Map([
+  ['subject', '%s'], // Required
   ['abbreviated_commit', '%h'],
-  ['subject', '%s'],
   // ['body', '%b'], // Uncomment if you wand include commit body to release notes
 ])
 
@@ -142,10 +142,10 @@ function setCommitTypeAndScope(commit) {
   }
 
   return {
+    ...commit,
     type: (type || fallbackType).toLowerCase().trim(),
     scope: (scope || '').toLowerCase().trim(),
-    clearSubject: (clearSubject || '').trim(),
-    ...commit,
+    subject: (clearSubject || commit.subject).trim(),
   }
 }
 
@@ -161,10 +161,11 @@ class CommitGroup {
    * @param {ICommitExtended} commit
    */
   static #pushOrMerge(array, commit) {
-    const subject = commit.clearSubject || commit.subject
-    const similarCommit = array.find(c => (c.clearSubject || c.subject) === subject)
+    const similarCommit = array.find(c => c.subject === commit.subject)
     if (similarCommit) {
-      similarCommit.abbreviated_commit += `, ${commit.abbreviated_commit}`
+      if (commit.abbreviated_commit !== undefined) {
+        similarCommit.abbreviated_commit += `, ${commit.abbreviated_commit}`
+      }
     } else {
       array.push(commit)
     }
@@ -220,7 +221,13 @@ function getGroupedCommits(commits) {
 function getCommitsList(commits, pad = '') {
   let changelog = ''
   for (const commit of commits) {
-    changelog += `${pad}- ${commit.clearSubject || commit.subject}. (${commit.abbreviated_commit})\n`
+    changelog += `${pad}- ${commit.subject}.`
+
+    if (commit.abbreviated_commit !== undefined) {
+      changelog += ` (${commit.abbreviated_commit})`
+    }
+
+    changelog += '\n'
 
     if (commit.body === undefined) {
       continue
