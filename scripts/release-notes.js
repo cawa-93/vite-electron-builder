@@ -129,7 +129,7 @@ function getCommits() {
  */
 function setCommitTypeAndScope(commit) {
 
-  const matchRE = new RegExp(`^(?:(${supportedTypes.join('|')})(?:\\((\\w+)\\))?:)?(.*)`, 'i')
+  const matchRE = new RegExp(`^(?:(${supportedTypes.join('|')})(?:\\((\\S+)\\))?:)?(.*)`, 'i')
 
   let [, type, scope, clearSubject] = commit.subject.match(matchRE)
 
