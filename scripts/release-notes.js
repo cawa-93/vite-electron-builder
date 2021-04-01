@@ -156,16 +156,31 @@ class CommitGroup {
   }
 
   /**
+   *
+   * @param {ICommitExtended[]} array
+   * @param {ICommitExtended} commit
+   */
+  static #pushOrMerge(array, commit) {
+    const subject = commit.clearSubject || commit.subject
+    const similarCommit = array.find(c => (c.clearSubject || c.subject) === subject)
+    if (similarCommit) {
+      similarCommit.abbreviated_commit += `, ${commit.abbreviated_commit}`
+    } else {
+      array.push(commit)
+    }
+  }
+
+  /**
    * @param {ICommitExtended} commit
    */
   push(commit) {
     if (!commit.scope) {
-      this.commits.push(commit)
+      CommitGroup.#pushOrMerge(this.commits, commit)
       return
     }
 
     const scope = this.scopes.get(commit.scope) || {commits: []}
-    scope.commits.push(commit)
+    CommitGroup.#pushOrMerge(scope.commits, commit)
     this.scopes.set(commit.scope, scope)
   }
 
