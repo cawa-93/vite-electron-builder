@@ -21,10 +21,6 @@ const {execSync} = require('child_process')
  * @typedef {ICommit & {type: string, scope: string, clearSubject: string}} ICommitExtended
  */
 
-/**
- * @typedef {Map<string, {scopes: Map<string, {commits: ICommitExtended[]}>, commits: ICommitExtended[]}>} IGroupedCommits
- */
-
 
 /**
  * Any unique string that is guaranteed not to be used in committee text.
@@ -33,12 +29,14 @@ const {execSync} = require('child_process')
  */
 const commitInnerSeparator = '~~~~'
 
+
 /**
  * Any unique string that is guaranteed not to be used in committee text.
  * Used to split each commit line
  * @type {string}
  */
 const commitOuterSeparator = '₴₴₴₴'
+
 
 /**
  * Commit data to be obtained.
@@ -51,6 +49,34 @@ const commitDataMap = new Map([
   ['subject', '%s'],
   // ['body', '%b'], // Uncomment if you wand include commit body to release notes
 ])
+
+
+/**
+ * The type used to group commits that do not comply with the convention
+ * @type {string}
+ */
+const fallbackType = 'other'
+
+
+/**
+ * List of all desired commit groups and in what order to display them.
+ * @type {string[]}
+ */
+const supportedTypes = [
+  'feat',
+  'fix',
+  'perf',
+  'refactor',
+  'style',
+  'docs',
+  'test',
+  'build',
+  'ci',
+  'chore',
+  'revert',
+  'deps',
+  fallbackType,
+]
 
 /**
  * @param {string} commitString
@@ -72,7 +98,7 @@ function parseCommit(commitString) {
 }
 
 /**
- *
+ * Returns an array of commits since the last git tag
  * @return {ICommit[]}
  */
 function getCommits() {
@@ -101,69 +127,80 @@ function getCommits() {
  * @param {ICommit} commit
  * @return {ICommitExtended}
  */
-function getCommitData(commit) {
-  let [, , type, , scope, text] = commit.subject.match(/^((feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|deps)(\((\w+)\))?:)?(.*)/i)
+function setCommitTypeAndScope(commit) {
 
+  const matchRE = new RegExp(`^(?:(${supportedTypes.join('|')})(?:\\((\\w+)\\))?:)?(.*)`, 'i')
+
+  let [, type, scope, clearSubject] = commit.subject.match(matchRE)
+
+  /**
+   * Additional rules for checking committees that do not comply with the convention, but for which it is possible to determine the type.
+   */
+  // Commits like `revert something`
   if (type === undefined && commit.subject.startsWith('revert')) {
     type = 'revert'
   }
 
   return {
-    type: (type || '').toLowerCase().trim(),
+    type: (type || fallbackType).toLowerCase().trim(),
     scope: (scope || '').toLowerCase().trim(),
-    clearSubject: (text || '').trim(),
+    clearSubject: (clearSubject || '').trim(),
     ...commit,
   }
 }
 
-function getEmptyType() {
-  return {
-    // type: typeName,
-    scopes: new Map(),
-    commits: [],
+class CommitGroup {
+  constructor() {
+    this.scopes = new Map
+    this.commits = []
   }
-}
 
-function getEmptyScope() {
-  return {
-    commits: [],
+  /**
+   * @param {ICommitExtended} commit
+   */
+  push(commit) {
+    if (!commit.scope) {
+      this.commits.push(commit)
+      return
+    }
+
+    const scope = this.scopes.get(commit.scope) || {commits: []}
+    scope.commits.push(commit)
+    this.scopes.set(commit.scope, scope)
+  }
+
+  get isEmpty() {
+    return this.commits.length === 0 && this.scopes.size === 0
   }
 }
 
 
 /**
- *
+ * Groups all commits by type and scopes
  * @param {ICommit[]} commits
- * @returns {IGroupedCommits}
+ * @returns {Map<string, CommitGroup>}
  */
 function getGroupedCommits(commits) {
-  const parsedCommits = commits.map(getCommitData)
+  const parsedCommits = commits.map(setCommitTypeAndScope)
 
-  const types = new Map
+  const types = new Map(
+    supportedTypes.map(id => ([id, new CommitGroup()])),
+  )
 
   for (const parsedCommit of parsedCommits) {
     const typeId = parsedCommit.type
-    const type = types.get(typeId) || getEmptyType()
-
-    if (parsedCommit.scope !== '') {
-      const scopeId = parsedCommit.scope
-      const scope = type.scopes.get(scopeId) || getEmptyScope()
-      scope.commits.push(parsedCommit)
-      type.scopes.set(scopeId, scope)
-    } else {
-      type.commits.push(parsedCommit)
-    }
-
-    types.set(typeId, type)
+    const type = types.get(typeId)
+    type.push(parsedCommit)
   }
 
   return types
 }
 
 /**
- *
+ * Return markdown list with commits
  * @param {ICommitExtended[]} commits
  * @param {string} pad
+ * @returns {string}
  */
 function getCommitsList(commits, pad = '') {
   let changelog = ''
@@ -189,6 +226,7 @@ function getCommitsList(commits, pad = '') {
   return changelog
 }
 
+
 function replaceHeader(str) {
   switch (str) {
     case 'feat':
@@ -203,8 +241,6 @@ function replaceHeader(str) {
       return 'Chores'
     case 'ci':
       return 'Continuous Integration'
-    case 'undefined':
-      return 'Other Changes'
     case 'refactor':
       return 'Refactors'
     case 'style':
@@ -217,68 +253,46 @@ function replaceHeader(str) {
       return 'Reverts'
     case 'deps':
       return 'Dependency updates'
+    case 'other':
+      return 'Other Changes'
     default:
       return str
   }
 }
 
-function getScopeChangeLog(scope) {
-  let changelog = ''
-  if (scope.commits.length) {
-    changelog += getCommitsList(scope.commits, '  ')
-  }
-
-  return changelog
-}
-
-
-function getGroupChangeLog(group) {
-  let changelog = ''
-
-  for (const [scopeId, scope] of group.scopes) {
-    if (scopeId !== '') {
-      changelog += `- #### ${replaceHeader(scopeId || 'undefined')}\n`
-      changelog += getScopeChangeLog(scope)
-    }
-  }
-
-  if (group.scopes.has('')) {
-    changelog += `- #### ${replaceHeader('undefined')}\n`
-    changelog += getScopeChangeLog(group.scopes.get(''))
-  }
-
-  if (group.commits.length) {
-    changelog += getCommitsList(group.commits)
-  }
-
-  changelog += '\n\n'
-
-  return changelog
-}
-
 
 /**
- *
- * @param {IGroupedCommits} groups
+ * Return markdown string with changelog
+ * @param {Map<string, CommitGroup>} groups
  */
 function getChangeLog(groups) {
 
   let changelog = ''
 
   for (const [typeId, group] of groups) {
-    if (typeId !== '') {
-      changelog += `### ${replaceHeader(typeId)}\n`
-      changelog += getGroupChangeLog(group)
+    if (group.isEmpty) {
+      continue
     }
-  }
 
-  if (groups.has('')) {
-    changelog += `### ${replaceHeader('undefined')}\n`
-    changelog += getGroupChangeLog(groups.get(''))
+    changelog += `### ${replaceHeader(typeId)}\n`
+
+    for (const [scopeId, scope] of group.scopes) {
+      if (scope.commits.length) {
+        changelog += `- #### ${replaceHeader(scopeId)}\n`
+        changelog += getCommitsList(scope.commits, '  ')
+      }
+    }
+
+    if (group.commits.length) {
+      changelog += getCommitsList(group.commits)
+    }
+
+    changelog += '\n\n'
   }
 
   return changelog.trim()
 }
+
 
 try {
   const commits = getCommits()
