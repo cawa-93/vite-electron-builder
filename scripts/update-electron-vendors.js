@@ -1,46 +1,28 @@
-const https = require('https')
-const electronVersion = require('../package-lock.json').dependencies['electron'].version
 const {writeFile} = require('fs/promises')
+const {execSync} = require('child_process')
 
-function fetch(options) {
-  return new Promise((resolve, reject) => {
-
-    https.get(options, (resp) => {
-      if (resp.statusCode >= 300 && resp.statusCode < 400 && resp.headers.location !== undefined) {
-        resolve(fetch(resp.headers.location))
-        return
-      }
-
-      let data = ''
-
-      // A chunk of data has been received.
-      resp.on('data', (chunk) => {
-        data += chunk
-      })
-
-      // The whole response has been received. Print out the result.
-      resp.on('end', () => {
-        resolve(data)
-      })
-
-    }).on('error', (err) => {
-      reject(err)
-    })
+/**
+ * Returns versions of electron vendors
+ * The performance of this feature is very poor and can be improved
+ * @see https://github.com/electron/electron/issues/28006
+ *
+ * @returns {NodeJS.ProcessVersions}
+ */
+function getVendors() {
+  const output = execSync('electron -p "JSON.stringify(process.versions)"', {
+    env: {'ELECTRON_RUN_AS_NODE': '1'},
+    encoding: 'utf-8',
   })
+
+  return JSON.parse(output)
 }
 
-fetch('https://electronjs.org/headers/index.json').then(response => {
-  /** @type {NodeJS.ProcessVersions[]} */
-  const releases = JSON.parse(response)
 
-  const electronRelease = releases.find(r => r.version === electronVersion)
-
-  if (!electronRelease) {
-    throw new Error(`Can't find electron release by version: ${electronVersion}`)
-  }
+function updateVendors() {
+  const electronRelease = getVendors()
 
   const nodeMajorVersion = electronRelease.node.split('.')[0]
-  const chromeMajorVersion = electronRelease.chrome.split('.')[0]
+  const chromeMajorVersion = electronRelease.v8.split('.')[0] + electronRelease.v8.split('.')[1]
 
   return Promise.all([
     writeFile('./electron-vendors.config.json',
@@ -52,7 +34,9 @@ fetch('https://electronjs.org/headers/index.json').then(response => {
 
     writeFile('./.browserslistrc', `Chrome ${chromeMajorVersion}\n`),
   ])
-}).catch(err => {
+}
+
+updateVendors().catch(err => {
   console.error(err)
   process.exit(1)
 })
