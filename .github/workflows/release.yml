@@ -27,8 +27,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - run: git log --oneline
-
       - uses: actions/setup-node@v2
         with:
           node-version: 14
@@ -39,9 +37,6 @@ jobs:
 
       - name: Generate release notes
         run: npm run release-notes
-
-      # Just for debug
-      - run: node scripts/release-notes.js
 
       - name: Waiting on All checks
         uses: lewagon/wait-on-check-action@v0.2
