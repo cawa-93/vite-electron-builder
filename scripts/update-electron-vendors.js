@@ -9,7 +9,7 @@ const {execSync} = require('child_process')
  * @returns {NodeJS.ProcessVersions}
  */
 function getVendors() {
-  const output = execSync('electron -p "JSON.stringify(process.versions)"', {
+  const output = execSync('npx electron -p "JSON.stringify(process.versions)"', {
     env: {'ELECTRON_RUN_AS_NODE': '1'},
     encoding: 'utf-8',
   })
