@@ -1,5 +1,7 @@
 # Vite Electron Builder Boilerplate v2
 
+[![GitHub issues by-label](https://img.shields.io/github/issues/cawa-93/vite-electron-builder/help%20wanted?label=issues%20need%20help)](https://github.com/cawa-93/vite-electron-builder/issues?q=label%3A%22help+wanted%22+is%3Aopen+is%3Aissue)
+
 > Vite+Electron = 🔥
 
 This is a secure template for electron applications. Written following the latest safety requirements, recommendations and best practices.
