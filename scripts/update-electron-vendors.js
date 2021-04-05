@@ -1,6 +1,6 @@
 const {writeFile} = require('fs/promises')
 const {execSync} = require('child_process')
-
+const electron = require('electron')
 /**
  * Returns versions of electron vendors
  * The performance of this feature is very poor and can be improved
@@ -9,7 +9,7 @@ const {execSync} = require('child_process')
  * @returns {NodeJS.ProcessVersions}
  */
 function getVendors() {
-  const output = execSync('npx electron -p "JSON.stringify(process.versions)"', {
+  const output = execSync(`${electron} -p "JSON.stringify(process.versions)"`, {
     env: {'ELECTRON_RUN_AS_NODE': '1'},
     encoding: 'utf-8',
   })
