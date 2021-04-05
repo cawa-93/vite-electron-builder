@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 import {chrome} from '../../electron-vendors.config.json'
 import {join} from 'path'
 import externalPackages from '../../external-packages.config.js'

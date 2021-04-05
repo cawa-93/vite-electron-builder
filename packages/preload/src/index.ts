@@ -23,8 +23,7 @@ if (import.meta.env.MODE !== 'test') {
    * @see https://github.com/substack/deep-freeze
    * @param obj Object on which to lock the attributes
    */
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  function deepFreeze(obj: any) {
+  const deepFreeze = (obj: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
     if (typeof obj === 'object' && obj !== null) {
       Object.keys(obj).forEach((prop) => {
         const val = obj[prop]

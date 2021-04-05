@@ -36,7 +36,7 @@ if (!gotTheLock) {
 
   let mainWindow: BrowserWindow | null = null
 
-  async function createWindow() {
+  const createWindow = async () => {
     mainWindow = new BrowserWindow({
       show: true,
       webPreferences: {
