@@ -1,6 +1,8 @@
 # Vite Electron Builder Boilerplate v2
 
-[![GitHub issues by-label](https://img.shields.io/github/issues/cawa-93/vite-electron-builder/help%20wanted?label=issues%20need%20help)](https://github.com/cawa-93/vite-electron-builder/issues?q=label%3A%22help+wanted%22+is%3Aopen+is%3Aissue)
+[![GitHub issues by-label](https://img.shields.io/github/issues/cawa-93/vite-electron-builder/help%20wanted?label=issues%20need%20help&logo=github)](https://github.com/cawa-93/vite-electron-builder/issues?q=label%3A%22help+wanted%22+is%3Aopen+is%3Aissue)
+![Minimal node version](https://img.shields.io/static/v1?label=node&message=%3E=14.16&logo=node.js&color)
+![Minimal npm version](https://img.shields.io/static/v1?label=npm&message=%3E=7.7&logo=npm&color)
 
 > Vite+Electron = 🔥
 
@@ -23,11 +25,6 @@ ___
 
 ## Get started
 
-### Requirements
-- **node**: >= v14
-- **npm**: >= v7.7
-
-### Installation
 Follow these steps to get started with this template:
 
 1. Click the **[Use this template](https://github.com/cawa-93/vite-electron-builder/generate)** button.
