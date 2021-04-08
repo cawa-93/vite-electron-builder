@@ -3,7 +3,7 @@
   "private": true,
   "engines": {
     "node": ">=v14.16.1",
-    "npm": ">=7.8.0"
+    "npm": ">=7.9.0"
   },
   "main": "packages/main/dist/index.cjs",
   "scripts": {
