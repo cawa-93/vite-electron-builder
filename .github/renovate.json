@@ -19,6 +19,13 @@
   },
   "packageRules": [
     {
+      "packageNames": [
+        "node",
+        "npm"
+      ],
+      "enabled": false
+    },
+    {
       "depTypeList": [
         "devDependencies"
       ],

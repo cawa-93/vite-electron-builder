@@ -2,8 +2,8 @@
   "name": "vite-electron-builder",
   "private": true,
   "engines": {
-    "node": ">=v14.16.1",
-    "npm": ">=7.8.0"
+    "node": ">=v14.16",
+    "npm": ">=7.7"
   },
   "main": "packages/main/dist/index.cjs",
   "scripts": {
