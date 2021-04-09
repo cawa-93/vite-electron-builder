@@ -132,32 +132,27 @@ To do this, using the [electron-builder]:
 - In GitHub Action: The application is compiled for any platform and ready-to-distribute files are automatically added to the draft GitHub release. 
 
 
-### Using electron API in renderer
-As per the security requirements, context isolation is enabled in this template.
-> Context Isolation is a feature that ensures that both your `preload` scripts and Electron's internal logic run in a separate context to the website you load in a [`webContents`](https://github.com/electron/electron/blob/master/docs/api/web-contents.md).  This is important for security purposes as it helps prevent the website from accessing Electron internals, or the powerful APIs your preload script has access to.
->
-> This means that the `window` object that your preload script has access to is actually a **different** object than the website would have access to.  For example, if you set `window.hello = 'wave'` in your preload script and context isolation is enabled `window.hello` will be undefined if the website tries to access it.
-
-[Read more about Context Isolation](https://github.com/electron/electron/blob/master/docs/tutorial/context-isolation.md).
-
-Exposing APIs from your `preload script` to the renderer is a common use case and there is a dedicated module in Electron to help you do this in a painless way.
+### Using Node.js API in renderer
+According to [Electron's security guidelines](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content), Node.js integration is disabled for remote content. This means that **you cannot call any Node.js api in the `packages/renderer` directly**. To do this, you **must** describe the interface in the `packages/preload` where Node.js api is allowed:
 ```ts
 // packages/preload/src/index.ts
+import {readFile} from 'fs/promises'
+
 const api = {
-  data: ['foo', 'bar'],
-  doThing: () => ipcRenderer.send('do-a-thing')
+  readConfig: () =>  readFile('/path/to/config.json', {encoding: 'utf-8'}),
 }
 
 contextBridge.exposeInMainWorld('electron', api)
 ```
 
-To access this API use the `useElectron()` function:
 ```ts
 // packages/renderer/src/App.vue
 import {useElectron} from '/@/use/electron'
 
-const {doThing, data} = useElectron()
+const {readConfig} = useElectron()
 ```
+
+[Read more about Security Considerations](https://www.electronjs.org/docs/tutorial/context-isolation#security-considerations).
 
 **Note**: Context isolation disabled for `test` environment. See [#693](https://github.com/electron-userland/spectron/issues/693#issuecomment-747872160).
 
