@@ -17,10 +17,10 @@ defaults:
 
 jobs:
 
-  draft_release:
+  draft:
     runs-on: ubuntu-latest
     outputs:
-      changelog: ${{ steps.changelog.outputs.changelog }}
+      release-note: ${{ steps.release-note.outputs.release-note }}
 
     steps:
       - uses: actions/checkout@v2
@@ -31,19 +31,30 @@ jobs:
         with:
           node-version: 14
 
+      - name: Get last git tag
+        id: tag
+        run: echo "::set-output name=last-tag::$(git describe --tags --abbrev=0 || git rev-list --max-parents=0 ${{github.ref}})"
+
+      - name: Generate release notes
+        uses: ./.github/actions/release-notes
+        id: release-note
+        with:
+          from: ${{ steps.tag.outputs.last-tag }}
+          to: ${{ github.ref }}
+          include-commit-body: true
+          include-abbreviated-commit: true
+
       - name: Get version from current date
         id: version
         run: echo "::set-output name=current-version::$(node -e "try{console.log(require('./electron-builder.config.js').extraMetadata.version)}catch(e){console.error(e);process.exit(1)}")"
 
-      - name: Generate release notes
-        run: npm run release-notes
 
       - name: Waiting on All checks
         uses: lewagon/wait-on-check-action@v0.2
         with:
           ref: ${{ github.ref }}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          running-workflow-name: 'draft_release'
+          running-workflow-name: 'draft'
 
       - name: Delete outdated drafts
         uses: hugo19941994/delete-draft-releases@v0.1.0
@@ -58,10 +69,10 @@ jobs:
           draft: true
           tag_name: v${{ steps.version.outputs.current-version }}
           name: v${{ steps.version.outputs.current-version }}
-          body_path: ./buildResources/release-notes.md
+          body: ${{ steps.release-note.outputs.release-note }}
 
-  compile:
-    needs: [ draft_release ]
+  upload_artifacts:
+    needs: [ draft ]
 
     strategy:
       matrix:
@@ -73,24 +84,31 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 15 # Need for npm >=7.7
 
-      # By default, npm v6 is used, but the minimum required version is > v7.7
-      - run: npm install -g npm@latest
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        run: echo "::set-output name=dir::$(npm config get cache)"
 
-      # TODO: Install not all dependencies, but only those required for this job
-      - run: npm ci
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci
 
       # The easiest way to transfer release notes to a compiled application is create `release-notes.md` in the build resources.
       # See https://github.com/electron-userland/electron-builder/issues/1511#issuecomment-310160119
       - name: Prepare release notes
-        run: npm run release-notes
-
+        env:
+          RELEASE_NOTE: ${{ needs.draft.outputs.release-note }}
+        run: echo "$RELEASE_NOTE" >> ./buildResources/release-notes.md
 
       # Compile app and upload artifacts
       - name: Compile & release Electron app

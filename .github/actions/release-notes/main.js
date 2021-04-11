@@ -1,5 +1,27 @@
+// TODO: Refactor this action
+
 const {execSync} = require('child_process')
 
+/**
+ * Gets the value of an input.  The value is also trimmed.
+ *
+ * @param     name     name of the input to get
+ * @param     options  optional. See InputOptions.
+ * @returns   string
+ */
+function getInput(name, options) {
+  const val = process.env[`INPUT_${name.replace(/ /g, '_').toUpperCase()}`] || ''
+  if (options && options.required && !val) {
+    throw new Error(`Input required and not supplied: ${name}`)
+  }
+
+  return val.trim()
+}
+
+const START_FROM = getInput('from')
+const END_TO = getInput('to')
+const INCLUDE_COMMIT_BODY = getInput('include-commit-body') === 'true'
+const INCLUDE_ABBREVIATED_COMMIT = getInput('include-abbreviated-commit') === 'true'
 
 /**
  * @typedef {Object} ICommit
@@ -37,10 +59,15 @@ const commitOuterSeparator = '₴₴₴₴'
  */
 const commitDataMap = new Map([
   ['subject', '%s'], // Required
-  ['abbreviated_commit', '%h'],
-  // ['body', '%b'], // Uncomment if you wand include commit body to release notes
 ])
 
+if (INCLUDE_COMMIT_BODY) {
+  commitDataMap.set('body', '%b')
+}
+
+if (INCLUDE_ABBREVIATED_COMMIT) {
+  commitDataMap.set('abbreviated_commit', '%h')
+}
 
 /**
  * The type used to group commits that do not comply with the convention
@@ -94,16 +121,9 @@ function parseCommit(commitString) {
  */
 function getCommits() {
 
-  /**
-   * Where to start load history.
-   * Could be last git tag or initial commit.
-   * @type {string}
-   */
-  const startFrom = String(execSync('git describe --tags --abbrev=0 || git rev-list --max-parents=0 HEAD')).trim()
-
   const format = Array.from(commitDataMap.values()).join(commitInnerSeparator) + commitOuterSeparator
 
-  const logs = String(execSync(`git --no-pager log ${startFrom}..HEAD --pretty=format:"${format}"`))
+  const logs = String(execSync(`git --no-pager log ${START_FROM}..${END_TO} --pretty=format:"${format}"`))
 
   return logs
     .trim()
@@ -151,7 +171,7 @@ class CommitGroup {
    * @param {ICommitExtended[]} array
    * @param {ICommitExtended} commit
    */
-  static #pushOrMerge(array, commit) {
+  static _pushOrMerge(array, commit) {
     const similarCommit = array.find(c => c.subject === commit.subject)
     if (similarCommit) {
       if (commit.abbreviated_commit !== undefined) {
@@ -167,12 +187,12 @@ class CommitGroup {
    */
   push(commit) {
     if (!commit.scope) {
-      CommitGroup.#pushOrMerge(this.commits, commit)
+      CommitGroup._pushOrMerge(this.commits, commit)
       return
     }
 
     const scope = this.scopes.get(commit.scope) || {commits: []}
-    CommitGroup.#pushOrMerge(scope.commits, commit)
+    CommitGroup._pushOrMerge(scope.commits, commit)
     this.scopes.set(commit.scope, scope)
   }
 
@@ -218,7 +238,7 @@ function getCommitsList(commits, pad = '') {
       changelog += ` (${commit.abbreviated_commit})`
     }
 
-    changelog += '\n'
+    changelog += '\r\n'
 
     if (commit.body === undefined) {
       continue
@@ -228,11 +248,11 @@ function getCommitsList(commits, pad = '') {
     if (body !== '') {
       changelog += `${
         body
-          .split(/\n+/)
-          .map(s => `${pad}  ${s}`)
+          .split('\r\n')
           .filter(s => !!s.trim())
-          .join('\n')
-      }\n`
+          .map(s => `${pad}  ${s}`)
+          .join('\r\n')
+      }${'\r\n'}`
     }
   }
 
@@ -287,11 +307,11 @@ function getChangeLog(groups) {
       continue
     }
 
-    changelog += `### ${replaceHeader(typeId)}\n`
+    changelog += `### ${replaceHeader(typeId)}${'\r\n'}`
 
     for (const [scopeId, scope] of group.scopes) {
       if (scope.commits.length) {
-        changelog += `- #### ${replaceHeader(scopeId)}\n`
+        changelog += `- #### ${replaceHeader(scopeId)}${'\r\n'}`
         changelog += getCommitsList(scope.commits, '  ')
       }
     }
@@ -300,18 +320,25 @@ function getChangeLog(groups) {
       changelog += getCommitsList(group.commits)
     }
 
-    changelog += '\n\n'
+    changelog += ('\r\n'+'\r\n')
   }
 
   return changelog.trim()
 }
 
 
+function escapeData(s) {
+  return String(s)
+    .replace(/%/g, '%25')
+    .replace(/\r/g, '%0D')
+    .replace(/\n/g, '%0A')
+}
+
 try {
   const commits = getCommits()
   const grouped = getGroupedCommits(commits)
   const changelog = getChangeLog(grouped)
-  console.log(changelog)
+  process.stdout.write('::set-output name=release-note::' + escapeData(changelog) + '\r\n')
 // require('fs').writeFileSync('../CHANGELOG.md', changelog, {encoding: 'utf-8'})
 } catch (e) {
   console.error(e)
