@@ -21,6 +21,12 @@
     "typecheck-renderer": "vue-tsc --noEmit -p packages/renderer/tsconfig.json",
     "typecheck": "npm run typecheck-main && npm run typecheck-preload && npm run typecheck-renderer"
   },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue}": "eslint --cache --fix"
+  },
   "devDependencies": {
     "@types/electron-devtools-installer": "^2.2.0",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
