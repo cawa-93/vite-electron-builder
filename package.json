@@ -21,6 +21,9 @@
     "typecheck-renderer": "vue-tsc --noEmit -p packages/renderer/tsconfig.json",
     "typecheck": "npm run typecheck-main && npm run typecheck-preload && npm run typecheck-renderer"
   },
+  "browserslist": [
+    "Chrome 89"
+  ],
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
   },

@@ -1,4 +1,4 @@
-const {writeFile} = require('fs/promises')
+const {writeFile, readFile} = require('fs/promises')
 const {execSync} = require('child_process')
 const electron = require('electron')
 /**
@@ -18,6 +18,10 @@ function getVendors() {
 }
 
 
+function formatedJSON(obj) {
+  return JSON.stringify(obj, null, 2) + '\n'
+}
+
 function updateVendors() {
   const electronRelease = getVendors()
 
@@ -26,13 +30,21 @@ function updateVendors() {
 
   return Promise.all([
     writeFile('./electron-vendors.config.json',
-      JSON.stringify({
+      formatedJSON({
         chrome: chromeMajorVersion,
         node: nodeMajorVersion,
-      }, null, 2) + '\n',
+      }),
     ),
 
-    writeFile('./.browserslistrc', `Chrome ${chromeMajorVersion}\n`),
+    readFile('../package.json').then(JSON.parse).then((packageJson) => {
+      if (!packageJson || !Array.isArray(packageJson.browserslist)) {
+        throw new Error('Can\'t find browserslist in package.json')
+      }
+
+      packageJson.browserslist = [`Chrome ${chromeMajorVersion}`]
+
+      return writeFile('../package.json', formatedJSON(packageJson))
+    }),
   ])
 }
 
