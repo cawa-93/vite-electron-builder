@@ -1,12 +1,12 @@
-import {contextBridge} from 'electron'
+import {contextBridge} from 'electron';
 
-const apiKey = 'electron'
+const apiKey = 'electron';
 /**
  * @see https://github.com/electron/electron/issues/21437#issuecomment-573522360
  */
 const api: ElectronApi = {
   versions: process.versions,
-}
+};
 
 if (import.meta.env.MODE !== 'test') {
   /**
@@ -15,7 +15,7 @@ if (import.meta.env.MODE !== 'test') {
    *
    * @see https://www.electronjs.org/docs/api/context-bridge
    */
-  contextBridge.exposeInMainWorld(apiKey, api)
+  contextBridge.exposeInMainWorld(apiKey, api);
 } else {
 
   /**
@@ -26,20 +26,20 @@ if (import.meta.env.MODE !== 'test') {
   const deepFreeze = (obj: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
     if (typeof obj === 'object' && obj !== null) {
       Object.keys(obj).forEach((prop) => {
-        const val = obj[prop]
+        const val = obj[prop];
         if ((typeof val === 'object' || typeof val === 'function') && !Object.isFrozen(val)) {
-          deepFreeze(val)
+          deepFreeze(val);
         }
-      })
+      });
     }
 
-    return Object.freeze(obj)
-  }
+    return Object.freeze(obj);
+  };
 
-  deepFreeze(api)
+  deepFreeze(api);
 
-  window[apiKey] = api
+  window[apiKey] = api;
 
   // Need for Spectron tests
-  window.electronRequire = require
+  window.electronRequire = require;
 }
