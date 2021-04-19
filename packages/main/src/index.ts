@@ -7,7 +7,6 @@ import {join} from 'path';
 import {URL} from 'url';
 
 
-
 const gotTheLock = app.requestSingleInstanceLock();
 
 if (!gotTheLock) {
@@ -26,11 +25,7 @@ if (!gotTheLock) {
   if (env.MODE === 'development') {
     app.whenReady()
       .then(() => import('electron-devtools-installer'))
-      .then(({default: installExtension}) => {
-        /** @see https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg */
-        const VUE_DEVTOOLS_BETA = 'ljjemllljcmogpfapbkkighbhhppjdbg';
-        return installExtension(VUE_DEVTOOLS_BETA);
-      })
+      .then(({default: installExtension, VUEJS3_DEVTOOLS}) => installExtension(VUEJS3_DEVTOOLS))
       .catch(e => console.error('Failed install extension:', e));
   }
 
