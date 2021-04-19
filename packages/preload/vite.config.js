@@ -31,7 +31,7 @@ export default defineConfig({
     terserOptions: {
       ecma: 2020,
       compress: {
-        passes: 3,
+        passes: 2,
       },
     },
     lib: {
