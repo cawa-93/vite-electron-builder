@@ -29,7 +29,10 @@ export default defineConfig({
     assetsDir: '.',
     minify: process.env.MODE === 'development' ? false : 'terser',
     terserOptions: {
-      ecma:2020,
+      ecma: 2020,
+      compress: {
+        passes: 3,
+      },
     },
     lib: {
       entry: 'src/index.ts',

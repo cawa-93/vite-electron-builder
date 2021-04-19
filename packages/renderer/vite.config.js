@@ -36,7 +36,10 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: '.',
     terserOptions: {
-      ecma:2020,
+      ecma: 2020,
+      compress: {
+        passes: 3,
+      },
     },
     rollupOptions: {
       external: externalPackages,
