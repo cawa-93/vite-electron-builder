@@ -6,9 +6,16 @@ on:
     paths:
       - 'package-lock.json'
 
+
+concurrency:
+  group: update-electron-vendors-${{ github.ref }}
+  cancel-in-progress: true
+
+
 defaults:
   run:
     shell: 'bash'
+
 
 jobs:
   node-chrome:
