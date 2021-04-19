@@ -35,6 +35,9 @@ export default defineConfig({
     polyfillDynamicImport: false,
     outDir: 'dist',
     assetsDir: '.',
+    terserOptions: {
+      ecma:2020,
+    },
     rollupOptions: {
       external: externalPackages,
     },
