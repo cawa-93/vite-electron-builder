@@ -6,10 +6,10 @@ import {app, BrowserWindow} from 'electron';
 import {join} from 'path';
 import {URL} from 'url';
 
-  /**
-   * Workaround for TypeScript bug
-   * @see https://github.com/microsoft/TypeScript/issues/41468#issuecomment-727543400
-   */
+/**
+ * Workaround for TypeScript bug
+ * @see https://github.com/microsoft/TypeScript/issues/41468#issuecomment-727543400
+ */
 const env = import.meta.env;
 
 const gotTheLock = app.requestSingleInstanceLock();

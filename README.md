@@ -93,7 +93,6 @@ I am actively involved in its development. But I do not guarantee that this temp
 **At the moment, there are the following problems:**
 
 - ⚠ Some files require refactoring.
-- ⚠ Watch mode for the `main` and `preload` entry points should be improved. Blocked by  [vite#1434](https://github.com/vitejs/vite/issues/1434).
 - ⚠ Typechecking `renderer` package in CI implemented by [![vue-tsc](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vue-tsc)][vue-tsc], which has a very early version. This is not a problem if you do not use Vue or TypeScript.
 - ⚠ Release notes are created automatically based on commit history. [`scripts/release-notes.js`](scripts/release-notes.js) is used for generation. It may not provide some scenarios. If you encounter a problem - write about it.
 - ⏳ I want to migrate all code base to ESM. But because Nodejs  ecosystem is unprepared I not known whether this will give more benefits or more inconvenience.
