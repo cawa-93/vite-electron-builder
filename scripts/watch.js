@@ -1,44 +1,26 @@
 #!/usr/bin/node
 
-// TODO:
-// - Disable dependency optimization during development.
-// - Need more tests
-// - Refactoring
-
-const chokidar = require('chokidar');
-const {createServer, build, normalizePath} = require('vite');
+const {createServer, build} = require('vite');
 const electronPath = require('electron');
 const {spawn} = require('child_process');
-
 
 /** @type 'production' | 'development' | 'test' */
 const mode = process.env.MODE = process.env.MODE || 'development';
 
-const TIMEOUT = 500;
+/** @type {import('vite').LogLevel} */
+const LOG_LEVEL = 'warn';
 
-function debounce(f, ms) {
-  let isCoolDown = false;
-  return function () {
-    if (isCoolDown) return;
-    f.apply(this, arguments);
-    isCoolDown = true;
-    setTimeout(() => isCoolDown = false, ms);
-  };
-}
+/** @type {import('vite').InlineConfig} */
+const sharedConfig = {
+  mode,
+  build: {
+    watch: {},
+  },
+  logLevel: LOG_LEVEL,
+};
 
-(async () => {
-
-// Create Vite dev server
-  const viteDevServer = await createServer({
-    mode,
-    configFile: 'packages/renderer/vite.config.js',
-  });
-
-  await viteDevServer.listen();
-
-
-// Determining the current URL of the server. It depend on /config/renderer.vite.js
-// Write a value to an environment variable to pass it to the main process.
+const setupMainPackageWatcher = (viteDevServer) => {
+  // Write a value to an environment variable to pass it to the main process.
   {
     const protocol = `http${viteDevServer.config.server.https ? 's' : ''}:`;
     const host = viteDevServer.config.server.host || 'localhost';
@@ -47,95 +29,74 @@ function debounce(f, ms) {
     process.env.VITE_DEV_SERVER_URL = `${protocol}//${host}:${port}${path}`;
   }
 
+  /**
+   * Start or restart App when source files are changed
+   * @returns {import('vite').Plugin}
+   */
+  const electronRunner = () => {
+    /** @type {ChildProcessWithoutNullStreams | null} */
+    let spawnProcess = null;
 
-  /** @type {ChildProcessWithoutNullStreams | null} */
-  let spawnProcess = null;
-  const runMain = debounce(() => {
-    if (spawnProcess !== null) {
-      spawnProcess.kill('SIGINT');
-      spawnProcess = null;
-    }
+    return {
+      name: 'reload-app-on-main-package-change',
+      writeBundle() {
+        if (spawnProcess !== null) {
+          spawnProcess.kill('SIGINT');
+          spawnProcess = null;
+        }
 
-    spawnProcess = spawn(String(electronPath), ['.']);
+        spawnProcess = spawn(String(electronPath), ['.']);
 
-    spawnProcess.stdout.on('data', d => console.log(d.toString()));
-    spawnProcess.stderr.on('data', d => console.error(d.toString()));
-
-    return spawnProcess;
-
-  }, TIMEOUT);
-
-  const buildMain = () => {
-    return build({mode, configFile: 'packages/main/vite.config.js'});
+        spawnProcess.stdout.on('data', d => console.log(d.toString()));
+        spawnProcess.stderr.on('data', d => console.error(d.toString()));
+      },
+    };
   };
 
-  const buildMainDebounced = debounce(buildMain, TIMEOUT);
+  return build({
+    ...sharedConfig,
+    configFile: 'packages/main/vite.config.js',
+    plugins: [electronRunner()],
+  });
+};
 
-  const runPreload = debounce(() => {
-    viteDevServer.ws.send({
-      type: 'full-reload',
-    });
 
-  }, TIMEOUT);
-
-  const buildPreload = () => {
-    return build({mode, configFile: 'packages/preload/vite.config.js'});
+const setupPreloadPackageWatcher = (viteDevServer) => {
+  /**
+   * Start or restart App when source files are changed
+   * @returns {import('vite').Plugin}
+   */
+  const reloadPage = () => {
+    return {
+      name: 'reload-page-on-preload-package-change',
+      writeBundle() {
+        viteDevServer.ws.send({
+          type: 'full-reload',
+        });
+      },
+    };
   };
 
-  const buildPreloadDebounced = debounce(buildPreload, TIMEOUT);
+  return build({
+    ...sharedConfig,
+    configFile: 'packages/preload/vite.config.js',
+    plugins: [reloadPage()],
+  });
+};
 
-
-  await Promise.all([
-    buildMain(),
-    buildPreload(),
-  ]);
-
-
-  const watcher = chokidar.watch([
-    'packages/main/src/**',
-    'packages/main/dist/**',
-    'packages/preload/src/**',
-    'packages/preload/dist/**',
-  ], {ignoreInitial: true});
-
-
-  watcher
-    .on('unlink', path => {
-      const normalizedPath = normalizePath(path);
-      if (spawnProcess !== null && normalizedPath.includes('/main/dist/')) {
-        spawnProcess.kill('SIGINT');
-        spawnProcess = null;
-      }
-    })
-    .on('add', path => {
-      const normalizedPath = normalizePath(path);
-      if (normalizedPath.includes('/main/dist/')) {
-        return runMain();
-      }
-
-      if (spawnProcess !== undefined && normalizedPath.includes('/preload/dist/')) {
-        return runPreload(normalizedPath);
-      }
-    })
-    .on('change', (path) => {
-      const normalizedPath = normalizePath(path);
-
-      if (normalizedPath.includes('/main/src/')) {
-        return buildMainDebounced();
-      }
-
-      if (normalizedPath.includes('/main/dist/')) {
-        return runMain();
-      }
-
-      if (normalizedPath.includes('/preload/src/')) {
-        return buildPreloadDebounced();
-      }
-
-      if (normalizedPath.includes('/preload/dist/')) {
-        return runPreload(normalizedPath);
-      }
+(async () => {
+  try {
+    const viteDevServer = await createServer({
+      ...sharedConfig,
+      configFile: 'packages/renderer/vite.config.js',
     });
 
-  await runMain();
+    await viteDevServer.listen();
+
+    await setupPreloadPackageWatcher(viteDevServer);
+    await setupMainPackageWatcher(viteDevServer);
+  } catch (e) {
+    console.error(e);
+    process.exit(1);
+  }
 })();
