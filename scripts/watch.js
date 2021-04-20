@@ -4,11 +4,14 @@ const {createServer, build} = require('vite');
 const electronPath = require('electron');
 const {spawn} = require('child_process');
 
+
 /** @type 'production' | 'development' | 'test' */
 const mode = process.env.MODE = process.env.MODE || 'development';
 
+
 /** @type {import('vite').LogLevel} */
 const LOG_LEVEL = 'warn';
+
 
 /** @type {import('vite').InlineConfig} */
 const sharedConfig = {
@@ -19,6 +22,26 @@ const sharedConfig = {
   logLevel: LOG_LEVEL,
 };
 
+
+
+/**
+ * @param configFile
+ * @param writeBundle
+ * @param name
+ * @returns {Promise<RollupOutput | RollupOutput[] | RollupWatcher>}
+ */
+const getWatcher = ({name, configFile, writeBundle}) => {
+  return build({
+    ...sharedConfig,
+    configFile,
+    plugins: [{name, writeBundle}],
+  });
+};
+
+
+/**
+ * Start or restart App when source files are changed
+ */
 const setupMainPackageWatcher = (viteDevServer) => {
   // Write a value to an environment variable to pass it to the main process.
   {
@@ -29,58 +52,39 @@ const setupMainPackageWatcher = (viteDevServer) => {
     process.env.VITE_DEV_SERVER_URL = `${protocol}//${host}:${port}${path}`;
   }
 
-  /**
-   * Start or restart App when source files are changed
-   * @returns {import('vite').Plugin}
-   */
-  const electronRunner = () => {
-    /** @type {ChildProcessWithoutNullStreams | null} */
-    let spawnProcess = null;
+  /** @type {ChildProcessWithoutNullStreams | null} */
+  let spawnProcess = null;
 
-    return {
-      name: 'reload-app-on-main-package-change',
-      writeBundle() {
-        if (spawnProcess !== null) {
-          spawnProcess.kill('SIGINT');
-          spawnProcess = null;
-        }
-
-        spawnProcess = spawn(String(electronPath), ['.']);
-
-        spawnProcess.stdout.on('data', d => console.log(d.toString()));
-        spawnProcess.stderr.on('data', d => console.error(d.toString()));
-      },
-    };
-  };
-
-  return build({
-    ...sharedConfig,
+  return getWatcher({
+    name: 'reload-app-on-main-package-change',
     configFile: 'packages/main/vite.config.js',
-    plugins: [electronRunner()],
+    writeBundle() {
+      if (spawnProcess !== null) {
+        spawnProcess.kill('SIGINT');
+        spawnProcess = null;
+      }
+
+      spawnProcess = spawn(String(electronPath), ['.']);
+
+      spawnProcess.stdout.on('data', d => console.log(d.toString()));
+      spawnProcess.stderr.on('data', d => console.error(d.toString()));
+    },
   });
 };
 
 
+/**
+ * Start or restart App when source files are changed
+ */
 const setupPreloadPackageWatcher = (viteDevServer) => {
-  /**
-   * Start or restart App when source files are changed
-   * @returns {import('vite').Plugin}
-   */
-  const reloadPage = () => {
-    return {
-      name: 'reload-page-on-preload-package-change',
-      writeBundle() {
-        viteDevServer.ws.send({
-          type: 'full-reload',
-        });
-      },
-    };
-  };
-
-  return build({
-    ...sharedConfig,
+  return getWatcher({
+    name: 'reload-page-on-preload-package-change',
     configFile: 'packages/preload/vite.config.js',
-    plugins: [reloadPage()],
+    writeBundle() {
+      viteDevServer.ws.send({
+        type: 'full-reload',
+      });
+    },
   });
 };
 
