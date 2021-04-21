@@ -28,10 +28,13 @@ ___
 Follow these steps to get started with this template:
 
 1. Click the **[Use this template](https://github.com/cawa-93/vite-electron-builder/generate)** button.
-    
-   **Note**: Only the `main` branch matters. You do not need to include any other branches when creating the repository.
-   
+
 That's all you need. 😉
+
+**Note**: This template uses npm v7 feature — [**Installing Peer Dependencies Automatically**](https://github.com/npm/rfcs/blob/latest/implemented/0025-install-peer-deps.md). If you are using a different package manager, you may need to install some peerDependencies manually.
+
+
+
 
 ## Features
 
