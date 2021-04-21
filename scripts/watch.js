@@ -1,6 +1,6 @@
 #!/usr/bin/node
 
-const {createServer, build} = require('vite');
+const {createServer, build, createLogger} = require('vite');
 const electronPath = require('electron');
 const {spawn} = require('child_process');
 
@@ -23,12 +23,11 @@ const sharedConfig = {
 };
 
 
-
 /**
  * @param configFile
  * @param writeBundle
  * @param name
- * @returns {Promise<RollupOutput | RollupOutput[] | RollupWatcher>}
+ * @returns {Promise<import('vite').RollupOutput | Array<import('vite').RollupOutput> | import('vite').RollupWatcher>}
  */
 const getWatcher = ({name, configFile, writeBundle}) => {
   return build({
@@ -41,6 +40,8 @@ const getWatcher = ({name, configFile, writeBundle}) => {
 
 /**
  * Start or restart App when source files are changed
+ * @param {import('vite').ViteDevServer} viteDevServer
+ * @returns {Promise<import('vite').RollupOutput | Array<import('vite').RollupOutput> | import('vite').RollupWatcher>}
  */
 const setupMainPackageWatcher = (viteDevServer) => {
   // Write a value to an environment variable to pass it to the main process.
@@ -51,6 +52,10 @@ const setupMainPackageWatcher = (viteDevServer) => {
     const path = '/';
     process.env.VITE_DEV_SERVER_URL = `${protocol}//${host}:${port}${path}`;
   }
+
+  const logger = createLogger(LOG_LEVEL, {
+    prefix: '[main]',
+  });
 
   /** @type {ChildProcessWithoutNullStreams | null} */
   let spawnProcess = null;
@@ -66,8 +71,8 @@ const setupMainPackageWatcher = (viteDevServer) => {
 
       spawnProcess = spawn(String(electronPath), ['.']);
 
-      spawnProcess.stdout.on('data', d => console.log(d.toString()));
-      spawnProcess.stderr.on('data', d => console.error(d.toString()));
+      spawnProcess.stdout.on('data', d => d.toString().trim() && logger.warn(d.toString(), {timestamp: true}));
+      spawnProcess.stderr.on('data', d => d.toString().trim() && logger.error(d.toString(), {timestamp: true}));
     },
   });
 };
@@ -75,6 +80,8 @@ const setupMainPackageWatcher = (viteDevServer) => {
 
 /**
  * Start or restart App when source files are changed
+ * @param {import('vite').ViteDevServer} viteDevServer
+ * @returns {Promise<import('vite').RollupOutput | Array<import('vite').RollupOutput> | import('vite').RollupWatcher>}
  */
 const setupPreloadPackageWatcher = (viteDevServer) => {
   return getWatcher({
