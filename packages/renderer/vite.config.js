@@ -2,7 +2,7 @@
 
 import {chrome} from '../../electron-vendors.config.json';
 import {join} from 'path';
-import externalPackages from '../../external-packages.config.js';
+import { builtinModules } from 'module';
 import {defineConfig} from 'vite';
 import vue from '@vitejs/plugin-vue';
 import {loadAndSetEnv} from '../../scripts/loadAndSetEnv.mjs';
@@ -42,7 +42,9 @@ export default defineConfig({
       },
     },
     rollupOptions: {
-      external: externalPackages,
+      external: [
+        ...builtinModules,
+      ],
     },
     emptyOutDir: true,
   },
