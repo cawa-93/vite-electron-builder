@@ -40,6 +40,7 @@ export default defineConfig({
       compress: {
         passes: 2,
       },
+      safari10: false,
     },
     rollupOptions: {
       external: [
