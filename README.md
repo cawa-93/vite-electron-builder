@@ -86,7 +86,7 @@ See [examples of web pages for different frameworks](https://github.com/vitejs/v
 - **Auto-update is supported**. After the release will be published, all client applications will download the new version and install updates silently.
 
 
-## Status — WIP
+## Status
 
 This template was created to make my work easier. It may not be universal, but I try to keep it that way.
 
