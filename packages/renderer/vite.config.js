@@ -29,6 +29,11 @@ export default defineConfig({
   },
   plugins: [vue()],
   base: '',
+  server: {
+    fsServe: {
+      root: join(PACKAGE_ROOT, '../../'),
+    },
+  },
   build: {
     sourcemap: true,
     target: `chrome${chrome}`,
