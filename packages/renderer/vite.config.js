@@ -37,7 +37,6 @@ export default defineConfig({
   build: {
     sourcemap: true,
     target: `chrome${chrome}`,
-    polyfillDynamicImport: false,
     outDir: 'dist',
     assetsDir: '.',
     terserOptions: {
