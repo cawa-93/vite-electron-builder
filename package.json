@@ -39,7 +39,7 @@
     "electron": "^13.1.1",
     "electron-builder": "^22.11.5",
     "electron-devtools-installer": "^3.2.0",
-    "eslint": "^7.27.0",
+    "eslint": "^7.28.0",
     "eslint-plugin-vue": "^7.10.0",
     "lint-staged": "^11.0.0",
     "simple-git-hooks": "^2.4.1",
