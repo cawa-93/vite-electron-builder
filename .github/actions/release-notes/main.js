@@ -123,7 +123,7 @@ function getCommits() {
 
   const format = Array.from(commitDataMap.values()).join(commitInnerSeparator) + commitOuterSeparator;
 
-  const logs = String(execSync(`git --no-pager log ${START_FROM}..${END_TO} --pretty=format:"${format}"`));
+  const logs = String(execSync(`git --no-pager log ${START_FROM}..${END_TO} --pretty=format:"${format}" --reverse`));
 
   return logs
     .trim()
