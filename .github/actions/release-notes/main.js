@@ -248,7 +248,7 @@ function getCommitsList(commits, pad = '') {
     if (body !== '') {
       changelog += `${
         body
-          .split('\r\n')
+          .split(/\r*\n+/)
           .filter(s => !!s.trim())
           .map(s => `${pad}  ${s}`)
           .join('\r\n')
