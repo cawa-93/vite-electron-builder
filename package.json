@@ -36,7 +36,7 @@
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@vitejs/plugin-vue": "^1.2.3",
     "cross-env": "^7.0.3",
-    "electron": "^13.1.1",
+    "electron": "^13.1.2",
     "electron-builder": "^22.11.5",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^7.28.0",
