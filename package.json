@@ -3,30 +3,30 @@
   "private": true,
   "engines": {
     "node": ">=v14.16",
-    "npm": ">=7.7"
+    "yarn": "^1.22.10"
   },
   "main": "packages/main/dist/index.cjs",
   "scripts": {
     "buildEnvTypes": "node scripts/buildEnvTypes.js",
     "build": "node scripts/build.js",
-    "precompile": "cross-env MODE=production npm run build",
+    "precompile": "cross-env MODE=production yarn run build",
     "compile": "electron-builder build --config electron-builder.config.js --dir --config.asar=false",
-    "pretest": "cross-env MODE=test npm run build",
+    "pretest": "cross-env MODE=test yarn run build",
     "test": "node tests/app.spec.js",
     "watch": "node scripts/watch.js",
     "lint": "eslint . --ext js,ts,vue",
-    "pretypecheck": "npm run buildEnvTypes",
+    "pretypecheck": "yarn run buildEnvTypes",
     "typecheck-main": "tsc --noEmit -p packages/main/tsconfig.json",
     "typecheck-preload": "tsc --noEmit -p packages/preload/tsconfig.json",
     "typecheck-renderer": "vue-tsc --noEmit -p packages/renderer/tsconfig.json",
-    "typecheck": "npm run typecheck-main && npm run typecheck-preload && npm run typecheck-renderer"
+    "typecheck": "yarn run typecheck-main && yarn run typecheck-preload && yarn run typecheck-renderer"
   },
   "browserslist": [
     "Chrome 91"
   ],
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged",
-    "pre-push": "npm run typecheck"
+    "pre-push": "yarn run typecheck"
   },
   "lint-staged": {
     "*.{js,ts,vue}": "eslint --cache --fix"
