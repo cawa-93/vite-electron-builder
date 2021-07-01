@@ -27,7 +27,7 @@ ___
 
 Follow these steps to get started with this template:
 
-1. Click the **[Use this template](https://github.com/cawa-93/vite-electron-builder/generate)** button.
+1. Click the **[Use this template](https://github.com/cawa-93/vite-electron-builder/generate)** button (you must be logged in) or just clone this repo.
 
 That's all you need. 😉
 
