@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@types/electron-devtools-installer": "^2.2.0",
-    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@vitejs/plugin-vue": "^1.2.4",
     "cross-env": "^7.0.3",
     "electron": "^13.1.5",
