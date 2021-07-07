@@ -26,13 +26,7 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 15 # Need for npm >=7.7
-
-      - uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+          cache: 'npm'
 
       # TODO: Install not all dependencies, but only those required for this workflow
       - name: Install dependencies
