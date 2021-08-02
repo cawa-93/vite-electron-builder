@@ -50,7 +50,7 @@
   },
   "dependencies": {
     "electron-updater": "^4.4.3",
-    "vue": "^3.1.2",
+    "vue": "^3.1.5",
     "vue-router": "^4.0.10"
   }
 }
