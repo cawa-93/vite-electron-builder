@@ -43,11 +43,7 @@ export default defineConfig({
     rollupOptions: {
       external: [
         'electron',
-        /**
-         * semver can not be bundled
-         * @see https://github.com/npm/node-semver/issues/381
-         */
-        'semver',
+        'electron-devtools-installer',
         ...builtinModules,
       ],
       output: {
