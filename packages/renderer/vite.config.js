@@ -12,6 +12,7 @@ const PACKAGE_ROOT = __dirname;
  * @see https://vitejs.dev/config/
  */
 const config = {
+  mode: process.env.MODE,
   root: PACKAGE_ROOT,
   resolve: {
     alias: {
