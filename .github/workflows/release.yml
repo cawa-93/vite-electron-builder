@@ -27,6 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release-note: ${{ steps.release-note.outputs.release-note }}
+      version: ${{ steps.version.outputs.build-version }}
 
     steps:
       - uses: actions/checkout@v2
@@ -52,7 +53,7 @@ jobs:
 
       - name: Get version from current date
         id: version
-        run: echo "::set-output name=current-version::$(node -e "try{console.log(require('./electron-builder.config.js').extraMetadata.version)}catch(e){console.error(e);process.exit(1)}")"
+        run: echo "::set-output name=build-version::$(node -e "try{console.log(require('./getAppVersion.cjs').getAppVersion())}catch(e){console.error(e);process.exit(1)}")"
 
 
       - name: Waiting on All checks
@@ -110,6 +111,8 @@ jobs:
       # Compile app and upload artifacts
       - name: Compile & release Electron app
         uses: samuelmeuli/action-electron-builder@v1
+        env:
+          VITE_APP_VERSION: ${{ needs.prepare-draft.outputs.version }}
         with:
           build_script_name: build
           args: --config electron-builder.config.js
