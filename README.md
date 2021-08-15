@@ -81,7 +81,7 @@ See [examples of web pages for different frameworks](https://github.com/vitejs/v
 
 ### Continuous delivery
 - Each time you push changes to the `main` branch, [`release`](.github/workflows/release.yml) workflow starts, which creates release draft.
-  - The version is automatically set based on the current date in the format "yy.mm.dd".
+  - The version is automatically set based on the current date in the format `yy.mm.dd-minutes`.
   - Notes are automatically generated and added to the release draft.
   - Code signing supported. See [`compile` job in `release` workflow](.github/workflows/release.yml).
 - **Auto-update is supported**. After the release will be published, all client applications will download the new version and install updates silently.
