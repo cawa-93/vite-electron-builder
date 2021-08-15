@@ -43,6 +43,7 @@ const config = {
       ],
     },
     emptyOutDir: true,
+    brotliSize: false,
   },
 };
 
