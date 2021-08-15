@@ -36,8 +36,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - run: npm run buildEnvTypes
-
       # Type checking is divided into three separate commands for more convenient logs
       - run: npm run typecheck-main
       - run: npm run typecheck-preload
