@@ -21,8 +21,8 @@ const config = {
   plugins: [vue()],
   base: '',
   server: {
-    fsServe: {
-      root: join(PACKAGE_ROOT, '../../'),
+    fs: {
+      strict: true,
     },
   },
   build: {
