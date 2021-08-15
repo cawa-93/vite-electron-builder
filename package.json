@@ -7,7 +7,6 @@
   },
   "main": "packages/main/dist/index.cjs",
   "scripts": {
-    "buildEnvTypes": "node scripts/buildEnvTypes.js",
     "build": "node scripts/build.js",
     "precompile": "cross-env MODE=production npm run build",
     "compile": "electron-builder build --config electron-builder.config.js --dir --config.asar=false",
@@ -15,7 +14,6 @@
     "test": "node tests/app.spec.js",
     "watch": "node scripts/watch.js",
     "lint": "eslint . --ext js,ts,vue",
-    "pretypecheck": "npm run buildEnvTypes",
     "typecheck-main": "tsc --noEmit -p packages/main/tsconfig.json",
     "typecheck-preload": "tsc --noEmit -p packages/preload/tsconfig.json",
     "typecheck-renderer": "vue-tsc --noEmit -p packages/renderer/tsconfig.json",

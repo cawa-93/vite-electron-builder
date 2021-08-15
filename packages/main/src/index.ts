@@ -62,7 +62,7 @@ const createWindow = async () => {
    * Vite dev server for development.
    * `file://../renderer/index.html` for production and test
    */
-  const pageUrl = env.MODE === 'development'
+  const pageUrl = env.MODE === 'development' && env.VITE_DEV_SERVER_URL !== undefined
     ? env.VITE_DEV_SERVER_URL
     : new URL('../renderer/dist/index.html', 'file://' + __dirname).toString();
 
