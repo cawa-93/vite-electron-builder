@@ -112,7 +112,7 @@ jobs:
       - name: Compile & release Electron app
         uses: samuelmeuli/action-electron-builder@v1
         env:
-          VITE_APP_VERSION: ${{ needs.prepare-draft.outputs.version }}
+          VITE_APP_VERSION: ${{ needs.draft.outputs.version }}
         with:
           build_script_name: build
           args: --config electron-builder.config.js
