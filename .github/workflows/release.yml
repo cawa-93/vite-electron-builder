@@ -75,8 +75,8 @@ jobs:
         with:
           prerelease: true
           draft: true
-          tag_name: v${{ steps.version.outputs.current-version }}
-          name: v${{ steps.version.outputs.current-version }}
+          tag_name: v${{ steps.version.outputs.build-version }}
+          name: v${{ steps.version.outputs.build-version }}
           body: ${{ steps.release-note.outputs.release-note }}
 
   upload_artifacts:
