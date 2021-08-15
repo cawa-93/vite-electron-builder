@@ -12,15 +12,8 @@ if (!isSingleInstance) {
 
 app.disableHardwareAcceleration();
 
-/**
- * Workaround for TypeScript bug
- * @see https://github.com/microsoft/TypeScript/issues/41468#issuecomment-727543400
- */
-const env = import.meta.env;
-
-
 // Install "Vue.js devtools"
-if (env.MODE === 'development') {
+if (import.meta.env.MODE === 'development') {
   app.whenReady()
     .then(() => import('electron-devtools-installer'))
     .then(({default: installExtension, VUEJS3_DEVTOOLS}) => installExtension(VUEJS3_DEVTOOLS, {
@@ -38,8 +31,8 @@ const createWindow = async () => {
     show: false, // Use 'ready-to-show' event to show window
     webPreferences: {
       preload: join(__dirname, '../../preload/dist/index.cjs'),
-      contextIsolation: env.MODE !== 'test',   // Spectron tests can't work with contextIsolation: true
-      enableRemoteModule: env.MODE === 'test', // Spectron tests can't work with enableRemoteModule: false
+      contextIsolation: import.meta.env.MODE !== 'test',   // Spectron tests can't work with contextIsolation: true
+      enableRemoteModule: import.meta.env.MODE === 'test', // Spectron tests can't work with enableRemoteModule: false
     },
   });
 
@@ -52,7 +45,7 @@ const createWindow = async () => {
   mainWindow.on('ready-to-show', () => {
     mainWindow?.show();
 
-    if (env.MODE === 'development') {
+    if (import.meta.env.MODE === 'development') {
       mainWindow?.webContents.openDevTools();
     }
   });
@@ -62,8 +55,8 @@ const createWindow = async () => {
    * Vite dev server for development.
    * `file://../renderer/index.html` for production and test
    */
-  const pageUrl = env.MODE === 'development' && env.VITE_DEV_SERVER_URL !== undefined
-    ? env.VITE_DEV_SERVER_URL
+  const pageUrl = import.meta.env.MODE === 'development' && import.meta.env.VITE_DEV_SERVER_URL !== undefined
+    ? import.meta.env.VITE_DEV_SERVER_URL
     : new URL('../renderer/dist/index.html', 'file://' + __dirname).toString();
 
 
@@ -93,7 +86,7 @@ app.whenReady()
 
 
 // Auto-updates
-if (env.PROD) {
+if (import.meta.env.PROD) {
   app.whenReady()
     .then(() => import('electron-updater'))
     .then(({autoUpdater}) => autoUpdater.checkForUpdatesAndNotify())
