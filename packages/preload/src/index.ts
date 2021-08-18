@@ -8,7 +8,14 @@ const api: ElectronApi = {
   versions: process.versions,
 };
 
-if (import.meta.env.MODE !== 'test') {
+/**
+ * If contextIsolated enabled use contextBridge
+ * Else use fallback
+ *
+ * Note: Spectron tests can't work in isolated context
+ * @see https://github.com/electron-userland/spectron/issues/693#issuecomment-748482545
+ */
+if (process.contextIsolated) {
   /**
    * The "Main World" is the JavaScript context that your main renderer code runs in.
    * By default, the page you load in your renderer executes code in this world.
