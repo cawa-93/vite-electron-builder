@@ -56,5 +56,5 @@
       "groupName": "electron"
     }
   ],
-  "rangeStrategy": "bump"
+  "rangeStrategy": "pin"
 }
