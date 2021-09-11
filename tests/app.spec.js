@@ -55,14 +55,18 @@ const {strict: assert} = require('assert');
   assert.ok(originalBtnText !== newBtnText, 'The button did not change the contents after clicking');
 
   // Check Node api
-  // It is assumed that on the page "/about" there is an element in which the version of the electron is displayed in format `electron: vdd.dd.dd`.
-  await page.click('a[href*="/about"]');
-  await page.waitForNavigation();
+  // It is assumed that on the page "/about"
+  // there is an element in which the version of the electron is displayed in format `electron: vdd.dd.dd`.
+  await Promise.all([
+    page.waitForNavigation(), // Waits for the next navigation
+    page.click('a[href*="/about"]'),
+  ]);
+
   const electronVersionElement = await page.$('text=electron:');
 
   assert.notStrictEqual(element, null, 'Can\'t element with electron version');
 
-  const renderedElectronVersion = (await electronVersionElement.innerText()).match(/v(\d+\.\d+\.\d+)$/ )[1];
+  const renderedElectronVersion = (await electronVersionElement.innerText()).match(/v(\d+\.\d+\.\d+)$/)[1];
   const {electron: realElectronVersion} = await electronApp.evaluate(() => process.versions);
 
   assert.strictEqual(renderedElectronVersion, realElectronVersion);
