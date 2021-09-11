@@ -10,7 +10,7 @@
     "build": "node scripts/build.js",
     "precompile": "cross-env MODE=production npm run build",
     "compile": "electron-builder build --config electron-builder.config.js --dir --config.asar=false",
-    "pretest": "cross-env MODE=test npm run build",
+    "pretest": "npm run build",
     "test": "node tests/app.spec.js",
     "watch": "node scripts/watch.js",
     "lint": "eslint . --ext js,ts,vue",

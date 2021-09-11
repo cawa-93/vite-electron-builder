@@ -9,44 +9,9 @@ const api: ElectronApi = {
 };
 
 /**
- * If contextIsolated enabled use contextBridge
- * Else use fallback
+ * The "Main World" is the JavaScript context that your main renderer code runs in.
+ * By default, the page you load in your renderer executes code in this world.
  *
- * Note: Spectron tests can't work in isolated context
- * @see https://github.com/electron-userland/spectron/issues/693#issuecomment-748482545
+ * @see https://www.electronjs.org/docs/api/context-bridge
  */
-if (process.contextIsolated) {
-  /**
-   * The "Main World" is the JavaScript context that your main renderer code runs in.
-   * By default, the page you load in your renderer executes code in this world.
-   *
-   * @see https://www.electronjs.org/docs/api/context-bridge
-   */
-  contextBridge.exposeInMainWorld(apiKey, api);
-} else {
-
-  /**
-   * Recursively Object.freeze() on objects and functions
-   * @see https://github.com/substack/deep-freeze
-   * @param obj Object on which to lock the attributes
-   */
-  const deepFreeze = (obj: any) => { // eslint-disable-line @typescript-eslint/no-explicit-any
-    if (typeof obj === 'object' && obj !== null) {
-      Object.keys(obj).forEach((prop) => {
-        const val = obj[prop];
-        if ((typeof val === 'object' || typeof val === 'function') && !Object.isFrozen(val)) {
-          deepFreeze(val);
-        }
-      });
-    }
-
-    return Object.freeze(obj);
-  };
-
-  deepFreeze(api);
-
-  window[apiKey] = api;
-
-  // Need for Spectron tests
-  window.electronRequire = require;
-}
+contextBridge.exposeInMainWorld(apiKey, api);

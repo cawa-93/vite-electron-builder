@@ -73,10 +73,11 @@ See [examples of web pages for different frameworks](https://github.com/vitejs/v
 ### Continuous Integration
 - The configured workflow for check the types for each push and PR.
 - The configured workflow for check the code style for each push and PR.
-- **Automatic tests** used [spectron]. Simple, automated test check:
+- **Automatic tests** used [playwright]. Simple, automated test check:
   - Does the main window created and visible?
   - Is the main window not empty?
   - Is dev tools closed?
+  - Is preload script loaded?
   
 
 ### Continuous delivery
@@ -96,7 +97,7 @@ I am actively involved in its development. But I do not guarantee that this temp
 
 **At the moment, there are the following problems:**
 
-- ⚠ Looking for best way for testing. See [#423](https://github.com/cawa-93/vite-electron-builder/issues/423)
+- ⚠ Playwright has **experimental** support for Electron.
 - ⚠ Release notes are created automatically based on commit history. [`.github/actions/release-notes`](.github/actions/release-notes) is used for generation. It may not provide some scenarios. If you encounter a problem - write about it.
 - ⏳ I want to migrate all code base to ESM. But because Nodejs  ecosystem is unprepared I have not known whether this will give more benefits or more inconvenience.
 
@@ -156,9 +157,6 @@ const {readConfig} = useElectron()
 
 [Read more about Security Considerations](https://www.electronjs.org/docs/tutorial/context-isolation#security-considerations).
 
-**Note**: Context isolation disabled for `test` environment. See [#693](https://github.com/electron-userland/spectron/issues/693#issuecomment-747872160).
-
-
 
 ### Modes and Environment Variables
 All environment variables set as part of the `import.meta`, so you can access them as follows: `import.meta.env`. 
@@ -170,7 +168,6 @@ The mode option is used to specify the value of `import.meta.env.MODE` and the c
 By default, there are two modes:
   - `production` is used by default
   - `development` is used by `npm run watch` script
-  - `test` is used by `npm test` script
 
 When running building, environment variables are loaded from the following files in your project root:
 
@@ -196,7 +193,7 @@ See [Contributing Guide](contributing.md).
 [vue]: https://github.com/vuejs/vue-next
 [vue-router]: https://github.com/vuejs/vue-router-next/
 [typescript]: https://github.com/microsoft/TypeScript/
-[spectron]: https://github.com/electron-userland/spectron
+[playwright]: https://playwright.dev
 [vue-tsc]: https://github.com/johnsoncodehk/vue-tsc
 [eslint-plugin-vue]: https://github.com/vuejs/eslint-plugin-vue
 [cawa-93-github]: https://github.com/cawa-93/
