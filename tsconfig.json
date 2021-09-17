@@ -8,7 +8,8 @@
     "strict": true,
     "isolatedModules": true,
     "types": [
-      "node"
+      "node",
+      "vite/client".
     ],
     "typeRoots": [
       "node_modules/@types",
