@@ -166,6 +166,10 @@ class CommitGroup {
 		this.commits = [];
 	}
 
+	get isEmpty() {
+		return this.commits.length === 0 && this.scopes.size === 0;
+	}
+
 	/**
 	 *
 	 * @param {ICommitExtended[]} array
@@ -194,10 +198,6 @@ class CommitGroup {
 		const scope = this.scopes.get(commit.scope) || {commits: []};
 		CommitGroup._pushOrMerge(scope.commits, commit);
 		this.scopes.set(commit.scope, scope);
-	}
-
-	get isEmpty() {
-		return this.commits.length === 0 && this.scopes.size === 0;
 	}
 }
 
