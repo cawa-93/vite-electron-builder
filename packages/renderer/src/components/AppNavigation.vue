@@ -14,14 +14,14 @@
 import {defineComponent} from 'vue';
 
 export default defineComponent({
-  name: 'AppNavigation',
+	name: 'AppNavigation',
 });
 </script>
 
 <style scoped>
 nav {
-  display: flex;
-  gap: 1em;
-  justify-content: center;
+	display: flex;
+	gap: 1em;
+	justify-content: center;
 }
 </style>
