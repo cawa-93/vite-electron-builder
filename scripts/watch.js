@@ -22,6 +22,13 @@ const sharedConfig = {
   logLevel: LOG_LEVEL,
 };
 
+/** Messages on stderr that match any of the contained patterns will be stripped from output */
+const stderrFilterPatterns = [
+  // warning about devtools extension
+  // https://github.com/cawa-93/vite-electron-builder/issues/492
+  // https://github.com/MarshallOfSound/electron-devtools-installer/issues/143
+  /ExtensionLoadWarning/,
+];
 
 /**
  * @param configFile
@@ -72,7 +79,13 @@ const setupMainPackageWatcher = (viteDevServer) => {
       spawnProcess = spawn(String(electronPath), ['.']);
 
       spawnProcess.stdout.on('data', d => d.toString().trim() && logger.warn(d.toString(), {timestamp: true}));
-      spawnProcess.stderr.on('data', d => d.toString().trim() && logger.error(d.toString(), {timestamp: true}));
+      spawnProcess.stderr.on('data', d => {
+        const data = d.toString().trim();
+        if (!data) return;
+        const mayIgnore = stderrFilterPatterns.some((r) => r.test(data));
+        if (mayIgnore) return;
+        logger.error(data, { timestamp: true });
+      });
     },
   });
 };
