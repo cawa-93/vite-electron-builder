@@ -24,10 +24,10 @@ const sharedConfig = {
 
 /** Messages on stderr that match any of the contained patterns will be stripped from output */
 const stderrFilterPatterns = [
-  // warning about vue devtools extension
+  // warning about devtools extension
   // https://github.com/cawa-93/vite-electron-builder/issues/492
   // https://github.com/MarshallOfSound/electron-devtools-installer/issues/143
-  /ExtensionLoadWarning: .*ljjemllljcmogpfapbkkighbhhppjdbg(.|[\r\n])*Filenames starting with "_" are reserved for use by the system./,
+  /ExtensionLoadWarning/,
 ];
 
 /**
