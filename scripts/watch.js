@@ -82,9 +82,7 @@ const setupMainPackageWatcher = (viteDevServer) => {
       spawnProcess.stderr.on('data', d => {
         const data = d.toString().trim();
         if (!data) return;
-        for (const pattern of stderrFilterPatterns) {
-          if (data.match(pattern)) return;
-        }
+        if (stderrFilterPatterns.some((r) => r.test(data))) return;
         logger.error(data, { timestamp: true });
       });
     },
