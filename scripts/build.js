@@ -2,7 +2,7 @@
 const {build} = require('vite');
 const {dirname} = require('path');
 
-/** @type 'production' | 'development' | 'test' */
+/** @type 'production' | 'development' */
 const mode = process.env.MODE = process.env.MODE || 'production';
 
 const packagesConfigs = [
