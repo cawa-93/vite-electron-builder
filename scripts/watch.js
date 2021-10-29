@@ -1,4 +1,4 @@
-#!/usr/bin/node
+#!/usr/bin/env node
 
 const {createServer, build, createLogger} = require('vite');
 const electronPath = require('electron');
