@@ -97,7 +97,7 @@ I am actively involved in its development. But I do not guarantee that this temp
 
 **At the moment, there are the following problems:**
 
-- ⚠ Playwright has **experimental** support for Electron.
+- ⚠ Playwright has [**experimental** support for Electron](https://playwright.dev/docs/api/class-electron/).
 - ⚠ Release notes are created automatically based on commit history. [`.github/actions/release-notes`](.github/actions/release-notes) is used for generation. It may not provide some scenarios. If you encounter a problem - write about it.
 - ⏳ I want to migrate all code base to ESM. But because Nodejs  ecosystem is unprepared I have not known whether this will give more benefits or more inconvenience.
 
