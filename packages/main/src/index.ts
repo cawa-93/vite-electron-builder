@@ -1,4 +1,4 @@
-import {app, BrowserWindow} from 'electron';
+import {app, BrowserWindow, shell} from 'electron';
 import {join} from 'path';
 import {URL} from 'url';
 
@@ -47,6 +47,16 @@ const createWindow = async () => {
     if (import.meta.env.MODE === 'development') {
       mainWindow?.webContents.openDevTools();
     }
+  });
+
+  /**
+   * External hyperlinks open in the default browser.
+   *
+   * @see https://stackoverflow.com/a/67409223
+   */
+   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url);
+    return { action: 'deny' };
   });
 
   /**
