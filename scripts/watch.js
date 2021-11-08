@@ -31,10 +31,9 @@ const stderrFilterPatterns = [
 ];
 
 /**
- * @param configFile
- * @param writeBundle
- * @param name
- * @returns {Promise<import('vite').RollupOutput | Array<import('vite').RollupOutput> | import('vite').RollupWatcher>}
+ * 
+ * @param {{name: string; configFile: string; writeBundle: import('rollup').OutputPlugin['writeBundle'] }} param0 
+ * @returns {import('rollup').RollupWatcher}
  */
 const getWatcher = ({name, configFile, writeBundle}) => {
   return build({
