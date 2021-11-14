@@ -4,6 +4,7 @@ import {URL} from 'url';
 
 
 const isSingleInstance = app.requestSingleInstanceLock();
+const isDevelopment = import.meta.env.MODE === 'development';
 
 if (!isSingleInstance) {
   app.quit();
@@ -13,7 +14,7 @@ if (!isSingleInstance) {
 app.disableHardwareAcceleration();
 
 // Install "Vue.js devtools"
-if (import.meta.env.MODE === 'development') {
+if (isDevelopment) {
   app.whenReady()
     .then(() => import('electron-devtools-installer'))
     .then(({default: installExtension, VUEJS3_DEVTOOLS}) => installExtension(VUEJS3_DEVTOOLS, {
@@ -44,7 +45,7 @@ const createWindow = async () => {
   mainWindow.on('ready-to-show', () => {
     mainWindow?.show();
 
-    if (import.meta.env.MODE === 'development') {
+    if (isDevelopment) {
       mainWindow?.webContents.openDevTools();
     }
   });
@@ -54,7 +55,7 @@ const createWindow = async () => {
    * Vite dev server for development.
    * `file://../renderer/index.html` for production and test
    */
-  const pageUrl = import.meta.env.MODE === 'development' && import.meta.env.VITE_DEV_SERVER_URL !== undefined
+  const pageUrl = isDevelopment && import.meta.env.VITE_DEV_SERVER_URL !== undefined
     ? import.meta.env.VITE_DEV_SERVER_URL
     : new URL('../renderer/dist/index.html', 'file://' + __dirname).toString();
 
