@@ -63,13 +63,29 @@ const createWindow = async () => {
   await mainWindow.loadURL(pageUrl);
 };
 
- /**
+ app.on('web-contents-created', (_event, contents) => {
+
+  /**
+   * Empty since there's no reason to enable any navigation.
+   *
+   * @see https://www.electronjs.org/docs/latest/tutorial/security#13-disable-or-limit-navigation
+   */
+  contents.on('will-navigate', (event, url) => {
+    const trustedOrigins = new Set();
+    const trustedProtocols = new Set();
+    const { origin, protocol } = new URL(url);
+    if (!trustedOrigins.has(origin) || !trustedProtocols.has(protocol)){
+      console.warn('Blocked navigating to an unrecognized origin:', origin);
+      event.preventDefault();
+    }
+  });
+
+  /**
   * Hyperlinks to trusted sites open in the default browser.
   *
   * @see https://www.electronjs.org/docs/latest/tutorial/security#14-disable-or-limit-creation-of-new-windows
   * @see https://www.electronjs.org/docs/latest/tutorial/security#15-do-not-use-openexternal-with-untrusted-content
   */
-app.on('web-contents-created', (_event, contents) => {
   contents.setWindowOpenHandler(({ url }) => {
     const trustedOrigins = new Set([
       'https://vitejs.dev',
