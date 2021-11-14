@@ -50,16 +50,6 @@ const createWindow = async () => {
   });
 
   /**
-   * External hyperlinks open in the default browser.
-   *
-   * @see https://stackoverflow.com/a/67409223
-   */
-   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
-    shell.openExternal(url);
-    return { action: 'deny' };
-  });
-
-  /**
    * URL for main window.
    * Vite dev server for development.
    * `file://../renderer/index.html` for production and test
@@ -71,6 +61,31 @@ const createWindow = async () => {
 
   await mainWindow.loadURL(pageUrl);
 };
+
+ /**
+  * Hyperlinks to trusted sites open in the default browser.
+  *
+  * @see https://www.electronjs.org/docs/latest/tutorial/security#14-disable-or-limit-creation-of-new-windows
+  * @see https://www.electronjs.org/docs/latest/tutorial/security#15-do-not-use-openexternal-with-untrusted-content
+  */
+app.on('web-contents-created', (_event, contents) => {
+  contents.setWindowOpenHandler(({ url }) => {
+    const trustedOrigins = new Set([
+      'https://vitejs.dev',
+      'https://github.com',
+      'https://v3.vuejs.org']);
+    const trustedProtocols = new Set([
+      'https:', // https://www.electronjs.org/docs/latest/tutorial/security#1-only-load-secure-content
+    ]);
+    const { origin, protocol } = new URL(url);
+    if (trustedOrigins.has(origin) && trustedProtocols.has(protocol)){
+      shell.openExternal(url);
+    } else {
+      console.warn('Blocked the opening of an unrecognized origin:', origin);
+    }
+    return { action: 'deny' };
+  });
+});
 
 
 app.on('second-instance', () => {
