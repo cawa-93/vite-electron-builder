@@ -71,10 +71,10 @@ const createWindow = async () => {
    * @see https://www.electronjs.org/docs/latest/tutorial/security#13-disable-or-limit-navigation
    */
   contents.on('will-navigate', (event, url) => {
-    const trustedOrigins = new Set();
-    const trustedProtocols = new Set();
-    const { origin, protocol } = new URL(url);
-    if (!trustedOrigins.has(origin) || !trustedProtocols.has(protocol)){
+    const trustedOrigins : ReadonlySet<string> =
+      new Set<`https://${string}`>(); // https://www.electronjs.org/docs/latest/tutorial/security#1-only-load-secure-content
+    const { origin } = new URL(url);
+    if (!trustedOrigins.has(origin)){
       console.warn('Blocked navigating to an unrecognized origin:', origin);
       event.preventDefault();
     }
@@ -87,15 +87,13 @@ const createWindow = async () => {
   * @see https://www.electronjs.org/docs/latest/tutorial/security#15-do-not-use-openexternal-with-untrusted-content
   */
   contents.setWindowOpenHandler(({ url }) => {
-    const trustedOrigins = new Set([
+    const trustedOrigins : ReadonlySet<string> =
+      new Set<`https://${string}`>([ // https://www.electronjs.org/docs/latest/tutorial/security#1-only-load-secure-content
       'https://vitejs.dev',
       'https://github.com',
       'https://v3.vuejs.org']);
-    const trustedProtocols = new Set([
-      'https:', // https://www.electronjs.org/docs/latest/tutorial/security#1-only-load-secure-content
-    ]);
-    const { origin, protocol } = new URL(url);
-    if (trustedOrigins.has(origin) && trustedProtocols.has(protocol)){
+    const { origin } = new URL(url);
+    if (trustedOrigins.has(origin)){
       shell.openExternal(url);
     } else {
       console.warn('Blocked the opening of an unrecognized origin:', origin);
