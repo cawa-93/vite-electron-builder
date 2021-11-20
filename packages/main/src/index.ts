@@ -73,8 +73,9 @@ const createWindow = async () => {
   contents.on('will-navigate', (event, url) => {
     const trustedOrigins : ReadonlySet<string> =
       new Set<`https://${string}`>(); // https://www.electronjs.org/docs/latest/tutorial/security#1-only-load-secure-content
-    const { origin } = new URL(url);
-    if (!trustedOrigins.has(origin)){
+    const { origin, hostname } = new URL(url);
+    const isDevLocalhost = isDevelopment && hostname === 'localhost'; // permit live reload of index.html
+    if (!trustedOrigins.has(origin) && !isDevLocalhost){
       console.warn('Blocked navigating to an unrecognized origin:', origin);
       event.preventDefault();
     }
