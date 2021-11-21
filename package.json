@@ -37,7 +37,7 @@
     "electron": "16.0.1",
     "electron-builder": "22.14.5",
     "electron-devtools-installer": "3.2.0",
-    "eslint": "8.2.0",
+    "eslint": "8.3.0",
     "eslint-plugin-vue": "8.1.1",
     "lint-staged": "12.0.3",
     "playwright": "1.16.3",
