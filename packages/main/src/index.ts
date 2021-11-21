@@ -66,38 +66,45 @@ const createWindow = async () => {
  app.on('web-contents-created', (_event, contents) => {
 
   /**
-   * Empty since there's no reason to enable any navigation.
+   * Block navigation to origins not on the allowlist.
+   *
+   * Navigation is a common attack vector. If an attacker can convince the app to navigate away
+   * from its current page, they can possibly force the app to open web sites on the Internet.
    *
    * @see https://www.electronjs.org/docs/latest/tutorial/security#13-disable-or-limit-navigation
    */
   contents.on('will-navigate', (event, url) => {
-    const trustedOrigins : ReadonlySet<string> =
-      new Set<`https://${string}`>(); // https://www.electronjs.org/docs/latest/tutorial/security#1-only-load-secure-content
+    const allowedOrigins : ReadonlySet<string> =
+      new Set<`https://${string}`>(); // Do not use insecure protocols like HTTP. https://www.electronjs.org/docs/latest/tutorial/security#1-only-load-secure-content
     const { origin, hostname } = new URL(url);
     const isDevLocalhost = isDevelopment && hostname === 'localhost'; // permit live reload of index.html
-    if (!trustedOrigins.has(origin) && !isDevLocalhost){
-      console.warn('Blocked navigating to an unrecognized origin:', origin);
+    if (!allowedOrigins.has(origin) && !isDevLocalhost){
+      console.warn('Blocked navigating to an unallowed origin:', origin);
       event.preventDefault();
     }
   });
 
   /**
-  * Hyperlinks to trusted sites open in the default browser.
+  * Hyperlinks to allowed sites open in the default browser.
+  *
+  * The creation of new `webContents` is a common attack vector. Attackers attempt to convince the app to create new windows,
+  * frames, or other renderer processes with more privileges than they had before; or with pages opened that they couldn't open before.
+  * You should deny any unexpected window creation.
   *
   * @see https://www.electronjs.org/docs/latest/tutorial/security#14-disable-or-limit-creation-of-new-windows
   * @see https://www.electronjs.org/docs/latest/tutorial/security#15-do-not-use-openexternal-with-untrusted-content
   */
   contents.setWindowOpenHandler(({ url }) => {
-    const trustedOrigins : ReadonlySet<string> =
-      new Set<`https://${string}`>([ // https://www.electronjs.org/docs/latest/tutorial/security#1-only-load-secure-content
+    const allowedOrigins : ReadonlySet<string> =
+      new Set<`https://${string}`>([ // Do not use insecure protocols like HTTP. https://www.electronjs.org/docs/latest/tutorial/security#1-only-load-secure-content
       'https://vitejs.dev',
       'https://github.com',
       'https://v3.vuejs.org']);
     const { origin } = new URL(url);
-    if (trustedOrigins.has(origin)){
+    if (allowedOrigins.has(origin)){
       shell.openExternal(url);
     } else {
-      console.warn('Blocked the opening of an unrecognized origin:', origin);
+      console.warn('Blocked the opening of an unallowed origin:', origin);
     }
     return { action: 'deny' };
   });
