@@ -1,3 +1,3 @@
-export function useElectron(): Readonly<ElectronApi> {
+export function useElectron() {
   return window.electron;
 }
