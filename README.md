@@ -59,6 +59,8 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 - The Latest TypeScript is used for all source code. 
 - **Vite** supports TypeScript out of the box. However, it does not support type checking.
 - Code formatting rules follow the latest TypeScript recommendations and best practices thanks to [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin).
+- Automatically create interface declarations for all APIs that have been passed to `electron.contextBridge.exposeInMainWorld`.
+  Thanks [dts-for-context-bridge](https://github.com/cawa-93/dts-for-context-bridge)  [![dts-for-context-bridge version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/dts-for-context-bridge?label=%20)](https://github.com/cawa-93/dts-for-context-bridge).
 
 **[See this discussion](https://github.com/cawa-93/vite-electron-builder/discussions/339)** if you want completly remove TypeScript. 
 
