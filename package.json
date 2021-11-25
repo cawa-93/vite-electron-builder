@@ -35,7 +35,7 @@
     "@typescript-eslint/eslint-plugin": "5.4.0",
     "@vitejs/plugin-vue": "1.10.0",
     "cross-env": "7.0.3",
-    "electron": "16.0.1",
+    "electron": "16.0.2",
     "electron-builder": "22.14.5",
     "dts-for-context-bridge": "0.1.0",
     "electron-devtools-installer": "3.2.0",
