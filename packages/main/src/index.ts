@@ -63,7 +63,7 @@ const createWindow = async () => {
   await mainWindow.loadURL(pageUrl);
 };
 
- app.on('web-contents-created', (_event, contents) => {
+app.on('web-contents-created', (_event, contents) => {
 
   /**
    * Block navigation to origins not on the allowlist.
@@ -108,6 +108,26 @@ const createWindow = async () => {
     }
     return { action: 'deny' };
   });
+
+  /**
+   * Block requested permissions not on the allowlist.
+   *
+   * @see https://www.electronjs.org/docs/latest/tutorial/security#5-handle-session-permission-requests-from-remote-content
+   */
+  contents.session.setPermissionRequestHandler((webContents, permission, callback) => {
+    const origin = new URL(webContents.getURL()).origin;
+    const allowedOriginsAndPermissions : Map<string, Set<string>> =
+      new Map<`https://${string}`, Set<string>>([
+        //['https://permission.site', new Set(['notifications', 'media'])],
+      ]);
+    if (allowedOriginsAndPermissions.get(origin)?.has(permission)) {
+      callback(true);
+    } else {
+      console.warn(`${origin} requested permission for '${permission}', but was blocked.`);
+      callback(false);
+    }
+  });
+
 });
 
 
