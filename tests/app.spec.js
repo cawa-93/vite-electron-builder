@@ -55,11 +55,11 @@ const {strict: assert} = require('assert');
   assert.ok(originalBtnText !== newBtnText, 'The button did not change the contents after clicking');
 
   // Check Preload script
-  const renderedExposedApi = await page.evaluate(() => globalThis.electron);
+  const renderedExposedApi = await page.evaluate(() => globalThis.versions);
   const realVersions = await electronApp.evaluate(() => process.versions);
 
   assert.notStrictEqual(renderedExposedApi, undefined, 'In renderer `globalThis.electron` is undefined');
-  assert.strictEqual(renderedExposedApi?.versions?.electron, realVersions.electron);
+  assert.strictEqual(renderedExposedApi?.electron, realVersions.electron);
 
   // Close app
   await electronApp.close();
