@@ -142,20 +142,28 @@ To do this, using the [electron-builder]:
 According to [Electron's security guidelines](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content), Node.js integration is disabled for remote content. This means that **you cannot call any Node.js api in the `packages/renderer` directly**. To do this, you **must** describe the interface in the `packages/preload` where Node.js api is allowed:
 ```ts
 // packages/preload/src/index.ts
-import {readFile} from 'fs/promises'
+import type {BinaryLike} from 'crypto';
+import {createHash} from 'crypto';
 
-const api = {
-  readConfig: () =>  readFile('/path/to/config.json', {encoding: 'utf-8'}),
-}
-
-contextBridge.exposeInMainWorld('electron', api)
+contextBridge.exposeInMainWorld('nodeCrypto', {
+  sha256sum(data: BinaryLike) {
+    const hash = createHash('sha256');
+    hash.update(data);
+    return hash.digest('hex');
+  },
+});
 ```
 
+The [`dts-cb`](https://github.com/cawa-93/dts-for-context-bridge) utility will automatically generate an interface for TS:
+```ts
+interface Window {
+    readonly nodeCrypto: { sha256sum(data: import("crypto").BinaryLike): string; };
+}
+```
+And now, you can safely use the registered method:
 ```ts
 // packages/renderer/src/App.vue
-import {useElectron} from '/@/use/electron'
-
-const {readConfig} = useElectron()
+window.nodeCrypto.sha256sum('data')
 ```
 
 [Read more about Security Considerations](https://www.electronjs.org/docs/tutorial/context-isolation#security-considerations).

@@ -20,10 +20,33 @@
     >Vue 3 Documentation</a>
   </p>
 
-  <hr>
-  <button @click="count++">
-    count is: {{ count }}
-  </button>
+  <fieldset>
+    <legend>Test Vue Reactivity</legend>
+    <button @click="count++">
+      count is: {{ count }}
+    </button>
+  </fieldset>
+
+  <fieldset>
+    <legend>Test Node.js API</legend>
+    <label>
+      Raw value
+      <input
+        v-model="rawString"
+        type="text"
+      >
+    </label>
+    <br>
+    <label>
+      Hashed by node:crypto
+      <input
+        v-model="hashedString"
+        type="text"
+        readonly
+      >
+    </label>
+  </fieldset>
+
   <p>
     Edit
     <code>renderer/components/Home.vue</code> to test hot module replacement.
@@ -31,14 +54,17 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from 'vue';
+import {computed, defineComponent, ref} from 'vue';
 
 export default defineComponent({
   name: 'HelloWorld',
   setup() {
     const count = ref(0);
 
-    return {count};
+    const rawString = ref('Hello World');
+    const hashedString = computed(() => window.nodeCrypto.sha256sum(rawString.value));
+
+    return {count, rawString, hashedString};
   },
 });
 </script>
@@ -47,5 +73,10 @@ export default defineComponent({
 <style scoped>
 a {
   color: #42b983;
+}
+
+fieldset {
+  margin: 2rem;
+  padding: 1rem;
 }
 </style>

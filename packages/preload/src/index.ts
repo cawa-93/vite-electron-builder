@@ -1,12 +1,7 @@
 import {contextBridge} from 'electron';
 
-const apiKey = 'electron';
-/**
- * @see https://github.com/electron/electron/issues/21437#issuecomment-573522360
- */
-const api = {
-  versions: process.versions,
-} as const;
+import type {BinaryLike} from 'crypto';
+import {createHash} from 'crypto';
 
 /**
  * The "Main World" is the JavaScript context that your main renderer code runs in.
@@ -14,4 +9,32 @@ const api = {
  *
  * @see https://www.electronjs.org/docs/api/context-bridge
  */
-contextBridge.exposeInMainWorld(apiKey, api);
+
+/**
+ * After analyzing the `exposeInMainWorld` calls,
+ * `packages/preload/exposedInMainWorld.d.ts` file will be generated.
+ * It contains all interfaces.
+ * `packages/preload/exposedInMainWorld.d.ts` file is required for TS is `renderer`
+ *
+ * @see https://github.com/cawa-93/dts-for-context-bridge
+ */
+
+/**
+ * Expose Environment versions.
+ * @example
+ * console.log( window.versions )
+ */
+contextBridge.exposeInMainWorld('versions', process.versions);
+
+/**
+ * Safe expose node.js API
+ * @example
+ * window.nodeCrypto('data')
+ */
+contextBridge.exposeInMainWorld('nodeCrypto', {
+  sha256sum(data: BinaryLike) {
+    const hash = createHash('sha256');
+    hash.update(data);
+    return hash.digest('hex');
+  },
+});

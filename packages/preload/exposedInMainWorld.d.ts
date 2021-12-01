@@ -1,9 +1,14 @@
 interface Window {
     /**
-     * The "Main World" is the JavaScript context that your main renderer code runs in.
-     * By default, the page you load in your renderer executes code in this world.
-     *
-     * @see https://www.electronjs.org/docs/api/context-bridge
+     * Expose Environment versions.
+     * @example
+     * console.log( window.versions )
      */
-    readonly electron: { readonly versions: NodeJS.ProcessVersions; };
+    readonly versions: NodeJS.ProcessVersions;
+    /**
+     * Safe expose node.js API
+     * @example
+     * window.nodeCrypto('data')
+     */
+    readonly nodeCrypto: { sha256sum(data: import("crypto").BinaryLike): string; };
 }
