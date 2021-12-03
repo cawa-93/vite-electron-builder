@@ -24,10 +24,10 @@
     "Chrome 96"
   ],
   "simple-git-hooks": {
-    "pre-commit": "npx lint-staged",
+    "pre-commit": "npx nano-staged",
     "pre-push": "npm run typecheck"
   },
-  "lint-staged": {
+  "nano-staged": {
     "*.{js,ts,vue}": "eslint --cache --fix"
   },
   "devDependencies": {
@@ -35,13 +35,13 @@
     "@typescript-eslint/eslint-plugin": "5.5.0",
     "@vitejs/plugin-vue": "1.10.1",
     "cross-env": "7.0.3",
+    "dts-for-context-bridge": "0.6.2",
     "electron": "16.0.4",
     "electron-builder": "22.14.5",
-    "dts-for-context-bridge": "0.6.2",
     "electron-devtools-installer": "3.2.0",
     "eslint": "8.3.0",
     "eslint-plugin-vue": "8.1.1",
-    "lint-staged": "12.1.2",
+    "nano-staged": "0.4.1",
     "playwright": "1.17.1",
     "simple-git-hooks": "2.7.0",
     "typescript": "4.5.2",
