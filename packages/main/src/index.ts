@@ -32,6 +32,7 @@ const createWindow = async () => {
     show: false, // Use 'ready-to-show' event to show window
     webPreferences: {
       nativeWindowOpen: true,
+      webviewTag: false, // The webview tag is not recommended. Consider alternatives like iframe or Electron's BrowserView. https://www.electronjs.org/docs/latest/api/webview-tag#warning
       preload: join(__dirname, '../../preload/dist/index.cjs'),
     },
   });
@@ -128,6 +129,27 @@ app.on('web-contents-created', (_event, contents) => {
     }
   });
 
+  /**
+   * Verify webview options before creation
+   *
+   * Strip away preload scripts, disable Node.js integration, and ensure origins are on the allowlist.
+   *
+   * @see https://www.electronjs.org/docs/latest/tutorial/security#12-verify-webview-options-before-creation
+   */
+  contents.on('will-attach-webview', (event, webPreferences, params) => {
+    delete webPreferences.preload;
+    // @ts-expect-error `preloadURL` exists - see https://www.electronjs.org/docs/latest/api/web-contents#event-will-attach-webview
+    delete webPreferences.preloadURL;
+
+    webPreferences.nodeIntegration = false;
+    const { origin } = new URL(params.src);
+    const allowedOrigins : ReadonlySet<string> =
+      new Set<`https://${string}`>(); // Do not use insecure protocols like HTTP. https://www.electronjs.org/docs/latest/tutorial/security#1-only-load-secure-content
+    if (!allowedOrigins.has(origin)) {
+      console.warn(`A webview tried to attach ${params.src}, but was blocked.`);
+      event.preventDefault();
+    }
+  });
 });
 
 
