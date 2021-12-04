@@ -138,8 +138,7 @@ app.on('web-contents-created', (_event, contents) => {
    */
   contents.on('will-attach-webview', (event, webPreferences, params) => {
     delete webPreferences.preload;
-    // eslint-disable-next-line
-    // @ts-ignore
+    // @ts-expect-error `preloadURL` exists - see https://www.electronjs.org/docs/latest/api/web-contents#event-will-attach-webview
     delete webPreferences.preloadURL;
 
     webPreferences.nodeIntegration = false;
