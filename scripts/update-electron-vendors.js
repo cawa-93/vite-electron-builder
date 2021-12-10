@@ -28,7 +28,7 @@ function updateVendors() {
   const browserslistrcPath = path.resolve(process.cwd(), '.browserslistrc');
 
   return Promise.all([
-    writeFile('./electron-vendors.config.json',
+    writeFile('./.electron-vendors.cache.json',
       JSON.stringify({
         chrome: chromeMajorVersion,
         node: nodeMajorVersion,
