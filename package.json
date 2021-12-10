@@ -23,10 +23,6 @@
   "browserslist": [
     "Chrome 96"
   ],
-  "simple-git-hooks": {
-    "pre-commit": "npx nano-staged",
-    "pre-push": "npm run typecheck"
-  },
   "nano-staged": {
     "*.{js,ts,vue}": "eslint --cache --fix"
   },
