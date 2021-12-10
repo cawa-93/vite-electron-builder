@@ -1,0 +1,4 @@
+{
+  "pre-commit": "npx nano-staged",
+  "pre-push": "npm run typecheck"
+}

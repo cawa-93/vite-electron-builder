@@ -1,4 +1,4 @@
-import {chrome} from '../../electron-vendors.config.json';
+import {chrome} from '../../.electron-vendors.cache.json';
 import {join} from 'path';
 import {builtinModules} from 'module';
 

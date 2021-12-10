@@ -9,7 +9,7 @@
   "scripts": {
     "build": "node scripts/build.js",
     "precompile": "cross-env MODE=production npm run build",
-    "compile": "electron-builder build --config electron-builder.config.js --dir --config.asar=false",
+    "compile": "electron-builder build --config .electron-builder.config.js --dir --config.asar=false",
     "pretest": "npm run build",
     "test": "node tests/app.spec.js",
     "watch": "node scripts/watch.js",
@@ -19,16 +19,6 @@
     "typecheck-renderer": "vue-tsc --noEmit -p packages/renderer/tsconfig.json",
     "typecheck": "npm run typecheck-main && npm run typecheck-preload && npm run typecheck-renderer",
     "pretypecheck-renderer": "dts-cb -i packages/preload/src/**/*.ts -o packages/preload/exposedInMainWorld.d.ts"
-  },
-  "browserslist": [
-    "Chrome 96"
-  ],
-  "simple-git-hooks": {
-    "pre-commit": "npx nano-staged",
-    "pre-push": "npm run typecheck"
-  },
-  "nano-staged": {
-    "*.{js,ts,vue}": "eslint --cache --fix"
   },
   "devDependencies": {
     "@types/electron-devtools-installer": "2.2.0",
