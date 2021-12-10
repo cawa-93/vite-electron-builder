@@ -20,9 +20,6 @@
     "typecheck": "npm run typecheck-main && npm run typecheck-preload && npm run typecheck-renderer",
     "pretypecheck-renderer": "dts-cb -i packages/preload/src/**/*.ts -o packages/preload/exposedInMainWorld.d.ts"
   },
-  "browserslist": [
-    "Chrome 96"
-  ],
   "devDependencies": {
     "@types/electron-devtools-installer": "2.2.0",
     "@typescript-eslint/eslint-plugin": "5.6.0",
