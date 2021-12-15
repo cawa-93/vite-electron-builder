@@ -172,7 +172,7 @@ window.nodeCrypto.sha256sum('data')
 ### Modes and Environment Variables
 All environment variables set as part of the `import.meta`, so you can access them as follows: `import.meta.env`. 
 
-You can also specify types of your environment variables in [`types/vite-env.d.ts`](types/vite-env.d.ts).
+If you are using a TypeScript and want to get Code completion you must add all the environment variables to the [`ImportMetaEnv` in `types/vite-env.d.ts`](types/vite-env.d.ts).
 
 The mode option is used to specify the value of `import.meta.env.MODE` and the corresponding environment variables files that needs to be loaded.
 
@@ -189,8 +189,13 @@ When running building, environment variables are loaded from the following files
 .env.[mode].local   # only loaded in specified env mode, ignored by git
 ```
 
-**Note:** only variables prefixed with `VITE_` are exposed to your code (e.g. `VITE_SOME_KEY=123`) and `SOME_KEY=123` will not. You can access `VITE_SOME_KEY` using `import.meta.env.VITE_SOME_KEY`. This is because the `.env` files may be used by some users for server-side or build scripts and may contain sensitive information that should not be exposed in code shipped to browsers.
+To prevent accidentally leaking env variables to the client, only variables prefixed with `VITE_` are exposed to your Vite-processed code. e.g. the following file:
 
+```
+DB_PASSWORD=foobar
+VITE_SOME_KEY=123
+```
+Only `VITE_SOME_KEY` will be exposed as `import.meta.env.VITE_SOME_KEY` to your client source code, but `DB_PASSWORD` will not.
 
 
 ## Contribution

@@ -2,9 +2,12 @@
 
 /**
  * Describes all existing environment variables and their types.
- * Assists in autocomplete and typechecking
+ * Required for Code completion and type checking
  *
- * @see https://github.com/vitejs/vite/blob/eef51cb37db98a1ad9a541bdd3cd74736ff8488d/packages/vite/types/importMeta.d.ts#L62-L69 Base Interface
+ * Note: To prevent accidentally leaking env variables to the client, only variables prefixed with `VITE_` are exposed to your Vite-processed code
+ *
+ * @see https://github.com/vitejs/vite/blob/cab55b32de62e0de7d7789e8c2a1f04a8eae3a3f/packages/vite/types/importMeta.d.ts#L62-L69 Base Interface
+ * @see https://vitejs.dev/guide/env-and-mode.html#env-files Vite Env Variables Doc
  */
 interface ImportMetaEnv {
 
