@@ -156,6 +156,7 @@ contextBridge.exposeInMainWorld('nodeCrypto', {
 
 The [`dts-cb`](https://github.com/cawa-93/dts-for-context-bridge) utility will automatically generate an interface for TS:
 ```ts
+// packages/preload/exposedInMainWorld.d.ts 
 interface Window {
     readonly nodeCrypto: { sha256sum(data: import("crypto").BinaryLike): string; };
 }
