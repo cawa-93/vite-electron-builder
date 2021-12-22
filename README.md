@@ -8,7 +8,7 @@
 
 This is a secure template for electron applications. Written following the latest safety requirements, recommendations and best practices.
 
-Under the hood is used [Vite] — super fast, nextgen bundler, and [electron-builder] for compilation.
+Under the hood is used [Vite] — superfast, nextgen bundler, and [electron-builder] for compilation.
 
 
 ___
@@ -28,7 +28,7 @@ ___
 Follow these steps to get started with this template:
 
 1. Click the **[Use this template](https://github.com/cawa-93/vite-electron-builder/generate)** button (you must be logged in) or just clone this repo.
-2. If you want use another package manager don't forget edit [`.github/workflows`](/.github/workflows) -- it uses `npm` by default.
+2. If you want to use another package manager don't forget edit [`.github/workflows`](/.github/workflows) -- it uses `npm` by default.
 
 That's all you need. 😉
 
@@ -137,9 +137,46 @@ To do this, using the [electron-builder]:
 - In npm script `compile`: This script is configured to compile the application as quickly as possible. It is not ready for distribution, is compiled only for the current platform and is used for debugging.
 - In GitHub Action: The application is compiled for any platform and ready-to-distribute files are automatically added to the draft GitHub release. 
 
+### Working with dependencies
 
-### Using Node.js API in renderer
-According to [Electron's security guidelines](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content), Node.js integration is disabled for remote content. This means that **you cannot call any Node.js api in the `packages/renderer` directly**. To do this, you **must** describe the interface in the `packages/preload` where Node.js api is allowed:
+According to [Electron's security guidelines](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content), Node.js integration is disabled for remote content. This means that **you cannot call any Node.js api in the `packages/renderer` directly**.
+
+But **you can still use the imports in the source code**.
+
+The fact is that Vite analyze your code, finds all the imported dependencies, applies tree shaking, optimization to them and bundle them inside the output source files. So when you write something like that:
+```ts
+// source.ts
+import {createApp} from 'vue'
+createApp()
+```
+It turns into:
+```js
+// bundle.js
+function createApp() { ... }
+createApp()
+```
+
+And there are really no imports left in runtime.
+
+**But it doesn't always work**. Vite is not able to bundle Node built-in modules, or some special modules because of their architecture, or Electron itself.
+
+Modules that Vite is unable to bundle are forced to be supplied as `external`. External modules are not optimized and their imports remain in runtime.
+So when you write something like that:
+```ts
+// source.ts
+import {writeFile} from 'fs'
+writeFile()
+```
+It will remain as is and lead to runtime-error because Electron **cannot import modules from `node_modules`** in the renderer.
+
+```js
+// bundle.js
+import {writeFile} from 'fs' // TypeError: Failed to resolve module specifier "fs". Relative references must start with either "/", "./", or "../".
+writeFile()
+```
+
+### Using external modules in renderer
+To use external modules in Renderer you **must** describe the interface in the `packages/preload` where Node.js api is allowed:
 ```ts
 // packages/preload/src/index.ts
 import type {BinaryLike} from 'crypto';
