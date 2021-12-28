@@ -3,31 +3,18 @@ import {join} from 'path';
 import {URL} from 'url';
 import './security-restrictions';
 
-const isSingleInstance = app.requestSingleInstanceLock();
-const isDevelopment = import.meta.env.MODE === 'development';
-
-if (!isSingleInstance) {
-  app.quit();
-  process.exit(0);
-}
-
-app.disableHardwareAcceleration();
-
-// Install "Vue.js devtools"
-if (isDevelopment) {
-  app.whenReady()
-    .then(() => import('electron-devtools-installer'))
-    .then(({default: installExtension, VUEJS3_DEVTOOLS}) => installExtension(VUEJS3_DEVTOOLS, {
-      loadExtensionOptions: {
-        allowFileAccess: true,
-      },
-    }))
-    .catch(e => console.error('Failed install extension:', e));
-}
 
 let mainWindow: BrowserWindow | null = null;
 
-const createWindow = async () => {
+async function createOrRestoreWindow() {
+  // If window already exist just show it
+  if (mainWindow && !mainWindow.isDestroyed()) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+
+    return;
+  }
+
   mainWindow = new BrowserWindow({
     show: false, // Use 'ready-to-show' event to show window
     webPreferences: {
@@ -46,7 +33,7 @@ const createWindow = async () => {
   mainWindow.on('ready-to-show', () => {
     mainWindow?.show();
 
-    if (isDevelopment) {
+    if (import.meta.env.DEV) {
       mainWindow?.webContents.openDevTools();
     }
   });
@@ -56,25 +43,34 @@ const createWindow = async () => {
    * Vite dev server for development.
    * `file://../renderer/index.html` for production and test
    */
-  const pageUrl = isDevelopment && import.meta.env.VITE_DEV_SERVER_URL !== undefined
+  const pageUrl = import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL !== undefined
     ? import.meta.env.VITE_DEV_SERVER_URL
     : new URL('../renderer/dist/index.html', 'file://' + __dirname).toString();
 
 
   await mainWindow.loadURL(pageUrl);
-};
+}
 
 
+/**
+ * Prevent multiple instances
+ */
+const isSingleInstance = app.requestSingleInstanceLock();
+if (!isSingleInstance) {
+  app.quit();
+  process.exit(0);
+}
+app.on('second-instance', createOrRestoreWindow);
 
-app.on('second-instance', () => {
-  // Someone tried to run a second instance, we should focus our window.
-  if (mainWindow) {
-    if (mainWindow.isMinimized()) mainWindow.restore();
-    mainWindow.focus();
-  }
-});
 
+/**
+ * Disable Hardware Acceleration for more power-save
+ */
+app.disableHardwareAcceleration();
 
+/**
+ * Shout down background process if all windows was closed
+ */
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
@@ -82,12 +78,31 @@ app.on('window-all-closed', () => {
 });
 
 
+/**
+ * Create app window when background process be ready
+ */
 app.whenReady()
-  .then(createWindow)
+  .then(createOrRestoreWindow)
   .catch((e) => console.error('Failed create window:', e));
 
 
-// Auto-updates
+/**
+ * Install Vue.js or some other devtools in development mode only
+ */
+if (import.meta.env.DEV) {
+  app.whenReady()
+    .then(() => import('electron-devtools-installer'))
+    .then(({default: installExtension, VUEJS3_DEVTOOLS}) => installExtension(VUEJS3_DEVTOOLS, {
+      loadExtensionOptions: {
+        allowFileAccess: true,
+      },
+    }))
+    .catch(e => console.error('Failed install extension:', e));
+}
+
+/**
+ * Check new app version in production mode only
+ */
 if (import.meta.env.PROD) {
   app.whenReady()
     .then(() => import('electron-updater'))
