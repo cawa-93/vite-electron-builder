@@ -90,24 +90,6 @@ See [examples of web pages for different frameworks](https://github.com/vitejs/v
   - Code signing supported. See [`compile` job in `release` workflow](.github/workflows/release.yml).
 - **Auto-update is supported**. After the release will be published, all client applications will download the new version and install updates silently.
 
-
-## Status
-
-This template was created to make my work easier. It may not be universal, but I try to keep it that way.
-
-I am actively involved in its development. But I do not guarantee that this template will be maintained in the future.
-
-
-**At the moment, there are the following problems:**
-
-- ⚠ Playwright has [**experimental** support for Electron](https://playwright.dev/docs/api/class-electron/).
-- ⚠ Release notes are created automatically based on commit history. [`.github/actions/release-notes`](.github/actions/release-notes) is used for generation. It may not provide some scenarios. If you encounter a problem - write about it.
-- ⏳ I want to migrate all code base to ESM. But because Nodejs  ecosystem is unprepared I have not known whether this will give more benefits or more inconvenience.
-
-Some improvement or problems can be listed in [issues](https://github.com/cawa-93/vite-electron-builder/issues).
-
-**Pull requests are welcome**.
-
 ## How it works
 The template required a minimum [dependencies](package.json). Only **Vite** is used for building, nothing more.
 
