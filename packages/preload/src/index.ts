@@ -1,3 +1,7 @@
+/**
+ * @module preload
+ */
+
 import {contextBridge} from 'electron';
 
 import type {BinaryLike} from 'crypto';

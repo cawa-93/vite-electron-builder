@@ -1,23 +1,44 @@
+<script lang="ts" setup>
+import ReactiveCounter from '/@/components/ReactiveCounter.vue';
+import ReactiveHash from '/@/components/ReactiveHash.vue';
+import ElectronVersions from '/@/components/ElectronVersions.vue';</script>
+
 <template>
   <img
     alt="Vue logo"
     src="../assets/logo.svg"
-    width="300"
+    width="150"
   >
-  <app-navigation />
-  <router-view />
-</template>
 
-<script lang="ts">
-import {defineComponent} from 'vue';
-import AppNavigation from '/@/components/AppNavigation.vue';
-export default defineComponent({
-  name: 'App',
-  components: {
-    AppNavigation,
-  },
-});
-</script>
+  <p>
+    For a guide and recipes on how to configure / customize this project,<br>
+    check out the
+    <a
+      href="https://github.com/cawa-93/vite-electron-builder"
+      target="_blank"
+    >vite-electron-builder documentation</a>.
+  </p>
+
+  <fieldset>
+    <legend>Test Vue Reactivity</legend>
+    <reactive-counter />
+  </fieldset>
+
+  <fieldset>
+    <legend>Test Node.js API</legend>
+    <reactive-hash />
+  </fieldset>
+
+  <fieldset>
+    <legend>Environment</legend>
+    <electron-versions />
+  </fieldset>
+
+  <p>
+    Edit
+    <code>packages/renderer/src/App.vue</code> to test hot module replacement.
+  </p>
+</template>
 
 <style>
 #app {
@@ -26,6 +47,11 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 60px auto;
+  max-width: 700px;
+}
+fieldset {
+  margin: 2rem;
+  padding: 1rem;
 }
 </style>
