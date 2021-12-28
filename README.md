@@ -120,12 +120,8 @@ To do this, using the [electron-builder]:
 - In GitHub Action: The application is compiled for any platform and ready-to-distribute files are automatically added to the draft GitHub release. 
 
 ### Working with dependencies
-
-According to [Electron's security guidelines](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content), Node.js integration is disabled for remote content. This means that **you cannot call any Node.js api in the `packages/renderer` directly**.
-
-But **you can still use the imports in the source code**.
-
-The fact is that Vite analyze your code, finds all the imported dependencies, applies tree shaking, optimization to them and bundle them inside the output source files. So when you write something like that:
+There is one important nuance when working with dependencies. 
+On build stage Vite analyze your code, finds all the imported dependencies, applies tree shaking, optimization and **bundle them inside the output source files**. So when you write something like that:
 ```ts
 // source.ts
 import {createApp} from 'vue'
@@ -134,30 +130,33 @@ createApp()
 It turns into:
 ```js
 // bundle.js
-function createApp() { ... }
+function createApp() { /* ... */ }
 createApp()
 ```
-
 And there are really no imports left in runtime.
 
-**But it doesn't always work**. Vite is not able to bundle Node built-in modules, or some special modules because of their architecture, or Electron itself.
+**But it doesn't always work**. Vite was designed to work with browser-oriented packages. So it is not able to bundle Node built-in modules, or native dependencies, or some Node.js specific packages, or Electron itself.
 
-Modules that Vite is unable to bundle are forced to be supplied as `external`. External modules are not optimized and their imports remain in runtime.
-So when you write something like that:
+Modules that Vite is unable to bundle are forced to be supplied as `external` in `vite.config.js`. External modules are not optimized and their imports remain in runtime.
+
 ```ts
 // source.ts
 import {writeFile} from 'fs'
 writeFile()
-```
-It will remain as is and lead to runtime-error because Electron **cannot import modules from `node_modules`** in the renderer.
 
-```js
 // bundle.js
-import {writeFile} from 'fs' // TypeError: Failed to resolve module specifier "fs". Relative references must start with either "/", "./", or "../".
+const {writeFile} = require('fs')
 writeFile()
 ```
 
 ### Using external modules in renderer
+According to [Electron's security guidelines](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content), Node.js integration is disabled for remote content. This means that **you cannot call any Node.js api in the `packages/renderer` directly**. This also means you can't import external modules in runtime in renderer:
+```js
+// renderer.bundle.js
+const {writeFile} = require('fs') // TypeError: Failed to resolve module specifier "fs". Relative references must start with either "/", "./", or "../".
+writeFile()
+```
+
 To use external modules in Renderer you **must** describe the interface in the `packages/preload` where Node.js api is allowed:
 ```ts
 // packages/preload/src/index.ts
