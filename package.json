@@ -21,7 +21,6 @@
     "pretypecheck-renderer": "dts-cb -i packages/preload/src/**/*.ts -o packages/preload/exposedInMainWorld.d.ts"
   },
   "devDependencies": {
-    "@types/electron-devtools-installer": "2.2.1",
     "@typescript-eslint/eslint-plugin": "5.8.1",
     "@vitejs/plugin-vue": "2.0.1",
     "cross-env": "7.0.3",

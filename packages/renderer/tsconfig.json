@@ -1,6 +1,17 @@
 {
-  "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "sourceMap": false,
+    "moduleResolution": "Node",
+    "skipLibCheck": true,
+    "strict": true,
+    "isolatedModules": true,
+
+    // Don't automatically include anything.
+    // Only include `@types` packages that we need to import.
+    "types" : [],
+
     "baseUrl": ".",
     "paths": {
       "/@/*": [
@@ -17,5 +28,9 @@
     "types/**/*.d.ts",
     "../../types/**/*.d.ts",
     "../preload/exposedInMainWorld.d.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "**/*.test.ts",
   ]
 }
