@@ -153,7 +153,7 @@ writeFile()
 According to [Electron's security guidelines](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content), Node.js integration is disabled for remote content. This means that **you cannot call any Node.js api in the `packages/renderer` directly**. This also means you can't import external modules in runtime in renderer:
 ```js
 // renderer.bundle.js
-const {writeFile} = require('fs') // TypeError: Failed to resolve module specifier "fs". Relative references must start with either "/", "./", or "../".
+const {writeFile} = require('fs') // ReferenceError: require is not defined
 writeFile()
 ```
 
