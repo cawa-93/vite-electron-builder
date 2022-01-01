@@ -29,7 +29,7 @@
     "electron": "16.0.5",
     "electron-builder": "22.14.5",
     "electron-devtools-installer": "3.2.0",
-    "eslint": "8.5.0",
+    "eslint": "8.6.0",
     "eslint-plugin-vue": "8.2.0",
     "nano-staged": "0.5.0",
     "playwright": "1.17.1",
