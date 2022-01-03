@@ -110,7 +110,6 @@ Electron [**web page**](https://www.electronjs.org/docs/tutorial/quick-start#cre
 Packages `main` and `preload` are built in [library mode](https://vitejs.dev/guide/build.html#library-mode) as it is a simple javascript.
 `renderer` package build as regular web app.
 
-The build of web resources is performed in the [`scripts/build.js`](scripts/build.js). Its analogue is a sequential call to `vite build` for each package.
 
 ### Compile App
 Next step is run  packaging and compilation a ready for distribution Electron app for macOS, Windows and Linux with "auto update" support out of the box. 
