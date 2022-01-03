@@ -15,9 +15,9 @@
     "compile": "cross-env MODE=production npm run build && electron-builder build --config .electron-builder.config.js --dir --config.asar=false",
     "test": "npm run test:main && npm run test:preload && npm run test:renderer && npm run test:e2e",
     "test:e2e": "npm run build && vitest run",
-    "test:main": "cd packages/main && vitest run",
-    "test:preload": "cd packages/preload && vitest run",
-    "test:renderer": "cd packages/renderer && vitest run",
+    "test:main": "vitest run -r packages/main --passWithNoTests",
+    "test:preload": "vitest run -r packages/preload --passWithNoTests",
+    "test:renderer": "vitest run -r packages/renderer --passWithNoTests",
     "watch": "node scripts/watch.js",
     "lint": "eslint . --ext js,ts,vue",
     "typecheck:main": "tsc --noEmit -p packages/main/tsconfig.json",
@@ -40,7 +40,7 @@
     "simple-git-hooks": "2.7.0",
     "typescript": "4.5.4",
     "vite": "2.7.10",
-    "vitest": "0.0.129",
+    "vitest": "0.0.131",
     "vue-tsc": "0.30.1"
   },
   "dependencies": {
