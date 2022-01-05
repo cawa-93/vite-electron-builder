@@ -56,8 +56,10 @@ async function createWindow() {
 
 let mainWindow: BrowserWindow | null = null;
 
+/**
+ * Restore existing BrowserWindow or Create new BrowserWindow
+ */
 export async function restoreOrCreateWindow() {
-  console.log({BrowserWindow});
   // If window already exist just show it
   if (canRestoreWindow(mainWindow)) {
     restoreWindowOrThrow(mainWindow);
