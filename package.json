@@ -28,6 +28,7 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "5.8.1",
     "@vitejs/plugin-vue": "2.0.1",
+    "@vue/test-utils": "2.0.0-rc.18",
     "cross-env": "7.0.3",
     "dts-for-context-bridge": "0.7.1",
     "electron": "16.0.5",
@@ -35,6 +36,7 @@
     "electron-devtools-installer": "3.2.0",
     "eslint": "8.6.0",
     "eslint-plugin-vue": "8.2.0",
+    "happy-dom": "2.25.1",
     "nano-staged": "0.5.0",
     "playwright": "1.17.1",
     "simple-git-hooks": "2.7.0",
