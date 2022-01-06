@@ -36,7 +36,7 @@ jobs:
 
       # TODO: Install not all dependencies, but only those required for this workflow
       - run: npm ci
-      - run: npm test:main
+      - run: npm run test:main
   preload:
     strategy:
       matrix:
@@ -53,7 +53,7 @@ jobs:
 
       # TODO: Install not all dependencies, but only those required for this workflow
       - run: npm ci
-      - run: npm test:preload
+      - run: npm run test:preload
   renderer:
     strategy:
       matrix:
@@ -70,7 +70,7 @@ jobs:
 
       # TODO: Install not all dependencies, but only those required for this workflow
       - run: npm ci
-      - run: npm test:renderer
+      - run: npm run test:renderer
   e2e:
     strategy:
       matrix:
@@ -87,4 +87,4 @@ jobs:
 
       # TODO: Install not all dependencies, but only those required for this workflow
       - run: npm ci
-      - run: npm test:e2e
+      - run: npm run test:e2e
