@@ -1,14 +1,17 @@
-import type {MaybeMocked} from 'vitest';
+import type {JestMockCompatFn, MaybeMockedDeep} from 'vitest';
 import {beforeEach, expect, test, vi} from 'vitest';
 import {restoreOrCreateWindow} from '../src/mainWindow';
 
 import {BrowserWindow} from 'electron';
 
+type TBrowserWindowMocked =
+  typeof BrowserWindow
+  & JestMockCompatFn<ConstructorParameters<typeof BrowserWindow>, MaybeMockedDeep<BrowserWindow>>
 /**
  * Mock real electron BrowserWindow API
  */
-vi.mock('electron', (): { BrowserWindow: MaybeMocked<typeof BrowserWindow> } => {
-  const bw = vi.fn() as MaybeMocked<typeof BrowserWindow>;
+vi.mock('electron', () => {
+  const bw = vi.fn() as TBrowserWindowMocked;
   bw.prototype.loadURL = vi.fn();
   bw.prototype.on = vi.fn();
   bw.prototype.destroy = vi.fn();
@@ -25,8 +28,9 @@ beforeEach(() => {
   vi.clearAllMocks();
 });
 
+const {mock} = vi.mocked(BrowserWindow as TBrowserWindowMocked);
+
 test('Should create new window', async () => {
-  const {mock} = vi.mocked(BrowserWindow);
   expect(mock.instances.length).toBe(0);
 
   await restoreOrCreateWindow();
@@ -36,7 +40,6 @@ test('Should create new window', async () => {
 
 
 test('Should restore existing window', async () => {
-  const {mock} = vi.mocked(BrowserWindow);
   expect(mock.instances.length).toBe(1);
 
   mock.instances[0].isMinimized.mockReturnValueOnce(true);
@@ -47,7 +50,6 @@ test('Should restore existing window', async () => {
 
 
 test('Should create new window if previous was destroyed', async () => {
-  const {mock} = vi.mocked(BrowserWindow);
   expect(mock.instances.length).toBe(1);
 
   mock.instances[0].isDestroyed.mockReturnValueOnce(true);
