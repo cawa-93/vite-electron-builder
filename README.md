@@ -61,12 +61,12 @@ Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `
 - **Vite** supports TypeScript out of the box. However, it does not support type checking.
 - Code formatting rules follow the latest TypeScript recommendations and best practices thanks to [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin).
 - Automatically create interface declarations for all APIs that have been passed to `electron.contextBridge.exposeInMainWorld`.
-  Thanks [dts-for-context-bridge](https://github.com/cawa-93/dts-for-context-bridge)  [![dts-for-context-bridge version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/dts-for-context-bridge?label=%20)](https://github.com/cawa-93/dts-for-context-bridge).
+  Thanks [dts-for-context-bridge](https://github.com/cawa-93/dts-for-context-bridge)  [![dts-for-context-bridge version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/dts-for-context-bridge?label=%20&color=yellow)](https://github.com/cawa-93/dts-for-context-bridge).
 
 **[See this discussion](https://github.com/cawa-93/vite-electron-builder/discussions/339)** if you want completly remove TypeScript. 
 
 
-### Vue [![Vue version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/vue?label=%20)][vue] (optional)
+### Vue [![Vue version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/vue?label=%20&)][vue] (optional)
 - By default, web pages are built using [Vue]. However, you can easily change it. Or do not use additional frameworks at all.
 - Code formatting rules follow the latest Vue recommendations and best practices thanks to [eslint-plugin-vue].
 - Installed [Vue.js devtools beta](https://chrome.google.com/webstore/detail/vuejs-devtools/ljjemllljcmogpfapbkkighbhhppjdbg) with Vue 3 support.
@@ -76,7 +76,7 @@ See [examples of web pages for different frameworks](https://github.com/vitejs/v
 ### Continuous Integration
 - The configured workflow for check the types for each push and PR.
 - The configured workflow for check the code style for each push and PR.
-- **Automatic tests** used [vitest] -- A blazing fast test framework powered by Vite. 
+- **Automatic tests** used [Vitest ![Vitest version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vitest?label=%20&color=yellow)][vitest] -- A blazing fast test framework powered by Vite. 
   - Unit tests are placed in each package and run separately.
   - End-to-end tests placed in root [`tests`](tests) directory and used [playwright]. 
 
