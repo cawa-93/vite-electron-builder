@@ -8,5 +8,5 @@ test('sha256sum', () => {
     .update(data)
     .digest('hex');
 
-  expect(sha256sum(data)).toEqual(expectedHash);
+  expect(sha256sum(data)).toBe(expectedHash);
 });
