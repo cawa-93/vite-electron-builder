@@ -76,11 +76,10 @@ See [examples of web pages for different frameworks](https://github.com/vitejs/v
 ### Continuous Integration
 - The configured workflow for check the types for each push and PR.
 - The configured workflow for check the code style for each push and PR.
-- **Automatic tests** used [playwright]. Simple, automated test check:
-  - Does the main window created and visible?
-  - Is the main window not empty?
-  - Is dev tools closed?
-  - Is preload script loaded?
+- **Automatic tests** used [vitest] -- A blazing fast test framework powered by Vite. 
+  - Unit tests are placed in each package and run separately.
+  - End-to-end tests placed in root [`tests`](tests) directory and used [playwright]. 
+
   
 
 ### Continuous delivery
@@ -110,7 +109,6 @@ Electron [**web page**](https://www.electronjs.org/docs/tutorial/quick-start#cre
 Packages `main` and `preload` are built in [library mode](https://vitejs.dev/guide/build.html#library-mode) as it is a simple javascript.
 `renderer` package build as regular web app.
 
-The build of web resources is performed in the [`scripts/build.js`](scripts/build.js). Its analogue is a sequential call to `vite build` for each package.
 
 ### Compile App
 Next step is run  packaging and compilation a ready for distribution Electron app for macOS, Windows and Linux with "auto update" support out of the box. 
@@ -229,6 +227,7 @@ See [Contributing Guide](contributing.md).
 [vue-router]: https://github.com/vuejs/vue-router-next/
 [typescript]: https://github.com/microsoft/TypeScript/
 [playwright]: https://playwright.dev
+[vitest]: https://vitest.dev
 [vue-tsc]: https://github.com/johnsoncodehk/vue-tsc
 [eslint-plugin-vue]: https://github.com/vuejs/eslint-plugin-vue
 [cawa-93-github]: https://github.com/cawa-93/
