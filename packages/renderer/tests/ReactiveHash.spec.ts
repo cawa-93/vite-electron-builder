@@ -6,7 +6,7 @@ import type {BinaryLike} from 'crypto';
 /**
  * Mock expected global api exposed by {@link module:preload}
  */
-(window as Window & typeof globalThis & {nodeCrypto: {sha256sum: (s: BinaryLike) => string}}).nodeCrypto = {
+(window as Window & typeof globalThis & { nodeCrypto: { sha256sum: (s: BinaryLike) => string } }).nodeCrypto = {
   sha256sum: vi.fn((s: BinaryLike) => `${s}:HASHED`),
 };
 
