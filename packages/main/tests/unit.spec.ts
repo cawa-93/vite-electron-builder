@@ -1,57 +1,62 @@
-import {BrowserWindow} from 'electron';
-import type {MockedObject} from 'vitest';
-import {afterEach, expect, test, vi} from 'vitest';
+import type {JestMockCompatFn, MockedObjectDeep} from 'vitest';
+import {beforeEach, expect, test, vi} from 'vitest';
 import {restoreOrCreateWindow} from '../src/mainWindow';
 
-const BrowserWindowMocked = BrowserWindow as MockedObject<typeof BrowserWindow>;
+import {BrowserWindow} from 'electron';
 
 
-vi.mock('electron', () => {
-  const bw = vi.fn(function () {
-    this.on = vi.fn();
-    this.destroy = vi.fn();
-    this.loadURL = vi.fn();
-    this.isDestroyed = vi.fn(() => false);
-    this.isMinimized = vi.fn(() => false);
-    this.focus = vi.fn();
-    this.restore = vi.fn();
-  });
+type TBrowserWindowMocked =
+  typeof BrowserWindow
+  & MockedObjectDeep<typeof BrowserWindow>
+  & JestMockCompatFn<ConstructorParameters<typeof BrowserWindow>, MockedObjectDeep<BrowserWindow>>;
 
-  bw.getAllWindows = vi.fn();
-  return {
-    BrowserWindow: bw,
-  };
+
+/**
+ * Mock real electron BrowserWindow API
+ */
+vi.mock('electron', (): { BrowserWindow: TBrowserWindowMocked } => {
+  const bw = vi.fn() as TBrowserWindowMocked;
+  bw.prototype.loadURL = vi.fn();
+  bw.prototype.on = vi.fn();
+  bw.prototype.destroy = vi.fn();
+  bw.prototype.isDestroyed = vi.fn();
+  bw.prototype.isMinimized = vi.fn();
+  bw.prototype.focus = vi.fn();
+  bw.prototype.restore = vi.fn();
+
+  return {BrowserWindow: bw};
 });
 
 
-afterEach(() => {
-  BrowserWindowMocked.mockClear();
+/**
+ * Helps TypeScript to understand mocking
+ */
+const BrowserWindowMocked = BrowserWindow as TBrowserWindowMocked;
+
+beforeEach(() => {
+  vi.clearAllMocks();
 });
 
 test('Should create new window', async () => {
-  expect(BrowserWindowMocked.getAllWindows.mock.calls.length).toEqual(0);
+  expect(BrowserWindowMocked.mock.instances.length).toBe(0);
   await restoreOrCreateWindow();
-  expect(BrowserWindowMocked.mock.instances.length).toEqual(1);
+  expect(BrowserWindowMocked.mock.instances.length).toBe(1);
   expect(BrowserWindowMocked.mock.instances[0].loadURL).toHaveBeenCalledTimes(1);
-  expect(BrowserWindowMocked.mock.instances[0].loadURL.calls.length).toEqual(1);
 });
 
 
 test('Should restore existing window', async () => {
-  expect(BrowserWindowMocked.mock.instances.length).toEqual(1);
-
-  await restoreOrCreateWindow();
-  expect(BrowserWindowMocked.mock.instances.length).toEqual(1);
-  expect(BrowserWindowMocked.mock.instances[0].focus).toHaveBeenCalledTimes(1);
+  expect(BrowserWindowMocked.mock.instances.length).toBe(1);
 
   BrowserWindowMocked.mock.instances[0].isMinimized.mockReturnValueOnce(true);
   await restoreOrCreateWindow();
+  expect(BrowserWindowMocked.mock.instances[0].focus).toHaveBeenCalledTimes(1);
   expect(BrowserWindowMocked.mock.instances[0].restore).toHaveBeenCalledTimes(1);
 });
 
 
 test('Should create new window if previous was destroyed', async () => {
-  expect(BrowserWindowMocked.mock.instances.length).toEqual(1);
+  expect(BrowserWindowMocked.mock.instances.length).toBe(1);
   BrowserWindowMocked.mock.instances[0].isDestroyed.mockReturnValueOnce(true);
 
   await restoreOrCreateWindow();
