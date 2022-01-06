@@ -32,7 +32,8 @@ test('Should create new window', async () => {
 
   await restoreOrCreateWindow();
   expect(mock.instances.length).toBe(1);
-  expect(mock.instances[0].loadURL).toHaveBeenCalledTimes(1);
+  expect(mock.instances[0].loadURL).toHaveBeenCalledOnce();
+  expect(mock.instances[0].loadURL).toHaveBeenCalledWith(expect.stringMatching(/index\.html$/));
 });
 
 
@@ -43,8 +44,8 @@ test('Should restore existing window', async () => {
   const appWindow = vi.mocked(mock.instances[0]);
   appWindow.isMinimized.mockReturnValueOnce(true);
   await restoreOrCreateWindow();
-  expect(mock.instances[0].focus).toHaveBeenCalledTimes(1);
-  expect(mock.instances[0].restore).toHaveBeenCalledTimes(1);
+  expect(appWindow.focus).toHaveBeenCalledOnce();
+  expect(appWindow.restore).toHaveBeenCalledOnce();
 });
 
 
