@@ -45,7 +45,7 @@ async function createWindow() {
  * Restore existing BrowserWindow or Create new BrowserWindow
  */
 export async function restoreOrCreateWindow() {
-  let window = (BrowserWindow.getAllWindows() || []).find(w => !w.isDestroyed());
+  let window = BrowserWindow.getAllWindows().find(w => !w.isDestroyed());
 
   if (window === undefined) {
     window = await createWindow();
