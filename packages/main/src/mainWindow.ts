@@ -2,19 +2,6 @@ import {BrowserWindow} from 'electron';
 import {join} from 'path';
 import {URL} from 'url';
 
-function restoreWindowOrThrow(window: BrowserWindow | null) {
-  if (!canRestoreWindow(window)) {
-    throw new Error('Main window can\'t be restored');
-  }
-
-  if (window.isMinimized()) window.restore();
-  window.focus();
-}
-
-function canRestoreWindow(window: BrowserWindow | null): window is BrowserWindow {
-  return window !== null && !window.isDestroyed();
-}
-
 async function createWindow() {
   const browserWindow = new BrowserWindow({
     show: false, // Use 'ready-to-show' event to show window
@@ -54,17 +41,19 @@ async function createWindow() {
   return browserWindow;
 }
 
-let mainWindow: BrowserWindow | null = null;
-
 /**
  * Restore existing BrowserWindow or Create new BrowserWindow
  */
 export async function restoreOrCreateWindow() {
-  // If window already exist just show it
-  if (canRestoreWindow(mainWindow)) {
-    restoreWindowOrThrow(mainWindow);
-    return;
+  let window = (BrowserWindow.getAllWindows() || []).find(w => !w.isDestroyed());
+
+  if (window === undefined) {
+    window = await createWindow();
   }
 
-  mainWindow = await createWindow();
+  if (window.isMinimized()) {
+    window.restore();
+  }
+
+  window.focus();
 }
