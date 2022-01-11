@@ -1,4 +1,4 @@
-import {BrowserWindow} from 'electron';
+import {BrowserWindow, ipcMain} from 'electron';
 import {join} from 'path';
 import {URL} from 'url';
 
@@ -25,6 +25,15 @@ async function createWindow() {
       browserWindow?.webContents.openDevTools();
     }
   });
+
+  /**
+   * linsten ipcRenderer event from render process
+   */
+   ipcMain.on('renderMsg',(event,arg)=>{
+    console.log(arg);
+    event.sender.send('mainMsg','pong');
+  });
+
 
   /**
    * URL for main window.

@@ -11,4 +11,11 @@ interface Window {
      * window.nodeCrypto('data')
      */
     readonly nodeCrypto: { sha256sum(data: import("crypto").BinaryLike): string; };
+    /**
+     * Safe expose node.js API
+     * @example
+     * window.ipcRenderer.send()
+     * window.ipcRenderer.on()
+     */
+     readonly ipcRenderer:Electron.IpcRenderer;
 }

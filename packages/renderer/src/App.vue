@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import ReactiveCounter from '/@/components/ReactiveCounter.vue';
 import ReactiveHash from '/@/components/ReactiveHash.vue';
-import ElectronVersions from '/@/components/ElectronVersions.vue';</script>
-
+import ElectronVersions from '/@/components/ElectronVersions.vue';
+import IpcRender from '/@/components/IpcRender.vue';
+</script>
 <template>
   <img
     alt="Vue logo"
@@ -27,6 +28,11 @@ import ElectronVersions from '/@/components/ElectronVersions.vue';</script>
   <fieldset>
     <legend>Test Node.js API</legend>
     <reactive-hash />
+  </fieldset>
+
+  <fieldset>
+    <legend>Test IpcRenderer API</legend>
+    <ipc-render />
   </fieldset>
 
   <fieldset>

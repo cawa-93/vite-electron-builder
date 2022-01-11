@@ -2,7 +2,7 @@
  * @module preload
  */
 
-import {contextBridge} from 'electron';
+import {contextBridge, ipcRenderer} from 'electron';
 import {sha256sum} from '/@/sha256sum';
 
 /**
@@ -34,3 +34,16 @@ contextBridge.exposeInMainWorld('versions', process.versions);
  * window.nodeCrypto('data')
  */
 contextBridge.exposeInMainWorld('nodeCrypto', {sha256sum});
+
+/**
+ * Safe expose node.js API
+ * @example
+ * window.ipcRenderer.send()
+ * window.ipcRenderer.on()
+ */
+ contextBridge.exposeInMainWorld('ipcRenderer',{
+  ...ipcRenderer,
+  on(ipcName: string,callback: (event:Electron.IpcRendererEvent,...args:unknown[])=>void){
+    ipcRenderer.on(ipcName,callback);
+  },
+});
