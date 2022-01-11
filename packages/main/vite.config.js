@@ -32,7 +32,7 @@ const config = {
       external: [
         'electron',
         'electron-devtools-installer',
-        ...builtinModules,
+        ...builtinModules.flatMap(p => [p, `node:${p}`]),
       ],
       output: {
         entryFileNames: '[name].cjs',

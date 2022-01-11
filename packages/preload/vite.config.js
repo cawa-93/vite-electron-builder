@@ -30,7 +30,7 @@ const config = {
     rollupOptions: {
       external: [
         'electron',
-        ...builtinModules,
+        ...builtinModules.flatMap(p => [p, `node:${p}`]),
       ],
       output: {
         entryFileNames: '[name].cjs',

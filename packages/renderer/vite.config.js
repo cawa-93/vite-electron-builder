@@ -33,7 +33,7 @@ const config = {
     assetsDir: '.',
     rollupOptions: {
       external: [
-        ...builtinModules,
+        ...builtinModules.flatMap(p => [p, `node:${p}`]),
       ],
     },
     emptyOutDir: true,
