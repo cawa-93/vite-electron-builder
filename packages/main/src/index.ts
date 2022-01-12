@@ -28,9 +28,14 @@ app.on('window-all-closed', () => {
   }
 });
 
+/**
+ * @see https://www.electronjs.org/docs/v14-x-y/api/app#event-activate-macos Event: 'activate'
+ */
+app.on('activate', restoreOrCreateWindow);
+
 
 /**
- * Create app window when background process be ready
+ * Create app window when background process will be ready
  */
 app.whenReady()
   .then(restoreOrCreateWindow)
