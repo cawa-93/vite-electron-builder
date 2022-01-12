@@ -48,7 +48,7 @@ That's all you need. 😉
 
 ### Vite [![Vite version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vite?label=%20)][vite]
 - [Vite] is used to bundle all source codes. This is an extremely fast packer that has a bunch of great features. You can learn more about how it is arranged in [this](https://youtu.be/xXrhg26VCSc) video.
-- Vite [supports](https://vitejs.dev/guide/env-and-mode.html) reading `.env` files. You can also specify types of your environment variables in [`types/vite-env.d.ts`](types/vite-env.d.ts).
+- Vite [supports](https://vitejs.dev/guide/env-and-mode.html) reading `.env` files. You can also specify types of your environment variables in [`types/env.d.ts`](types/env.d.ts).
 - Hot reloads for `Main` and `Renderer` processes.
 
 Vite provides you with many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON Importing`, `CSS Modules`, `Web Assembly` and much more.
@@ -189,7 +189,7 @@ window.nodeCrypto.sha256sum('data')
 ### Modes and Environment Variables
 All environment variables set as part of the `import.meta`, so you can access them as follows: `import.meta.env`. 
 
-If you are using a TypeScript and want to get Code completion you must add all the environment variables to the [`ImportMetaEnv` in `types/vite-env.d.ts`](types/vite-env.d.ts).
+If you are using a TypeScript and want to get Code completion you must add all the environment variables to the [`ImportMetaEnv` in `types/env.d.ts`](types/env.d.ts).
 
 The mode option is used to specify the value of `import.meta.env.MODE` and the corresponding environment variables files that needs to be loaded.
 
