@@ -32,6 +32,7 @@ const config = {
     outDir: 'dist',
     assetsDir: '.',
     rollupOptions: {
+      input: 'index.html',
       external: [
         ...builtinModules.flatMap(p => [p, `node:${p}`]),
       ],
