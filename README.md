@@ -6,7 +6,7 @@
 
 > Vite+Electron = 🔥
 
-This is a secure template for electron applications. Written following the latest safety requirements, recommendations and best practices.
+This is template for secure electron applications. Written following the latest safety requirements, recommendations and best practices.
 
 Under the hood is used [Vite] — superfast, nextgen bundler, and [electron-builder] for compilation.
 
