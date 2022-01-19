@@ -85,6 +85,10 @@ const setupMainPackageWatcher = (viteDevServer) => {
         if (mayIgnore) return;
         logger.error(data, { timestamp: true });
       });
+      spawnProcess.on('exit', () => {
+        logger.info('bye o/');
+        process.exit(0);
+      });
     },
   });
 };
