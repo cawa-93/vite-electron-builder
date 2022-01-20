@@ -85,6 +85,8 @@ const setupMainPackageWatcher = (viteDevServer) => {
         if (mayIgnore) return;
         logger.error(data, { timestamp: true });
       });
+      // Stops the watch script when the application has been quit
+      spawnProcess.on('exit', () => process.exit(0));
     },
   });
 };
