@@ -68,6 +68,7 @@ const setupMainPackageWatcher = ({config: {server}}) => {
     configFile: 'packages/main/vite.config.js',
     writeBundle() {
       if (spawnProcess !== null) {
+        spawnProcess.off('exit', process.exit);
         spawnProcess.kill('SIGINT');
         spawnProcess = null;
       }
@@ -82,6 +83,9 @@ const setupMainPackageWatcher = ({config: {server}}) => {
         if (mayIgnore) return;
         logger.error(data, { timestamp: true });
       });
+
+      // Stops the watch script when the application has been quit
+      spawnProcess.on('exit', process.exit);
     },
   });
 };
