@@ -44,14 +44,14 @@ const getWatcher = ({name, configFile, writeBundle}) => {
 
 /**
  * Start or restart App when source files are changed
- * @param {import('vite').ViteDevServer} viteDevServer
+ * @param {{config: {server: import('vite').ResolvedServerOptions}}} ResolvedServerOptions
  */
-const setupMainPackageWatcher = (viteDevServer) => {
-  // Write a value to an environment variable to pass it to the main process.
+const setupMainPackageWatcher = ({config: {server}}) => {
+  // Create VITE_DEV_SERVER_URL environment variable to pass it to the main process.
   {
-    const protocol = `http${viteDevServer.config.server.https ? 's' : ''}:`;
-    const host = viteDevServer.config.server.host || 'localhost';
-    const port = viteDevServer.config.server.port; // Vite searches for and occupies the first free port: 3000, 3001, 3002 and so on
+    const protocol = server.https ? 'https:' : 'http:';
+    const host = server.host || 'localhost';
+    const port = server.port; // Vite searches for and occupies the first free port: 3000, 3001, 3002 and so on
     const path = '/';
     process.env.VITE_DEV_SERVER_URL = `${protocol}//${host}:${port}${path}`;
   }
@@ -89,14 +89,14 @@ const setupMainPackageWatcher = (viteDevServer) => {
 
 /**
  * Start or restart App when source files are changed
- * @param {import('vite').ViteDevServer} viteDevServer
+ * @param {{ws: import('vite').WebSocketServer}} WebSocketServer
  */
-const setupPreloadPackageWatcher = (viteDevServer) =>
+const setupPreloadPackageWatcher = ({ws}) =>
   getWatcher({
     name: 'reload-page-on-preload-package-change',
     configFile: 'packages/preload/vite.config.js',
     writeBundle() {
-      viteDevServer.ws.send({
+      ws.send({
         type: 'full-reload',
       });
     },
