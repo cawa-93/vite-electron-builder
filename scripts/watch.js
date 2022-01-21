@@ -31,9 +31,7 @@ const stderrFilterPatterns = [
 ];
 
 /**
- * 
- * @param {{name: string; configFile: string; writeBundle: import('rollup').OutputPlugin['writeBundle'] }} param0 
- * @returns {import('rollup').RollupWatcher}
+ * @param {{name: string; configFile: string; writeBundle: import('rollup').OutputPlugin['writeBundle'] }} param0
  */
 const getWatcher = ({name, configFile, writeBundle}) => {
   return build({
@@ -47,7 +45,6 @@ const getWatcher = ({name, configFile, writeBundle}) => {
 /**
  * Start or restart App when source files are changed
  * @param {import('vite').ViteDevServer} viteDevServer
- * @returns {Promise<import('vite').RollupOutput | Array<import('vite').RollupOutput> | import('vite').RollupWatcher>}
  */
 const setupMainPackageWatcher = (viteDevServer) => {
   // Write a value to an environment variable to pass it to the main process.
@@ -93,10 +90,9 @@ const setupMainPackageWatcher = (viteDevServer) => {
 /**
  * Start or restart App when source files are changed
  * @param {import('vite').ViteDevServer} viteDevServer
- * @returns {Promise<import('vite').RollupOutput | Array<import('vite').RollupOutput> | import('vite').RollupWatcher>}
  */
-const setupPreloadPackageWatcher = (viteDevServer) => {
-  return getWatcher({
+const setupPreloadPackageWatcher = (viteDevServer) =>
+  getWatcher({
     name: 'reload-page-on-preload-package-change',
     configFile: 'packages/preload/vite.config.js',
     writeBundle() {
@@ -105,7 +101,6 @@ const setupPreloadPackageWatcher = (viteDevServer) => {
       });
     },
   });
-};
 
 (async () => {
   try {
