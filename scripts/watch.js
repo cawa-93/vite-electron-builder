@@ -3,6 +3,7 @@
 const {createServer, build, createLogger} = require('vite');
 const electronPath = require('electron');
 const {spawn} = require('child_process');
+const {generate} = require("dts-for-context-bridge");
 
 
 /** @type 'production' | 'development'' */
@@ -100,6 +101,12 @@ const setupPreloadPackageWatcher = ({ws}) =>
     name: 'reload-page-on-preload-package-change',
     configFile: 'packages/preload/vite.config.js',
     writeBundle() {
+      // Generating exposedInMainWorld.d.ts when preload package is changed.
+      generate({
+        input: "packages/preload/src/**/*.ts",
+        output: "packages/preload/exposedInMainWorld.d.ts",
+      });
+      
       ws.send({
         type: 'full-reload',
       });
