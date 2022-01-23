@@ -63,6 +63,12 @@ const setupMainPackageWatcher = ({config: {server}}) => {
 
   /** @type {ChildProcessWithoutNullStreams | null} */
   let spawnProcess = null;
+  process.on('SIGINT', function () {
+    if (spawnProcess !== null) {
+      spawnProcess.kill('SIGINT');
+    }
+    process.exit();
+  });
 
   return getWatcher({
     name: 'reload-app-on-main-package-change',
