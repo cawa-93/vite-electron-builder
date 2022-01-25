@@ -36,7 +36,7 @@
     "electron-devtools-installer": "3.2.0",
     "eslint": "8.7.0",
     "eslint-plugin-vue": "8.3.0",
-    "happy-dom": "2.30.0",
+    "happy-dom": "2.30.1",
     "nano-staged": "0.5.0",
     "playwright": "1.18.0",
     "simple-git-hooks": "2.7.0",
