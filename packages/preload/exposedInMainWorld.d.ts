@@ -10,5 +10,5 @@ interface Window {
      * @example
      * window.nodeCrypto('data')
      */
-    readonly nodeCrypto: { sha256sum(data: import("crypto").BinaryLike): string; };
+    readonly nodeCrypto: { sha256sum: (data: import("crypto").BinaryLike) => string; };
 }
