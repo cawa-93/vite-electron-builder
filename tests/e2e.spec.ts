@@ -2,6 +2,7 @@ import type {ElectronApplication} from 'playwright';
 import {_electron as electron} from 'playwright';
 import {afterAll, beforeAll, expect, test} from 'vitest';
 import {createHash} from 'crypto';
+import '../packages/preload/exposedInMainWorld';
 
 let electronApp: ElectronApplication;
 
@@ -57,13 +58,13 @@ test('Preload nodeCrypto', async () => {
   const page = await electronApp.firstWindow();
 
   const exposedNodeCrypto = await page.evaluate(() => globalThis.nodeCrypto);
-  expect(exposedNodeCrypto).to.an('object').that.has.key('sha256sum');
+  expect(exposedNodeCrypto).toHaveProperty('sha256sum');
 
   const sha256sumType = await page.evaluate(() => typeof globalThis.nodeCrypto.sha256sum);
   expect(sha256sumType).toEqual('function');
 
-  const data = 'raw data';
-  const hash = await page.evaluate((d) => globalThis.nodeCrypto.sha256sum(d), data);
-  const expectedHash = createHash('sha256').update(data).digest('hex');
+  const rawTestData = 'raw data';
+  const hash = await page.evaluate((d: string) => globalThis.nodeCrypto.sha256sum(d), rawTestData);
+  const expectedHash = createHash('sha256').update(rawTestData).digest('hex');
   expect(hash).toEqual(expectedHash);
 });
