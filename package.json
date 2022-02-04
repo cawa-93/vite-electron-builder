@@ -42,7 +42,7 @@
     "simple-git-hooks": "2.7.0",
     "typescript": "4.5.5",
     "vite": "2.7.13",
-    "vitest": "0.2.6",
+    "vitest": "0.2.7",
     "vue-tsc": "0.31.1"
   },
   "dependencies": {
