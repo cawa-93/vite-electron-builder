@@ -26,15 +26,13 @@ const config = {
     lib: {
       entry: 'src/index.ts',
       formats: ['cjs'],
+      fileName: () => '[name].cjs',
     },
     rollupOptions: {
       external: [
         'electron',
         ...builtinModules.flatMap(p => [p, `node:${p}`]),
       ],
-      output: {
-        entryFileNames: '[name].cjs',
-      },
     },
     emptyOutDir: true,
     brotliSize: false,
