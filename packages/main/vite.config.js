@@ -27,6 +27,7 @@ const config = {
     lib: {
       entry: 'src/index.ts',
       formats: ['cjs'],
+      fileName: () => '[name].cjs',
     },
     rollupOptions: {
       external: [
@@ -34,9 +35,6 @@ const config = {
         'electron-devtools-installer',
         ...builtinModules.flatMap(p => [p, `node:${p}`]),
       ],
-      output: {
-        entryFileNames: '[name].cjs',
-      },
     },
     emptyOutDir: true,
     brotliSize: false,
