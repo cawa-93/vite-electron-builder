@@ -59,6 +59,7 @@ jobs:
 
   e2e:
     strategy:
+      fail-fast: false
       matrix:
         os: [ windows-latest, ubuntu-latest, macos-latest ]
     runs-on: ${{ matrix.os }}
