@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "5.11.0",
-    "@vitejs/plugin-vue": "2.1.0",
+    "@vitejs/plugin-vue": "2.2.0",
     "@vue/test-utils": "2.0.0-rc.18",
     "cross-env": "7.0.3",
     "dts-for-context-bridge": "0.7.1",
