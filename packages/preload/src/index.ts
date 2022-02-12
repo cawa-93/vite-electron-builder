@@ -1,9 +1,8 @@
 /**
  * @module preload
  */
-
-import {contextBridge} from 'electron';
 import {sha256sum} from '/@/sha256sum';
+import {exposeInMainWorld} from '/@/exposeInMainWorld';
 
 /**
  * The "Main World" is the JavaScript context that your main renderer code runs in.
@@ -26,11 +25,11 @@ import {sha256sum} from '/@/sha256sum';
  * @example
  * console.log( window.versions )
  */
-contextBridge.exposeInMainWorld('versions', process.versions);
+exposeInMainWorld('versions', process.versions);
 
 /**
  * Safe expose node.js API
  * @example
  * window.nodeCrypto('data')
  */
-contextBridge.exposeInMainWorld('nodeCrypto', {sha256sum});
+exposeInMainWorld('nodeCrypto', {sha256sum: () => 12});
