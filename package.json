@@ -41,7 +41,7 @@
     "playwright": "1.19.0",
     "simple-git-hooks": "2.7.0",
     "typescript": "4.5.5",
-    "vite": "2.8.1",
+    "vite": "2.8.2",
     "vitest": "0.3.5",
     "vue-tsc": "0.31.4"
   },
