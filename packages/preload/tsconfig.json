@@ -11,15 +11,10 @@
     "types" : ["node"],
 
     "baseUrl": ".",
-    "paths": {
-      "/@/*": [
-        "./src/*"
-      ]
-    }
   },
   "include": [
     "src/**/*.ts",
-    "contracts/index.d.ts",
+    "contracts.d.ts",
     "../../types/**/*.d.ts"
   ],
   "exclude": [
