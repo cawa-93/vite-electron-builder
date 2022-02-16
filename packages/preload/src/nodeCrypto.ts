@@ -8,6 +8,6 @@ function sha256sum(data: BinaryLike) {
 }
 
 // Export for types in contracts.d.ts
-export const nodeCrypto = {sha256sum};
+export const nodeCrypto = {sha256sum} as const;
 
 exposeInMainWorld('nodeCrypto', nodeCrypto);
