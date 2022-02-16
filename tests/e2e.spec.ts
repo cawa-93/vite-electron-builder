@@ -4,15 +4,19 @@ import {afterAll, beforeAll, expect, test} from 'vitest';
 import {createHash} from 'crypto';
 import '../packages/preload/contracts.d.ts';
 
+
 let electronApp: ElectronApplication;
+
 
 beforeAll(async () => {
   electronApp = await electron.launch({args: ['.']});
 });
 
+
 afterAll(async () => {
   await electronApp.close();
 });
+
 
 test('Main window state', async () => {
   const windowState: { isVisible: boolean; isDevToolsOpened: boolean; isCrashed: boolean }
@@ -38,6 +42,7 @@ test('Main window state', async () => {
   expect(windowState.isDevToolsOpened, 'DevTools was opened').toBeFalsy();
 });
 
+
 test('Main window web content', async () => {
   const page = await electronApp.firstWindow();
   const element = await page.$('#app', {strict: true});
@@ -53,6 +58,7 @@ test('Preload versions', async () => {
   expect(exposedVersions).toBeDefined();
   expect(exposedVersions).to.deep.equal(expectedVersions);
 });
+
 
 test('Preload nodeCrypto', async () => {
   const page = await electronApp.firstWindow();
