@@ -60,8 +60,6 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
 - The latest version of TypeScript is used for all the source code.
 - **Vite** supports TypeScript out of the box. However, it does not support type checking.
 - Code formatting rules follow the latest TypeScript recommendations and best practices thanks to [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin).
-- Automatically create interface declarations for all APIs that have been passed to `electron.contextBridge.exposeInMainWorld`.
-  Thanks [dts-for-context-bridge](https://github.com/cawa-93/dts-for-context-bridge)  [![dts-for-context-bridge version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/dts-for-context-bridge?label=%20&color=yellow)](https://github.com/cawa-93/dts-for-context-bridge).
 
 **[See this discussion](https://github.com/cawa-93/vite-electron-builder/discussions/339)** if you want completely remove TypeScript.
 
@@ -158,10 +156,10 @@ writeFile()
 To use external modules in Renderer you **must** describe the interface in the `packages/preload` where the Node.js api is allowed:
 ```ts
 // packages/preload/src/index.ts
-import type {BinaryLike} from 'crypto';
-import {createHash} from 'crypto';
+import {type BinaryLike, createHash} from 'crypto';
+import {exposeInMainWorld} from './exposeInMainWorld';
 
-contextBridge.exposeInMainWorld('nodeCrypto', {
+exposeInMainWorld('nodeCrypto', {
   sha256sum(data: BinaryLike) {
     const hash = createHash('sha256');
     hash.update(data);
@@ -169,12 +167,13 @@ contextBridge.exposeInMainWorld('nodeCrypto', {
   },
 });
 ```
-
-The [`dts-cb`](https://github.com/cawa-93/dts-for-context-bridge) utility will automatically generate an interface for TS:
+If you use a TypeScript you must add the signature of your method to the contracts:
 ```ts
-// packages/preload/exposedInMainWorld.d.ts 
-interface Window {
-    readonly nodeCrypto: { sha256sum(data: import("crypto").BinaryLike): string; };
+// packages/preload/contracts.d.ts 
+interface Exposed {
+    nodeCrypto: { 
+        sha256sum(data: import("crypto").BinaryLike): string; 
+    };
 }
 ```
 And now, you can safely use the registered method:
