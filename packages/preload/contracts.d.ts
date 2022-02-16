@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/consistent-type-imports */
 
 interface Exposed {
-  nodeCrypto: typeof import('./src/nodeCrypto').nodeCrypto;
-  versions: typeof import('./src/versions').versions;
+  readonly nodeCrypto: Readonly<typeof import('./src/nodeCrypto').nodeCrypto>;
+  readonly versions: Readonly<typeof import('./src/versions').versions>;
 }
 
 
