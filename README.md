@@ -182,6 +182,18 @@ And now, you can safely use the registered method:
 window.nodeCrypto.sha256sum('data')
 ```
 
+As a result, the architecture of interaction between all modules is as follows:
+
+```mermaid
+flowchart LR;
+R --> W[Web API]
+R --> BD[Bundled dependencies]
+R[Renderer] -- Call Exposed API --> P[Preload] --> N[Node.js API]
+P --> ED[External dependencies]
+P --> ER[Electron Renderer Process Modules]
+P <-. IPC Messages .-> M[Main] --> EM[Electron Main Process Modules]
+```
+
 [Read more about Security Considerations](https://www.electronjs.org/docs/tutorial/context-isolation#security-considerations).
 
 
