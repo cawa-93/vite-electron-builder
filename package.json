@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "5.12.0",
-    "@vitejs/plugin-vue": "2.2.0",
+    "@vitejs/plugin-vue": "2.2.2",
     "@vue/test-utils": "2.0.0-rc.18",
     "cross-env": "7.0.3",
     "electron": "17.0.1",
