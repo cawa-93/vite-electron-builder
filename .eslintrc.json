@@ -19,7 +19,6 @@
     "@typescript-eslint"
   ],
   "ignorePatterns": [
-    "packages/preload/exposedInMainWorld.d.ts",
     "node_modules/**",
     "**/dist/**"
   ],
