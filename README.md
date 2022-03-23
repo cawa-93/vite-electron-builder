@@ -3,10 +3,8 @@
 ----
 
 ### **Archived!**
-
-### As a result of Russia's military invasion of Ukraine, I have neither the time nor the strength to continue working. 😥
-
-### I will restore this template when the war in Ukraine is over.🙏
+[![Stand With Ukraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/banner-direct-single.svg)](https://vshymanskyy.github.io/StandWithUkraine)
+I will restore this template when the war in Ukraine is over.🙏
 
 ----
 
