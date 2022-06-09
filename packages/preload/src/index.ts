@@ -2,5 +2,5 @@
  * @module preload
  */
 
-import './nodeCrypto';
-import './versions';
+export {sha256sum} from './nodeCrypto';
+export {versions} from './versions';

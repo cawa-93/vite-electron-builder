@@ -1,17 +1,11 @@
 <script lang="ts" setup>
-/**
- * window.versions was exposed from {@link module:preload}
- */
-const versions = Object.entries(window.versions)
-  .sort(
-    ([key1], [key2]) => key1.localeCompare(key2),
-  );
+import {versions} from '#preload';
 </script>
 
 <template>
-  <ul aria-labelledby="versions">
+  <ul id="process-versions">
     <li
-      v-for="([lib, version]) in versions"
+      v-for="(version, lib) in versions"
       :key="lib"
     >
       <strong>{{ lib }}</strong>: v{{ version }}

@@ -165,30 +165,42 @@ To use external modules in Renderer you **must** describe the interface in the `
 ```ts
 // packages/preload/src/index.ts
 import {type BinaryLike, createHash} from 'crypto';
-import {exposeInMainWorld} from './exposeInMainWorld';
 
-exposeInMainWorld('nodeCrypto', {
-  sha256sum(data: BinaryLike) {
-    const hash = createHash('sha256');
-    hash.update(data);
-    return hash.digest('hex');
-  },
-});
-```
-If you use a TypeScript you must add the signature of your method to the contracts:
-```ts
-// packages/preload/contracts.d.ts 
-interface Exposed {
-    nodeCrypto: { 
-        sha256sum(data: import("crypto").BinaryLike): string; 
-    };
+export function sha256sum(data: BinaryLike) {
+  const hash = createHash('sha256');
+  hash.update(data);
+  return hash.digest('hex');
 }
 ```
-And now, you can safely use the registered method:
+All you exported from `preload/index.ts` will be automatically exposed and may be imported from `#preload` in `rendered`
 ```ts
-// packages/renderer/src/App.vue
-window.nodeCrypto.sha256sum('data')
+import {sha256sum} from '#preload'
+sha256sum('binary like data')
 ```
+
+<details>
+A pair of plugins from [unplugin-auto-expose](https://github.com/cawa-93/unplugin-auto-expose) is used for automatic exposing. Under the hood, all preload exports will be supplemented by a "exposeInMainWorld" calls:
+```js
+// preload/index.ts
+export const foo = 1
+
+// dist/preload/index.js
+exports.foo = 1
+electron.contextBridge.exposeInMainWorld('__electron_preload_foo__', exports.foo)
+```
+
+And all imports from `#preload` will be replaced by global variable calls
+```js
+// renderer/index.ts
+import {foo} from '#preload'
+console.log(foo)
+// dist/renderer/index.js
+const foo = globalThis.__electron_preload_foo__
+console.log(foo)
+```
+</details>
+
+## Summary
 
 As a result, the architecture of interaction between all modules is as follows:
 

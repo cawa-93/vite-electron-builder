@@ -53,24 +53,26 @@ test('Main window web content', async () => {
 
 test('Preload versions', async () => {
   const page = await electronApp.firstWindow();
-  const exposedVersions = await page.evaluate(() => globalThis.versions);
+  const renderedVersions = await page.locator('#process-versions').innerText();
+
   const expectedVersions = await electronApp.evaluate(() => process.versions);
-  expect(exposedVersions).toBeDefined();
-  expect(exposedVersions).to.deep.equal(expectedVersions);
+
+  for (const expectedVersionsKey in expectedVersions) {
+    expect(renderedVersions).include(`${expectedVersionsKey}: v${expectedVersions[expectedVersionsKey]}`);
+  }
 });
 
 
-test('Preload nodeCrypto', async () => {
+test.only('Preload nodeCrypto', async () => {
   const page = await electronApp.firstWindow();
 
-  const exposedNodeCrypto = await page.evaluate(() => globalThis.nodeCrypto);
-  expect(exposedNodeCrypto).toHaveProperty('sha256sum');
+  /**
+   * Random string to test hashing
+   */
+  const testString = Math.random().toString(36).slice(2, 7);
 
-  const sha256sumType = await page.evaluate(() => typeof globalThis.nodeCrypto.sha256sum);
-  expect(sha256sumType).toEqual('function');
-
-  const rawTestData = 'raw data';
-  const hash = await page.evaluate((d: string) => globalThis.nodeCrypto.sha256sum(d), rawTestData);
-  const expectedHash = createHash('sha256').update(rawTestData).digest('hex');
-  expect(hash).toEqual(expectedHash);
+  await page.fill('input', testString);
+  const renderedHash = await page.inputValue('input[readonly]');
+  const expectedHash = createHash('sha256').update(testString).digest('hex');
+  expect(renderedHash).toEqual(expectedHash);
 });
