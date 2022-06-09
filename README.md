@@ -176,7 +176,8 @@ sha256sum('binary like data')
 ```
 
 <details>
-A pair of plugins from [unplugin-auto-expose](https://github.com/cawa-93/unplugin-auto-expose) is used for automatic exposing. Under the hood, all preload exports will be supplemented by a "exposeInMainWorld" calls:
+  
+A pair of plugins from [unplugin-auto-expose](https://github.com/cawa-93/unplugin-auto-expose) is used for automatic exposing. Under the hood, all preload exports will be supplemented by a `exposeInMainWorld` calls:
 ```js
 // preload/index.ts
 export const foo = 1
@@ -195,6 +196,7 @@ console.log(foo)
 const foo = globalThis.__electron_preload_foo__
 console.log(foo)
 ```
+  
 </details>
 
 ## Summary
