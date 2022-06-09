@@ -1,9 +1,15 @@
 {
   "name": "vite-electron-builder",
+  "description": "Secure boilerplate for Electron app based on Vite",
   "private": true,
   "engines": {
     "node": ">=v16.13",
     "npm": ">=8.1"
+  },
+  "author": {
+    "email": "kozackunisoft@gmail.com",
+    "name": "Alex Kozack",
+    "url": "https://kozack.me"
   },
   "main": "packages/main/dist/index.cjs",
   "scripts": {
@@ -30,7 +36,7 @@
     "@vue/test-utils": "2.0.0",
     "cross-env": "7.0.3",
     "electron": "19.0.4",
-    "electron-builder": "22.14.13",
+    "electron-builder": "23.0.3",
     "electron-devtools-installer": "3.2.0",
     "eslint": "8.17.0",
     "eslint-plugin-vue": "8.7.1",
@@ -44,7 +50,7 @@
     "vue-tsc": "0.37.3"
   },
   "dependencies": {
-    "electron-updater": "4.6.5",
+    "electron-updater": "5.0.1",
     "vue": "3.2.37"
   }
 }
