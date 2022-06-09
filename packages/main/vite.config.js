@@ -1,6 +1,5 @@
 import {node} from '../../.electron-vendors.cache.json';
 import {join} from 'path';
-import {builtinModules} from 'module';
 
 const PACKAGE_ROOT = __dirname;
 
@@ -19,6 +18,7 @@ const config = {
     },
   },
   build: {
+    ssr: true,
     sourcemap: 'inline',
     target: `node${node}`,
     outDir: 'dist',
@@ -29,11 +29,6 @@ const config = {
       formats: ['cjs'],
     },
     rollupOptions: {
-      external: [
-        'electron',
-        'electron-devtools-installer',
-        ...builtinModules.flatMap(p => [p, `node:${p}`]),
-      ],
       output: {
         entryFileNames: '[name].cjs',
       },

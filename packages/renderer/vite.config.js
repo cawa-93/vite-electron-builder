@@ -2,7 +2,6 @@
 
 import {chrome} from '../../.electron-vendors.cache.json';
 import {join} from 'path';
-import {builtinModules} from 'module';
 import vue from '@vitejs/plugin-vue';
 
 const PACKAGE_ROOT = __dirname;
@@ -33,9 +32,6 @@ const config = {
     assetsDir: '.',
     rollupOptions: {
       input: join(PACKAGE_ROOT, 'index.html'),
-      external: [
-        ...builtinModules.flatMap(p => [p, `node:${p}`]),
-      ],
     },
     emptyOutDir: true,
     brotliSize: false,
