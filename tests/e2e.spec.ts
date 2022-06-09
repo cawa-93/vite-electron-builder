@@ -2,7 +2,6 @@ import type {ElectronApplication} from 'playwright';
 import {_electron as electron} from 'playwright';
 import {afterAll, beforeAll, expect, test} from 'vitest';
 import {createHash} from 'crypto';
-import '../packages/preload/contracts.d.ts';
 
 
 let electronApp: ElectronApplication;
@@ -63,7 +62,7 @@ test('Preload versions', async () => {
 });
 
 
-test.only('Preload nodeCrypto', async () => {
+test('Preload nodeCrypto', async () => {
   const page = await electronApp.firstWindow();
 
   /**

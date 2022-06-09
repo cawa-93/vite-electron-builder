@@ -1,35 +1,20 @@
 import {createHash} from 'crypto';
-import {afterEach, expect, test, vi} from 'vitest';
-
-
-const exposeInMainWorldMock = vi.fn();
-vi.mock('electron', () => ({
-  contextBridge: {exposeInMainWorld: exposeInMainWorldMock},
-}));
-
-
-afterEach(() => {
-  vi.clearAllMocks();
-});
-
+import {expect, test} from 'vitest';
+import {versions, sha256sum} from '../src';
 
 test('versions', async () => {
-  await import('../src/versions');
-  expect(exposeInMainWorldMock).toBeCalledTimes(1);
-  expect(exposeInMainWorldMock).lastCalledWith('versions', process.versions);
+  expect(versions).toBe(process.versions);
 });
 
 
 test('nodeCrypto', async () => {
-  await import('../src/nodeCrypto');
-  expect(exposeInMainWorldMock).toBeCalledTimes(1);
-  expect(exposeInMainWorldMock.mock.calls[0][0]).toBe('nodeCrypto');
-  expect(exposeInMainWorldMock.mock.calls[0][1]).toHaveProperty('sha256sum');
-
-  const data = 'rawData';
+  /**
+   * Random string to test hashing
+   */
+  const testString = Math.random().toString(36).slice(2, 7);
   const expectedHash = createHash('sha256')
-    .update(data)
+    .update(testString)
     .digest('hex');
 
-  expect(exposeInMainWorldMock.mock.calls[0][1].sha256sum(data)).toBe(expectedHash);
+  expect(sha256sum(testString)).toBe(expectedHash);
 });

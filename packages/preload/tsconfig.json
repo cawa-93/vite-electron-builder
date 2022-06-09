@@ -14,7 +14,6 @@
   },
   "include": [
     "src/**/*.ts",
-    "contracts.d.ts",
     "../../types/**/*.d.ts"
   ],
   "exclude": [
