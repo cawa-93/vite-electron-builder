@@ -129,7 +129,7 @@ packages/renderer -- Call Exposed API --> P
 The entire source code of the program is divided into three modules (packages) that are each bundled independently:
 - [`packages/renderer`](packages/renderer). Responsible for the contents of the application window. In fact, it is a regular web application. In developer mode, you can even open it in a browser. The development and build process is the same as for classic web applications. Access to low-level API electrons or Node.js is through the _preload_ layer.
 - [`packages/preload`](packages/preload). Acts as an intermediate link between the _renderer_ layer and the low-level API electrons or Node.js. Runs in an _isolated browser context_, but has direct access to Node.js api. See [Checklist: Security Recommendations](https://www.electronjs.org/docs/tutorial/security#2-do-not-enable-nodejs-integration-for-remote-content).
-  - [`packages/main`](packages/main)
+- [`packages/main`](packages/main)
   Electron [**main script**](https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file).
 
 
