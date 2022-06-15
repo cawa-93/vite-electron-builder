@@ -8,7 +8,8 @@
     ":pinVersions",
     ":semanticCommitType(deps)",
     ":onlyNpm",
-    ":label(dependencies)"
+    ":label(dependencies)",
+    "schedule:weekly"
   ],
   "baseBranches": [
     "main"
