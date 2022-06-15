@@ -32,24 +32,24 @@
     "postinstall": "cross-env ELECTRON_RUN_AS_NODE=1 npx --no-install electron ./scripts/update-electron-vendors.js "
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "5.27.1",
+    "@typescript-eslint/eslint-plugin": "5.28.0",
     "@vitejs/plugin-vue": "3.0.0-alpha.1",
-    "@vue/test-utils": "2.0.0",
+    "@vue/test-utils": "2.0.1",
     "cross-env": "7.0.3",
     "electron": "19.0.4",
     "electron-builder": "23.0.3",
     "electron-devtools-installer": "3.2.0",
     "eslint": "8.17.0",
-    "eslint-plugin-vue": "9.1.0",
-    "happy-dom": "5.2.0",
+    "eslint-plugin-vue": "9.1.1",
+    "happy-dom": "5.3.1",
     "nano-staged": "0.8.0",
     "playwright": "1.22.2",
     "simple-git-hooks": "2.8.0",
     "typescript": "4.7.3",
     "unplugin-auto-expose": "0.0.1",
-    "vite": "3.0.0-alpha.10",
-    "vitest": "0.14.2",
-    "vue-tsc": "0.37.3"
+    "vite": "3.0.0-alpha.11",
+    "vitest": "0.15.1",
+    "vue-tsc": "0.37.8"
   },
   "dependencies": {
     "electron-updater": "5.0.1",
