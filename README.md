@@ -16,18 +16,6 @@ This is template for secure electron applications. Written following the latest 
 Under the hood is used [Vite] — superfast, nextgen bundler, and [electron-builder] for compilation.
 
 
-___
-### Support
-- This template maintained by [Alex Kozack][cawa-93-github]. You can [💖 sponsor him][cawa-93-sponsor] for continued development of this template.
-
-- Found a problem? Pull requests are welcome.
-
-- If you have ideas, questions or suggestions - **Welcome to [discussions](https://github.com/cawa-93/vite-electron-builder/discussions)**. 😊
-___
-
-
-
-
 ## Get started
 
 Follow these steps to get started with this template:
