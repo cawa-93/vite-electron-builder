@@ -33,23 +33,23 @@
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "5.28.0",
-    "@vitejs/plugin-vue": "3.0.0-alpha.1",
+    "@vitejs/plugin-vue": "3.0.0-alpha.2",
     "@vue/test-utils": "2.0.1",
     "cross-env": "7.0.3",
     "electron": "19.0.4",
     "electron-builder": "23.0.3",
     "electron-devtools-installer": "3.2.0",
-    "eslint": "8.17.0",
+    "eslint": "8.18.0",
     "eslint-plugin-vue": "9.1.1",
     "happy-dom": "5.3.1",
     "nano-staged": "0.8.0",
     "playwright": "1.22.2",
     "simple-git-hooks": "2.8.0",
-    "typescript": "4.7.3",
+    "typescript": "4.7.4",
     "unplugin-auto-expose": "0.0.1",
-    "vite": "3.0.0-alpha.11",
+    "vite": "3.0.0-alpha.13",
     "vitest": "0.15.1",
-    "vue-tsc": "0.37.8"
+    "vue-tsc": "0.38.1"
   },
   "dependencies": {
     "electron-updater": "5.0.1",
