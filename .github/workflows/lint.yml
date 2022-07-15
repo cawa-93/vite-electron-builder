@@ -20,4 +20,4 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - run: npm run lint
+      - run: npm run lint --if-present

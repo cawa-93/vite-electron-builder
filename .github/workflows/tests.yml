@@ -38,7 +38,7 @@ jobs:
           cache: 'npm'
       - run: npm ci
       - run: npx playwright install --with-deps
-      - run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npm run test:e2e
+      - run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npm run test:e2e --if-present
         if: matrix.os == 'ubuntu-latest'
-      - run: npm run test:e2e
+      - run: npm run test:e2e --if-present
         if: matrix.os != 'ubuntu-latest'
