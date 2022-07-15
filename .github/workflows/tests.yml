@@ -1,19 +1,6 @@
 name: Tests
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'packages/**'
-      - 'tests/**'
-      - 'package-lock.json'
-      - '.github/workflows/tests.yml'
-  pull_request:
-    paths:
-      - 'packages/**'
-      - 'tests/**'
-      - 'package-lock.json'
-      - '.github/workflows/tests.yml'
+on: [workflow_call]
+
 
 defaults:
   run:

@@ -1,0 +1,29 @@
+# This workflow is the entry point for all CI processes.
+# It is from here that all other workflows are launched.
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths-ignore:
+      - '**.md'
+      - .editorconfig
+      - .gitignore
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - .editorconfig
+      - .gitignore
+
+jobs:
+  lint:
+    uses: ./.github/workflows/lint.yml
+  typechecking:
+    uses: ./.github/workflows/typechecking.yml
+  tests:
+    uses: ./.github/workflows/tests.yml
+  draft_release:
+    if: github.event_name == 'push' && github.ref_name == 'main'
+    needs: [ typechecking, tests ]
+    uses: ./.github/workflows/release.yml
+

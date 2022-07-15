@@ -1,15 +1,5 @@
 name: Release
-on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '**.md'
-      - '**.spec.js'
-      - '.idea'
-      - '.gitignore'
-      - '.github/**'
-      - '!.github/workflows/release.yml'
+on: [workflow_call, workflow_dispatch]
 
 concurrency:
   group: release-${{ github.ref }}
@@ -54,14 +44,6 @@ jobs:
       - name: Get version from current date
         id: version
         run: echo "::set-output name=build-version::$(node -e "try{console.log(require('./.electron-builder.config.js').extraMetadata.version)}catch(e){console.error(e);process.exit(1)}")"
-
-
-      - name: Waiting on All checks
-        uses: lewagon/wait-on-check-action@v0.2
-        with:
-          ref: ${{ github.ref }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          running-workflow-name: 'draft'
 
       - name: Delete outdated drafts
         uses: hugo19941994/delete-draft-releases@v1.0.0

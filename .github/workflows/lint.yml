@@ -1,22 +1,5 @@
 name: Linters
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - '**.js'
-      - '**.ts'
-      - '**.vue'
-      - 'package-lock.json'
-      - '.github/workflows/lint.yml'
-  pull_request:
-    paths:
-      - '**.js'
-      - '**.ts'
-      - '**.vue'
-      - 'package-lock.json'
-      - '.github/workflows/lint.yml'
-
+on: [workflow_call]
 
 defaults:
   run:
