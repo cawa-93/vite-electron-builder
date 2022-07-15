@@ -15,8 +15,8 @@ const config = {
     /**
      * A default timeout of 5000ms is sometimes not enough for playwright.
      */
-    testTimeout: 60000,
-    hookTimeout: 60000,
+    testTimeout: 120000,
+    hookTimeout: 120000,
   },
 };
 
