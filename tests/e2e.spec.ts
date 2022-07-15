@@ -8,7 +8,7 @@ let electronApp: ElectronApplication;
 
 
 beforeAll(async () => {
-  electronApp = await electron.launch({args: ['.'], timeout: 60000});
+  electronApp = await electron.launch({args: ['.'], timeout: 60000 * 5});
 });
 
 
