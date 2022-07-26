@@ -35,6 +35,6 @@
     /**
      * Just for beauty
      */
-    "quotes": ["warn", "single"]
+    "quotes": ["warn", "single", { "avoidEscape": true }]
   }
 }
