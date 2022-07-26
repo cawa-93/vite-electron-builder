@@ -22,6 +22,8 @@ jobs:
           node-version: 16
           cache: 'npm'
       - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - run: npm run test:${{ matrix.package }} --if-present
 
   e2e:
