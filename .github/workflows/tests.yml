@@ -41,7 +41,6 @@ jobs:
       - run: npm ci
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-      - run: npm run build
 
         # I ran into problems trying to run an electron window in ubuntu due to a missing graphics server.
         # That's why this special command for Ubuntu is here
