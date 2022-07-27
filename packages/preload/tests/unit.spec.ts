@@ -8,9 +8,7 @@ test('versions', async () => {
 
 
 test('nodeCrypto', async () => {
-  /**
-   * Random string to test hashing
-   */
+   // Test hashing a random string.
   const testString = Math.random().toString(36).slice(2, 7);
   const expectedHash = createHash('sha256')
     .update(testString)

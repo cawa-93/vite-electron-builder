@@ -2,9 +2,9 @@ import {app, shell} from 'electron';
 import {URL} from 'url';
 
 /**
- * List of origins that you allow open INSIDE the application and permissions for each of them.
+ * A list of origins that you allow open INSIDE the application and permissions for them.
  *
- * In development mode you need allow open `VITE_DEV_SERVER_URL`
+ * In development mode you need allow open `VITE_DEV_SERVER_URL`.
  */
 const ALLOWED_ORIGINS_AND_PERMISSIONS = new Map<string, Set<'clipboard-read' | 'media' | 'display-capture' | 'mediaKeySystem' | 'geolocation' | 'notifications' | 'midi' | 'midiSysex' | 'pointerLock' | 'fullscreen' | 'openExternal' | 'unknown'>>(
   import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL
@@ -13,8 +13,8 @@ const ALLOWED_ORIGINS_AND_PERMISSIONS = new Map<string, Set<'clipboard-read' | '
 );
 
 /**
- * List of origins that you allow open IN BROWSER.
- * Navigation to origins below is possible only if the link opens in a new window
+ * A list of origins that you allow open IN BROWSER.
+ * Navigation to the origins below is only possible if the link opens in a new window.
  *
  * @example
  * <a
@@ -32,8 +32,8 @@ app.on('web-contents-created', (_, contents) => {
   /**
    * Block navigation to origins not on the allowlist.
    *
-   * Navigation is a common attack vector. If an attacker can convince the app to navigate away
-   * from its current page, they can possibly force the app to open web sites on the Internet.
+   * Navigation exploits are quite common. If an attacker can convince the app to navigate away from its current page,
+   * they can possibly force the app to open arbitrary web resources/websites on the web.
    *
    * @see https://www.electronjs.org/docs/latest/tutorial/security#13-disable-or-limit-navigation
    */
@@ -47,13 +47,13 @@ app.on('web-contents-created', (_, contents) => {
     event.preventDefault();
 
     if (import.meta.env.DEV) {
-      console.warn('Blocked navigating to an unallowed origin:', origin);
+      console.warn(`Blocked navigating to disallowed origin: ${origin}`);
     }
   });
 
 
   /**
-   * Block requested unallowed permissions.
+   * Block requests for disallowed permissions.
    * By default, Electron will automatically approve all permission requests.
    *
    * @see https://www.electronjs.org/docs/latest/tutorial/security#5-handle-session-permission-requests-from-remote-content
@@ -65,13 +65,13 @@ app.on('web-contents-created', (_, contents) => {
     callback(permissionGranted);
 
     if (!permissionGranted && import.meta.env.DEV) {
-      console.warn(`${origin} requested permission for '${permission}', but was blocked.`);
+      console.warn(`${origin} requested permission for '${permission}', but was rejected.`);
     }
   });
 
 
   /**
-   * Hyperlinks to allowed sites open in the default browser.
+   * Hyperlinks leading to allowed sites are opened in the default browser.
    *
    * The creation of new `webContents` is a common attack vector. Attackers attempt to convince the app to create new windows,
    * frames, or other renderer processes with more privileges than they had before; or with pages opened that they couldn't open before.
@@ -83,22 +83,22 @@ app.on('web-contents-created', (_, contents) => {
   contents.setWindowOpenHandler(({url}) => {
     const {origin} = new URL(url);
 
-    // @ts-expect-error Type checking is performed in runtime
+    // @ts-expect-error Type checking is performed in runtime.
     if (ALLOWED_EXTERNAL_ORIGINS.has(origin)) {
-      // Open default browser
+      // Open url in default browser.
       shell.openExternal(url).catch(console.error);
 
     } else if (import.meta.env.DEV) {
-      console.warn('Blocked the opening of an unallowed origin:', origin);
+      console.warn(`Blocked the opening of a disallowed origin: ${origin}`);
     }
 
-    // Prevent creating new window in application
+    // Prevent creating a new window.
     return {action: 'deny'};
   });
 
 
   /**
-   * Verify webview options before creation
+   * Verify webview options before creation.
    *
    * Strip away preload scripts, disable Node.js integration, and ensure origins are on the allowlist.
    *
@@ -116,9 +116,9 @@ app.on('web-contents-created', (_, contents) => {
       return;
     }
 
-    // Strip away preload scripts if unused or verify their location is legitimate
+    // Strip away preload scripts if unused or verify their location is legitimate.
     delete webPreferences.preload;
-    // @ts-expect-error `preloadURL` exists - see https://www.electronjs.org/docs/latest/api/web-contents#event-will-attach-webview
+    // @ts-expect-error `preloadURL` exists. - @see https://www.electronjs.org/docs/latest/api/web-contents#event-will-attach-webview
     delete webPreferences.preloadURL;
 
     // Disable Node.js integration
