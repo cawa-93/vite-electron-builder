@@ -43,7 +43,7 @@ beforeEach(() => {
 });
 
 
-test('Should create new window', async () => {
+test('Should create a new window', async () => {
   const {mock} = vi.mocked(BrowserWindow);
   expect(mock.instances).toHaveLength(0);
 
@@ -54,10 +54,10 @@ test('Should create new window', async () => {
 });
 
 
-test('Should restore existing window', async () => {
+test('Should restore an existing window', async () => {
   const {mock} = vi.mocked(BrowserWindow);
 
-  // Create Window and minimize it
+  // Create a window and minimize it.
   await restoreOrCreateWindow();
   expect(mock.instances).toHaveLength(1);
   const appWindow = vi.mocked(mock.instances[0]);
@@ -69,10 +69,10 @@ test('Should restore existing window', async () => {
 });
 
 
-test('Should create new window if previous was destroyed', async () => {
+test('Should create a new window if the previous one was destroyed', async () => {
   const {mock} = vi.mocked(BrowserWindow);
 
-  // Create Window and destroy it
+  // Create a window and destroy it.
   await restoreOrCreateWindow();
   expect(mock.instances).toHaveLength(1);
   const appWindow = vi.mocked(mock.instances[0]);

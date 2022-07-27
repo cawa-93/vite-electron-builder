@@ -36,16 +36,16 @@ test('Main window state', async () => {
     });
   });
 
-  expect(windowState.isCrashed, 'App was crashed').toBeFalsy();
-  expect(windowState.isVisible, 'Main window was not visible').toBeTruthy();
-  expect(windowState.isDevToolsOpened, 'DevTools was opened').toBeFalsy();
+  expect(windowState.isCrashed, 'The app has crashed').toBeFalsy();
+  expect(windowState.isVisible, 'The main window was not visible').toBeTruthy();
+  expect(windowState.isDevToolsOpened, 'The DevTools panel was open').toBeFalsy();
 });
 
 
 test('Main window web content', async () => {
   const page = await electronApp.firstWindow();
   const element = await page.$('#app', {strict: true});
-  expect(element, 'Can\'t find root element').toBeDefined();
+  expect(element, 'Was unable to find the root element').toBeDefined();
   expect((await element.innerHTML()).trim(), 'Window content was empty').not.equal('');
 });
 
@@ -65,9 +65,7 @@ test('Preload versions', async () => {
 test('Preload nodeCrypto', async () => {
   const page = await electronApp.firstWindow();
 
-  /**
-   * Random string to test hashing
-   */
+  // Test hashing a random string
   const testString = Math.random().toString(36).slice(2, 7);
 
   await page.fill('input', testString);
