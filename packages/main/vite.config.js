@@ -34,7 +34,7 @@ const config = {
       },
     },
     emptyOutDir: true,
-    brotliSize: false,
+    reportCompressedSize: false,
   },
 };
 
