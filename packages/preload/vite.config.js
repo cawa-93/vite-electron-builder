@@ -28,7 +28,7 @@ const config = {
       },
     },
     emptyOutDir: true,
-    brotliSize: false,
+    reportCompressedSize: false,
   },
   plugins: [
     preload.vite(),

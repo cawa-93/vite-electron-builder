@@ -34,7 +34,7 @@ const config = {
       input: join(PACKAGE_ROOT, 'index.html'),
     },
     emptyOutDir: true,
-    brotliSize: false,
+    reportCompressedSize: false,
   },
   test: {
     environment: 'happy-dom',
