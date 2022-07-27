@@ -1,12 +1,26 @@
 import {app, shell} from 'electron';
 import {URL} from 'url';
 
+type Permissions =
+  | 'clipboard-read'
+  | 'media'
+  | 'display-capture'
+  | 'mediaKeySystem'
+  | 'geolocation'
+  | 'notifications'
+  | 'midi'
+  | 'midiSysex'
+  | 'pointerLock'
+  | 'fullscreen'
+  | 'openExternal'
+  | 'unknown';
+
 /**
  * A list of origins that you allow open INSIDE the application and permissions for them.
  *
  * In development mode you need allow open `VITE_DEV_SERVER_URL`.
  */
-const ALLOWED_ORIGINS_AND_PERMISSIONS = new Map<string, Set<'clipboard-read' | 'media' | 'display-capture' | 'mediaKeySystem' | 'geolocation' | 'notifications' | 'midi' | 'midiSysex' | 'pointerLock' | 'fullscreen' | 'openExternal' | 'unknown'>>(
+const ALLOWED_ORIGINS_AND_PERMISSIONS = new Map<string, Set<Permissions>>(
   import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL
     ? [[new URL(import.meta.env.VITE_DEV_SERVER_URL).origin, new Set]]
     : [],
