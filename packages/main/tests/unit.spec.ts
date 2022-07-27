@@ -1,19 +1,33 @@
-import type {MaybeMocked} from 'vitest';
+import type {Constructable, Mocked, MockInstance} from 'vitest';
 import {beforeEach, expect, test, vi} from 'vitest';
 import {restoreOrCreateWindow} from '../src/mainWindow';
 
 import {BrowserWindow} from 'electron';
 
 /**
+ * Manual fix of MockedClass type
+ * See https://github.com/vitest-dev/vitest/issues/1730
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type MockedClass<T extends Constructable> = MockInstance<T extends new (...args: infer P) => any ? P : never, InstanceType<T>> & {
+  prototype: T extends {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      prototype: any;
+  } ? Mocked<T['prototype']> : never;
+} & T;
+
+/**
  * Mock real electron BrowserWindow API
  */
 vi.mock('electron', () => {
 
-  const bw = vi.fn() as MaybeMocked<typeof BrowserWindow>;
-  // @ts-expect-error It's work in runtime, but I Haven't idea how to fix this type error
+  // Use "as unknown as" because vi.fn() does not have static methods
+  const bw = vi.fn() as unknown as MockedClass<typeof BrowserWindow>;
   bw.getAllWindows = vi.fn(() => bw.mock.instances);
   bw.prototype.loadURL = vi.fn();
-  bw.prototype.on = vi.fn();
+  // Use "any" because the on function is overloaded
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  bw.prototype.on = vi.fn<any>();
   bw.prototype.destroy = vi.fn();
   bw.prototype.isDestroyed = vi.fn();
   bw.prototype.isMinimized = vi.fn();
