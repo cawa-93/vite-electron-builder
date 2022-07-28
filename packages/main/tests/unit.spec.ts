@@ -8,18 +8,18 @@ import { BrowserWindow } from 'electron';
  * Manual fix of MockedClass type
  * See https://github.com/vitest-dev/vitest/issues/1730
  */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type MockedClass<T extends Constructable> = MockInstance<
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   T extends new (...args: infer P) => any ? P : never,
   InstanceType<T>
 > & {
   prototype: T extends {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     prototype: any;
   }
     ? Mocked<T['prototype']>
     : never;
 } & T;
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 /**
  * Mock real electron BrowserWindow API
