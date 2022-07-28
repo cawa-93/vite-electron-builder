@@ -66,7 +66,7 @@ See [examples of web pages for different frameworks](https://github.com/vitejs/v
 
 ### Continuous Integration
 - The configured workflow will check the types for each push and PR.
-- The configured workflow will check the code style for each push and PR. (Check RFC about prettier: https://github.com/cawa-93/vite-electron-builder/pull/821)
+- The configured workflow will check the code style for each push and PR. (**Check RFC about prettier: https://github.com/cawa-93/vite-electron-builder/pull/821**)
 - **Automatic tests** used [Vitest ![Vitest version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vitest?label=%20&color=yellow)][vitest] -- A blazing fast test framework powered by Vite.
   - Unit tests are placed within each package and are ran separately.
   - End-to-end tests are placed in the root [`tests`](tests) directory and use [playwright].
