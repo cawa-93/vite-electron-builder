@@ -4,6 +4,7 @@
   "vueIndentScriptAndStyle": false,
   "singleAttributePerLine": true,
   "singleQuote": true,
+  "arrowParens": "avoid",
   "trailingComma": "all",
   "proseWrap": "never",
   "htmlWhitespaceSensitivity": "strict",
