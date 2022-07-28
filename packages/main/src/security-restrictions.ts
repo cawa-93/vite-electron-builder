@@ -137,5 +137,8 @@ app.on('web-contents-created', (_, contents) => {
 
     // Disable Node.js integration
     webPreferences.nodeIntegration = false;
+
+    // Enable contextIsolation
+    webPreferences.contextIsolation = true;
   });
 });
