@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {versions} from '#preload';
+import { versions } from '#preload';
 </script>
 
 <template>
@@ -8,7 +8,8 @@ import {versions} from '#preload';
       v-for="(version, lib) in versions"
       :key="lib"
     >
-      <strong>{{ lib }}</strong>: v{{ version }}
+      <strong>{{ lib }}</strong
+      >: v{{ version }}
     </li>
   </ul>
   <code>packages/renderer/src/components/ElectronVersions.vue</code>

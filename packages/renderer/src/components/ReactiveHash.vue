@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import {computed, ref} from 'vue';
-import {sha256sum} from '#preload';
+import { computed, ref } from 'vue';
+import { sha256sum } from '#preload';
 
 const rawString = ref('Hello World');
 /**
@@ -15,17 +15,17 @@ const hashedString = computed(() => sha256sum(rawString.value));
     <input
       v-model="rawString"
       type="text"
-    >
+    />
   </label>
-  <br>
+  <br />
   <label>
     Hashed by node:crypto
     <input
       v-model="hashedString"
       type="text"
       readonly
-    >
+    />
   </label>
-  <br><br>
+  <br /><br />
   <code>packages/renderer/src/components/ReactiveHash.vue</code>
 </template>

@@ -1,5 +1,5 @@
-import {mount} from '@vue/test-utils';
-import {expect, test} from 'vitest';
+import { mount } from '@vue/test-utils';
+import { expect, test } from 'vitest';
 import ReactiveCounter from '../src/components/ReactiveCounter.vue';
 
 test('ReactiveHash component', async () => {

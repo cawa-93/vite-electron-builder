@@ -1,7 +1,6 @@
-import {app} from 'electron';
+import { app } from 'electron';
 import './security-restrictions';
-import {restoreOrCreateWindow} from '/@/mainWindow';
-
+import { restoreOrCreateWindow } from '/@/mainWindow';
 
 /**
  * Prevent electron from running multiple instances.
@@ -35,22 +34,25 @@ app.on('activate', restoreOrCreateWindow);
 /**
  * Create the application window when the background process is ready.
  */
-app.whenReady()
+app
+  .whenReady()
   .then(restoreOrCreateWindow)
-  .catch((e) => console.error('Failed create window:', e));
-
+  .catch(e => console.error('Failed create window:', e));
 
 /**
  * Install Vue.js or some other devtools - development mode only.
  */
 if (import.meta.env.DEV) {
-  app.whenReady()
+  app
+    .whenReady()
     .then(() => import('electron-devtools-installer'))
-    .then(({default: installExtension, VUEJS3_DEVTOOLS}) => installExtension(VUEJS3_DEVTOOLS, {
-      loadExtensionOptions: {
-        allowFileAccess: true,
-      },
-    }))
+    .then(({ default: installExtension, VUEJS3_DEVTOOLS }) =>
+      installExtension(VUEJS3_DEVTOOLS, {
+        loadExtensionOptions: {
+          allowFileAccess: true,
+        },
+      }),
+    )
     .catch(e => console.error('Failed install extension:', e));
 }
 
@@ -58,8 +60,9 @@ if (import.meta.env.DEV) {
  * Check for new version of the application - production mode only.
  */
 if (import.meta.env.PROD) {
-  app.whenReady()
+  app
+    .whenReady()
     .then(() => import('electron-updater'))
-    .then(({autoUpdater}) => autoUpdater.checkForUpdatesAndNotify())
-    .catch((e) => console.error('Failed check updates:', e));
+    .then(({ autoUpdater }) => autoUpdater.checkForUpdatesAndNotify())
+    .catch(e => console.error('Failed check updates:', e));
 }

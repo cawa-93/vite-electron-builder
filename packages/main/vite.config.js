@@ -1,8 +1,7 @@
-import {node} from '../../.electron-vendors.cache.json';
-import {join} from 'path';
+import { node } from '../../.electron-vendors.cache.json';
+import { join } from 'path';
 
 const PACKAGE_ROOT = __dirname;
-
 
 /**
  * @type {import('vite').UserConfig}

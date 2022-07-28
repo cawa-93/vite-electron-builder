@@ -10,7 +10,6 @@
  * @see https://vitejs.dev/guide/env-and-mode.html#env-files Vite Env Variables Doc.
  */
 interface ImportMetaEnv {
-
   /**
    * URL where `renderer` web page is running.
    * This variable is initialized in scripts/watch.ts
@@ -19,5 +18,5 @@ interface ImportMetaEnv {
 }
 
 interface ImportMeta {
-  readonly env: ImportMetaEnv
+  readonly env: ImportMetaEnv;
 }
