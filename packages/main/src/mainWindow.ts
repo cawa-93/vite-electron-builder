@@ -6,6 +6,10 @@ async function createWindow() {
   const browserWindow = new BrowserWindow({
     show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.
     webPreferences: {
+
+      nodeIntegration: false,
+      contextIsolation: true,
+
       webviewTag: false, // The webview tag is not recommended. Consider alternatives like an iframe or Electron's BrowserView. @see https://www.electronjs.org/docs/latest/api/webview-tag#warning
       preload: join(__dirname, '../../preload/dist/index.cjs'),
     },
