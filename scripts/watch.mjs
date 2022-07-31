@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import {build, createLogger, createServer} from 'vite';
+import {build, createServer} from 'vite';
 import electronPath from 'electron';
 import {spawn} from 'child_process';
 
@@ -13,16 +13,6 @@ const mode = process.env.MODE = process.env.MODE || 'development';
 const logLevel = 'warn';
 
 
-/** Messages on stderr that match any of the contained patterns will be stripped from output */
-const stderrFilterPatterns = [
-  /**
-   * warning about devtools extension
-   * @see https://github.com/cawa-93/vite-electron-builder/issues/492
-   * @see https://github.com/MarshallOfSound/electron-devtools-installer/issues/143
-   */
-  /ExtensionLoadWarning/,
-];
-
 
 /**
  * Setup watcher for `main` package
@@ -33,11 +23,7 @@ const stderrFilterPatterns = [
 function setupMainPackageWatcher({resolvedUrls}) {
   process.env.VITE_DEV_SERVER_URL = resolvedUrls.local[0];
 
-  const logger = createLogger(logLevel, {
-    prefix: '[main]',
-  });
-
-  /** @type {ChildProcessWithoutNullStreams | null} */
+  /** @type {ChildProcess | null} */
   let electronApp = null;
 
   return build({
@@ -54,7 +40,7 @@ function setupMainPackageWatcher({resolvedUrls}) {
     plugins: [{
       name: 'reload-app-on-main-package-change',
       writeBundle() {
-        /** Kill electron ff process already exist */
+        /** Kill electron if process already exist */
         if (electronApp !== null) {
           electronApp.removeListener('exit', process.exit);
           electronApp.kill('SIGINT');
@@ -62,18 +48,8 @@ function setupMainPackageWatcher({resolvedUrls}) {
         }
 
         /** Spawn new electron process */
-        electronApp = spawn(String(electronPath), ['.']);
-
-        /** Proxy all logs */
-        electronApp.stdout.on('data', d => d.toString().trim() && logger.warn(d.toString(), {timestamp: true}));
-
-        /** Proxy error logs but stripe some noisy messages. See {@link stderrFilterPatterns} */
-        electronApp.stderr.on('data', d => {
-          const data = d.toString().trim();
-          if (!data) return;
-          const mayIgnore = stderrFilterPatterns.some((r) => r.test(data));
-          if (mayIgnore) return;
-          logger.error(data, {timestamp: true});
+        electronApp = spawn(String(electronPath), ['.'], {
+          stdio: 'inherit',
         });
 
         /** Stops the watch script when the application has been quit */
@@ -125,8 +101,7 @@ const rendererWatchServer = await createServer({
   mode,
   logLevel,
   configFile: 'packages/renderer/vite.config.js',
-})
-  .then(s => s.listen());
+}).then(s => s.listen());
 
 await setupPreloadPackageWatcher(rendererWatchServer);
 await setupMainPackageWatcher(rendererWatchServer);
