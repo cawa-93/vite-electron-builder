@@ -1,20 +1,8 @@
-import type {Constructable, Mocked, MockInstance} from 'vitest';
+import type {MockedClass} from 'vitest';
 import {beforeEach, expect, test, vi} from 'vitest';
 import {restoreOrCreateWindow} from '../src/mainWindow';
 
 import {BrowserWindow} from 'electron';
-
-/**
- * Manual fix of MockedClass type
- * See https://github.com/vitest-dev/vitest/issues/1730
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type MockedClass<T extends Constructable> = MockInstance<T extends new (...args: infer P) => any ? P : never, InstanceType<T>> & {
-  prototype: T extends {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      prototype: any;
-  } ? Mocked<T['prototype']> : never;
-} & T;
 
 /**
  * Mock real electron BrowserWindow API
