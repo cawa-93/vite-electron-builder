@@ -1,13 +1,15 @@
 name: Tests
 on: [ workflow_call ]
 
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
 
 defaults:
   run:
     shell: 'bash'
 
 jobs:
-
   unit:
     strategy:
       fail-fast: false

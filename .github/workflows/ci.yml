@@ -15,6 +15,10 @@ on:
       - .editorconfig
       - .gitignore
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
     uses: ./.github/workflows/lint.yml
