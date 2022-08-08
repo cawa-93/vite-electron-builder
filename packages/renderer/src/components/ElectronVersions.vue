@@ -8,7 +8,8 @@ import {versions} from '#preload';
       v-for="(version, lib) in versions"
       :key="lib"
     >
-      <strong>{{ lib }}</strong>: v{{ version }}
+      <strong>{{ lib }}</strong>
+      <span>: v{{ version }}</span>
     </li>
   </ul>
   <code>packages/renderer/src/components/ElectronVersions.vue</code>
