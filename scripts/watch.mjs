@@ -4,15 +4,11 @@ import {build, createServer} from 'vite';
 import electronPath from 'electron';
 import {spawn} from 'child_process';
 
-
 /** @type 'production' | 'development'' */
-const mode = process.env.MODE = process.env.MODE || 'development';
-
+const mode = (process.env.MODE = process.env.MODE || 'development');
 
 /** @type {import('vite').LogLevel} */
 const logLevel = 'warn';
-
-
 
 /**
  * Setup watcher for `main` package
@@ -37,29 +33,29 @@ function setupMainPackageWatcher({resolvedUrls}) {
        */
       watch: {},
     },
-    plugins: [{
-      name: 'reload-app-on-main-package-change',
-      writeBundle() {
-        /** Kill electron if process already exist */
-        if (electronApp !== null) {
-          electronApp.removeListener('exit', process.exit);
-          electronApp.kill('SIGINT');
-          electronApp = null;
-        }
+    plugins: [
+      {
+        name: 'reload-app-on-main-package-change',
+        writeBundle() {
+          /** Kill electron if process already exist */
+          if (electronApp !== null) {
+            electronApp.removeListener('exit', process.exit);
+            electronApp.kill('SIGINT');
+            electronApp = null;
+          }
 
-        /** Spawn new electron process */
-        electronApp = spawn(String(electronPath), ['.'], {
-          stdio: 'inherit',
-        });
+          /** Spawn new electron process */
+          electronApp = spawn(String(electronPath), ['.'], {
+            stdio: 'inherit',
+          });
 
-        /** Stops the watch script when the application has been quit */
-        electronApp.addListener('exit', process.exit);
+          /** Stops the watch script when the application has been quit */
+          electronApp.addListener('exit', process.exit);
+        },
       },
-    }],
+    ],
   });
-
 }
-
 
 /**
  * Setup watcher for `preload` package
@@ -79,17 +75,18 @@ function setupPreloadPackageWatcher({ws}) {
        */
       watch: {},
     },
-    plugins: [{
-      name: 'reload-page-on-preload-package-change',
-      writeBundle() {
-        ws.send({
-          type: 'full-reload',
-        });
+    plugins: [
+      {
+        name: 'reload-page-on-preload-package-change',
+        writeBundle() {
+          ws.send({
+            type: 'full-reload',
+          });
+        },
       },
-    }],
+    ],
   });
 }
-
 
 /**
  * Dev server for Renderer package

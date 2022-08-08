@@ -22,7 +22,7 @@ type Permissions =
  */
 const ALLOWED_ORIGINS_AND_PERMISSIONS = new Map<string, Set<Permissions>>(
   import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL
-    ? [[new URL(import.meta.env.VITE_DEV_SERVER_URL).origin, new Set]]
+    ? [[new URL(import.meta.env.VITE_DEV_SERVER_URL).origin, new Set()]]
     : [],
 );
 
@@ -36,13 +36,9 @@ const ALLOWED_ORIGINS_AND_PERMISSIONS = new Map<string, Set<Permissions>>(
  *   href="https://github.com/"
  * >
  */
-const ALLOWED_EXTERNAL_ORIGINS = new Set<`https://${string}`>([
-  'https://github.com',
-]);
-
+const ALLOWED_EXTERNAL_ORIGINS = new Set<`https://${string}`>(['https://github.com']);
 
 app.on('web-contents-created', (_, contents) => {
-
   /**
    * Block navigation to origins not on the allowlist.
    *
@@ -65,7 +61,6 @@ app.on('web-contents-created', (_, contents) => {
     }
   });
 
-
   /**
    * Block requests for disallowed permissions.
    * By default, Electron will automatically approve all permission requests.
@@ -82,7 +77,6 @@ app.on('web-contents-created', (_, contents) => {
       console.warn(`${origin} requested permission for '${permission}', but was rejected.`);
     }
   });
-
 
   /**
    * Hyperlinks leading to allowed sites are opened in the default browser.
@@ -101,7 +95,6 @@ app.on('web-contents-created', (_, contents) => {
     if (ALLOWED_EXTERNAL_ORIGINS.has(origin)) {
       // Open url in default browser.
       shell.openExternal(url).catch(console.error);
-
     } else if (import.meta.env.DEV) {
       console.warn(`Blocked the opening of a disallowed origin: ${origin}`);
     }
@@ -109,7 +102,6 @@ app.on('web-contents-created', (_, contents) => {
     // Prevent creating a new window.
     return {action: 'deny'};
   });
-
 
   /**
    * Verify webview options before creation.
@@ -121,7 +113,6 @@ app.on('web-contents-created', (_, contents) => {
   contents.on('will-attach-webview', (event, webPreferences, params) => {
     const {origin} = new URL(params.src);
     if (!ALLOWED_ORIGINS_AND_PERMISSIONS.has(origin)) {
-
       if (import.meta.env.DEV) {
         console.warn(`A webview tried to attach ${params.src}, but was blocked.`);
       }

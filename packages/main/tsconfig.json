@@ -7,22 +7,12 @@
     "skipLibCheck": true,
     "strict": true,
     "isolatedModules": true,
-
-    "types" : ["node"],
-
+    "types": ["node"],
     "baseUrl": ".",
     "paths": {
-      "/@/*": [
-        "./src/*"
-      ]
-    },
+      "/@/*": ["./src/*"]
+    }
   },
-  "include": [
-    "src/**/*.ts",
-    "../../types/**/*.d.ts"
-  ],
-  "exclude": [
-    "**/*.spec.ts",
-    "**/*.test.ts"
-  ]
+  "include": ["src/**/*.ts", "../../types/**/*.d.ts"],
+  "exclude": ["**/*.spec.ts", "**/*.test.ts"]
 }
