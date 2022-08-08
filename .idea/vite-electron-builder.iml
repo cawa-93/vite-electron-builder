@@ -10,6 +10,8 @@
       <excludeFolder url="file://$MODULE_DIR$/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/main/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/preload/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/preload/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/main/node_modules" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
