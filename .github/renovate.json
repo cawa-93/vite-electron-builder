@@ -15,7 +15,7 @@
     "main"
   ],
   "bumpVersion": "patch",
-
+  "gitNoVerify": ["commit", "push"],
   "packageRules": [
     {
       "packageNames": [
