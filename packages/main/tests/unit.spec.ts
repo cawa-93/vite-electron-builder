@@ -12,7 +12,7 @@ vi.mock('electron', () => {
   // Use "as unknown as" because vi.fn() does not have static methods
   const bw = vi.fn() as unknown as MockedClass<typeof BrowserWindow>;
   bw.getAllWindows = vi.fn(() => bw.mock.instances);
-  bw.prototype.loadURL = vi.fn();
+  bw.prototype.loadURL = vi.fn((_: string, __?:  Electron.LoadURLOptions) => Promise.resolve());
   // Use "any" because the on function is overloaded
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   bw.prototype.on = vi.fn<any>();
