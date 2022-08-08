@@ -1,7 +1,7 @@
 import {resolve, sep} from 'path';
 
 export default {
-  '*.{js,ts,vue}': 'eslint --cache --fix',
+  '*.{js,mjs,cjs,ts,mts,cts,vue}': 'eslint --cache --fix',
 
   /**
    * Run typechecking if any type-sensitive files or project dependencies was changed
