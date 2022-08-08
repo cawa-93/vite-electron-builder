@@ -1,6 +1,10 @@
 name: Linters
 on: [ workflow_call ]
 
+concurrency:
+  group: lint-${{ github.ref }}
+  cancel-in-progress: true
+
 defaults:
   run:
     shell: 'bash'

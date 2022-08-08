@@ -1,6 +1,9 @@
 name: Typechecking
 on: [ workflow_call ]
 
+concurrency:
+  group: typechecking-${{ github.ref }}
+  cancel-in-progress: true
 
 defaults:
   run:
