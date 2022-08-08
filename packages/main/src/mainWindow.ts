@@ -1,4 +1,4 @@
-import {BrowserWindow} from 'electron';
+import {app, BrowserWindow} from 'electron';
 import {join} from 'path';
 import {URL} from 'url';
 
@@ -11,7 +11,7 @@ async function createWindow() {
       contextIsolation: true,
 
       webviewTag: false, // The webview tag is not recommended. Consider alternatives like an iframe or Electron's BrowserView. @see https://www.electronjs.org/docs/latest/api/webview-tag#warning
-      preload: join(__dirname, '../../preload/dist/index.cjs'),
+      preload: join(app.getAppPath(), 'packages/preload/dist/index.cjs'),
     },
   });
 
