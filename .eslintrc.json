@@ -27,7 +27,6 @@
     ],
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/consistent-type-imports": "error",
-
     /**
      * Having a semicolon helps the optimizer interpret your code correctly.
      * This avoids rare errors in optimized code.
@@ -41,6 +40,12 @@
     /**
      * Just for beauty
      */
-    "quotes": ["warn", "single", { "avoidEscape": true }]
+    "quotes": [
+      "warn",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ]
   }
 }

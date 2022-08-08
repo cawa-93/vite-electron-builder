@@ -1,5 +1,5 @@
 name: Tests
-on: [workflow_call]
+on: [ workflow_call ]
 
 
 defaults:

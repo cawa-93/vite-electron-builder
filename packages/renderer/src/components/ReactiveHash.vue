@@ -15,17 +15,17 @@ const hashedString = computed(() => sha256sum(rawString.value));
     <input
       v-model="rawString"
       type="text"
-    >
+    />
   </label>
-  <br>
+  <br />
   <label>
     Hashed by node:crypto
     <input
       v-model="hashedString"
-      type="text"
       readonly
-    >
+      type="text"
+    />
   </label>
-  <br><br>
+  <br /><br />
   <code>packages/renderer/src/components/ReactiveHash.vue</code>
 </template>

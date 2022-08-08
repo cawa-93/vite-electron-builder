@@ -9,10 +9,10 @@ import ElectronVersions from '/@/components/ElectronVersions.vue';
     alt="Vue logo"
     src="../assets/logo.svg"
     width="150"
-  >
+  />
 
   <p>
-    For a guide and recipes on how to configure / customize this project,<br>
+    For a guide and recipes on how to configure / customize this project,<br />
     check out the
     <a
       href="https://github.com/cawa-93/vite-electron-builder"
@@ -54,6 +54,7 @@ import ElectronVersions from '/@/components/ElectronVersions.vue';
   margin: 60px auto;
   max-width: 700px;
 }
+
 fieldset {
   margin: 2rem;
   padding: 1rem;

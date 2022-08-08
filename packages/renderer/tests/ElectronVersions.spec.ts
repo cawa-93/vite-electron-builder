@@ -8,7 +8,6 @@ vi.mock('#preload', () => {
   };
 });
 
-
 test('ElectronVersions component', async () => {
   expect(ElectronVersions).toBeTruthy();
   const wrapper = mount(ElectronVersions);
@@ -17,5 +16,4 @@ test('ElectronVersions component', async () => {
   expect(lis.length).toBe(2);
   expect(lis[0].text()).toBe('lib1: v1');
   expect(lis[1].text()).toBe('lib2: v2');
-
 });
