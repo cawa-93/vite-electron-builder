@@ -1,0 +1,24 @@
+on:
+  - push
+
+concurrency:
+  group: format-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16 # Need for npm >=7.7
+          cache: 'npm'
+
+      - run: npm run format --if-present
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add --all
+          git diff-index --quiet HEAD || git commit -m "style: format code"
+          git push
