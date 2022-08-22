@@ -33,11 +33,11 @@
     "format": "npx prettier --write \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "5.33.0",
+    "@typescript-eslint/eslint-plugin": "5.33.1",
     "@vitejs/plugin-vue": "3.0.3",
     "@vue/test-utils": "2.0.2",
     "cross-env": "7.0.3",
-    "electron": "20.0.2",
+    "electron": "20.0.3",
     "electron-builder": "23.3.3",
     "eslint": "8.22.0",
     "eslint-plugin-vue": "9.3.0",
@@ -47,8 +47,8 @@
     "simple-git-hooks": "2.8.0",
     "typescript": "4.7.4",
     "unplugin-auto-expose": "0.0.2",
-    "vite": "3.0.7",
-    "vitest": "0.21.1",
+    "vite": "3.0.9",
+    "vitest": "0.22.1",
     "vue-tsc": "0.40.1"
   },
   "dependencies": {
