@@ -2,10 +2,6 @@
   "name": "vite-electron-builder",
   "description": "Secure boilerplate for Electron app based on Vite",
   "private": true,
-  "engines": {
-    "node": ">=v16.13",
-    "npm": ">=8.1"
-  },
   "author": {
     "email": "kozackunisoft@gmail.com",
     "name": "Alex Kozack",
