@@ -29,8 +29,8 @@
     "format": "npx prettier --write \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "5.36.1",
-    "@vitejs/plugin-vue": "3.0.3",
+    "@typescript-eslint/eslint-plugin": "5.36.2",
+    "@vitejs/plugin-vue": "3.1.0",
     "@vue/test-utils": "2.0.2",
     "cross-env": "7.0.3",
     "electron": "20.1.1",
@@ -42,10 +42,10 @@
     "playwright": "1.25.1",
     "simple-git-hooks": "2.8.0",
     "typescript": "4.8.2",
-    "unplugin-auto-expose": "0.0.2",
-    "vite": "3.0.9",
-    "vitest": "0.23.0",
-    "vue-tsc": "0.40.7"
+    "unplugin-auto-expose": "0.0.3",
+    "vite": "3.1.0",
+    "vitest": "0.23.1",
+    "vue-tsc": "0.40.9"
   },
   "dependencies": {
     "electron-updater": "5.2.1",
