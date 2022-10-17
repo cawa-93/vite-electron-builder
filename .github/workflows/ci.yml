@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - master
     paths-ignore:
       - '**.md'
       - .editorconfig
@@ -20,14 +19,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+
   lint:
     uses: ./.github/workflows/lint.yml
   typechecking:
     uses: ./.github/workflows/typechecking.yml
   tests:
     uses: ./.github/workflows/tests.yml
+
+  generate_version:
+    if: github.event_name == 'push' && github.ref == 'main'
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate version
+        uses: ./.github/actions/
+        id: version
+
   draft_release:
-    if: github.event_name == 'push' && github.ref_name == 'main'
-    needs: [ typechecking, tests ]
+    needs: [ typechecking, tests, generate_version ]
     uses: ./.github/workflows/release.yml
+    with:
+      version: ${{ needs.generate_version.outputs.version }}
 

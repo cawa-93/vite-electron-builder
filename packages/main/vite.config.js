@@ -1,6 +1,10 @@
 import {node} from '../../.electron-vendors.cache.json';
 import {join} from 'node:path';
 
+if (process.env.VITE_APP_VERSION === undefined) {
+  throw new Error('VITE_APP_VERSION Environment variable is required');
+}
+
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
 
