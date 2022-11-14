@@ -29,26 +29,26 @@
     "format": "npx prettier --write \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "5.42.0",
+    "@typescript-eslint/eslint-plugin": "5.42.1",
     "@vitejs/plugin-vue": "3.2.0",
-    "@vue/test-utils": "2.2.1",
+    "@vue/test-utils": "2.2.2",
     "cross-env": "7.0.3",
-    "electron": "21.2.2",
+    "electron": "21.2.3",
     "electron-builder": "23.6.0",
     "eslint": "8.27.0",
     "eslint-plugin-vue": "9.7.0",
-    "happy-dom": "7.6.6",
+    "happy-dom": "7.7.0",
     "nano-staged": "0.8.0",
     "playwright": "1.27.1",
     "simple-git-hooks": "2.8.1",
     "typescript": "4.8.4",
-    "unplugin-auto-expose": "0.0.3",
+    "unplugin-auto-expose": "0.0.4",
     "vite": "3.2.3",
-    "vitest": "0.24.5",
+    "vitest": "0.25.1",
     "vue-tsc": "1.0.9"
   },
   "dependencies": {
     "electron-updater": "5.3.0",
-    "vue": "3.2.41"
+    "vue": "3.2.45"
   }
 }
