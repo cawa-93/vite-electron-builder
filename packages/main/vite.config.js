@@ -1,7 +1,8 @@
 import {node} from '../../.electron-vendors.cache.json';
-import {join} from 'path';
+import {join} from 'node:path';
 
 const PACKAGE_ROOT = __dirname;
+const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
 
 /**
  * @type {import('vite').UserConfig}
@@ -10,7 +11,7 @@ const PACKAGE_ROOT = __dirname;
 const config = {
   mode: process.env.MODE,
   root: PACKAGE_ROOT,
-  envDir: process.cwd(),
+  envDir: PROJECT_ROOT,
   resolve: {
     alias: {
       '/@/': join(PACKAGE_ROOT, 'src') + '/',

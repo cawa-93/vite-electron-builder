@@ -1,11 +1,12 @@
 /* eslint-env node */
 
 import {chrome} from '../../.electron-vendors.cache.json';
-import {join} from 'path';
 import vue from '@vitejs/plugin-vue';
 import {renderer} from 'unplugin-auto-expose';
+import {join} from 'node:path';
 
 const PACKAGE_ROOT = __dirname;
+const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
 
 /**
  * @type {import('vite').UserConfig}
@@ -14,6 +15,7 @@ const PACKAGE_ROOT = __dirname;
 const config = {
   mode: process.env.MODE,
   root: PACKAGE_ROOT,
+  envDir: PROJECT_ROOT,
   resolve: {
     alias: {
       '/@/': join(PACKAGE_ROOT, 'src') + '/',
