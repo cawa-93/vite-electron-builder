@@ -5,7 +5,7 @@
  */
 
 /**
- * @type {import('electron-builder').Configuration}
+ * @type {() => import('electron-builder').Configuration}
  * @see https://www.electron.build/configuration/configuration
  */
 module.exports = async function () {
@@ -20,5 +20,10 @@ module.exports = async function () {
     extraMetadata: {
       version: getVersion(),
     },
+
+    // Specify linux target just for disabling snap compilation
+    linux: {
+      target: 'deb'
+    }
   };
 };
