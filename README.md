@@ -87,7 +87,7 @@ See [examples of web pages for different frameworks](https://github.com/vitejs/v
 
 - Each time you push changes to the `main` branch, the [`release`](.github/workflows/release.yml) workflow starts, which creates a new draft release.
   - Code signing supported. See [`compile` job in the `release` workflow](.github/workflows/release.yml).
-- **Auto-update is supported**. After the release is published, all client applications will download the new version
+  - **Auto-update is supported**. After the release is published, all client applications will download the new version
   and install updates silently.
 
 ## How it works
