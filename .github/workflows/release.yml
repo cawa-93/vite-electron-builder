@@ -43,6 +43,8 @@ jobs:
           build_script_name: build # npm run build
           args: --config .electron-builder.config.js
 
+          release: true
+
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
           github_token: ${{ secrets.github_token }}
