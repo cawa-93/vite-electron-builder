@@ -5,7 +5,7 @@ import {getVersion} from './getVersion.mjs';
  * @param {string} [root]
  * @return {import('vite').Plugin}
  */
-export const injectAppVersion = (root) => ({
+export const injectAppVersion = root => ({
   name: 'inject-version',
   config: () => {
     // TODO: Find better way to inject app version

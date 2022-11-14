@@ -16,7 +16,9 @@ let CACHED_VERSION = null;
  */
 export function getVersion(root = process.cwd()) {
   if (CACHED_VERSION === null) {
-    CACHED_VERSION = JSON.parse(readFileSync(resolve(root, 'package.json'), {encoding: 'utf8'})).version;
+    CACHED_VERSION = JSON.parse(
+      readFileSync(resolve(root, 'package.json'), {encoding: 'utf8'}),
+    ).version;
   }
   return CACHED_VERSION;
 }
