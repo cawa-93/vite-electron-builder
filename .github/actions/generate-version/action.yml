@@ -1,8 +1,0 @@
-name: 'Generate version'
-description: 'Generate semantic version based on current date'
-outputs:
-  version:
-    description: 'Generated version'
-runs:
-  using: 'node16'
-  main: 'main.js'

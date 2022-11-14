@@ -26,17 +26,6 @@ jobs:
     uses: ./.github/workflows/typechecking.yml
   tests:
     uses: ./.github/workflows/tests.yml
-
-  generate_version:
-    if: github.event_name == 'push' && github.ref == 'main'
-    outputs:
-      version: ${{ steps.version.outputs.version }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Generate version
-        uses: ./.github/actions/
-        id: version
-
   draft_release:
     needs: [ typechecking, tests, generate_version ]
     uses: ./.github/workflows/release.yml

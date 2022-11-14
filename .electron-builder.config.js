@@ -1,7 +1,4 @@
-if (process.env.VITE_APP_VERSION === undefined) {
-  throw new Error('VITE_APP_VERSION Environment variable is required');
-}
-
+const {getVersion} = require('./version/getVersion.mjs');
 /**
  * @type {import('electron-builder').Configuration}
  * @see https://www.electron.build/configuration/configuration
@@ -13,7 +10,7 @@ const config = {
   },
   files: ['packages/**/dist/**'],
   extraMetadata: {
-    version: process.env.VITE_APP_VERSION,
+    version: getVersion(),
   },
 };
 

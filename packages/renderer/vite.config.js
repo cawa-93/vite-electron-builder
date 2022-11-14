@@ -4,10 +4,7 @@ import {chrome} from '../../.electron-vendors.cache.json';
 import vue from '@vitejs/plugin-vue';
 import {renderer} from 'unplugin-auto-expose';
 import {join} from 'node:path';
-
-if (process.env.VITE_APP_VERSION === undefined) {
-  throw new Error('VITE_APP_VERSION Environment variable is required');
-}
+import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -50,6 +47,7 @@ const config = {
     renderer.vite({
       preloadEntry: join(PACKAGE_ROOT, '../preload/src/index.ts'),
     }),
+    injectAppVersion(PROJECT_ROOT),
   ],
 };
 
