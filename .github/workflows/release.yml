@@ -15,10 +15,9 @@ jobs:
   draft_release:
 
     strategy:
+      fail-fast: true
       matrix:
-        os: [ windows-latest ]
-    #    To compile the application for different platforms, use:
-    #    os: [ macos-latest, ubuntu-latest, windows-latest ]
+        os: [ macos-latest, ubuntu-latest, windows-latest ]
 
     runs-on: ${{ matrix.os }}
 
