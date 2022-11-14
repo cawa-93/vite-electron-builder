@@ -5,7 +5,7 @@ import {resolve} from 'node:path';
  * Somehow inject app version to vite build context
  * @return {import('vite').Plugin}
  */
-export const injectAppVersion = (root) => ({
+export const injectAppVersion = root => ({
   name: 'inject-version',
   config: () => {
     // TODO: Find better way to inject app version
