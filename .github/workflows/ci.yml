@@ -1,6 +1,7 @@
 # This workflow is the entry point for all CI processes.
 # It is from here that all other workflows are launched.
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
@@ -27,6 +28,7 @@ jobs:
   tests:
     uses: ./.github/workflows/tests.yml
   draft_release:
-    needs: [ typechecking, tests, generate_version ]
+    if: github.event_name == 'push' && github.ref_name == 'main'
+    needs: [ typechecking, tests ]
     uses: ./.github/workflows/release.yml
 
