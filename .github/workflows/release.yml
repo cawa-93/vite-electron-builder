@@ -1,16 +1,5 @@
 name: Release
-on:
-  workflow_dispatch:
-    inputs:
-      version:
-        required: true
-        type: string
-        description: Semantic version of new release. Without `v` prefix.
-  workflow_call:
-    inputs:
-      version:
-        required: true
-        type: string
+on: [ workflow_call ]
 
 concurrency:
   group: release-${{ github.ref }}
@@ -23,7 +12,7 @@ defaults:
 
 
 jobs:
-  upload_artifacts:
+  draft_release:
 
     strategy:
       matrix:
@@ -46,7 +35,8 @@ jobs:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
 
       # Compile app and upload artifacts
-      - name: Compile & release Electron app
+      # I use this action because it is capable of retrying multiple times if there are any issues with the distribution server
+      - name: Create draft
         uses: samuelmeuli/action-electron-builder@v1
         env:
           VITE_APP_VERSION: ${{ inputs.version }}
@@ -57,10 +47,6 @@ jobs:
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
           github_token: ${{ secrets.github_token }}
-
-          # If the commit is tagged with a version (e.g. "v1.0.0"),
-          # release the app after building
-          release: true
 
           # Sometimes the build may fail due to a connection problem with Apple, GitHub, etc. servers.
           # This option will restart the build as many attempts as possible

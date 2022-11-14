@@ -29,6 +29,4 @@ jobs:
   draft_release:
     needs: [ typechecking, tests, generate_version ]
     uses: ./.github/workflows/release.yml
-    with:
-      version: ${{ needs.generate_version.outputs.version }}
 
