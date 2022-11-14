@@ -37,8 +37,6 @@ jobs:
       # I use this action because it is capable of retrying multiple times if there are any issues with the distribution server
       - name: Create draft
         uses: samuelmeuli/action-electron-builder@v1
-        env:
-          VITE_APP_VERSION: ${{ inputs.version }}
         with:
           build_script_name: build # npm run build
           args: --config .electron-builder.config.js
