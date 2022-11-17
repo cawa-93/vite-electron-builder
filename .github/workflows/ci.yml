@@ -9,11 +9,15 @@ on:
       - '**.md'
       - .editorconfig
       - .gitignore
+      - .idea
+      - .vscode
   pull_request:
     paths-ignore:
       - '**.md'
       - .editorconfig
       - .gitignore
+      - .idea
+      - .vscode
 
 concurrency:
   group: ci-${{ github.ref }}
