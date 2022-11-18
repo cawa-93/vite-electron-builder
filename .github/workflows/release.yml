@@ -3,7 +3,7 @@ on:
   workflow_call:
     inputs:
       dry-run:
-        description: 'Compile app but not upload artifacts to distribution server'
+        description: 'Compiles the app but not upload artifacts to distribution server'
         default: false
         required: false
         type: boolean
