@@ -6,6 +6,11 @@ on:
     branches:
       - main
     paths-ignore:
+      - '.github/**'
+      - '!.github/workflows/ci.yml'
+      - '!.github/workflows/typechecking.yml'
+      - '!.github/workflows/tests.yml'
+      - '!.github/workflows/release.yml'
       - '**.md'
       - .editorconfig
       - .gitignore
@@ -13,6 +18,11 @@ on:
       - '.vscode/**'
   pull_request:
     paths-ignore:
+      - '.github/**'
+      - '!.github/workflows/ci.yml'
+      - '!.github/workflows/typechecking.yml'
+      - '!.github/workflows/tests.yml'
+      - '!.github/workflows/release.yml'
       - '**.md'
       - .editorconfig
       - .gitignore
