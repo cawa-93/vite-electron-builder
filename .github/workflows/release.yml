@@ -1,5 +1,12 @@
 name: Release
-on: [ workflow_call ]
+on:
+  workflow_call:
+    inputs:
+      dry-run:
+        description: 'Compile app but not upload artifacts to distribution server'
+        default: false
+        required: false
+        type: boolean
 
 concurrency:
   group: release-${{ github.ref }}
@@ -41,7 +48,7 @@ jobs:
           build_script_name: build # npm run build
           args: --config .electron-builder.config.js
 
-          release: true
+          release: ${{ !inputs.dry-run }}
 
           # GitHub token, automatically provided to the action
           # (No need to define this secret in the repo settings)
