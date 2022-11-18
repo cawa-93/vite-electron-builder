@@ -39,36 +39,12 @@ jobs:
       - run: npm ci
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-
-      # Compile app and upload artifacts
-      # I use this action because it is capable of retrying multiple times if there are any issues with the distribution server
-      - name: Create draft
-        uses: samuelmeuli/action-electron-builder@v1
-        with:
-          build_script_name: build # npm run build
-          args: --config .electron-builder.config.js
-
-          release: ${{ !inputs.dry-run }}
-
-          # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
-          github_token: ${{ secrets.github_token }}
-
-          # Sometimes the build may fail due to a connection problem with Apple, GitHub, etc. servers.
-          # This option will restart the build as many attempts as possible
-          max_attempts: 3
-
-
+      
+      - run: npm run build
+      - run: npx --no-install electron-builder --config .electron-builder.config.js --publish ${{ inputs.dry-run && 'never' || 'always' }}
+        env:
           # Code Signing params
-
-          # Base64-encoded code signing certificate for Windows
-          # windows_certs: ''
-
-          # Password for decrypting `windows_certs`
-          # windows_certs_password: ''
-
-          # Base64-encoded code signing certificate for macOS
-          # mac_certs: ''
-
-          # Password for decrypting `mac_certs`
-          # mac_certs_password: ''
+          CSC_LINK: ''
+          CSC_KEY_PASSWORD: ''
+          # Publishing artifacts
+          GH_TOKEN: ${{ secrets.github_token }} # GitHub token, automatically provided (No need to define this secret in the repo settings)
