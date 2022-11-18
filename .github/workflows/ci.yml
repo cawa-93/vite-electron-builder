@@ -9,24 +9,21 @@ on:
       - '**.md'
       - .editorconfig
       - .gitignore
-      - .idea
-      - .vscode
+      - '.idea/**'
+      - '.vscode/**'
   pull_request:
     paths-ignore:
       - '**.md'
       - .editorconfig
       - .gitignore
-      - .idea
-      - .vscode
+      - '.idea/**'
+      - '.vscode/**'
 
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-
-  lint:
-    uses: ./.github/workflows/lint.yml
   typechecking:
     uses: ./.github/workflows/typechecking.yml
   tests:
