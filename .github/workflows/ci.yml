@@ -39,7 +39,8 @@ jobs:
   tests:
     uses: ./.github/workflows/tests.yml
   draft_release:
-    if: github.event_name == 'push' && github.ref_name == 'main'
+    with:
+      dry-run: ${{ github.event_name != 'push' || github.ref_name != 'main' }}
     needs: [ typechecking, tests ]
     uses: ./.github/workflows/release.yml
 
