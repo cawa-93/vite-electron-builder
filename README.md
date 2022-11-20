@@ -166,13 +166,14 @@ Because the `renderer` works and builds like a _regular web application_, you ca
 browser or compile to a browser-friendly format.
 
 This means that in the `renderer` you are free to use any frontend dependencies such as Vue, React, lodash, axios and so
-on.However, you _CANNNOT_ use any native Node.js APIs, such as, `systeminformation`. These APIs are _only_ available in
+on.However, you _CANNOT_ use any native Node.js APIs, such as, `systeminformation`. These APIs are _only_ available in
 a Node.js runtime environment and will cause your application to crash if used in the `renderer` layer. Instead, if you
 need access to Node.js runtime APIs in your frontend, export a function form the `preload` package.
 
 All dependencies that require Node.js api can be used in
 the [`preload` script](https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts).
 
+#### Expose in main world
 Here is an example. Let's say you need to read some data from the file system or database in the renderer.
 
 In the preload context, create a function that reads and returns data. To make the function announced in the preload
@@ -183,24 +184,29 @@ to export the method from the preload. The `exposeInMainWorld` will be called au
 
 ```ts
 // preload/index.ts
-import {writeFile} from 'fs'
+import { readFile } from 'node:fs/promises';
 
+// Encapsulate types if you use typescript
+interface UserData {
+  prop: string
+}
+
+// Encapsulate all node.js api
 // Everything you exported from preload/index.ts may be called in renderer
-export function getData() {
-  return /* ... */
+export function getUserData(): Promise<UserData> {
+  return readFile('/path/to/file/in/user/filesystem.json', {encoding:'utf8'}).then(JSON.parse);
 }
 ```
 
 Now you can import and call the method in renderer
 
 ```ts
-// renderer/somewere.component.ts
-import {getData} from '#preload'
-const dataFromFS = getData()
+// renderer/anywere/component.ts
+import { getUserData } from '#preload'
+const userData = await getUserData()
 ```
 
-[Read more about Security Considerations](https://www.electronjs.org/docs/tutorial/context-isolation#security-considerations)
-.
+[Read more about Security Considerations](https://www.electronjs.org/docs/tutorial/context-isolation#security-considerations).
 
 ### Working with Electron API
 
