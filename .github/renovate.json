@@ -1,29 +1,19 @@
 {
   "extends": [
     "config:base",
-    "group:allNonMajor",
     ":semanticCommits",
     ":semanticCommitTypeAll(deps)",
     ":semanticCommitScopeDisabled",
-    ":automergeTypes",
+    ":automergeAll",
     ":automergeBranch",
     ":disableDependencyDashboard",
     ":pinVersions",
     ":onlyNpm",
-    ":label(dependencies)",
-    "schedule:weekly"
+    ":label(dependencies)"
   ],
   "bumpVersion": "patch",
   "gitNoVerify": [
     "commit",
     "push"
-  ],
-  "packageRules": [
-    {
-      "matchPackageNames": [
-        "electron"
-      ],
-      "separateMajorMinor": false
-    }
   ]
 }
