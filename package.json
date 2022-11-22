@@ -42,7 +42,7 @@
     "nano-staged": "0.8.0",
     "playwright": "1.27.1",
     "simple-git-hooks": "2.8.1",
-    "typescript": "4.8.4",
+    "typescript": "4.9.3",
     "unplugin-auto-expose": "0.0.4",
     "vite": "3.2.4",
     "vitest": "0.25.2",
