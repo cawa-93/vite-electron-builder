@@ -36,7 +36,7 @@
     "cross-env": "7.0.3",
     "electron": "21.3.0",
     "electron-builder": "23.6.0",
-    "eslint": "8.27.0",
+    "eslint": "8.28.0",
     "eslint-plugin-vue": "9.7.0",
     "happy-dom": "7.7.0",
     "nano-staged": "0.8.0",
