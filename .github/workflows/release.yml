@@ -39,9 +39,16 @@ jobs:
       - run: npm ci
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-      
+
       - run: npm run build
-      - run: npx --no-install electron-builder --config .electron-builder.config.js --publish ${{ inputs.dry-run && 'never' || 'always' }}
+
+      - uses: nick-fields/retry@v2
+        with:
+          timeout_seconds: 30
+          max_attempts: 3
+          retry_on: error
+          shell: 'bash'
+          command: npx --no-install electron-builder --config .electron-builder.config.js --publish ${{ inputs.dry-run && 'never' || 'always' }}
         env:
           # Code Signing params
           # See https://www.electron.build/code-signing
