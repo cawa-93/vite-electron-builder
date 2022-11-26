@@ -44,7 +44,7 @@ jobs:
 
       - uses: nick-fields/retry@v2
         with:
-          timeout_seconds: 30
+          timeout_minutes: 15
           max_attempts: 3
           retry_on: error
           shell: 'bash'
