@@ -81,6 +81,9 @@ See [examples of web pages for different frameworks](https://github.com/vitejs/v
   - Unit tests are placed within each package and are ran separately.
   - End-to-end tests are placed in the root [`tests`](tests) directory and use [playwright].
 
+![зображення](https://user-images.githubusercontent.com/1662812/204089645-d0209ce2-7259-4b66-ac71-22a7f608be35.png)
+
+
 ### Publishing
 
 - Each time you push changes to the `main` branch, the [`release`](.github/workflows/release.yml) workflow starts, which creates a new draft release. For each next commit will be created and replaced artifacts. That way you will always have draft with latest artifacts, and the release can be published once it is ready. 
