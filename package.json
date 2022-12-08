@@ -30,7 +30,7 @@
     "format": "npx prettier --write \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
   },
   "devDependencies": {
-    "@types/node": "18.11.11",
+    "@types/node": "18.11.12",
     "@typescript-eslint/eslint-plugin": "5.46.0",
     "@vitejs/plugin-vue": "3.2.0",
     "@vue/test-utils": "2.2.6",
