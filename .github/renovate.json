@@ -11,6 +11,15 @@
     ":onlyNpm",
     ":label(dependencies)"
   ],
+  "packageRules": [
+    {
+      "groupName": "Vite packages",
+      "matchUpdateTypes": "major",
+      "matchSourceUrlPrefixes": [
+        "https://github.com/vitejs/"
+      ]
+    }
+  ],
   "gitNoVerify": [
     "commit",
     "push"
