@@ -3,10 +3,7 @@
     "browser": true,
     "node": false
   },
-  "extends": [
-    /** @see https://eslint.vuejs.org/rules/ */
-    "plugin:vue/vue3-recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "parserOptions": {
     "parser": "@typescript-eslint/parser",
     "ecmaVersion": 12,
@@ -14,7 +11,13 @@
   },
   "rules": {
     /** These rules are disabled because they are incompatible with prettier */
-    "vue/html-self-closing": "off",
-    "vue/singleline-html-element-content-newline": "off"
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off"
+  },
+  "plugins": ["react"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
