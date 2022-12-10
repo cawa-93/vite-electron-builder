@@ -47,7 +47,7 @@ const config = {
     renderer.vite({
       preloadEntry: join(PACKAGE_ROOT, '../preload/src/index.ts'),
     }),
-    injectAppVersion(PROJECT_ROOT),
+    injectAppVersion(),
   ],
 };
 

@@ -37,7 +37,7 @@ const config = {
     emptyOutDir: true,
     reportCompressedSize: false,
   },
-  plugins: [injectAppVersion(PROJECT_ROOT)],
+  plugins: [injectAppVersion()],
 };
 
 export default config;

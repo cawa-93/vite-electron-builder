@@ -33,7 +33,7 @@ const config = {
     emptyOutDir: true,
     reportCompressedSize: false,
   },
-  plugins: [preload.vite(), injectAppVersion(PROJECT_ROOT)],
+  plugins: [preload.vite(), injectAppVersion()],
 };
 
 export default config;
