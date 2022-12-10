@@ -41,14 +41,14 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16 # Need for npm >=7.7
+          node-version: 16
           cache: 'npm'
 
       - run: npm ci
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
 
-      - run: npm run lint --if-present
+      - run: pnpm --if-present run lint
 
   # This job just check code style for in-template contributions.
   code-style:
@@ -58,8 +58,9 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 16 # Need for npm >=7.7
-          cache: 'npm'
+          node-version: 16
+          cache: 'pnpm'
 
-      - run: npm i prettier
+      - run: npm i pnpm@7.12.2
+      - run: pnpm i prettier
       - run: npx prettier --check "**/*.{js,mjs,cjs,jsx,ts,mts,cts,tsx,vue,json}"
