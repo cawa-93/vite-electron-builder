@@ -1,6 +1,6 @@
 # Vite Electron Builder Boilerplate
 
-UPDATED at 2022-12-10:
+**UPDATED at 2022-12-10:**
 
 1. Port to React
 2. Use PNPM
@@ -8,7 +8,6 @@ UPDATED at 2022-12-10:
 TODO:
 
 1. Fix GitHub Action to use PNPM
-2. Fix `pnpm test` command
 
 ---
 

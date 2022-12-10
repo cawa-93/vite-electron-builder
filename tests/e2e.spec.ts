@@ -47,6 +47,8 @@ test('Preload versions', async () => {
   const page = await electronApp.firstWindow();
   const renderedVersions = await page.locator('#process-versions').innerText();
 
+  console.log(renderedVersions);
+
   const expectedVersions = await electronApp.evaluate(() => process.versions);
 
   for (const expectedVersionsKey in expectedVersions) {
@@ -63,7 +65,7 @@ test('Preload nodeCrypto', async () => {
   const testString = Math.random().toString(36).slice(2, 7);
 
   await page.fill('input', testString);
-  const renderedHash = await page.inputValue('input[readonly]');
+  const renderedHash = await page.inputValue('input[disabled]');
   const expectedHash = createHash('sha256').update(testString).digest('hex');
   expect(renderedHash).toEqual(expectedHash);
 });
