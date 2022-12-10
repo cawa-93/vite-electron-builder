@@ -4,6 +4,7 @@
 
 1. Port to React
 2. Use PNPM
+3. Use Tailwind
 
 TODO:
 
