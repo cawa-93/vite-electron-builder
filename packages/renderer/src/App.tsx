@@ -8,7 +8,7 @@ export default function App() {
   const [rawValue, setRawValue] = useState('hello world');
 
   return (
-    <div>
+    <div className="m-3">
       <h2>App</h2>
       <Count />
       <br />
