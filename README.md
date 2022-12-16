@@ -28,9 +28,6 @@ That's all you need. 😉
 Automatically**](https://github.com/npm/rfcs/blob/latest/implemented/0025-install-peer-deps.md). If you are using a
 different package manager, you may need to install some peerDependencies manually.
 
-> **Note**:
-> Find more useful forks [here](https://github.com/cawa-93/vite-electron-builder/discussions/categories/forks).
-
 ## Features
 
 ### Electron [![Electron version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/electron?label=%20)][electron]
