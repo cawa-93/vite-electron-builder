@@ -51,7 +51,7 @@ different package manager, you may need to install some peerDependencies manuall
 Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON Importing`, `CSS Modules`
 , `Web Assembly` and much more.
 
-[See all Vite features](https://vitejs.dev/guide/features.html).
+> [See all Vite features](https://vitejs.dev/guide/features.html).
 
 ### TypeScript [![TypeScript version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/typescript?label=%20)][typescript] (optional)
 
@@ -60,8 +60,7 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
 - Code formatting rules follow the latest TypeScript recommendations and best practices thanks
   to [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin).
 
-**[See this discussion](https://github.com/cawa-93/vite-electron-builder/discussions/339)** if you want completely
-remove TypeScript.
+> [Guide to disable typescript and remove dependencies](https://github.com/cawa-93/vite-electron-builder/discussions/339) 
 
 ### Vue [![Vue version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/vue?label=%20&)][vue] (optional)
 
@@ -69,7 +68,7 @@ remove TypeScript.
   all.
 - Code formatting rules follow the latest Vue recommendations and best practices thanks to [eslint-plugin-vue].
 
-See [examples of web pages for different frameworks](https://github.com/vitejs/vite/tree/main/packages/create-vite).
+> [Find more forks 🔱 for others frameworks or setups](https://github.com/cawa-93/vite-electron-builder/discussions/categories/forks)
 
 ### Continuous Integration
 
@@ -91,7 +90,8 @@ See [examples of web pages for different frameworks](https://github.com/vitejs/v
   - **Auto-update is supported**. After the release is published, all client applications will download the new version
   and install updates silently.
   
-This template configured for GitHub public repository, but electron-builder supports multiple auto-update servers. See [docs](https://www.electron.build/configuration/publish).
+> **Note**:
+> This template **configured only for GitHub public repository**, but electron-builder also supports other update distribution servers. Find more in [electron-builder docs](https://www.electron.build/configuration/publish).
 
 ## How it works
 
@@ -209,7 +209,7 @@ import { getUserData } from '#preload'
 const userData = await getUserData()
 ```
 
-[Read more about Security Considerations](https://www.electronjs.org/docs/tutorial/context-isolation#security-considerations).
+> Find more in [Context Isolation tutorial](https://www.electronjs.org/docs/tutorial/context-isolation#security-considerations).
 
 ### Working with Electron API
 
@@ -235,7 +235,7 @@ preload->>renderer: Window maximized
 deactivate preload
 ```
 
-[Read more about Inter-Process Communication](https://www.electronjs.org/docs/latest/tutorial/ipc)
+> Find more in [Inter-Process Communication tutorial](https://www.electronjs.org/docs/latest/tutorial/ipc).
 
 ### Modes and Environment Variables
 
