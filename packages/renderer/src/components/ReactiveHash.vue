@@ -13,6 +13,7 @@ const hashedString = computed(() => sha256sum(rawString.value));
   <label>
     Raw value
     <input
+      id="reactive-hash-raw-value"
       v-model="rawString"
       type="text"
     />
@@ -21,6 +22,7 @@ const hashedString = computed(() => sha256sum(rawString.value));
   <label>
     Hashed by node:crypto
     <input
+      id="reactive-hash-hashed-value"
       v-model="hashedString"
       readonly
       type="text"

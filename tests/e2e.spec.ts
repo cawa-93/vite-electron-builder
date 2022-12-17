@@ -45,8 +45,10 @@ test('Main window web content', async () => {
 
 test('Preload versions', async () => {
   const page = await electronApp.firstWindow();
-  const renderedVersions = await page.locator('#process-versions').innerText();
+  const versionsElement = page.locator('#process-versions');
+  expect(await versionsElement.count(), 'expect find one element #process-versions').toStrictEqual(1);
 
+  const renderedVersions = await versionsElement.innerText();
   const expectedVersions = await electronApp.evaluate(() => process.versions);
 
   for (const expectedVersionsKey in expectedVersions) {
@@ -62,8 +64,15 @@ test('Preload nodeCrypto', async () => {
   // Test hashing a random string
   const testString = Math.random().toString(36).slice(2, 7);
 
-  await page.fill('input', testString);
-  const renderedHash = await page.inputValue('input[readonly]');
+  const rawInput = page.locator('input#reactive-hash-raw-value');
+  expect(await rawInput.count(), 'expect find one element input#reactive-hash-raw-value').toStrictEqual(1);
+
+  const hashedInput = page.locator('input#reactive-hash-hashed-value');
+  expect(await hashedInput.count(), 'expect find one element input#reactive-hash-hashed-value').toStrictEqual(1);
+
+
+  await rawInput.fill(testString);
+  const renderedHash = await hashedInput.inputValue();
   const expectedHash = createHash('sha256').update(testString).digest('hex');
   expect(renderedHash).toEqual(expectedHash);
 });
