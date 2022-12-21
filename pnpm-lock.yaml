@@ -14,6 +14,7 @@ specifiers:
   electron-updater: 5.3.0
   eslint: 8.29.0
   eslint-plugin-react: ^7.31.11
+  eslint-plugin-react-hooks: ^4.6.0
   happy-dom: 8.1.0
   nano-staged: 0.8.0
   playwright: 1.27.1
@@ -47,6 +48,7 @@ devDependencies:
   electron-builder: 23.6.0
   eslint: 8.29.0
   eslint-plugin-react: 7.31.11_eslint@8.29.0
+  eslint-plugin-react-hooks: 4.6.0_eslint@8.29.0
   happy-dom: 8.1.0
   nano-staged: 0.8.0
   playwright: 1.27.1
@@ -2121,6 +2123,15 @@ packages:
   /escape-string-regexp/4.0.0:
     resolution: {integrity: sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA==}
     engines: {node: '>=10'}
+    dev: true
+
+  /eslint-plugin-react-hooks/4.6.0_eslint@8.29.0:
+    resolution: {integrity: sha512-oFc7Itz9Qxh2x4gNHStv3BqJq54ExXmfC+a1NjAta66IAN87Wu0R/QArgIS9qKzX3dXKPI9H5crl9QchNMY9+g==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
+    dependencies:
+      eslint: 8.29.0
     dev: true
 
   /eslint-plugin-react/7.31.11_eslint@8.29.0:
