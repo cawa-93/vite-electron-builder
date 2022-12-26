@@ -8,10 +8,11 @@ export default function Count() {
         onClick={() => {
           setCount(prev => prev + 1);
         }}
+        style={{marginRight: 5}}
       >
         Click Me
       </button>
-      {count}
+      count: {count}
     </div>
   );
 }

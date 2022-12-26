@@ -1,5 +1,9 @@
 # Vite Electron Builder Boilerplate
 
+**UPDATED at 2022-12-26:**
+
+1. Setup `common` package: share code between `main`, `preload`, and `renderer` package.
+
 **UPDATED at 2022-12-10:**
 
 1. Port to React

@@ -10,9 +10,7 @@
     "types": ["node"],
     "baseUrl": ".",
     "importsNotUsedAsValues": "error",
-    "paths": {
-      "#common": ["../common/src/index"]
-    }
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src/**/*.ts", "../../types/**/*.d.ts"],
   "exclude": ["**/*.spec.ts", "**/*.test.ts"]

@@ -1,6 +1,7 @@
 import {node} from '../../.electron-vendors.cache.json';
 import {join} from 'node:path';
-import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
+import {injectAppVersion} from '../../plugins/inject-app-version-plugin.mjs';
+import importCommonPlugin from '../../plugins/import-common-plugin';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -37,7 +38,12 @@ const config = {
     emptyOutDir: true,
     reportCompressedSize: false,
   },
-  plugins: [injectAppVersion(PROJECT_ROOT)],
+  plugins: [
+    importCommonPlugin({
+      commonEntry: join(PACKAGE_ROOT, '../common/dist/index.js'),
+    }),
+    injectAppVersion(PROJECT_ROOT),
+  ],
 };
 
 export default config;

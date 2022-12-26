@@ -1,6 +1,8 @@
 import {app} from 'electron';
 import './security-restrictions';
-import {restoreOrCreateWindow} from '/@/mainWindow';
+import {restoreOrCreateWindow} from './main-window';
+import {sum} from '#common';
+console.log('From main package:', sum);
 
 /**
  * Prevent electron from running multiple instances.

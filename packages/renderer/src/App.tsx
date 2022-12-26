@@ -1,6 +1,8 @@
 import {useState} from 'react';
 import Count from '/@/components/Count';
 import {sha256sum, versions} from '#preload';
+import {sum} from '#common';
+console.log('From renderer package:', sum);
 
 const APP_VERSION = import.meta.env.VITE_APP_VERSION;
 
@@ -12,6 +14,7 @@ export default function App() {
       <h2>App</h2>
       <Count />
       <br />
+      <div>Sum from common package: {sum}</div>
       <div>App version: {APP_VERSION}</div>
       <ul id="process-versions">
         {Object.entries(versions).map(([lib, version], idx) => {
