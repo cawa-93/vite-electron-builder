@@ -47,7 +47,8 @@ jobs:
         uses: nick-fields/retry@v2
         with:
           timeout_minutes: 15
-          max_attempts: 3
+          max_attempts: 6
+          retry_wait_seconds: 15
           retry_on: error
           shell: 'bash'
           command: npx --no-install electron-builder --config .electron-builder.config.js --publish ${{ inputs.dry-run && 'never' || 'always' }}
