@@ -257,7 +257,7 @@ When running the build script, the environment variables are loaded from the fol
 .env.[mode].local   # only loaded in specified env mode, ignored by git
 ```
 
-> **Note**: 
+> **Warning**: 
 > To prevent accidentally leaking env variables to the client, only variables prefixed with `VITE_` are exposed to your
 Vite-processed code.
 
@@ -270,6 +270,8 @@ VITE_SOME_KEY=123
 
 Only `VITE_SOME_KEY` will be exposed as `import.meta.env.VITE_SOME_KEY` to your client source code, but `DB_PASSWORD`
 will not.
+
+You can change that prefix or add another. See [`envPrefix`](https://vitejs.dev/config/shared-options.html#envprefix)
 
 ## Contribution
 
