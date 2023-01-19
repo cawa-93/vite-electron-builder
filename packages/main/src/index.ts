@@ -55,7 +55,13 @@ app
 // }
 
 /**
- * Check for new version of the application - production mode only.
+ * Check for app updates, install it in background and notify user that new version was installed.
+ * No reason run this in non-production build.
+ * @see https://www.electron.build/auto-update.html#quick-setup-guide
+ *
+ * Note: It may throw "ENOENT: no such file app-update.yml"
+ * if you compile production app without publishing it to distribution server.
+ * Like `npm run compile` does. It's ok 😅
  */
 if (import.meta.env.PROD) {
   app
@@ -68,5 +74,5 @@ if (import.meta.env.PROD) {
         (module.default.autoUpdater as (typeof module)['autoUpdater']);
       return autoUpdater.checkForUpdatesAndNotify();
     })
-    .catch(e => console.error('Failed check updates:', e));
+    .catch(e => console.error('Failed check and install updates:', e));
 }
