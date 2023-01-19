@@ -1,26 +1,20 @@
+import type {Session} from 'electron';
 import {app, shell} from 'electron';
 import {URL} from 'url';
 
-type Permissions =
-  | 'clipboard-read'
-  | 'media'
-  | 'display-capture'
-  | 'mediaKeySystem'
-  | 'geolocation'
-  | 'notifications'
-  | 'midi'
-  | 'midiSysex'
-  | 'pointerLock'
-  | 'fullscreen'
-  | 'openExternal'
-  | 'unknown';
+/**
+ * Union for all existing permissions in electron
+ */
+type Permission = Parameters<
+  Exclude<Parameters<Session['setPermissionRequestHandler']>[0], null>
+>[1];
 
 /**
  * A list of origins that you allow open INSIDE the application and permissions for them.
  *
  * In development mode you need allow open `VITE_DEV_SERVER_URL`.
  */
-const ALLOWED_ORIGINS_AND_PERMISSIONS = new Map<string, Set<Permissions>>(
+const ALLOWED_ORIGINS_AND_PERMISSIONS = new Map<string, Set<Permission>>(
   import.meta.env.DEV && import.meta.env.VITE_DEV_SERVER_URL
     ? [[new URL(import.meta.env.VITE_DEV_SERVER_URL).origin, new Set()]]
     : [],
@@ -91,8 +85,7 @@ app.on('web-contents-created', (_, contents) => {
   contents.setWindowOpenHandler(({url}) => {
     const {origin} = new URL(url);
 
-    // @ts-expect-error Type checking is performed in runtime.
-    if (ALLOWED_EXTERNAL_ORIGINS.has(origin)) {
+    if (ALLOWED_EXTERNAL_ORIGINS.has(origin as `https://${string}`)) {
       // Open url in default browser.
       shell.openExternal(url).catch(console.error);
     } else if (import.meta.env.DEV) {
