@@ -1,6 +1,6 @@
 import type {Session} from 'electron';
 import {app, shell} from 'electron';
-import {URL} from 'url';
+import {URL} from 'node:url';
 
 /**
  * Union for all existing permissions in electron

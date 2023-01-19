@@ -1,1 +1,1 @@
-export const versions = process.versions;
+export {versions} from 'node:process';
