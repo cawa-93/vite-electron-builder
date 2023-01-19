@@ -77,7 +77,7 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
   - Unit tests are placed within each package and are ran separately.
   - End-to-end tests are placed in the root [`tests`](tests) directory and use [playwright].
 
-![зображення](https://user-images.githubusercontent.com/1662812/204089645-d0209ce2-7259-4b66-ac71-22a7f608be35.png)
+![Workflow graph](https://user-images.githubusercontent.com/1662812/213429323-ef4bcc87-c273-4f2f-b77f-c04cf6dbc36d.png)
 
 
 ### Publishing
