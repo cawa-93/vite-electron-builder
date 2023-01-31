@@ -56,12 +56,15 @@ test('Preload versions', async () => {
     1,
   );
 
-  const renderedVersions = await versionsElement.innerText();
+  /**
+   * In this test we check only text value and don't care about formatting. That's why here we remove any space symbols
+   */
+  const renderedVersions = (await versionsElement.innerText()).replace(/\s/g, '');
   const expectedVersions = await electronApp.evaluate(() => process.versions);
 
   for (const expectedVersionsKey in expectedVersions) {
     expect(renderedVersions).include(
-      `${expectedVersionsKey}: v${expectedVersions[expectedVersionsKey]}`,
+      `${expectedVersionsKey}:v${expectedVersions[expectedVersionsKey]}`,
     );
   }
 });

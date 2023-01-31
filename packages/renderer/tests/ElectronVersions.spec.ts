@@ -12,8 +12,12 @@ test('ElectronVersions component', async () => {
   expect(ElectronVersions).toBeTruthy();
   const wrapper = mount(ElectronVersions);
 
-  const lis = wrapper.findAll<HTMLElement>('li');
-  expect(lis.length).toBe(2);
-  expect(lis[0].text()).toBe('lib1: v1');
-  expect(lis[1].text()).toBe('lib2: v2');
+  const rows = wrapper.findAll<HTMLTableRowElement>('tr');
+  expect(rows.length).toBe(2);
+
+  expect(rows[0].find('th').text()).toBe('lib1 :');
+  expect(rows[0].find('td').text()).toBe('v1');
+
+  expect(rows[1].find('th').text()).toBe('lib2 :');
+  expect(rows[1].find('td').text()).toBe('v2');
 });
