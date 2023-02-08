@@ -1,6 +1,8 @@
 import {node} from '../../.electron-vendors.cache.json';
 import {join} from 'node:path';
 import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
+import nodeBuiltins from 'builtin-modules/static';
+import electronBuiltins from 'electron-builtins';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -19,7 +21,6 @@ const config = {
     },
   },
   build: {
-    ssr: true,
     sourcemap: 'inline',
     target: `node${node}`,
     outDir: 'dist',
@@ -32,6 +33,15 @@ const config = {
     rollupOptions: {
       output: {
         entryFileNames: '[name].cjs',
+      },
+      external: src => {
+        const [name] = src.split('/');
+        const externalNames = [
+          ...nodeBuiltins,
+          ...nodeBuiltins.map(name => `node:${name}`),
+          ...electronBuiltins,
+        ];
+        return externalNames.includes(name);
       },
     },
     emptyOutDir: true,
