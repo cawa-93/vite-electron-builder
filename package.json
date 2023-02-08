@@ -30,7 +30,6 @@
     "watch": "node scripts/watch.mjs"
   },
   "dependencies": {
-    "electron": "23.0.0",
     "electron-updater": "5.3.0",
     "vue": "3.2.47"
   },
@@ -41,6 +40,7 @@
     "@vue/test-utils": "2.2.10",
     "builtin-modules": "^3.3.0",
     "cross-env": "7.0.3",
+    "electron": "23.0.0",
     "electron-builder": "23.6.0",
     "electron-builtins": "^1.0.0",
     "eslint": "8.33.0",
