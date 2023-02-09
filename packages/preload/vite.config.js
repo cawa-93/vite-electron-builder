@@ -17,6 +17,7 @@ const config = {
   root: PACKAGE_ROOT,
   envDir: PROJECT_ROOT,
   build: {
+    ssr: true,
     sourcemap: 'inline',
     target: `chrome${chrome}`,
     outDir: 'dist',
@@ -42,6 +43,9 @@ const config = {
     },
     emptyOutDir: true,
     reportCompressedSize: false,
+  },
+  ssr: {
+    noExternal: true,
   },
   plugins: [preload.vite(), injectAppVersion()],
 };

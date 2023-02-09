@@ -21,6 +21,7 @@ const config = {
     },
   },
   build: {
+    ssr: true,
     sourcemap: 'inline',
     target: `node${node}`,
     outDir: 'dist',
@@ -46,6 +47,9 @@ const config = {
     },
     emptyOutDir: true,
     reportCompressedSize: false,
+  },
+  ssr: {
+    noExternal: true,
   },
   plugins: [injectAppVersion()],
 };
