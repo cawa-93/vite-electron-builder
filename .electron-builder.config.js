@@ -17,6 +17,7 @@ module.exports = async function () {
       buildResources: 'buildResources',
     },
     files: ['packages/**/dist/**', '!node_modules/**/*'],
+    includeSubNodeModules: true,
     extraMetadata: {
       version: getVersion(),
     },
