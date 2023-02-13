@@ -1,8 +1,8 @@
 import {chrome} from '../../.electron-vendors.cache.json';
 import {preload} from 'unplugin-auto-expose';
+import {isBuiltin} from 'node:module';
 import {join} from 'node:path';
 import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
-import nodeBuiltins from 'builtin-modules/static';
 import electronBuiltins from 'electron-builtins';
 
 const PACKAGE_ROOT = __dirname;
@@ -40,13 +40,8 @@ const config = {
         entryFileNames: info => `${info.name}.cjs`,
       },
       external: src => {
-        const [name] = src.split('/');
-        const externalNames = [
-          ...nodeBuiltins,
-          ...nodeBuiltins.map(name => `node:${name}`),
-          ...electronBuiltins,
-        ];
-        return externalNames.includes(name);
+        const name = src.split('/')[0];
+        return isBuiltin(name) || electronBuiltins.includes(name);
       },
     },
     commonjsOptions: {
