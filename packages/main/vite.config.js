@@ -33,7 +33,8 @@ const config = {
     },
     rollupOptions: {
       /**
-       * https://github.com/vitejs/vite/issues/12012
+       * Workaround for vitejs/vite#12012
+       * See https://github.com/vitejs/vite/issues/12012
        */
       preserveEntrySignatures: 'strict',
       output: {
