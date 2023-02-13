@@ -2,7 +2,6 @@ import {node} from '../../.electron-vendors.cache.json';
 import {isBuiltin} from 'node:module';
 import {join} from 'node:path';
 import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
-import electronBuiltins from 'electron-builtins';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -45,7 +44,7 @@ const config = {
       },
       external: src => {
         const name = src.split('/')[0];
-        return isBuiltin(name) || electronBuiltins.includes(name);
+        return isBuiltin(name) || name === 'electron';
       },
     },
     commonjsOptions: {
