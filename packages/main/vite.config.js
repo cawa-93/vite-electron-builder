@@ -32,6 +32,10 @@ const config = {
       formats: ['cjs'],
     },
     rollupOptions: {
+      /**
+       * https://github.com/vitejs/vite/issues/12012
+       */
+      preserveEntrySignatures: 'strict',
       output: {
         exports: 'named',
         preserveModules: true,
