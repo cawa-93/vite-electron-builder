@@ -1,5 +1,5 @@
 import {node} from '../../.electron-vendors.cache.json';
-import {isBuiltin} from 'node:module';
+import {builtinModules} from 'node:module';
 import {join} from 'node:path';
 import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
 
@@ -44,7 +44,12 @@ const config = {
       },
       external: src => {
         const name = src.split('/')[0];
-        return isBuiltin(name) || name === 'electron';
+        const externalNames = [
+          ...builtinModules,
+          ...builtinModules.map(name => `node:${name}`),
+          'electron',
+        ];
+        return externalNames.includes(name);
       },
     },
     commonjsOptions: {
