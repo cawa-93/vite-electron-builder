@@ -1,5 +1,6 @@
 import {chrome} from '../../.electron-vendors.cache.json';
 import {preload} from 'unplugin-auto-expose';
+import {builtinModules} from 'node:module';
 import {join} from 'node:path';
 import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
 
@@ -26,12 +27,35 @@ const config = {
       formats: ['cjs'],
     },
     rollupOptions: {
+      /**
+       * Workaround for vitejs/vite#12012
+       * See https://github.com/vitejs/vite/issues/12012
+       */
+      preserveEntrySignatures: 'strict',
       output: {
-        entryFileNames: '[name].cjs',
+        exports: 'named',
+        preserveModules: true,
+        preserveModulesRoot: join(PACKAGE_ROOT, 'src'),
+        entryFileNames: info => `${info.name}.cjs`,
       },
+      external: src => {
+        const name = src.split('/')[0];
+        const externalNames = [
+          ...builtinModules,
+          ...builtinModules.map(name => `node:${name}`),
+          'electron',
+        ];
+        return externalNames.includes(name);
+      },
+    },
+    commonjsOptions: {
+      ignoreDynamicRequires: true,
     },
     emptyOutDir: true,
     reportCompressedSize: false,
+  },
+  ssr: {
+    noExternal: true,
   },
   plugins: [preload.vite(), injectAppVersion()],
 };
