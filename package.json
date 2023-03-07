@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@types/node": "18.14.6",
-    "@typescript-eslint/eslint-plugin": "5.54.0",
+    "@typescript-eslint/eslint-plugin": "5.54.1",
     "@vitejs/plugin-vue": "4.0.0",
     "@vue/test-utils": "2.3.0",
     "cross-env": "7.0.3",
