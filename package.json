@@ -1,13 +1,8 @@
 {
   "name": "vite-electron-builder",
-  "description": "Secure boilerplate for Electron app based on Vite",
+  "description": "Electron app based on Vite",
   "version": "1.0.2",
   "private": true,
-  "author": {
-    "email": "kozackunisoft@gmail.com",
-    "name": "Alex Kozack",
-    "url": "https://kozack.me"
-  },
   "main": "packages/main/dist/index.cjs",
   "scripts": {
     "build": "npm run build:main && npm run build:preload && npm run build:renderer",
