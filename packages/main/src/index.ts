@@ -55,25 +55,3 @@ app
 //     .catch(e => console.error('Failed install extension:', e));
 // }
 
-/**
- * Check for app updates, install it in background and notify user that new version was installed.
- * No reason run this in non-production build.
- * @see https://www.electron.build/auto-update.html#quick-setup-guide
- *
- * Note: It may throw "ENOENT: no such file app-update.yml"
- * if you compile production app without publishing it to distribution server.
- * Like `npm run compile` does. It's ok 😅
- */
-if (import.meta.env.PROD) {
-  app
-    .whenReady()
-    .then(() => import('electron-updater'))
-    .then(module => {
-      const autoUpdater =
-        module.autoUpdater ||
-        // @ts-expect-error Hotfix for https://github.com/electron-userland/electron-builder/issues/7338
-        (module.default.autoUpdater as (typeof module)['autoUpdater']);
-      return autoUpdater.checkForUpdatesAndNotify();
-    })
-    .catch(e => console.error('Failed check and install updates:', e));
-}
