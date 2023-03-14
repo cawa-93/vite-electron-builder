@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import {computed, ref} from 'vue';
-import {sha256sum} from '#preload';
+import { computed, ref } from "vue";
+import { sha256sum } from "#preload";
 
-const rawString = ref('Hello World');
+const rawString = ref("Hello World");
 const hashedString = computed(() => sha256sum(rawString.value));
 </script>
 
@@ -13,11 +13,7 @@ const hashedString = computed(() => sha256sum(rawString.value));
         <label for="reactive-hash-raw-value">Raw value :</label>
       </th>
       <td>
-        <input
-          id="reactive-hash-raw-value"
-          v-model="rawString"
-          type="text"
-        />
+        <input id="reactive-hash-raw-value" v-model="rawString" type="text" />
       </td>
     </tr>
 

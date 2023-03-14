@@ -1,13 +1,10 @@
 <script lang="ts" setup>
-import {versions} from '#preload';
+import { versions } from "#preload";
 </script>
 
 <template>
   <table id="process-versions">
-    <tr
-      v-for="(version, lib) in versions"
-      :key="lib"
-    >
+    <tr v-for="(version, lib) in versions" :key="lib">
       <th>{{ lib }} :</th>
       <td>v{{ version }}</td>
     </tr>

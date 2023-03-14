@@ -1,1 +1,1 @@
-export {versions} from 'node:process';
+export { versions } from "node:process";
