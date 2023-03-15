@@ -1,21 +1,29 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "allowJs": false,
-    "skipLibCheck": true,
-    "esModuleInterop": false,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "ESNext",
+    "module": "esnext",
+    "target": "esnext",
+    "sourceMap": false,
     "moduleResolution": "Node",
-    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "#preload": ["../preload/src/index"],
+      "/@/*": ["./src/*"]
+    },
+    "lib": ["ESNext", "dom", "dom.iterable"],
+    "jsx": "react-jsx",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": [
+    "src/**/*.vue",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "types/**/*.d.ts",
+    "../../types/**/*.d.ts"
+  ],
+  "exclude": ["**/*.spec.ts", "**/*.test.ts"]
 }
