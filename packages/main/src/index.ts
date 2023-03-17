@@ -45,13 +45,20 @@ app
  * Note: You must install `electron-devtools-installer` manually
  */
 // if (import.meta.env.DEV) {
-//   app.whenReady()
+//   app
+//     .whenReady()
 //     .then(() => import('electron-devtools-installer'))
-//     .then(({default: installExtension, VUEJS3_DEVTOOLS}) => installExtension(VUEJS3_DEVTOOLS, {
-//       loadExtensionOptions: {
-//         allowFileAccess: true,
-//       },
-//     }))
+//     .then(module => {
+//       const {default: installExtension, VUEJS3_DEVTOOLS} =
+//         // @ts-expect-error Hotfix for https://github.com/cawa-93/vite-electron-builder/issues/915
+//         typeof module.default === 'function' ? module : (module.default as typeof module);
+//
+//       return installExtension(VUEJS3_DEVTOOLS, {
+//         loadExtensionOptions: {
+//           allowFileAccess: true,
+//         },
+//       });
+//     })
 //     .catch(e => console.error('Failed install extension:', e));
 // }
 
