@@ -44,7 +44,7 @@
     "playwright": "1.34.3",
     "simple-git-hooks": "2.8.1",
     "typescript": "5.0.4",
-    "unplugin-auto-expose": "0.0.4",
+    "unplugin-auto-expose": "0.0.5",
     "vite": "4.3.9",
     "vitest": "0.31.2",
     "vue": "3.3.4",
