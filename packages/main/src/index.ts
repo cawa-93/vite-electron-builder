@@ -74,13 +74,13 @@ app
 if (import.meta.env.PROD) {
   app
     .whenReady()
-    .then(() => import('electron-updater'))
-    .then(module => {
-      const autoUpdater =
-        module.autoUpdater ||
-        // @ts-expect-error Hotfix for https://github.com/electron-userland/electron-builder/issues/7338
-        (module.default.autoUpdater as (typeof module)['autoUpdater']);
-      return autoUpdater.checkForUpdatesAndNotify();
-    })
+    .then(() =>
+      /**
+       * Here we forced to use `require` since electron doesn't fully support dynamic import in asar archives
+       * @see https://github.com/electron/electron/issues/38829
+       * Potentially it may be fixed by this https://github.com/electron/electron/pull/37535
+       */
+      require('electron-updater').autoUpdater.checkForUpdatesAndNotify(),
+    )
     .catch(e => console.error('Failed check and install updates:', e));
 }
