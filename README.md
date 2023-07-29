@@ -18,7 +18,7 @@ Follow these steps to get started with the template:
 2. [Release action](/.github/workflows/release.yml) will try to create new release drafts. So you need to go to your repository setting and set "Workflow permissions" to "Read and write permissions".
 3. If you want to use another package manager you may need to edit [`.github/workflows`](/.github/workflows) — [it
    uses `npm` by default](https://github.com/search?q=npm+repo%3Acawa-93%2Fvite-electron-builder+path%3A.github%2Fworkflows&type=Code&ref=advsearch&l=&l=). (See also https://github.com/cawa-93/vite-electron-builder/issues/944)
-4. **If you like this template, don't forget to give a github star or [send support](https://www.buymeacoffee.com/kozack/)!** ⭐♥
+4. ❤️ **If you like this template, don't forget to give a ⭐ or [send support](https://www.buymeacoffee.com/kozack/)!** 
 
 That's all you need. 😉
 
