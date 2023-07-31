@@ -21,6 +21,9 @@ defaults:
 jobs:
   draft_release:
 
+    permissions:
+      contents: write # Allows this job to create releases
+
     strategy:
       fail-fast: true
       matrix:

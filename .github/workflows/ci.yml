@@ -40,6 +40,8 @@ jobs:
   tests:
     uses: ./.github/workflows/tests.yml
   draft_release:
+    permissions:
+      contents: write # Allows this job to create releases
     with:
       dry-run: ${{ github.event_name != 'push' || github.ref_name != 'main' }}
     needs: [ typechecking, tests ]
