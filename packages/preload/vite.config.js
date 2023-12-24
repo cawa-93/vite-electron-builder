@@ -1,5 +1,5 @@
 import {chrome} from '../../.electron-vendors.cache.json';
-import {preload} from 'unplugin-auto-expose';
+// import {preload} from 'unplugin-auto-expose';
 import {join} from 'node:path';
 import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
 
@@ -23,17 +23,19 @@ const config = {
     minify: process.env.MODE !== 'development',
     lib: {
       entry: 'src/index.ts',
-      formats: ['cjs'],
+      formats: ['es'],
     },
     rollupOptions: {
       output: {
-        entryFileNames: '[name].cjs',
+        entryFileNames: '[name].mjs',
       },
     },
     emptyOutDir: true,
     reportCompressedSize: false,
   },
-  plugins: [preload.vite(), injectAppVersion()],
+
+// TODO: Enable unplugin-auto-expose when it will be fixed for ESM support
+  plugins: [/* vite.preload(), */ injectAppVersion()],
 };
 
 export default config;

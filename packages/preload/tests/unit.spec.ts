@@ -1,6 +1,14 @@
 import {createHash} from 'crypto';
-import {expect, test} from 'vitest';
+import {expect, test, vi} from 'vitest';
 import {sha256sum, versions} from '../src';
+
+// TODO: Remove this workaround after unplugin-auto-expose will be fixed for ESM support
+vi.mock('electron', () => ({
+  contextBridge: {
+    exposeInMainWorld: () => {
+    },
+  },
+}));
 
 test('versions', async () => {
   expect(versions).toBe(process.versions);
