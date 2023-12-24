@@ -42,7 +42,6 @@ test('Main window state', async () => {
 
   console.log('await window.evaluate');
 
-
   expect(windowState.isCrashed, 'The app has crashed').toBeFalsy();
   expect(windowState.isVisible, 'The main window was not visible').toBeTruthy();
   expect(windowState.isDevToolsOpened, 'The DevTools panel was open').toBeFalsy();

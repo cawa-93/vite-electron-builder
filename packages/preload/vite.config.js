@@ -34,7 +34,7 @@ const config = {
     reportCompressedSize: false,
   },
 
-// TODO: Enable unplugin-auto-expose when it will be fixed for ESM support
+  // TODO: Enable unplugin-auto-expose when it will be fixed for ESM support
   plugins: [/* vite.preload(), */ injectAppVersion()],
 };
 

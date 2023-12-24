@@ -2,7 +2,6 @@ import {app, BrowserWindow} from 'electron';
 import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 
-
 async function createWindow() {
   const browserWindow = new BrowserWindow({
     show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.
