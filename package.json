@@ -38,7 +38,7 @@
     "electron": "27.2.2",
     "electron-builder": "24.9.1",
     "eslint": "8.56.0",
-    "eslint-plugin-vue": "9.20.0",
+    "eslint-plugin-vue": "9.20.1",
     "happy-dom": "13.0.2",
     "nano-staged": "0.8.0",
     "playwright": "1.40.1",
