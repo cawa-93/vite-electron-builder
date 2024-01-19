@@ -41,7 +41,7 @@
     "eslint-plugin-vue": "9.20.1",
     "happy-dom": "13.2.0",
     "nano-staged": "0.8.0",
-    "playwright": "1.41.0",
+    "playwright": "1.41.1",
     "simple-git-hooks": "2.9.0",
     "typescript": "5.3.3",
     "unplugin-auto-expose": "0.2.2",
