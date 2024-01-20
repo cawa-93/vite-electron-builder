@@ -1,6 +1,5 @@
 import {node} from '../../.electron-vendors.cache.json';
 import {join} from 'node:path';
-import {injectAppVersion} from '../../version/inject-app-version-plugin.js';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -37,7 +36,6 @@ const config = {
     emptyOutDir: true,
     reportCompressedSize: false,
   },
-  plugins: [injectAppVersion()],
 };
 
 export default config;
