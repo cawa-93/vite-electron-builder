@@ -136,7 +136,7 @@ subgraph Window["Browser Window"]
     subgraph packages/renderer
     R[index.html] --> W[Web API]
     R --> BD[Bundled dependencies]
-    R --> F[Web Frameforks]
+    R --> F[Web Frameworks]
     end
     end
 
