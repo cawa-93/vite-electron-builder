@@ -1,4 +1,4 @@
-import {getVersion} from './getVersion.mjs';
+import {getVersion} from './getVersion.js';
 
 /**
  * Somehow inject app version to vite build context

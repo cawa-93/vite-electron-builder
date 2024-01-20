@@ -1,7 +1,7 @@
 import {chrome} from '../../.electron-vendors.cache.json';
 import {preload} from 'unplugin-auto-expose';
 import {join} from 'node:path';
-import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
+import {injectAppVersion} from '../../version/inject-app-version-plugin.js';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -27,6 +27,8 @@ const config = {
     },
     rollupOptions: {
       output: {
+        // ESM preload scripts must have the .mjs extension
+        // https://www.electronjs.org/docs/latest/tutorial/esm#esm-preload-scripts-must-have-the-mjs-extension
         entryFileNames: '[name].mjs',
       },
     },

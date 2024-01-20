@@ -6,7 +6,7 @@
       "request": "launch",
       "name": "Debug Main Process",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\scripts\\watch.mjs",
+      "program": "${workspaceFolder}\\scripts\\watch.js",
       "autoAttachChildProcesses": true
     }
   ]
