@@ -1,7 +1,6 @@
 import {chrome} from '../../.electron-vendors.cache.json';
 import {preload} from 'unplugin-auto-expose';
 import {join} from 'node:path';
-import {injectAppVersion} from '../../version/inject-app-version-plugin.mjs';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -23,17 +22,20 @@ const config = {
     minify: process.env.MODE !== 'development',
     lib: {
       entry: 'src/index.ts',
-      formats: ['cjs'],
+      formats: ['es'],
     },
     rollupOptions: {
       output: {
-        entryFileNames: '[name].cjs',
+        // ESM preload scripts must have the .mjs extension
+        // https://www.electronjs.org/docs/latest/tutorial/esm#esm-preload-scripts-must-have-the-mjs-extension
+        entryFileNames: '[name].mjs',
       },
     },
     emptyOutDir: true,
     reportCompressedSize: false,
   },
-  plugins: [preload.vite(), injectAppVersion()],
+
+  plugins: [preload.vite()],
 };
 
 export default config;
