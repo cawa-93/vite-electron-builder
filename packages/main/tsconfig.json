@@ -11,9 +11,9 @@
     "types": ["node"],
     "baseUrl": ".",
     "paths": {
-      "/@/*": ["./src/*"],
-    },
+      "/@/*": ["./src/*"]
+    }
   },
   "include": ["src/**/*.ts", "../../types/**/*.d.ts"],
-  "exclude": ["**/*.spec.ts", "**/*.test.ts"],
+  "exclude": ["**/*.spec.ts", "**/*.test.ts"]
 }
