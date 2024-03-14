@@ -1,10 +1,20 @@
 import {app, BrowserWindow} from 'electron';
 import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import store from '/@/utils/store';
+
+const windowBounds = (import.meta.env.DEV) ? store.get('main.window.bounds-dev') ??{
+  width: 1800,
+  height: 1200,
+} : store.get('main.window.bounds') ?? {
+  width: 900,
+  height: 600,
+};
 
 async function createWindow() {
   const browserWindow = new BrowserWindow({
     show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.
+    ...windowBounds,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
@@ -28,6 +38,13 @@ async function createWindow() {
     if (import.meta.env.DEV) {
       browserWindow?.webContents.openDevTools();
     }
+  });
+
+  /**
+   * When the browserWindow closes, save the window bounds to the store.
+   */
+  browserWindow.on('close', () => {
+    store.set(`main.window.bounds${ (import.meta.env.DEV) ? '-dev' : ''}`, browserWindow.getBounds());
   });
 
   /**
