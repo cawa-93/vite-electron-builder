@@ -50,11 +50,10 @@ app
 //     .whenReady()
 //     .then(() => import('electron-devtools-installer'))
 //     .then(module => {
-//       const {default: installExtension, VUEJS3_DEVTOOLS} =
-//         // @ts-expect-error Hotfix for https://github.com/cawa-93/vite-electron-builder/issues/915
+//       const {default: installExtension, VUEJS_DEVTOOLS} =
 //         typeof module.default === 'function' ? module : (module.default as typeof module);
 //
-//       return installExtension(VUEJS3_DEVTOOLS, {
+//       return installExtension(VUEJS_DEVTOOLS, {
 //         loadExtensionOptions: {
 //           allowFileAccess: true,
 //         },
