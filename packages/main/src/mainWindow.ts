@@ -3,13 +3,15 @@ import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import store from '/@/utils/store';
 
-const windowBounds = (import.meta.env.DEV) ? store.get('main.window.bounds-dev') ??{
-  width: 1800,
-  height: 1200,
-} : store.get('main.window.bounds') ?? {
-  width: 900,
-  height: 600,
-};
+const windowBounds = import.meta.env.DEV
+  ? store.get('main.window.bounds-dev') ?? {
+      width: 1800,
+      height: 1200,
+    }
+  : store.get('main.window.bounds') ?? {
+      width: 900,
+      height: 600,
+    };
 
 async function createWindow() {
   const browserWindow = new BrowserWindow({
@@ -44,7 +46,7 @@ async function createWindow() {
    * When the browserWindow closes, save the window bounds to the store.
    */
   browserWindow.on('close', () => {
-    store.set(`main.window.bounds${ (import.meta.env.DEV) ? '-dev' : ''}`, browserWindow.getBounds());
+    store.set(`main.window.bounds${import.meta.env.DEV ? '-dev' : ''}`, browserWindow.getBounds());
   });
 
   /**
