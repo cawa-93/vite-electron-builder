@@ -40,7 +40,7 @@
     "electron-builder": "24.13.3",
     "eslint": "8.57.0",
     "eslint-plugin-vue": "9.24.0",
-    "happy-dom": "14.3.9",
+    "happy-dom": "14.3.10",
     "nano-staged": "0.8.0",
     "playwright": "1.42.1",
     "simple-git-hooks": "2.11.1",
