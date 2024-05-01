@@ -49,7 +49,7 @@
     "vite": "5.2.10",
     "vitest": "1.5.3",
     "vue": "3.4.26",
-    "vue-tsc": "2.0.15"
+    "vue-tsc": "2.0.16"
   },
   "dependencies": {
     "electron-updater": "6.1.8"
