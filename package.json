@@ -34,7 +34,7 @@
     "@types/node": "20.12.10",
     "@typescript-eslint/eslint-plugin": "7.8.0",
     "@vitejs/plugin-vue": "5.0.4",
-    "@vue/test-utils": "2.4.5",
+    "@vue/test-utils": "2.4.6",
     "cross-env": "7.0.3",
     "electron": "30.0.2",
     "electron-builder": "24.13.3",
