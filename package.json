@@ -33,7 +33,7 @@
   "devDependencies": {
     "@types/node": "20.12.13",
     "@typescript-eslint/eslint-plugin": "7.11.0",
-    "@vitejs/plugin-vue": "5.0.4",
+    "@vitejs/plugin-vue": "5.0.5",
     "@vue/test-utils": "2.4.6",
     "cross-env": "7.0.3",
     "electron": "30.0.9",
