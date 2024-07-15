@@ -47,7 +47,7 @@
     "typescript": "5.5.3",
     "unplugin-auto-expose": "0.3.0",
     "vite": "5.3.3",
-    "vitest": "2.0.2",
+    "vitest": "2.0.3",
     "vue": "3.4.31",
     "vue-tsc": "2.0.26"
   },
