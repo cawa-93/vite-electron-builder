@@ -1,6 +1,6 @@
 import {app} from 'electron';
 import './security-restrictions';
-import {restoreOrCreateWindow} from '/@/mainWindow';
+import {restoreOrCreateWindow} from '/@/mainWindow.js';
 import {platform} from 'node:process';
 import updater from 'electron-updater';
 
