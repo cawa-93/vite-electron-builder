@@ -11,6 +11,7 @@ on:
       - '**.cts'
       - '**.tsx'
       - '**.vue'
+      - 'package-lock.json'
   pull_request:
     paths:
       - '**.js'
@@ -22,6 +23,7 @@ on:
       - '**.cts'
       - '**.tsx'
       - '**.vue'
+      - 'package-lock.json'
 
 concurrency:
   group: lint-${{ github.ref }}
