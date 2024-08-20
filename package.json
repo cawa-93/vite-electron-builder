@@ -37,7 +37,7 @@
     "@vitejs/plugin-vue": "5.1.2",
     "@vue/test-utils": "2.4.6",
     "cross-env": "7.0.3",
-    "electron": "31.4.0",
+    "electron": "32.0.0",
     "electron-builder": "24.13.3",
     "eslint": "9.9.0",
     "eslint-config-prettier": "9.1.0",
