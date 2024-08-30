@@ -43,7 +43,7 @@
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-vue": "9.27.0",
     "globals": "15.9.0",
-    "happy-dom": "15.6.1",
+    "happy-dom": "15.7.0",
     "nano-staged": "0.8.0",
     "playwright": "1.46.1",
     "simple-git-hooks": "2.11.1",
