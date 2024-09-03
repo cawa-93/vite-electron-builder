@@ -41,7 +41,7 @@
     "electron-builder": "24.13.3",
     "eslint": "9.9.1",
     "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-vue": "9.27.0",
+    "eslint-plugin-vue": "9.28.0",
     "globals": "15.9.0",
     "happy-dom": "15.7.3",
     "nano-staged": "0.8.0",
