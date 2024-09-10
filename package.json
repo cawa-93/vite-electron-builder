@@ -52,7 +52,7 @@
     "unplugin-auto-expose": "0.3.0",
     "vite": "5.4.3",
     "vitest": "2.0.5",
-    "vue": "3.5.3",
+    "vue": "3.5.4",
     "vue-tsc": "2.1.6"
   },
   "dependencies": {
