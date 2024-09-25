@@ -33,7 +33,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.11.1",
-    "@types/node": "20.16.7",
+    "@types/node": "20.16.9",
     "@vitejs/plugin-vue": "5.1.4",
     "@vue/test-utils": "2.4.6",
     "cross-env": "7.0.3",
