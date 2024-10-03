@@ -38,7 +38,7 @@
     "@vue/test-utils": "2.4.6",
     "cross-env": "7.0.3",
     "electron": "32.1.2",
-    "electron-builder": "25.0.5",
+    "electron-builder": "25.1.7",
     "eslint": "9.11.1",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-vue": "9.28.0",
