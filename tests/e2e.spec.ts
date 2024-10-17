@@ -15,11 +15,8 @@ afterAll(async () => {
 });
 
 test('Main window state', async () => {
-  console.log('start');
   const page = await electronApp.firstWindow();
-  console.log('await electronApp.firstWindow');
   const window: JSHandle<BrowserWindow> = await electronApp.browserWindow(page);
-  console.log('await electronApp.browserWindow(page)');
   const windowState = await window.evaluate(
     (mainWindow): Promise<{isVisible: boolean; isDevToolsOpened: boolean; isCrashed: boolean}> => {
       const getState = () => ({
