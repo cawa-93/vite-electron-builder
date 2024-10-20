@@ -37,6 +37,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           cache: 'npm'
+          node-version: 'latest'
 
       - run: npm ci
         env:
