@@ -48,23 +48,23 @@ export function initApp() {
    * Install Vue.js or any other extension in development mode only.
    * Note: You must install `electron-devtools-installer` manually
    */
-// if (import.meta.env.DEV) {
-//   app
-//     .whenReady()
-//     .then(() => import('electron-devtools-installer'))
-//     .then(module => {
-//       const {default: installExtension, VUEJS_DEVTOOLS} =
-//         //@ts-expect-error Hotfix for https://github.com/cawa-93/vite-electron-builder/issues/915
-//         typeof module.default === 'function' ? module : (module.default as typeof module);
-//
-//       return installExtension(VUEJS_DEVTOOLS, {
-//         loadExtensionOptions: {
-//           allowFileAccess: true,
-//         },
-//       });
-//     })
-//     .catch(e => console.error('Failed install extension:', e));
-// }
+  // if (import.meta.env.DEV) {
+  //   app
+  //     .whenReady()
+  //     .then(() => import('electron-devtools-installer'))
+  //     .then(module => {
+  //       const {default: installExtension, VUEJS_DEVTOOLS} =
+  //         //@ts-expect-error Hotfix for https://github.com/cawa-93/vite-electron-builder/issues/915
+  //         typeof module.default === 'function' ? module : (module.default as typeof module);
+  //
+  //       return installExtension(VUEJS_DEVTOOLS, {
+  //         loadExtensionOptions: {
+  //           allowFileAccess: true,
+  //         },
+  //       });
+  //     })
+  //     .catch(e => console.error('Failed install extension:', e));
+  // }
 
   /**
    * Check for app updates, install it in background and notify user that new version was installed.

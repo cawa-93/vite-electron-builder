@@ -22,7 +22,7 @@
     "lint": "eslint .",
     "typecheck": "npm run typecheck -ws",
     "postinstall": "cross-env ELECTRON_RUN_AS_NODE=1 electron scripts/update-electron-vendors.js",
-    "format": "npx prettier --write \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
+    "format": "npm run format -ws"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.1.0",

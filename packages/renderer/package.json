@@ -5,7 +5,8 @@
   "scripts": {
     "build": "vite build",
     "test": "vitest run --passWithNoTests",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "format": "npx prettier --write \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",

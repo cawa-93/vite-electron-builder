@@ -5,7 +5,8 @@
   "scripts": {
     "build": "vite build",
     "test": "vitest run --passWithNoTests",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "format": "npx prettier --write \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
   },
   "devDependencies": {
     "unplugin-auto-expose": "^0.3.0",
