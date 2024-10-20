@@ -4,8 +4,11 @@ import {restoreOrCreateWindow} from '/@/mainWindow.js';
 import {platform} from 'node:process';
 import updater from 'electron-updater';
 
-// noinspection JSUnusedGlobalSymbols
+// Export for tests
+export {restoreOrCreateWindow};
+
 // Used in packages/entry-point.js
+// noinspection JSUnusedGlobalSymbols
 export function initApp() {
   /**
    * Prevent electron from running multiple instances.
