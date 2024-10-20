@@ -6,7 +6,7 @@
     "build": "vite build",
     "test": "vitest run --passWithNoTests",
     "typecheck": "tsc --noEmit",
-    "format": "npx prettier --write \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
+    "format": "npx prettier --check \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
   },
   "dependencies": {
     "@vite-electron-builder/preload": "*",
