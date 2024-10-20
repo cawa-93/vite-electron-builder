@@ -8,6 +8,9 @@
     "typecheck": "tsc --noEmit",
     "format": "npx prettier --check \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
   },
+  "files": [
+    "dist/**"
+  ],
   "dependencies": {
     "@vite-electron-builder/preload": "*",
     "@vite-electron-builder/renderer": "*",

@@ -8,6 +8,9 @@
     "typecheck": "vue-tsc --noEmit",
     "format": "npx prettier --check \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
   },
+  "files": [
+    "dist/**"
+  ],
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.1.4",
     "@vue/test-utils": "^2.4.6",

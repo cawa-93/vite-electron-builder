@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "build": "npm run build -ws",
-    "compile": "cross-env MODE=production npm run build && electron-builder build --config electron-builder.mjs --dir --config.asar=false",
+    "compile": "electron-builder build --config electron-builder.mjs --dir --config.asar=false",
     "test": "npm run test -ws",
     "test:e2e": "vitest run",
     "watch": "node scripts/watch.js",
@@ -27,6 +27,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.13.0",
+    "@npmcli/map-workspaces": "^4.0.1",
     "@types/node": "20.16.13",
     "cross-env": "7.0.3",
     "electron": "33.0.1",
