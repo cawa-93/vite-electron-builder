@@ -3,11 +3,11 @@ import {afterAll, expect, test, vi} from 'vitest';
 import {sha256sum, versions} from '../dist/index.mjs';
 import {contextBridge} from 'electron';
 vi.mock('electron', () => {
-  return ({
+  return {
     contextBridge: {
       exposeInMainWorld: vi.fn(),
     },
-  });
+  };
 });
 
 afterAll(() => {
