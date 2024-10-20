@@ -1,9 +1,0 @@
-directories:
-  output: dist
-  buildResources: buildResources
-
-files:
-  - packages/**/dist/**
-
-linux:
-  target: deb

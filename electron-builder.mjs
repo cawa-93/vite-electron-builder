@@ -4,6 +4,6 @@ export default {
     buildResources: 'buildResources',
   },
   files: [
-    'packages/index.js',
+    'packages/entry-point.js',
   ],
 };
