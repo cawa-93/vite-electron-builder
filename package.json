@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "build": "npm run build -ws",
-    "compile": "electron-builder build --config electron-builder.mjs --dir --config.asar=false",
+    "compile": "cross-env MODE=production npm run build && electron-builder build --config electron-builder.mjs --dir --config.asar=false",
     "test": "npm run test -ws",
     "test:e2e": "vitest run",
     "watch": "node scripts/watch.js",
