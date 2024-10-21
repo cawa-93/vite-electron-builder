@@ -1,0 +1,23 @@
+{
+  "name": "@vite-electron-builder/main",
+  "type": "module",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit",
+    "format": "npx prettier --check \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
+  },
+  "files": [
+    "dist/**"
+  ],
+  "dependencies": {
+    "@vite-electron-builder/preload": "*",
+    "@vite-electron-builder/renderer": "*",
+    "electron-updater": "^6.3.9"
+  },
+  "devDependencies": {
+    "vite": "^5.4.9",
+    "vitest": "^2.1.3"
+  }
+}

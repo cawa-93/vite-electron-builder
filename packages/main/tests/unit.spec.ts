@@ -1,6 +1,6 @@
 import type {MockedClass, MockedObject} from 'vitest';
 import {beforeEach, expect, test, vi} from 'vitest';
-import {restoreOrCreateWindow} from '../src/mainWindow';
+import {restoreOrCreateWindow} from '../dist/index.js';
 
 import {BrowserWindow} from 'electron';
 import type * as Electron from 'electron';
@@ -22,7 +22,8 @@ vi.mock('electron', () => {
   bw.prototype.focus = vi.fn();
   bw.prototype.restore = vi.fn();
 
-  const app: Pick<Electron.App, 'getAppPath'> = {
+  const app: Pick<Electron.App, 'getAppPath' | 'on'> = {
+    on: vi.fn(),
     getAppPath(): string {
       return '';
     },

@@ -37,6 +37,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           cache: 'npm'
+          node-version: 'latest'
 
       - run: npm ci
         env:
@@ -55,7 +56,7 @@ jobs:
           shell: 'bash'
           # Due to this issue https://github.com/electron-userland/electron-builder/issues/6411 the build with npx when rebuilding native dependencies hangs forever
           # see https://github.com/cawa-93/vite-electron-builder/pull/953
-          command: ./node_modules/.bin/electron-builder --config electron-builder.yml --publish ${{ inputs.dry-run && 'never' || 'always' }}
+          command: ./node_modules/.bin/electron-builder --config electron-builder.mjs --publish ${{ inputs.dry-run && 'never' || 'always' }}
         env:
           # Code Signing params
           # See https://www.electron.build/code-signing

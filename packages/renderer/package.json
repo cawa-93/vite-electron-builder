@@ -1,0 +1,23 @@
+{
+  "name": "@vite-electron-builder/renderer",
+  "type": "module",
+  "main": "./dist/index.html",
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "vue-tsc --noEmit",
+    "format": "npx prettier --check \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
+  },
+  "files": [
+    "dist/**"
+  ],
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "@vue/test-utils": "^2.4.6",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.9",
+    "vitest": "^2.1.3",
+    "vue": "^3.5.12",
+    "vue-tsc": "^2.1.6"
+  }
+}

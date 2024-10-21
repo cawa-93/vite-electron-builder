@@ -1,0 +1,19 @@
+{
+  "name": "@vite-electron-builder/preload",
+  "type": "module",
+  "main": "./dist/index.mjs",
+  "scripts": {
+    "build": "vite build",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --noEmit",
+    "format": "npx prettier --check \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
+  },
+  "files": [
+    "dist/**"
+  ],
+  "devDependencies": {
+    "unplugin-auto-expose": "^0.3.0",
+    "vite": "^5.4.9",
+    "vitest": "^2.1.3"
+  }
+}

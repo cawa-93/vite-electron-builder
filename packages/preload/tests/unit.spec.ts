@@ -1,16 +1,23 @@
 import {createHash} from 'crypto';
-import {expect, test, vi} from 'vitest';
-import {sha256sum, versions} from '../src';
+import {afterAll, expect, test, vi} from 'vitest';
+import {sha256sum, versions} from '../dist/index.mjs';
+import {contextBridge} from 'electron';
+vi.mock('electron', () => {
+  return {
+    contextBridge: {
+      exposeInMainWorld: vi.fn(),
+    },
+  };
+});
 
-// TODO: Remove this workaround after unplugin-auto-expose will be fixed for ESM support
-vi.mock('electron', () => ({
-  contextBridge: {
-    exposeInMainWorld: () => {},
-  },
-}));
+afterAll(() => {
+  vi.clearAllMocks();
+});
 
 test('versions', async () => {
   expect(versions).toBe(process.versions);
+  const {exposeInMainWorld} = vi.mocked(contextBridge);
+  expect(exposeInMainWorld).toHaveBeenCalledWith('__electron_preload__versions', versions);
 });
 
 test('nodeCrypto', async () => {
@@ -19,4 +26,7 @@ test('nodeCrypto', async () => {
   const expectedHash = createHash('sha256').update(testString).digest('hex');
 
   expect(sha256sum(testString)).toBe(expectedHash);
+
+  const {exposeInMainWorld} = vi.mocked(contextBridge);
+  expect(exposeInMainWorld).toHaveBeenCalledWith('__electron_preload__sha256sum', sha256sum);
 });
