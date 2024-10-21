@@ -39,7 +39,7 @@
     "nano-staged": "0.8.0",
     "playwright": "1.48.1",
     "simple-git-hooks": "2.11.1",
-    "typescript-eslint": "8.10.0"
+    "typescript-eslint": "8.11.0"
   },
   "dependencies": {
     "@vite-electron-builder/main": "*"
