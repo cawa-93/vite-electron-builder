@@ -12,7 +12,9 @@ export default {
     output: 'dist',
     buildResources: 'buildResources',
   },
-  publish: ['github'],
+  snap:{
+    publish: ['github'],
+  },
   files: [
     'packages/entry-point.js',
     ...await findFilesThatShouldBeExcluded(),
