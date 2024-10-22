@@ -34,6 +34,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - run: sudo snap install snapcraft --classic
+        if: matrix.os == 'ubuntu-latest'
+
       - uses: actions/setup-node@v4
         with:
           cache: 'npm'
