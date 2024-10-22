@@ -30,7 +30,7 @@
     "@npmcli/map-workspaces": "4.0.1",
     "@types/node": "20.16.14",
     "cross-env": "7.0.3",
-    "electron": "33.0.1",
+    "electron": "33.0.2",
     "electron-builder": "26.0.0-alpha.3",
     "eslint": "9.13.0",
     "eslint-config-prettier": "9.1.0",
