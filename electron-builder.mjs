@@ -13,7 +13,7 @@ export default {
     buildResources: 'buildResources',
   },
   linux:{
-    tagget: ['deb'],
+    target: ['deb'],
   },
   files: [
     'packages/entry-point.js',
