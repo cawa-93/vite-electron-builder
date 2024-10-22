@@ -12,6 +12,7 @@ export default {
     output: 'dist',
     buildResources: 'buildResources',
   },
+  publish: ['github'],
   files: [
     'packages/entry-point.js',
     ...await findFilesThatShouldBeExcluded(),
