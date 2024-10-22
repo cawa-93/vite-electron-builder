@@ -12,8 +12,8 @@ export default {
     output: 'dist',
     buildResources: 'buildResources',
   },
-  snap:{
-    publish: ['github'],
+  linux:{
+    tagget: ['deb'],
   },
   files: [
     'packages/entry-point.js',
