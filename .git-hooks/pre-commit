@@ -10,13 +10,27 @@ check_command() {
 
 # Create a list of staged files
 FILES=$(git diff --cached --name-only --diff-filter="AM" | sed 's| |\\ |g')
-[ -z "$FILES" ] && exit 0
+
+# Checking if the list is empty
+if [ -z "$FILES" ]; then
+    exit 0
+fi
+
+# Add the current script to the list of files to run when attempting a commit
+CURRENT_FILE="${BASH_SOURCE[0]}"
+
+# Create a list of staged files
+FILES_UPDATED=$(echo "$FILES" | grep -E "(\.(js|ts|d\.ts|mt|jt|cjs|vue|jsx|tsx|json|html|css|scss)$|^${CURRENT_FILE}$)")
+
+if [ -z "$FILES_UPDATED" ]; then
+    exit 0
+fi
 
 check_command "npm run lint --if-present" "Linting"
 check_command "npm run format --if-present -- -- --write" "Formatting"
 check_command "npm run typecheck --if-present" "Typecheck"
 
 # Add back the modified/prettified files to staging
-echo "$FILES" | xargs git add
+echo "$FILES_UPDATED" | xargs git add
 
 exit 0
