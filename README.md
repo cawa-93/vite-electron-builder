@@ -40,7 +40,7 @@ That's all you need. 😉
   security [guides](https://www.electronjs.org/docs/tutorial/security) and best practices.
 - The latest version of the [electron-builder] is used to package the application.
 
-### Vite [![Vite version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vite?label=%20)][vite]
+### Vite [![Vite version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vite?label=%20&filename=packages%2Frenderer%2Fpackage.json)][vite]
 
 - [Vite] is used to bundle all source codes. It's an extremely fast bundler, that has a vast array of amazing features.
   You can learn more about how it is arranged in [this](https://www.youtube.com/watch?v=xXrhg26VCSc) video.
@@ -53,7 +53,7 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
 
 > [See all Vite features](https://vitejs.dev/guide/features.html).
 
-### TypeScript [![TypeScript version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/typescript?label=%20)][typescript] (optional)
+### TypeScript [![TypeScript version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/typescript?label=%20&filename=packages%2Frenderer%2Fpackage.json)][typescript] (optional)
 
 - The latest version of TypeScript is used for all the source code.
 - **Vite** supports TypeScript out of the box. However, it does not support type checking.
@@ -62,7 +62,7 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
 
 > [Guide to disable typescript and remove dependencies](https://github.com/cawa-93/vite-electron-builder/discussions/339) 
 
-### Vue [![Vue version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vue?label=%20&)][vue] (optional)
+### Vue [![Vue version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vue?label=%20&filename=packages%2Frenderer%2Fpackage.json)][vue] (optional)
 
 - By default, web pages are built using [Vue]. However, you can easily change that. Or not use additional frameworks at
   all.
@@ -75,7 +75,7 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
 - The configured workflow will check the types for each push and PR.
 - The configured workflow will check the code style for each push and PR.
 - **Automatic tests**
-  used [Vitest ![Vitest version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vitest?label=%20&color=yellow)][vitest]
+  used [Vitest ![Vitest version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vitest?label=%20&filename=packages%2Frenderer%2Fpackage.json)][vitest]
   -- A blazing fast test framework powered by Vite.
   - Unit tests are placed within each package and are ran separately.
   - End-to-end tests are placed in the root [`tests`](tests) directory and use [playwright].
