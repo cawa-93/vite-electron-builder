@@ -28,7 +28,7 @@
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.13.0",
     "@npmcli/map-workspaces": "4.0.1",
-    "@types/node": "20.17.0",
+    "@types/node": "20.16.15",
     "cross-env": "7.0.3",
     "electron": "33.0.2",
     "electron-builder": "25.1.8",
@@ -36,9 +36,7 @@
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-vue": "9.29.1",
     "globals": "15.11.0",
-    "nano-staged": "0.8.0",
     "playwright": "1.48.1",
-    "simple-git-hooks": "2.11.1",
     "typescript-eslint": "8.11.0"
   },
   "dependencies": {

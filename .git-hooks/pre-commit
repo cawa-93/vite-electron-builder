@@ -1,0 +1,22 @@
+#!/bin/sh
+# Function to run command and check exit status
+check_command() {
+    $1
+    if [ $? -ne 0 ]; then
+        echo "${2} failed, aborting commit"
+        exit 1
+    fi
+}
+
+# Create a list of staged files
+FILES=$(git diff --cached --name-only --diff-filter="AM" | sed 's| |\\ |g')
+[ -z "$FILES" ] && exit 0
+
+check_command "npm run lint --if-present" "Linting"
+check_command "npm run format --if-present -- -- --write" "Formatting"
+check_command "npm run typecheck --if-present" "Typecheck"
+
+# Add back the modified/prettified files to staging
+echo "$FILES" | xargs git add
+
+exit 0
