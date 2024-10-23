@@ -17,7 +17,7 @@
     "electron-updater": "6.3.9"
   },
   "devDependencies": {
-    "vite": "5.4.9",
+    "vite": "5.4.10",
     "vitest": "2.1.3"
   }
 }
