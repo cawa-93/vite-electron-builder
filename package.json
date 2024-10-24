@@ -13,6 +13,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "engines": {
+    "node": ">=23.0.0"
+  },
   "scripts": {
     "build": "npm run build -ws",
     "compile": "cross-env MODE=production npm run build && electron-builder build --config electron-builder.mjs --dir --config.asar=false",
