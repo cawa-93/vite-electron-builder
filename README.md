@@ -28,7 +28,7 @@ That's all you need. 😉
 ❤️ **If you like this template, don't forget to give a ⭐ or [send support](https://www.buymeacoffee.com/kozack/)!** 
 
 
-## Features
+## Tech Stack
 
 ### Electron [![Electron version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/electron?label=%20)][electron]
 
@@ -67,6 +67,8 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
 
 > [Find more forks 🔱 for others frameworks or setups](https://github.com/cawa-93/vite-electron-builder/discussions/categories/forks)
 
+## Features
+
 ### Continuous Integration
 
 - The configured workflow will check the types for each push and PR.
@@ -76,9 +78,6 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
   -- A blazing fast test framework powered by Vite.
   - Unit tests are placed within each package and are ran separately.
   - End-to-end tests are placed in the root [`tests`](tests) directory and use [playwright].
-
-![Workflow graph](https://user-images.githubusercontent.com/1662812/213429323-ef4bcc87-c273-4f2f-b77f-c04cf6dbc36d.png)
-
 
 ### Publishing
 
