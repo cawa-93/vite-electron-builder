@@ -87,7 +87,7 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
   - **Auto-update is supported**. After the release is published, all client applications will download the new version
   and install updates silently.
   
-> **Note**:
+> [!Note]
 > This template **configured only for GitHub public repository**, but electron-builder also supports other update distribution servers. Find more in [electron-builder docs](https://www.electron.build/configuration/publish).
 
 ## How it works
@@ -236,9 +236,9 @@ deactivate preload
 All environment variables are set as part of the `import.meta`, so you can access them vie the following
 way: `import.meta.env`.
 
-> **Note**:
-> If you are using TypeScript and want to get code completion you must add all the environment variables to
-the [`ImportMetaEnv` in `types/env.d.ts`](types/env.d.ts).
+> [!Note]
+> If you are using TypeScript and want to get code completion you must add all the environment variables to the [`ImportMetaEnv` in `types/env.d.ts`](types/env.d.ts).
+
 
 The mode option is used to specify the value of `import.meta.env.MODE` and the corresponding environment variables files
 that need to be loaded.
