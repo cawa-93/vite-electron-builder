@@ -67,10 +67,12 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
 
 > [Find more forks 🔱 for others frameworks or setups](https://github.com/cawa-93/vite-electron-builder/discussions/categories/forks)
 
+## Features
+
 ### Automatic tests 
+
   - Unit tests are placed within each package and are ran separately. Implemented by [vitest].
   - End-to-end tests are placed in the root [`tests`](tests) directory and use [playwright].
-
 
 ### Continuous Integration
 
