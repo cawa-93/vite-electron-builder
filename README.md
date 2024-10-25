@@ -70,7 +70,7 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
 ## Features
 
 ### Automatic tests 
-
+Automatic tests for each commit and Pull Request
   - Unit tests are placed within each package and are ran separately. Implemented by [vitest].
   - End-to-end tests are placed in the root [`tests`](tests) directory and use [playwright].
 
@@ -78,7 +78,6 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
 
 - The configured workflow will check the types for each push and PR.
 - The configured workflow will check the code style for each push and PR.
-- Automatic tests for each commit and Pull Request.
 
 ### Auto-updates
 
