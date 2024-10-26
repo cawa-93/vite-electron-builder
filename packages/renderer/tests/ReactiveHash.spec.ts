@@ -2,7 +2,7 @@ import {mount} from '@vue/test-utils';
 import {expect, test, vi} from 'vitest';
 import ReactiveHash from '../src/components/ReactiveHash.vue';
 
-vi.mock('#preload', () => {
+vi.mock('@vite-electron-builder/preload', () => {
   return {
     sha256sum: vi.fn((s: string) => `${s}:HASHED`),
   };

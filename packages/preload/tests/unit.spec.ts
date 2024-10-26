@@ -1,7 +1,9 @@
 import {createHash} from 'crypto';
-import {afterAll, expect, test, vi} from 'vitest';
-import {sha256sum, versions} from '../dist/index.mjs';
+import {describe, expect, test, vi} from 'vitest';
+import * as exposed from '../dist/exposer.mjs';
 import {contextBridge} from 'electron';
+import {EXPOSED_PREFIX} from '../src/exposed-prefix';
+
 vi.mock('electron', () => {
   return {
     contextBridge: {
@@ -10,23 +12,23 @@ vi.mock('electron', () => {
   };
 });
 
-afterAll(() => {
-  vi.clearAllMocks();
+describe('All should be exposed', () => {
+  for (const key in exposed) {
+    test(key, () => {
+      const {exposeInMainWorld} = vi.mocked(contextBridge);
+      expect(exposeInMainWorld).toHaveBeenCalledWith(EXPOSED_PREFIX + key, exposed[key]);
+    });
+  }
 });
 
-test('versions', async () => {
-  expect(versions).toBe(process.versions);
-  const {exposeInMainWorld} = vi.mocked(contextBridge);
-  expect(exposeInMainWorld).toHaveBeenCalledWith('__electron_preload__versions', versions);
+test('Exposed versions should be equal to environment versions', async () => {
+  expect(exposed.versions).toBe(process.versions);
 });
 
-test('nodeCrypto', async () => {
+test('Exposed nodeCrypto should be a function and return correct values', async () => {
   // Test hashing a random string.
   const testString = Math.random().toString(36).slice(2, 7);
   const expectedHash = createHash('sha256').update(testString).digest('hex');
 
-  expect(sha256sum(testString)).toBe(expectedHash);
-
-  const {exposeInMainWorld} = vi.mocked(contextBridge);
-  expect(exposeInMainWorld).toHaveBeenCalledWith('__electron_preload__sha256sum', sha256sum);
+  expect(exposed.sha256sum(testString)).toBe(expectedHash);
 });

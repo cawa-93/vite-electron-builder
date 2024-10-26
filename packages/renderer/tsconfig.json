@@ -11,8 +11,8 @@
     "types": ["node"],
     "baseUrl": ".",
     "paths": {
-      "#preload": ["../preload/src/index"],
-      "/@/*": ["./src/*"]
+      "/@/*": ["./src/*"],
+      "@vite-electron-builder/*": ["../*"]
     },
     "lib": ["ESNext", "dom", "dom.iterable"]
   },

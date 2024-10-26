@@ -2,7 +2,7 @@ import {mount} from '@vue/test-utils';
 import {expect, test, vi} from 'vitest';
 import ElectronVersions from '../src/components/ElectronVersions.vue';
 
-vi.mock('#preload', () => {
+vi.mock('@vite-electron-builder/preload', () => {
   return {
     versions: {lib1: 1, lib2: 2},
   };

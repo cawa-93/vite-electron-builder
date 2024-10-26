@@ -67,25 +67,27 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
 
 > [Find more forks 🔱 for others frameworks or setups](https://github.com/cawa-93/vite-electron-builder/discussions/categories/forks)
 
-## Features
-
-### Automatic tests 
-Automatic tests for each commit and Pull Request
-  - Unit tests are placed within each package and are ran separately. Implemented by [vitest].
-  - End-to-end tests are placed in the root [`tests`](tests) directory and use [playwright].
-
 ### Continuous Integration
 
 - The configured workflow will check the types for each push and PR.
 - The configured workflow will check the code style for each push and PR.
+- **Automatic tests**
+  used [Vitest ![Vitest version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vitest?label=%20&filename=packages%2Frenderer%2Fpackage.json)][vitest]
+  -- A blazing fast test framework powered by Vite.
+  - Unit tests are placed within each package and are ran separately.
+  - End-to-end tests are placed in the root [`tests`](tests) directory and use [playwright].
 
-### Auto-updates
+![Workflow graph](https://user-images.githubusercontent.com/1662812/213429323-ef4bcc87-c273-4f2f-b77f-c04cf6dbc36d.png)
 
-Each time you push changes to the `main` branch, the [`release`](.github/workflows/release.yml) workflow starts, which creates a new draft release. For each next commit will be created and replaced artifacts. That way you will always have draft with latest artifacts, and the release can be published once it is ready. 
+
+### Publishing
+
+- Each time you push changes to the `main` branch, the [`release`](.github/workflows/release.yml) workflow starts, which creates a new draft release. For each next commit will be created and replaced artifacts. That way you will always have draft with latest artifacts, and the release can be published once it is ready. 
   - Code signing supported. See [`release` workflow](.github/workflows/release.yml).
-  - After the release is published, all client applications will download the new version and install updates silently.
+  - **Auto-update is supported**. After the release is published, all client applications will download the new version
+  and install updates silently.
   
-> [!Note]
+> **Note**:
 > This template **configured only for GitHub public repository**, but electron-builder also supports other update distribution servers. Find more in [electron-builder docs](https://www.electron.build/configuration/publish).
 
 ## How it works

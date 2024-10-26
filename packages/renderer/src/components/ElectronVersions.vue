@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {versions} from '#preload';
+import {versions} from '@vite-electron-builder/preload';
 </script>
 
 <template>
