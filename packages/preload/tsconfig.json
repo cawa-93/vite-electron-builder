@@ -9,7 +9,10 @@
     "strict": true,
     "isolatedModules": true,
     "types": ["node"],
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "@vite-electron-builder/*": ["../*"]
+    }
   },
   "include": ["src/**/*.ts", "../../types/**/*.d.ts"],
   "exclude": ["**/*.spec.ts", "**/*.test.ts"]
