@@ -1,6 +1,6 @@
 import {createHash} from 'crypto';
 import {describe, expect, test, vi} from 'vitest';
-import * as exposed from '../dist/exposer.mjs';
+import * as exposed from '../dist/exposed.mjs';
 import {contextBridge} from 'electron';
 import {EXPOSED_PREFIX} from '../src/exposed-prefix';
 
