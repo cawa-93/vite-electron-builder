@@ -1,9 +1,13 @@
 > [!Important]
-> This project is mainrained by **developer from Ukraine** 🇺🇦
-> 
-> Due to the ongoing war resulting from Russia's full-scale invasion of Ukraine, I currently lack the time for the full development of this open-source project. My primary focus is on ensuring the well-being of myself and my family. I'll prioritize and review all new contributions as soon as possible.
+> This project is maintained by **developer from Ukraine** 🇺🇦
 >
-> If you can, please consider [supporting Ukraine](https://stand-with-ukraine.pp.ua/) or [me personally](https://www.buymeacoffee.com/kozack). 
+> Due to the ongoing war resulting from Russia's full-scale invasion of Ukraine,
+> I currently lack the time for the full development of this open-source project.
+> My primary focus is on ensuring the well-being of myself and my family.
+> 
+> I'll prioritize and review all new contributions as soon as possible.
+>
+> If you can, please consider [supporting Ukraine](https://stand-with-ukraine.pp.ua/) or [me personally](https://www.buymeacoffee.com/kozack).
 >
 > Thank you for your understanding and support.
 ---
@@ -25,8 +29,7 @@ Follow these steps to get started with the template:
 
 That's all you need. 😉
 
-❤️ **If you like this template, don't forget to give a ⭐ or [send support](https://www.buymeacoffee.com/kozack/)!** 
-
+❤️ **If you like this template, give a ⭐ or [send support](https://www.buymeacoffee.com/kozack/)!**
 
 ## Tech Stack
 
@@ -57,15 +60,16 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
 - Code formatting rules follow the latest TypeScript recommendations and best practices thanks
   to [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin).
 
-> [Guide to disable typescript and remove dependencies](https://github.com/cawa-93/vite-electron-builder/discussions/339) 
+> [Guide to disable typescript and remove dependencies](https://github.com/cawa-93/vite-electron-builder/discussions/339)
 
 ### Vue [![Vue version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vue?label=%20&filename=packages%2Frenderer%2Fpackage.json)][vue] (optional)
 
-- By default, web pages are built using [Vue]. However, you can easily change that. Or not use additional frameworks at
-  all.
+- By default, web pages are built using [Vue]. 
+  However, you can change that. 
+  Or not use additional frameworks at all.
 - Code formatting rules follow the latest Vue recommendations and best practices thanks to [eslint-plugin-vue].
 
-> [Find more forks 🔱 for others frameworks or setups](https://github.com/cawa-93/vite-electron-builder/discussions/categories/forks)
+> [Find more forks 🔱 for other frameworks or setups](https://github.com/cawa-93/vite-electron-builder/discussions/categories/forks)
 
 ### Continuous Integration
 
@@ -74,50 +78,62 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
 - **Automatic tests**
   used [Vitest ![Vitest version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vitest?label=%20&filename=packages%2Frenderer%2Fpackage.json)][vitest]
   -- A blazing fast test framework powered by Vite.
-  - Unit tests are placed within each package and are ran separately.
+  - Unit tests are placed within each package and are run separately.
   - End-to-end tests are placed in the root [`tests`](tests) directory and use [playwright].
 
 ![Workflow graph](https://user-images.githubusercontent.com/1662812/213429323-ef4bcc87-c273-4f2f-b77f-c04cf6dbc36d.png)
 
-
 ### Publishing
 
-- Each time you push changes to the `main` branch, the [`release`](.github/workflows/release.yml) workflow starts, which creates a new draft release. For each next commit will be created and replaced artifacts. That way you will always have draft with latest artifacts, and the release can be published once it is ready. 
+- Each time you push changes to the `main` branch, the [`release`](.github/workflows/release.yml) workflow starts, which
+  creates a new draft release.
+  For each next commit will be created and replaced artifacts.
+  That way you will always have draft with the latest artifacts, and the release can be published once it is ready.
   - Code signing supported. See [`release` workflow](.github/workflows/release.yml).
   - **Auto-update is supported**. After the release is published, all client applications will download the new version
-  and install updates silently.
-  
-> **Note**:
-> This template **configured only for GitHub public repository**, but electron-builder also supports other update distribution servers. Find more in [electron-builder docs](https://www.electron.build/configuration/publish).
+    and install updates silently.
+
+> [!Note] This template is configured only for GitHub public
+> repository, but electron-builder also supports other update distribution servers.
+> Find more in [electron-builder docs](https://www.electron.build/configuration/publish).
 
 ## How it works
 
-The template requires a minimum amount [dependencies](package.json). Only **Vite** is used for building, nothing more.
+The template requires a minimum number of [dependencies](package.json).
+Only **Vite** is used for building, nothing more.
 
 ### Project Structure
 
-The structure of this template is very similar to a monorepo. The entire source code of the project is divided into three modules (packages) that are each bundled independently:
+The structure of this template is very similar to a monorepo.
+The entire source code of the project is divided into three modules (packages) that are each bundled independently:
 
 - [`packages/renderer`](packages/renderer). Responsible for the contents of the application window. In fact, it is a
   regular web application. In developer mode, you can even open it in a browser. The development and build process is
   the same as for classic web applications. Access to low-level API electrons or Node.js is done through the _preload_
   layer.
-- [`packages/preload`](packages/preload). Contain Electron [**preload scripts**](https://www.electronjs.org/docs/latest/tutorial/tutorial-preload). Acts as an intermediate bridge between the _renderer_ process and the API
+- [`packages/preload`](packages/preload).
+  Contain Electron [**preload scripts**](https://www.electronjs.org/docs/latest/tutorial/tutorial-preload). 
+  Acts as an intermediate bridge between the
+  _renderer_ process and the API
   exposed by electron and Node.js. Runs in an _isolated browser context_, but has direct access to the full Node.js
   functionality.
 - [`packages/main`](packages/main)
-  Contain Electron [**main script**](https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file). This is
-  the main process that powers the application. It manages creating and handling the spawned BrowserWindow, setting and
-  enforcing secure permissions and request handlers. You can also configure it to do much more as per your need, such
-  as: logging, reporting statistics and health status among others.
+  Contain Electron [**main script**](https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file).
+  This is the main process that powers the application.
+  It manages to create and handling the spawned BrowserWindow, setting and
+  enforcing secure permissions and request handlers.
+  You can also configure it to do much more as per your need, such
+  as logging, reporting statistics and health status among others.
 
-Schematically, the structure of the application and the method of communication between packages can be depicted as follows:
+Schematically, the structure of the application and the method of communication between packages can be depicted as
+follows:
+
 ```mermaid
 flowchart TB;
 
 packages/preload <-. IPC Messages .-> packages/main
 
-    subgraph packages/main["packages/main (Shared beatween all windows)"]
+    subgraph packages/main["packages/main (Shared between all windows)"]
     M[index.ts] --> EM[Electron Main Process Modules]
     M --> N2[Node.js API]
     end
@@ -139,15 +155,16 @@ subgraph Window["Browser Window"]
 
 packages/renderer -- Call Exposed API --> P
 ```
+
 ### Build web resources
 
 The `main` and `preload` packages are built in [library mode](https://vitejs.dev/guide/build.html#library-mode) as it is
-simple javascript.
+simple JavaScript.
 The `renderer` package builds as a regular web app.
 
 ### Compile App
 
-The next step is to package a ready to distribute Electron app for macOS, Windows and Linux with "auto update" support
+The next step is to package a "ready to distribute" Electron app for macOS, Windows and Linux with "auto update" support
 out of the box.
 
 To do this, use [electron-builder]:
@@ -170,46 +187,53 @@ need access to Node.js runtime APIs in your frontend, export a function form the
 All dependencies that require Node.js api can be used in
 the [`preload` script](https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts).
 
-#### Expose in main world
+#### Expose in the main world
+
 Here is an example. Let's say you need to read some data from the file system or database in the renderer.
 
 In the preload context, create a function that reads and returns data. To make the function announced in the preload
 available in the render, you usually need to call
-the [`electron.contextBridge.exposeInMainWorld`](https://www.electronjs.org/ru/docs/latest/api/context-bridge). However,
-this template uses the [unplugin-auto-expose](https://github.com/cawa-93/unplugin-auto-expose) plugin, so you just need
-to export the method from the preload. The `exposeInMainWorld` will be called automatically.
+the [`electron.contextBridge.exposeInMainWorld`](https://www.electronjs.org/ru/docs/latest/api/context-bridge).
+
+However, this template is designed to use all power of ES modules.
+You can import anything from `preload` in `renderer`.
+All the data will quietly throw through the `electron.contextBridge.exposeInMainWorld()`,
+so you don't need to worry about it.
 
 ```ts
-// preload/index.ts
-import { readFile } from 'node:fs/promises';
+// preload/src/index.ts
+import {readFile} from 'node:fs/promises';
 
 // Encapsulate types if you use typescript
 interface UserData {
   prop: string
 }
 
-// Encapsulate all node.js api
-// Everything you exported from preload/index.ts may be called in renderer
+// Will call `electron.contextBridge.exposeInMainWorld(EXPOSED_PREFIX + 'getUserData', getUserData)`
 export function getUserData(): Promise<UserData> {
-  return readFile('/path/to/file/in/user/filesystem.json', {encoding:'utf8'}).then(JSON.parse);
+  return readFile('/path/to/file/in/user/filesystem.json', {encoding: 'utf8'}).then(JSON.parse);
 }
 ```
 
 Now you can import and call the method in renderer
 
 ```ts
-// renderer/anywere/component.ts
-import { getUserData } from '#preload'
+// renderer/src/anywere/component.ts
+import {getUserData} from '@vite-electron-builder/preload'
+
+// Method will came from exposed context
+// const userData = globalThis[EXPOSED_PREFIX + 'getUserData']
 const userData = await getUserData()
 ```
 
-> Find more in [Context Isolation tutorial](https://www.electronjs.org/docs/tutorial/context-isolation#security-considerations).
+> [!Tip] Find more in [Context Isolation tutorial](https://www.electronjs.org/docs/tutorial/context-isolation#security-considerations).
 
 ### Working with Electron API
 
-Although the preload has access to all of Node.js's API, it **still runs in the BrowserWindow context**, so a limited
-electron modules are available in it. Check the [electron docs](https://www.electronjs.org/ru/docs/latest/api/clipboard)
-for full list of available methods.
+Although the preload has access to all of Node.js API, it **still runs in the BrowserWindow context**, so only limited
+electron modules are available in it.
+Check the [electron docs](https://www.electronjs.org/ru/docs/latest/api/clipboard) for the full list of available
+methods.
 
 All other electron methods can be invoked in the `main`.
 
@@ -237,7 +261,8 @@ All environment variables are set as part of the `import.meta`, so you can acces
 way: `import.meta.env`.
 
 > [!Note]
-> If you are using TypeScript and want to get code completion you must add all the environment variables to the [`ImportMetaEnv` in `types/env.d.ts`](types/env.d.ts).
+> If you are using TypeScript and want to get code completion,
+> you must add all the environment variables to the [`ImportMetaEnv` in `types/env.d.ts`](types/env.d.ts).
 
 
 The mode option is used to specify the value of `import.meta.env.MODE` and the corresponding environment variables files
@@ -257,11 +282,11 @@ When running the build script, the environment variables are loaded from the fol
 .env.[mode].local   # only loaded in specified env mode, ignored by git
 ```
 
-> **Warning**: 
+> **Warning**:
 > To prevent accidentally leaking env variables to the client, only variables prefixed with `VITE_` are exposed to your
-Vite-processed code.
+> Vite-processed code.
 
-For example let's take the following `.env` file:
+For example, let's take the following `.env` file:
 
 ```
 DB_PASSWORD=foobar
