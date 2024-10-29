@@ -1,12 +1,17 @@
 {
   "name": "@vite-electron-builder/main",
   "type": "module",
-  "main": "./dist/index.js",
   "scripts": {
     "build": "vite build",
     "test": "vitest run --passWithNoTests",
     "typecheck": "tsc --noEmit",
     "format": "npx prettier --check \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
+  },
+  "exports": {
+    ".": {
+      "default": "./dist/index.js",
+      "types": "./src/index.ts"
+    }
   },
   "files": [
     "dist/**"

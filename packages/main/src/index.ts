@@ -1,15 +1,17 @@
 import {app} from 'electron';
 import './security-restrictions';
-import {restoreOrCreateWindow} from '/@/mainWindow.js';
 import {platform} from 'node:process';
 import updater from 'electron-updater';
-
-// Export for tests
-export {restoreOrCreateWindow};
+import type {AppInitConfig} from '/@/AppInitConfig.js';
+import {createWindowManager} from '/@/createWindowManager.js';
 
 // Used in packages/entry-point.js
-// noinspection JSUnusedGlobalSymbols
-export function initApp() {
+export function initApp(initConfig: AppInitConfig) {
+  const {restoreOrCreateWindow} = createWindowManager({
+    preload: initConfig.preload,
+    renderer: initConfig.renderer,
+  });
+
   /**
    * Prevent electron from running multiple instances.
    */
