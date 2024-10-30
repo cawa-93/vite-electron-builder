@@ -1,0 +1,6 @@
+{
+  "name": "@vite-electron-builder/scafolder",
+  "description": "",
+  "main": "index.js",
+  "type": "module"
+}
