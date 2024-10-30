@@ -31,6 +31,9 @@ That's all you need. 😉
 
 ❤️ **If you like this template, give a ⭐ or [send support](https://www.buymeacoffee.com/kozack/)!**
 
+> [!NOTE]
+> I'm trying to work on the next major update. If you're interested, you can [try it now](https://github.com/cawa-93/vite-electron-builder/pull/1019).
+
 ## Tech Stack
 
 ### Electron [![Electron version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/electron?label=%20)][electron]
