@@ -31,7 +31,7 @@
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.13.0",
     "@npmcli/map-workspaces": "4.0.1",
-    "@types/node": "22.8.5",
+    "@types/node": "22.8.6",
     "cross-env": "7.0.3",
     "electron": "33.0.2",
     "electron-builder": "25.1.8",
