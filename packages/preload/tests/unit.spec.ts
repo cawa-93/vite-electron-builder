@@ -9,6 +9,7 @@ vi.mock('electron', () => {
     contextBridge: {
       exposeInMainWorld: vi.fn(),
     },
+    ipcRenderer: {},
   };
 });
 
