@@ -2,5 +2,8 @@
   "name": "@vite-electron-builder/scafolder",
   "description": "",
   "main": "index.js",
-  "type": "module"
+  "type": "module",
+  "scripts": {
+    "start": "npm create vite@latest ../renderer && node index.js --no-warnings"
+  }
 }

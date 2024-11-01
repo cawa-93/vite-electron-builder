@@ -3,8 +3,9 @@
 import {build, createServer} from 'vite';
 import electronPath from 'electron';
 import {spawn} from 'child_process';
+import path from 'path';
 
-/** @type 'production' | 'development'' */
+/** @type 'production'|'development' */
 const mode = (process.env.MODE = process.env.MODE || 'development');
 
 /** @type {import('vite').LogLevel} */
@@ -97,7 +98,7 @@ function setupPreloadPackageWatcher({ws}) {
 const rendererWatchServer = await createServer({
   mode,
   logLevel,
-  configFile: 'packages/renderer/vite.config.js',
+  root: path.resolve('packages/renderer'),
 }).then(s => s.listen());
 
 await setupPreloadPackageWatcher(rendererWatchServer);

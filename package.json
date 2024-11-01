@@ -1,5 +1,5 @@
 {
-  "name": "vite-electron-builder",
+  "name": "@vite-electron-builder/root",
   "description": "Secure boilerplate for Electron app based on Vite",
   "version": "2.0.0",
   "private": true,
@@ -17,21 +17,23 @@
     "node": "23.1.0"
   },
   "scripts": {
-    "build": "npm run build -ws",
+    "build": "npm run build -ws --if-present",
     "compile": "cross-env MODE=production npm run build && electron-builder build --config electron-builder.mjs --dir --config.asar=false",
     "test": "npm run test -ws",
     "test:e2e": "vitest run",
     "watch": "node scripts/watch.js",
     "lint": "eslint .",
-    "typecheck": "npm run typecheck -ws",
+    "typecheck": "npm run typecheck -ws --if-present",
     "postinstall": "cross-env ELECTRON_RUN_AS_NODE=1 electron scripts/update-electron-vendors.js",
-    "format": "npm run format -ws"
+    "format": "npm run format -ws --if-present",
+    "scaffold": "npm start --workspace @vite-electron-builder/scafolder && npm i"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.13.0",
     "@npmcli/map-workspaces": "4.0.1",
     "@types/node": "22.8.4",
+    "@vite-electron-builder/scafolder": "*",
     "cross-env": "7.0.3",
     "electron": "33.0.2",
     "electron-builder": "25.1.8",

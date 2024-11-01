@@ -14,7 +14,9 @@ initApp(
   {
     renderer: (process.env.MODE === 'development' && !!process.env.VITE_DEV_SERVER_URL) ?
       new URL(process.env.VITE_DEV_SERVER_URL)
-      : import.meta.resolve('@vite-electron-builder/renderer'),
+      : {
+        path: fileURLToPath(import.meta.resolve('@vite-electron-builder/renderer')),
+      },
 
     preload: {
       path: fileURLToPath(import.meta.resolve('@vite-electron-builder/preload/exposed.mjs')),
