@@ -21,30 +21,22 @@
     "compile": "cross-env MODE=production npm run build && electron-builder build --config electron-builder.mjs --dir --config.asar=false",
     "test": "npx playwright test ./tests/e2e.spec.ts",
     "watch": "node scripts/watch.js",
-    "lint": "eslint .",
     "typecheck": "npm run typecheck -ws --if-present",
     "postinstall": "cross-env ELECTRON_RUN_AS_NODE=1 electron scripts/update-electron-vendors.js",
-    "format": "npm run format -ws --if-present",
     "create-renderer": "cd packages && npm create vite@latest renderer",
     "integrate-renderer": "npm start --workspace @vite-electron-builder/integrate-renderer",
     "init": "npm run create-renderer && npm run integrate-renderer && npm install"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "3.1.0",
-    "@eslint/js": "9.14.0",
     "@npmcli/map-workspaces": "4.0.1",
     "@playwright/test": "^1.48.2-beta-1729887785000",
     "@types/node": "22.8.6",
     "cross-env": "7.0.3",
     "electron": "33.0.2",
     "electron-builder": "^26.0.0-alpha.5",
-    "eslint": "9.14.0",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-vue": "9.30.0",
     "glob": "11.0.0",
     "globals": "15.11.0",
-    "playwright": "1.48.2",
-    "typescript-eslint": "8.12.2"
+    "playwright": "1.48.2"
   },
   "dependencies": {
     "@vite-electron-builder/main": "*"

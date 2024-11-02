@@ -3,8 +3,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "typecheck": "tsc --noEmit",
-    "format": "npx prettier --check \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
+    "typecheck": "tsc --noEmit"
   },
   "exports": {
     ".": {
