@@ -41,7 +41,7 @@
     "eslint": "9.14.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-vue": "9.30.0",
-    "glob": "^11.0.0",
+    "glob": "11.0.0",
     "globals": "15.11.0",
     "playwright": "1.48.2",
     "typescript-eslint": "8.12.2"
