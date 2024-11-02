@@ -11,6 +11,7 @@ on:
       - '.github/**'
       - '!.github/workflows/ci.yml'
       - '!.github/workflows/tests.yml'
+      - '!.github/workflows/release.yml'
       - '**.md'
       - .editorconfig
       - .gitignore
@@ -21,12 +22,12 @@ on:
       - '.github/**'
       - '!.github/workflows/ci.yml'
       - '!.github/workflows/tests.yml'
-      - '**.md'
-      - .editorconfig
-      - .gitignore
-      - '.idea/**'
+      - '!.github/workflows/release.yml'
       - '.vscode/**'
-
+      - '.idea/**'
+      - .gitignore
+      - .editorconfig
+      - '**.md'
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
