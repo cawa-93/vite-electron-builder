@@ -38,6 +38,7 @@ jobs:
       APP_CHANNEL: ${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}
       APP_VERSION: ${{ steps.APP_VERSION.outputs.APP_VERSION }}
     steps:
+      - uses: actions/checkout@v4
       - id: COMMIT_TIMESTAMP
         run: echo "COMMIT_TIMESTAMP=$(git show -s --format=%ct ${{ github.sha }})" >> $GITHUB_OUTPUT
       - id: APP_CHANNEL
