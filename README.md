@@ -57,21 +57,12 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
 
 > [See all Vite features](https://vitejs.dev/guide/features.html).
 
-### TypeScript [![TypeScript version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/typescript?label=%20&filename=packages%2Frenderer%2Fpackage.json)][typescript] (optional)
+### _Optional_: TypeScript [![TypeScript version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/typescript?label=%20&filename=packages%2Frenderer%2Fpackage.json)][typescript]
 
-- The latest version of TypeScript is used for all the source code.
-- **Vite** supports TypeScript out of the box. However, it does not support type checking.
-- Code formatting rules follow the latest TypeScript recommendations and best practices thanks
-  to [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin).
+The latest version of TypeScript is used for all the source code.
+But you are free to create any login on pure JavaScript.
 
 > [Guide to disable typescript and remove dependencies](https://github.com/cawa-93/vite-electron-builder/discussions/339)
-
-### Vue [![Vue version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vue?label=%20&filename=packages%2Frenderer%2Fpackage.json)][vue] (optional)
-
-- By default, web pages are built using [Vue]. 
-  However, you can change that. 
-  Or not use additional frameworks at all.
-- Code formatting rules follow the latest Vue recommendations and best practices thanks to [eslint-plugin-vue].
 
 > [!TIP]
 > Find more forks 🔱 for other frameworks or setups on [discussions](https://github.com/cawa-93/vite-electron-builder/discussions/categories/forks)
@@ -79,21 +70,16 @@ Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON 
 ## Features
 
 ### Automatic tests
-Automatic tests for each commit and Pull Request
-- Unit tests are placed within each package and are ran separately. Implemented by [vitest].
-- End-to-end tests are placed in the root [`tests`](tests) directory and use [playwright].
+Automatic End-to-end tests for each commit and Pull Request.
+-  End-to-end are placed in the root [`tests`](tests) directory and use [playwright].
+- You may write any unit tests inside each package.
 
 ### Continuous Integration
-
 - The configured workflow will check the types for each push and PR.
-- The configured workflow will check the code style for each push and PR.
-- Code signing supported. See [`release` workflow](.github/workflows/release.yml).
+- Code signing supported. See [code-signing documentation](https://www.electron.build/code-signing.html).
 
 ### Auto-update
-Each time you push changes to the `main` branch, the [`release`](.github/workflows/release.yml) workflow starts,
-which creates a new draft release.
-For each next commit will be created and replaced artifacts.
-That way you will always have draft with the latest artifacts, and the release can be published once it is ready.
+Each time you push changes to the `main` branch, the [`ci`](.github/workflows/ci.yml) workflow starts.
 
 > [!TIP]
 > This template is configured only for GitHub public
