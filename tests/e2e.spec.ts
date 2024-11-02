@@ -3,15 +3,23 @@ import {_electron as electron} from 'playwright';
 import {expect, test} from '@playwright/test';
 import type {BrowserWindow} from 'electron';
 import {globSync} from 'glob';
+import {platform} from 'node:process';
 
 let electronApp: ElectronApplication;
 
-const [executablePath] = globSync('dist/*/@vite-electron-builderroot{,.*}');
+let executablePattern = 'dist/*/@vite-electron-builderroot{,.*}';
+if (platform === 'darwin') {
+  executablePattern += '/Contents/MacOS/@vite-electron-builderroot';
+}
+
+const [executablePath] = globSync(executablePattern);
 
 if (!executablePath) {
-  console.log(
-    [...globSync('dist/*/*')],
-  );
+  console.dir({
+    executablePattern,
+    executablePath,
+    files: globSync('dist/*'),
+  });
   throw new Error('App Executable path not found');
 }
 

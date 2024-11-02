@@ -34,6 +34,10 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+
+env:
+  NODE_NO_WARNINGS: 1
+
 jobs:
   typechecking:
     uses: ./.github/workflows/typechecking.yml
