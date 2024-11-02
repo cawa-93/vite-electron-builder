@@ -18,6 +18,8 @@ env:
 
 jobs:
   release:
+    permissions:
+      contents: write # Allows this job to create releases
     strategy:
       fail-fast: false
       matrix:
