@@ -37,4 +37,9 @@ jobs:
       - run: npm install
       - run: npm run compile -- --publish 'always' -c.extraMetadata.version=${{inputs.app-version}} -c.extraMetadata.name=${{inputs.renderer-template}}
         env:
-          GH_TOKEN: ${{ secrets.github_token }} # GitHub token, automatically provided (No need to define this secret in the repo settings)
+          # Code Signing params
+          # See https://www.electron.build/code-signing
+          # CSC_LINK: ''
+          # CSC_KEY_PASSWORD: ''
+          # Publishing artifacts
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub token, automatically provided (No need to define this secret in the repo settings)
