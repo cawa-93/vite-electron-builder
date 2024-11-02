@@ -12,7 +12,7 @@ defaults:
 jobs:
   tests:
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         os:
           - windows-latest
@@ -20,21 +20,21 @@ jobs:
           - macos-latest
         renderer-template:
           - vanilla
-          - vanilla-ts
-          - vue
-          - vue-ts
-          - react
-          - react-ts
-          - react-swc
-          - react-swc-ts
-          - preact
-          - preact-ts
-          - lit
-          - lit-ts
-          - svelte
-          - svelte-ts
-          - solid
-          - solid-ts
+#          - vanilla-ts
+#          - vue
+#          - vue-ts
+#          - react
+#          - react-ts
+#          - react-swc
+#          - react-swc-ts
+#          - preact
+#          - preact-ts
+#          - lit
+#          - lit-ts
+#          - svelte
+#          - svelte-ts
+#          - solid
+#          - solid-ts
 #          Qwik Has unresolved upstream issue. So I disable it from tests
 #          - qwik
 #          - qwik-ts

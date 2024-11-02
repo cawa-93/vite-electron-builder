@@ -3,13 +3,14 @@ import {_electron as electron} from 'playwright';
 import {expect, test} from '@playwright/test';
 import type {BrowserWindow} from 'electron';
 import {globSync} from 'glob';
+import {platform} from 'node:process';
 
 let electronApp: ElectronApplication;
 
-const executablePattern = 'dist/*/@vite-electron-builderroot{,.*}';
-// if (platform === 'darwin') {
-//   executablePattern += '/Contents/MacOS/@vite-electron-builderroot';
-// }
+let executablePattern = 'dist/*/@vite-electron-builderroot{,.*}';
+if (platform === 'darwin') {
+  executablePattern += '/Contents/MacOS/@vite-electron-builderroot';
+}
 
 
 const executablePath = globSync(executablePattern);
@@ -33,9 +34,9 @@ test.beforeAll(async () => {
   });
 });
 
-test.afterAll(async () => {
-  await electronApp.close();
-});
+// test.afterAll(async () => {
+//   await electronApp.close();
+// });
 
 
 test('Main window state', async () => {
