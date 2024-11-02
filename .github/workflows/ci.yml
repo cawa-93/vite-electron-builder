@@ -92,6 +92,7 @@ jobs:
     with:
       renderer-template: ${{ matrix.renderer-template }}
       app-version: ${{ needs.prepare.outputs.APP_VERSION }}
+      app-channel: ${{ needs.prepare.outputs.APP_CHANNEL }}
     strategy:
       fail-fast: false
       matrix:
