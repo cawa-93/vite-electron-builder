@@ -1,29 +1,24 @@
 import pkg from './package.json' with {type: 'json'};
 import mapWorkspaces from '@npmcli/map-workspaces';
-import {join, relative} from 'node:path';
+import {join} from 'node:path';
 import {pathToFileURL} from 'node:url';
 
-/**
- * Export electron-builder config
- * @type import('electron-builder').Configuration
- */
-const config = {
+export default /** @type import('electron-builder').Configuration */
+({
   directories: {
     output: 'dist',
     buildResources: 'buildResources',
   },
   generateUpdatesFilesForAllChannels: true,
-  linux:{
+  linux: {
     target: ['deb'],
   },
   files: [
     'packages/entry-point.js',
     '!node_modules/@vite-electron-builder/**',
     ...await getListOfFilesFromEachWorkspace(),
-  ]
-};
-
-export default config;
+  ],
+});
 
 /**
  * By default, electron-builder copies each package into the output compilation entirety,
