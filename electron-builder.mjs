@@ -5,16 +5,14 @@ import {pathToFileURL} from 'node:url';
 
 /**
  * Export electron-builder config
- * @type import('electron-builder').CommonConfiguration
+ * @type import('electron-builder').Configuration
  */
 const config = {
   directories: {
     output: 'dist',
     buildResources: 'buildResources',
   },
-  build: {
-    generateUpdatesFilesForAllChannels: true,
-  },
+  generateUpdatesFilesForAllChannels: true,
   linux:{
     target: ['deb'],
   },

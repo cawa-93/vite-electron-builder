@@ -35,4 +35,4 @@ jobs:
       - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
       - run: npm start --workspace @vite-electron-builder/integrate-renderer
       - run: npm install
-      - run: npm run compile -- --publish 'always' -c.extraMetadata.version=${{inputs.app-version}}
+      - run: npm run compile -- --publish 'always' -c.extraMetadata.version=${{inputs.app-version}} -c.extraMetadata.name=${{inputs.renderer-template}}
