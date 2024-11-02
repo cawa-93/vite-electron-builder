@@ -33,3 +33,28 @@ concurrency:
 jobs:
   tests:
     uses: ./.github/workflows/tests.yml
+    with:
+      renderer-template: ${{ matrix.renderer-template }}
+    strategy:
+      fail-fast: false
+      matrix:
+        renderer-template:
+          - vanilla
+          - vanilla-ts
+          - vue
+          - vue-ts
+          - react
+          - react-ts
+          - react-swc
+          - react-swc-ts
+          - preact
+          - preact-ts
+          - lit
+          - lit-ts
+          - svelte
+          - svelte-ts
+          - solid
+          - solid-ts
+#          Qwik Has unresolved upstream issue. So I decided to torn it off for now
+#          - qwik
+#          - qwik-ts

@@ -1,5 +1,10 @@
 name: Tests
-on: [ workflow_call ]
+on:
+  workflow_call:
+    inputs:
+      renderer-template:
+        required: true
+        type: string
 
 concurrency:
   group: tests-${{ github.ref }}
@@ -11,8 +16,22 @@ defaults:
 
 env:
   NODE_NO_WARNINGS: 1
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
 
 jobs:
+  typeckeck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+
+      - run: npm run create-renderer -- -- --template ${{matrix.renderer-template}}
+      - run: npm start --workspace @vite-electron-builder/integrate-renderer
+      - run: npm install
+      - run: npm run typecheck --if-present
+
   tests:
     strategy:
       fail-fast: false
@@ -21,26 +40,6 @@ jobs:
           - windows-latest
           - ubuntu-latest
           - macos-latest
-        renderer-template:
-          - vanilla
-          - vanilla-ts
-          - vue
-          - vue-ts
-          - react
-          - react-ts
-          - react-swc
-          - react-swc-ts
-          - preact
-          - preact-ts
-          - lit
-          - lit-ts
-          - svelte
-          - svelte-ts
-          - solid
-          - solid-ts
-#          Qwik Has unresolved upstream issue. So I disable it from tests
-#          - qwik
-#          - qwik-ts
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -49,12 +48,8 @@ jobs:
           node-version: 'latest'
 
       - run: npm run create-renderer -- -- --template ${{matrix.renderer-template}}
-        name: Create renderer for ${{matrix.renderer-template}}
-      - run: npm run typecheck --if-present
       - run: npm start --workspace @vite-electron-builder/integrate-renderer
       - run: npm install
-        env:
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - run: npm run compile
 
       # I ran into problems trying to run an electron window in ubuntu due to a missing graphics server.
