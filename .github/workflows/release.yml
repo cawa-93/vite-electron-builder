@@ -57,6 +57,6 @@ jobs:
           # CSC_LINK: ''
           # CSC_KEY_PASSWORD: ''
           # Publishing artifacts
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub token, automatically provided (No need to define this secret in the repo settings)
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub token, automatically provided (No need to define this secret in the repo settings)
           EP_PRE_RELEASE: ${{ inputs.app-channel == 'beta' || inputs.app-channel == 'alpha' }}
           EP_RELEASE: ${{ inputs.app-channel == 'latest' }}
