@@ -15,14 +15,15 @@ jobs:
       fail-fast: false
       matrix:
         os: [ windows-latest, ubuntu-latest, macos-latest ]
-        template: [vanilla, vanilla-ts, vue, vue-ts, react, react-ts, react-swc, react-swc-ts, preact, preact-ts, lit, lit-ts, svelte, svelte-ts, solid, solid-ts, qwik, qwik-ts]
+        renderer-template: [vanilla, vanilla-ts, vue, vue-ts, react, react-ts, react-swc, react-swc-ts, preact, preact-ts, lit, lit-ts, svelte, svelte-ts, solid, solid-ts, qwik, qwik-ts]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: actions/setup-node@v4
         with:
           cache: 'npm'
-      - run: npm create vite renderer -- --template ${{matrix-template}}
+      - run: npm create vite renderer -- --template ${{matrix.renderer-template}}
+        name: Create renderer for ${{matrix.renderer-template}}
       - run: npm start --workspace @vite-electron-builder/integrate-renderer
       - run: npm ci
         env:
