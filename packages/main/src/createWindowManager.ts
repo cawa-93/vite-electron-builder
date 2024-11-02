@@ -28,10 +28,6 @@ export function createWindowManager({
      */
     browserWindow.on('ready-to-show', () => {
       browserWindow?.show();
-
-      if (import.meta.env.DEV) {
-        browserWindow?.webContents.openDevTools();
-      }
     });
 
     if (renderer instanceof URL) {

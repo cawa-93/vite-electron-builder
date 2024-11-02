@@ -1,6 +1,11 @@
 import {initApp} from '@vite-electron-builder/main';
 import {fileURLToPath} from 'node:url';
 
+// process.on('uncaughtException', function(error) {
+//   console.error(error);
+//   process.exit(error.code || 1);
+// });
+
 /**
  * We resolve '@vite-electron-builder/renderer' and '@vite-electron-builder/preload'
  * here and not in '@vite-electron-builder/main'

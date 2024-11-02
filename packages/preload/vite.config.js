@@ -1,6 +1,5 @@
 import {chrome} from '../../.electron-vendors.cache.json';
 import {join} from 'node:path';
-import {EXPOSED_PREFIX} from './src/exposed-prefix.js';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -70,7 +69,7 @@ function mockExposed() {
       const preload = await import('./src/index.js');
       if (id === resolvedVirtualModuleId) {
         return Object.keys(preload).reduce(
-          (s, key) => s + `export const ${key} = globalThis.${EXPOSED_PREFIX}${key};`,
+          (s, key) => s + `export const ${key} = globalThis['${atob(key)}'];`,
           '',
         );
       }
