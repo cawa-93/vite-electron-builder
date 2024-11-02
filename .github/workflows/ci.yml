@@ -85,7 +85,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        renderer-template: ${{ fromJson(env.TEMPLATES) }}
+        renderer-template: ${{ fromJSON(env.TEMPLATES) }}
   release:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
     permissions:
@@ -101,4 +101,4 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        renderer-template: ${{ fromJson(env.TEMPLATES) }}
+        renderer-template: ${{ fromJSON(env.TEMPLATES) }}
