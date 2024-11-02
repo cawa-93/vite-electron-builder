@@ -27,7 +27,7 @@ jobs:
         with:
           node-version: 'latest'
 
-      - run: npm run create-renderer -- -- --template ${{matrix.renderer-template}}
+      - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
       - run: npm start --workspace @vite-electron-builder/integrate-renderer
       - run: npm install
       - run: npm run typecheck --if-present
@@ -47,7 +47,7 @@ jobs:
         with:
           node-version: 'latest'
 
-      - run: npm run create-renderer -- -- --template ${{matrix.renderer-template}}
+      - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
       - run: npm start --workspace @vite-electron-builder/integrate-renderer
       - run: npm install
       - run: npm run compile
