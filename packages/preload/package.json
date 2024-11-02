@@ -16,6 +16,7 @@
     "./exposed.mjs": "./dist/exposed.mjs"
   },
   "devDependencies": {
+    "mlly": "1.7.2",
     "vite": "5.4.10",
     "vitest": "2.1.4"
   }

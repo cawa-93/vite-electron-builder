@@ -1,5 +1,6 @@
 import {chrome} from '../../.electron-vendors.cache.json';
 import {join} from 'node:path';
+import {resolveModuleExportNames} from 'mlly';
 
 const PACKAGE_ROOT = __dirname;
 const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
@@ -66,10 +67,14 @@ function mockExposed() {
       }
     },
     async load(id) {
-      const preload = await import('./src/index.js');
       if (id === resolvedVirtualModuleId) {
-        return Object.keys(preload).reduce(
-          (s, key) => s + `export const ${key} = globalThis['${atob(key)}'];`,
+        const exportedNames = await resolveModuleExportNames('./src/index.ts');
+        return exportedNames.reduce(
+          (s, key) =>
+            s +
+            (key === 'default'
+              ? `export default globalThis['${atob(key)}'];\n`
+              : `export const ${key} = globalThis['${atob(key)}'];\n`),
           '',
         );
       }
