@@ -15,22 +15,24 @@ jobs:
       fail-fast: false
       matrix:
         os: [ windows-latest, ubuntu-latest, macos-latest ]
+        template: [vanilla, vanilla-ts, vue, vue-ts, react, react-ts, react-swc, react-swc-ts, preact, preact-ts, lit, lit-ts, svelte, svelte-ts, solid, solid-ts, qwik, qwik-ts]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - uses: actions/setup-node@v4
         with:
           cache: 'npm'
+      - run: npm create vite renderer -- --template ${{matrix-template}}
+      - run: npm start --workspace @vite-electron-builder/integrate-renderer
       - run: npm ci
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
       - run: npm run build
-      - run: npm run test
 
       # I ran into problems trying to run an electron window in ubuntu due to a missing graphics server.
       # That's why this special command for Ubuntu is here
-      - run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npm run test:e2e --if-present
+      - run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npm run test --if-present
         if: matrix.os == 'ubuntu-latest'
 
-      - run: npm run test:e2e --if-present
+      - run: npm run test --if-present
         if: matrix.os != 'ubuntu-latest'
