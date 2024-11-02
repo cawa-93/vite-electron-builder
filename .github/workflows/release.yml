@@ -19,6 +19,7 @@ defaults:
 env:
   NODE_NO_WARNINGS: 1
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+  electron_config_cache: ./.cache
 
 jobs:
   release:
@@ -42,13 +43,21 @@ jobs:
       - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
       - run: npm start --workspace @vite-electron-builder/integrate-renderer
 
-      - name: Cache Dependencies
-        id: cache-dependencies
+      - name: Cache Electron
         uses: actions/cache@v4
         with:
-          path: node_modules
-          enableCrossOsArchive: true
-          key: npm-${{ inputs.renderer-template }}-${{ hashFiles('**/package.json') }}
+          path: ${{ env.electron_config_cache }}
+          key: electron-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('package.json') }}
+          restore-keys: |
+            electron-${{ runner.os }}-${{ runner.arch }}-
+
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            node_modules
+            ${{ env.electron_config_cache }}
+          key: npm-${{ runner.os }}-${{ inputs.renderer-template }}-${{ hashFiles('**/package.json') }}
           restore-keys: |
             npm-${{ runner.os }}-${{ inputs.renderer-template }}-
 
