@@ -76,7 +76,8 @@ test('Preload context should be exposed', async () => {
 
   for (const key in expectedContext) {
     const globalVar = btoa(key);
-    expect(await page.evaluate((key) => typeof window[key], globalVar),
+    expect(
+      await page.evaluate((key) => typeof window[key], globalVar),
       `${key} should be exposed into renderer context as globalThis["${globalVar}"]`,
     )
       .not.toEqual('undefined');
