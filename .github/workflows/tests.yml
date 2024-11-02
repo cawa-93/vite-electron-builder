@@ -6,10 +6,6 @@ on:
         required: true
         type: string
 
-concurrency:
-  group: tests-${{ github.ref }}
-  cancel-in-progress: true
-
 defaults:
   run:
     shell: 'bash'
