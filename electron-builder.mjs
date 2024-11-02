@@ -5,11 +5,15 @@ import {pathToFileURL} from 'node:url';
 
 /**
  * Export electron-builder config
+ * @type import('electron-builder').CommonConfiguration
  */
-export default {
+const config = {
   directories: {
     output: 'dist',
     buildResources: 'buildResources',
+  },
+  build: {
+    generateUpdatesFilesForAllChannels: true,
   },
   linux:{
     target: ['deb'],
@@ -21,6 +25,7 @@ export default {
   ]
 };
 
+export default config;
 
 /**
  * By default, electron-builder copies each package into the output compilation entirety,

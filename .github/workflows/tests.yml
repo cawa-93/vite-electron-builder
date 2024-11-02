@@ -1,8 +1,10 @@
-name: Tests
 on:
   workflow_call:
     inputs:
       renderer-template:
+        required: true
+        type: string
+      app-version:
         required: true
         type: string
 
@@ -46,7 +48,7 @@ jobs:
       - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
       - run: npm start --workspace @vite-electron-builder/integrate-renderer
       - run: npm install
-      - run: npm run compile
+      - run: npm run compile -- -c.meta.version=${{inputs.app-version}}
       - run: rm -rf packages/renderer
       - run: rm -rf packages/main
 

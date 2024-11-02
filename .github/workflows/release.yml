@@ -1,0 +1,38 @@
+on:
+  workflow_call:
+    inputs:
+      renderer-template:
+        required: true
+        type: string
+      app-version:
+        required: true
+        type: string
+
+defaults:
+  run:
+    shell: 'bash'
+
+env:
+  NODE_NO_WARNINGS: 1
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+
+jobs:
+  release:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - windows-latest
+          - ubuntu-latest
+          - macos-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+
+      - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
+      - run: npm start --workspace @vite-electron-builder/integrate-renderer
+      - run: npm install
+      - run: npm run compile -- --publish 'always' -c.meta.version=${{inputs.app-version}}
