@@ -80,6 +80,8 @@ jobs:
 #          - qwik-ts
   release:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+    permissions:
+      contents: write # Allows this job to create releases
     needs:
       - prepare
       - tests
