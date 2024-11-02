@@ -33,28 +33,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  TEMPLATES: |
-    [
-      "vanilla",
-      "vanilla-ts",
-      "vue",
-      "vue-ts",
-      "react",
-      "react-ts",
-      "react-swc",
-      "react-swc-ts",
-      "preact",
-      "preact-ts",
-      "lit",
-      "lit-ts",
-      "svelte",
-      "svelte-ts",
-      "solid",
-      "solid-ts"
-    ]
-  #          Qwik Has unresolved upstream issue. So I decided to torn it off for now
-  #          - qwik
-  #          - qwik-ts
+  TEMPLATES: "[ \"vanilla\", \"vanilla-ts\", \"vue\", \"vue-ts\", \"react\", \"react-ts\", \"react-swc\", \"react-swc-ts\", \"preact\", \"preact-ts\", \"lit\", \"lit-ts\", \"svelte\", \"svelte-ts\", \"solid\", \"solid-ts\"]"
 
 jobs:
   prepare:
