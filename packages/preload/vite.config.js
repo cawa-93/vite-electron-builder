@@ -68,13 +68,14 @@ function mockExposed() {
     },
     async load(id) {
       if (id === resolvedVirtualModuleId) {
-        const exportedNames = await resolveModuleExportNames('./src/index.ts');
+        const exportedNames = await resolveModuleExportNames('./src/index.ts', {url: import.meta.url});
         return exportedNames.reduce(
-          (s, key) =>
-            s +
-            (key === 'default'
-              ? `export default globalThis['${atob(key)}'];\n`
-              : `export const ${key} = globalThis['${atob(key)}'];\n`),
+          (s, key) => {
+            return s +
+              (key === 'default'
+                ? `export default globalThis['${btoa(key)}'];\n`
+                : `export const ${key} = globalThis['${btoa(key)}'];\n`);
+          },
           '',
         );
       }

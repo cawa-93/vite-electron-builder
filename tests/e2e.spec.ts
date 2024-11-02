@@ -5,6 +5,7 @@ import type {BrowserWindow} from 'electron';
 
 let electronApp: ElectronApplication;
 
+
 test.beforeAll(async () => {
   electronApp = await electron.launch({args: ['.']});
 });
@@ -12,6 +13,7 @@ test.beforeAll(async () => {
 test.afterAll(async () => {
   await electronApp.close();
 });
+
 
 test('Main window state', async () => {
   const page = await electronApp.firstWindow();
@@ -56,7 +58,15 @@ test('Main window web content', async () => {
 
 test('Preload context should be exposed', async () => {
   const page = await electronApp.firstWindow();
-  const exposedContext = await import('@vite-electron-builder/preload');
-  const varsToSearch = Object.keys(exposedContext).map(atob);
-  console.log(varsToSearch);
+  const expectedContext = await import('@vite-electron-builder/preload');
+  await page.waitForLoadState();
+
+  for (const key in expectedContext) {
+    const globalVar = btoa(key);
+    expect(await page.evaluate((key) => typeof window[key], globalVar),
+      `${key} should be exposed into renderer context as globalThis["${globalVar}"]`,
+    )
+      .not.toEqual('undefined');
+
+  }
 });

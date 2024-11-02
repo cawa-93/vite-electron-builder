@@ -6,7 +6,7 @@ const isExport = (key: string): key is keyof typeof exports => Object.hasOwn(exp
 
 for (const exportsKey in exports) {
   if (isExport(exportsKey)) {
-    contextBridge.exposeInMainWorld(atob(exportsKey), exports[exportsKey]);
+    contextBridge.exposeInMainWorld(btoa(exportsKey), exports[exportsKey]);
   }
 }
 
