@@ -9,7 +9,7 @@ let electronApp: ElectronApplication;
 
 let executablePattern = 'dist/*/@vite-electron-builderroot{,.*}';
 if (platform === 'darwin') {
-  executablePattern += '/Contents/MacOS/@vite-electron-builderroot';
+  executablePattern += '/Contents/*/@vite-electron-builderroot';
 }
 
 
