@@ -12,20 +12,25 @@ if (platform === 'darwin') {
   executablePattern += '/Contents/MacOS/@vite-electron-builderroot';
 }
 
-const [executablePath] = globSync(executablePattern);
+
+const executablePath = globSync(executablePattern);
+console.log({
+  executablePath,
+});
 
 if (!executablePath) {
   console.dir({
     executablePattern,
     executablePath,
     files: globSync('dist/*'),
+    platform: process.platform,
   });
   throw new Error('App Executable path not found');
 }
 
 test.beforeAll(async () => {
   electronApp = await electron.launch({
-    executablePath,
+    executablePath: executablePath[0],
   });
 });
 

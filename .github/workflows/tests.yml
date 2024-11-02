@@ -15,8 +15,8 @@ jobs:
       fail-fast: false
       matrix:
         os:
-#          - windows-latest
-#          - ubuntu-latest
+          - windows-latest
+          - ubuntu-latest
           - macos-latest
         renderer-template:
           - vanilla
