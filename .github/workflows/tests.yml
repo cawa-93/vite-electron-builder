@@ -15,6 +15,8 @@ defaults:
 env:
   NODE_NO_WARNINGS: 1
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+  ELECTRON_CACHE: ".cache/electron"
+  ELECTRON_BUILDER_CACHE: ".cache/electron-builder"
 
 jobs:
   typeckeck:
@@ -47,6 +49,29 @@ jobs:
 
       - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
       - run: npm start --workspace @vite-electron-builder/integrate-renderer
+
+
+      - name: Cache Dependencies
+        id: cache-dependencies
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: npm-${{ runner.os }}-${{ inputs.renderer-template }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-${{ inputs.renderer-template }}-
+
+      - name: Cache Electron
+        id: cache-dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ env.ELECTRON_CACHE }}
+            ${{ env.ELECTRON_BUILDER_CACHE }}
+          key: electron-${{ runner.os }}-${{ hashFiles('package.json') }}
+          restore-keys: |
+            electron-${{ runner.os }}-
+
+
       - run: npm install
       - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}} --dir
       - run: rm -rf packages/renderer

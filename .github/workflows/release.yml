@@ -19,6 +19,8 @@ defaults:
 env:
   NODE_NO_WARNINGS: 1
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+  ELECTRON_CACHE: ".cache/electron"
+  ELECTRON_BUILDER_CACHE: ".cache/electron-builder"
 
 jobs:
   release:
@@ -51,6 +53,16 @@ jobs:
           restore-keys: |
             npm-${{ runner.os }}-${{ inputs.renderer-template }}-
 
+      - name: Cache Electron
+        id: cache-dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ env.ELECTRON_CACHE }}
+            ${{ env.ELECTRON_BUILDER_CACHE }}
+          key: electron-${{ runner.os }}-${{ hashFiles('package.json') }}
+          restore-keys: |
+            electron-${{ runner.os }}-
 
       - run: npm install
       - run: npm run compile -- --publish 'always' -c.extraMetadata.version=${{inputs.app-version}} -c.extraMetadata.name=${{inputs.renderer-template}}
