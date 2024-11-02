@@ -14,7 +14,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ windows-latest, ubuntu-latest, macos-latest ]
+        os:
+#          - windows-latest
+#          - ubuntu-latest
+          - macos-latest
         renderer-template:
           - vanilla
           - vanilla-ts

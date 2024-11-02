@@ -6,11 +6,11 @@ import {globSync} from 'glob';
 
 let electronApp: ElectronApplication;
 
-const [executablePath] = globSync('dist/*-unpacked/@vite-electron-builderroot*');
+const [executablePath] = globSync('dist/*/@vite-electron-builderroot{,.*}');
 
 if (!executablePath) {
   console.log(
-    ...globSync('dist/**'),
+    [...globSync('dist/*/*')],
   );
   throw new Error('App Executable path not found');
 }
