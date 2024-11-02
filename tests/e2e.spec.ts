@@ -7,9 +7,9 @@ import {platform} from 'node:process';
 
 let electronApp: ElectronApplication;
 
-let executablePattern = 'dist/*/@vite-electron-builderroot{,.*}';
+let executablePattern = 'dist/*/root{,.*}';
 if (platform === 'darwin') {
-  executablePattern += '/Contents/*/@vite-electron-builderroot';
+  executablePattern += '/Contents/*/root';
 }
 
 

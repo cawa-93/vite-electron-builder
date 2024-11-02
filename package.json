@@ -1,5 +1,5 @@
 {
-  "name": "@vite-electron-builder/root",
+  "name": "root",
   "description": "Secure boilerplate for Electron app based on Vite",
   "version": "2.0.0",
   "private": true,
