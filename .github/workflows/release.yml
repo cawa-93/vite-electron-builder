@@ -19,8 +19,6 @@ defaults:
 env:
   NODE_NO_WARNINGS: 1
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-  ELECTRON_CACHE: "/.cache/electron"
-  ELECTRON_BUILDER_CACHE: "/.cache/electron-builder"
 
 jobs:
   release:
