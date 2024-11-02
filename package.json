@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "npm run build -ws --if-present",
-    "compile": "cross-env MODE=production npm run build && electron-builder build --config electron-builder.mjs",
+    "compile": "cross-env MODE=production npm run build && electron-builder build",
     "test": "npx playwright test ./tests/e2e.spec.ts",
     "watch": "node scripts/watch.js",
     "typecheck": "npm run typecheck -ws --if-present",

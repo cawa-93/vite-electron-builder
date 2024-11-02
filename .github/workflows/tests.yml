@@ -48,7 +48,7 @@ jobs:
       - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
       - run: npm start --workspace @vite-electron-builder/integrate-renderer
       - run: npm install
-      - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}}
+      - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}} --dir
       - run: rm -rf packages/renderer
       - run: rm -rf packages/main
 
