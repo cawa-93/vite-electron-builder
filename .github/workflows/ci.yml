@@ -57,7 +57,7 @@ jobs:
 #    uses: ./.github/workflows/tests.yml
 #    with:
 #      renderer-template: ${{ matrix.renderer-template }}
-#      app-version: ${{ needs.prepare.outputs.COMMIT_TIMESTAMP }}
+#      app-version: ${{ needs.prepare.outputs.APP_VERSION }}-${{ matrix.renderer-template }}
 #    strategy:
 #      fail-fast: false
 #      matrix:

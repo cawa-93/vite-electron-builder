@@ -64,7 +64,7 @@ jobs:
           restore-keys: |
             electron-${{ runner.os }}-
 
-      - run: npm install
+      - run: npm install --no-audit
       - run: npm run compile -- --publish 'always' -c.extraMetadata.version=${{inputs.app-version}} -c.extraMetadata.name=${{inputs.renderer-template}}
         env:
           # Code Signing params

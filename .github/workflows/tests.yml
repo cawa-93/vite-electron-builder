@@ -37,7 +37,7 @@ jobs:
           key: npm-${{ runner.os }}-${{ inputs.renderer-template }}-${{ hashFiles('**/package.json') }}
           restore-keys: |
            npm-${{ runner.os }}-${{ inputs.renderer-template }}-
-      - run: npm install
+      - run: npm install --no-audit
       - run: npm run typecheck --if-present
 
   tests:
@@ -79,7 +79,7 @@ jobs:
             electron-${{ runner.os }}-
 
 
-      - run: npm install
+      - run: npm install --no-audit
       - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}} --dir
       - run: rm -rf packages/renderer
       - run: rm -rf packages/main
