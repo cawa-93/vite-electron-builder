@@ -14,17 +14,15 @@ if (platform === 'darwin') {
 
 
 const executablePath = globSync(executablePattern);
-console.log({
+console.dir({
+  executablePattern,
   executablePath,
+  platform: process.platform,
+  files: globSync('dist/*'),
 });
 
 if (!executablePath) {
-  console.dir({
-    executablePattern,
-    executablePath,
-    files: globSync('dist/*'),
-    platform: process.platform,
-  });
+
   throw new Error('App Executable path not found');
 }
 

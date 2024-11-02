@@ -33,7 +33,7 @@
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.14.0",
     "@npmcli/map-workspaces": "4.0.1",
-    "@playwright/test": "^1.48.2",
+    "@playwright/test": "^1.48.2-beta-1729887785000",
     "@types/node": "22.8.6",
     "cross-env": "7.0.3",
     "electron": "33.0.2",

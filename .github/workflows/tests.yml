@@ -9,10 +9,15 @@ defaults:
   run:
     shell: 'bash'
 
+env:
+  NODE_NO_WARNINGS: 1
+  DEBUG: pw:browser
+
+
 jobs:
   tests:
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os:
           - windows-latest
