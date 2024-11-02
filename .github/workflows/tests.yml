@@ -15,7 +15,26 @@ jobs:
       fail-fast: false
       matrix:
         os: [ windows-latest, ubuntu-latest, macos-latest ]
-        renderer-template: [vanilla, vanilla-ts, vue, vue-ts, react, react-ts, react-swc, react-swc-ts, preact, preact-ts, lit, lit-ts, svelte, svelte-ts, solid, solid-ts, qwik, qwik-ts]
+        renderer-template:
+          - vanilla
+          - vanilla-ts
+          - vue
+          - vue-ts
+          - react
+          - react-ts
+          - react-swc
+          - react-swc-ts
+          - preact
+          - preact-ts
+          - lit
+          - lit-ts
+          - svelte
+          - svelte-ts
+          - solid
+          - solid-ts
+#          Qwik Has unresolved upstream issue. So I disable it from tests
+#          - qwik
+#          - qwik-ts
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
