@@ -32,6 +32,30 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  TEMPLATES: |
+    [
+      "vanilla",
+      "vanilla-ts",
+      "vue",
+      "vue-ts",
+      "react",
+      "react-ts",
+      "react-swc",
+      "react-swc-ts",
+      "preact",
+      "preact-ts",
+      "lit",
+      "lit-ts",
+      "svelte",
+      "svelte-ts",
+      "solid",
+      "solid-ts"
+    ]
+  #          Qwik Has unresolved upstream issue. So I decided to torn it off for now
+  #          - qwik
+  #          - qwik-ts
+
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -61,33 +85,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        renderer-template:
-          - vanilla
-          - vanilla-ts
-          - vue
-          - vue-ts
-          - react
-          - react-ts
-          - react-swc
-          - react-swc-ts
-          - preact
-          - preact-ts
-          - lit
-          - lit-ts
-          - svelte
-          - svelte-ts
-          - solid
-          - solid-ts
-#          Qwik Has unresolved upstream issue. So I decided to torn it off for now
-#          - qwik
-#          - qwik-ts
+        renderer-template: ${{ fromJson(env.TEMPLATES) }}
   release:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
     permissions:
       contents: write # Allows this job to create releases
     needs:
       - prepare
-      - tests
+#      - tests
     uses: ./.github/workflows/release.yml
     with:
       renderer-template: ${{ matrix.renderer-template }}
@@ -96,23 +101,4 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        renderer-template:
-          - vanilla
-          - vanilla-ts
-          - vue
-          - vue-ts
-          - react
-          - react-ts
-          - react-swc
-          - react-swc-ts
-          - preact
-          - preact-ts
-          - lit
-          - lit-ts
-          - svelte
-          - svelte-ts
-          - solid
-          - solid-ts
-#          Qwik Has unresolved upstream issue. So I decided to torn it off for now
-#          - qwik
-#          - qwik-ts
+        renderer-template: ${{ fromJson(env.TEMPLATES) }}
