@@ -25,7 +25,9 @@
     "typecheck": "npm run typecheck -ws --if-present",
     "postinstall": "cross-env ELECTRON_RUN_AS_NODE=1 electron scripts/update-electron-vendors.js",
     "format": "npm run format -ws --if-present",
-    "create-renderer": "npm create vite@latest ./packages/renderer && npm start --workspace @vite-electron-builder/integrate-renderer && npm i"
+    "create-renderer": "npm create vite@latest packages/renderer",
+    "integrate-renderer": "npm start --workspace @vite-electron-builder/integrate-renderer",
+    "init": "npm run create-renderer && npm run integrate-renderer && npm install"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.1.0",

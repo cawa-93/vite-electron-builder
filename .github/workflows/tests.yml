@@ -22,7 +22,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           cache: 'npm'
-      - run: npm create vite renderer -- --template ${{matrix.renderer-template}}
+      - run: npm run create-renderer -- -- --template ${{matrix.renderer-template}}
         name: Create renderer for ${{matrix.renderer-template}}
       - run: npm start --workspace @vite-electron-builder/integrate-renderer
       - run: npm ci
