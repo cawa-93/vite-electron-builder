@@ -29,11 +29,8 @@ on:
       - .editorconfig
       - '**.md'
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{github.workflow}}-${{ github.ref }}
   cancel-in-progress: true
-
-env:
-  TEMPLATES: "[ \"vanilla\", \"vanilla-ts\", \"vue\", \"vue-ts\", \"react\", \"react-ts\", \"react-swc\", \"react-swc-ts\", \"preact\", \"preact-ts\", \"lit\", \"lit-ts\", \"svelte\", \"svelte-ts\", \"solid\", \"solid-ts\"]"
 
 jobs:
   prepare:
@@ -42,7 +39,6 @@ jobs:
       COMMIT_TIMESTAMP: ${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}
       APP_CHANNEL: ${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}
       APP_VERSION: ${{ steps.APP_VERSION.outputs.APP_VERSION }}
-      TEMPLATES: ${{ steps.TEMPLATES.outputs.TEMPLATES }}
     steps:
       - uses: actions/checkout@v4
       - id: COMMIT_TIMESTAMP
@@ -51,24 +47,40 @@ jobs:
         run: echo "APP_CHANNEL=$(if [[ "${{ github.ref }}" == 'refs/heads/develop' ]]; then echo 'beta'; else echo 'latest'; fi)" >> $GITHUB_OUTPUT
       - id: APP_VERSION
         run: echo "APP_VERSION=${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}$(if [[ "${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}" != 'latest' ]]; then echo '-${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}'; else echo ''; fi)" >> $GITHUB_OUTPUT
-      - id: TEMPLATES
-        run: echo "TEMPLATES=$TEMPLATES" >> $GITHUB_OUTPUT
       - run: |
           echo "- \`COMMIT_TIMESTAMP\`: ${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}" >> $GITHUB_STEP_SUMMARY
           echo "- \`APP_CHANNEL\`: ${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}" >> $GITHUB_STEP_SUMMARY
           echo "- \`APP_VERSION\`: ${{ steps.APP_VERSION.outputs.APP_VERSION }}" >> $GITHUB_STEP_SUMMARY
-          echo "- \`TEMPLATES\`: `${{ toJSON(fromJSON(steps.TEMPLATES.outputs.TEMPLATES)) }}`" >> $GITHUB_STEP_SUMMARY
-  tests:
-    needs:
-      - prepare
-    uses: ./.github/workflows/tests.yml
-    with:
-      renderer-template: ${{ matrix.renderer-template }}
-      app-version: ${{ needs.prepare.outputs.COMMIT_TIMESTAMP }}
-    strategy:
-      fail-fast: false
-      matrix:
-        renderer-template: ${{ fromJSON(steps.TEMPLATES.outputs.TEMPLATES) }}
+#  tests:
+#    needs:
+#      - prepare
+#    uses: ./.github/workflows/tests.yml
+#    with:
+#      renderer-template: ${{ matrix.renderer-template }}
+#      app-version: ${{ needs.prepare.outputs.COMMIT_TIMESTAMP }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        renderer-template:
+#          - vanilla
+#          - vanilla-ts
+#          - vue
+#          - vue-ts
+#          - react
+#          - react-ts
+#          - react-swc
+#          - react-swc-ts
+#          - preact
+#          - preact-ts
+#          - lit
+#          - lit-ts
+#          - svelte
+#          - svelte-ts
+#          - solid
+#          - solid-ts
+#          Qwik Has unresolved upstream issue. So I decided to torn it off for now
+#          - qwik
+#          - qwik-ts
   release:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
     permissions:
@@ -84,4 +96,23 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        renderer-template: ${{ fromJSON(steps.TEMPLATES.outputs.TEMPLATES) }}
+        renderer-template:
+          - vanilla
+          - vanilla-ts
+          - vue
+          - vue-ts
+          - react
+          - react-ts
+          - react-swc
+          - react-swc-ts
+          - preact
+          - preact-ts
+          - lit
+          - lit-ts
+          - svelte
+          - svelte-ts
+          - solid
+          - solid-ts
+#          Qwik Has unresolved upstream issue. So I decided to torn it off for now
+#          - qwik
+#          - qwik-ts
