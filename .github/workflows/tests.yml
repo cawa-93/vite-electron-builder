@@ -47,6 +47,8 @@ jobs:
       - run: npm start --workspace @vite-electron-builder/integrate-renderer
       - run: npm install
       - run: npm run compile
+      - run: rm -rf packages/renderer
+      - run: rm -rf packages/main
 
       # I ran into problems trying to run an electron window in ubuntu due to a missing graphics server.
       # That's why this special command for Ubuntu is here
