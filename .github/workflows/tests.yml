@@ -58,7 +58,6 @@ jobs:
       - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
       - run: npm start --workspace @vite-electron-builder/integrate-renderer
 
-
       - name: Cache Dependencies
         id: cache-dependencies
         uses: actions/cache@v4
@@ -69,7 +68,7 @@ jobs:
             npm-${{ runner.os }}-${{ inputs.renderer-template }}-
 
       - name: Cache Electron
-        id: cache-dependencies
+        id: cache-electron
         uses: actions/cache@v4
         with:
           path: |
