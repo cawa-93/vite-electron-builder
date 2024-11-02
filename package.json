@@ -1,5 +1,5 @@
 {
-  "name": "@vite-electron-builder/root",
+  "name": "root",
   "description": "Secure boilerplate for Electron app based on Vite",
   "version": "2.0.0",
   "private": true,
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@npmcli/map-workspaces": "4.0.1",
-    "@playwright/test": "^1.48.2-beta-1729887785000",
+    "@playwright/test": "^1.48.2",
     "@types/node": "22.8.6",
     "cross-env": "7.0.3",
     "electron": "33.0.2",
