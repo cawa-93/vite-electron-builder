@@ -79,8 +79,8 @@ jobs:
           - solid
           - solid-ts
 #          Qwik Has unresolved upstream issue. So I decided to torn it off for now
-          - qwik
-          - qwik-ts
+#          - qwik
+#          - qwik-ts
   release:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
     permissions:
