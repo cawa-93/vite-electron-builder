@@ -1,4 +1,3 @@
-import {chrome} from '../../.electron-vendors.cache.json';
 import {join} from 'node:path';
 import {resolveModuleExportNames} from 'mlly';
 
@@ -16,7 +15,6 @@ const config = {
   build: {
     ssr: true,
     sourcemap: 'inline',
-    target: `chrome${chrome}`,
     outDir: 'dist',
     assetsDir: '.',
     minify: process.env.MODE !== 'development',

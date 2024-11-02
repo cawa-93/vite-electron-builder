@@ -1,4 +1,3 @@
-import {node} from '../../.electron-vendors.cache.json';
 import {join} from 'node:path';
 
 const PACKAGE_ROOT = __dirname;
@@ -20,7 +19,6 @@ const config = {
   build: {
     ssr: true,
     sourcemap: 'inline',
-    target: `node${node}`,
     outDir: 'dist',
     assetsDir: '.',
     minify: process.env.MODE !== 'development',

@@ -22,7 +22,6 @@
     "test": "npx playwright test ./tests/e2e.spec.ts",
     "watch": "node scripts/watch.js",
     "typecheck": "npm run typecheck -ws --if-present",
-    "postinstall": "cross-env ELECTRON_RUN_AS_NODE=1 electron scripts/update-electron-vendors.js",
     "create-renderer": "cd packages && npm create vite@latest renderer",
     "integrate-renderer": "npm start --workspace @vite-electron-builder/integrate-renderer",
     "init": "npm run create-renderer && npm run integrate-renderer && npm install"
