@@ -7,6 +7,7 @@ import {globSync} from 'glob';
 let electronApp: ElectronApplication;
 
 const executablePaths = globSync('dist/*-unpacked/@vite-electron-builderroot*');
+console.log({executablePaths});
 
 test.beforeAll(async () => {
   electronApp = await electron.launch({
