@@ -7,7 +7,9 @@ let electronApp: ElectronApplication;
 
 
 test.beforeAll(async () => {
-  electronApp = await electron.launch({args: ['.']});
+  electronApp = await electron.launch({
+    executablePath: 'dist/win-unpacked/@vite-electron-builderroot.exe',
+  });
 });
 
 test.afterAll(async () => {

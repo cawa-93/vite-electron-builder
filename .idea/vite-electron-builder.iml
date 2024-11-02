@@ -5,13 +5,13 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/main/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/tests" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/packages/preload/src" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/packages/renderer/src" isTestSource="false" />
-      <excludeFolder url="file://$MODULE_DIR$/packages/renderer/dist" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/_renderer/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/main/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/preload/dist" />
       <excludeFolder url="file://$MODULE_DIR$/packages/preload/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/packages/main/node_modules" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/_renderer/dist" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

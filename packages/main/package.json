@@ -12,9 +12,6 @@
       "types": "./src/index.ts"
     }
   },
-  "files": [
-    "dist/**"
-  ],
   "dependencies": {
     "@vite-electron-builder/preload": "*",
     "@vite-electron-builder/renderer": "*",

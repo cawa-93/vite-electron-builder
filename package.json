@@ -37,7 +37,7 @@
     "@types/node": "22.8.6",
     "cross-env": "7.0.3",
     "electron": "33.0.2",
-    "electron-builder": "25.1.8",
+    "electron-builder": "^26.0.0-alpha.5",
     "eslint": "9.14.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-vue": "9.30.0",
