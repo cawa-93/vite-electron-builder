@@ -25,6 +25,7 @@ Follow these steps to get started with the template:
 
 1. Click the **[Use this template](https://github.com/cawa-93/vite-electron-builder/generate)** button (you must be
    logged in) or just clone this repo.
+2. Go to project folder and run `npm run init`
 2. _Optional_: Run `git config core.hooksPath .git-hooks` if you want to enable local pre-commit checks.
 
 That's all you need. 😉
