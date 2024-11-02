@@ -48,9 +48,9 @@ jobs:
       - id: APP_VERSION
         run: echo "APP_VERSION=${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}$(if [[ "${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}" != 'latest' ]]; then echo '-${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}'; else echo ''; fi)" >> $GITHUB_OUTPUT
       - run: |
-          echo "- `COMMIT_TIMESTAMP`: ${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}" >> $GITHUB_STEP_SUMMARY
-          echo "- `APP_CHANNEL`: ${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}" >> $GITHUB_STEP_SUMMARY
-          echo "- `APP_VERSION`: ${{ steps.APP_VERSION.outputs.APP_VERSION }}" >> $GITHUB_STEP_SUMMARY
+          echo "- \`COMMIT_TIMESTAMP\`: ${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}" >> $GITHUB_STEP_SUMMARY
+          echo "- \`APP_CHANNEL\`: ${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}" >> $GITHUB_STEP_SUMMARY
+          echo "- \`APP_VERSION\`: ${{ steps.APP_VERSION.outputs.APP_VERSION }}" >> $GITHUB_STEP_SUMMARY
   tests:
     needs:
       - prepare
@@ -91,7 +91,7 @@ jobs:
     uses: ./.github/workflows/release.yml
     with:
       renderer-template: ${{ matrix.renderer-template }}
-      app-version: ${{ needs.prepare.outputs.APP_VERSION }}
+      app-version: ${{ needs.prepare.outputs.APP_VERSION }}-${{ matrix.renderer-template }}
       app-channel: ${{ needs.prepare.outputs.APP_CHANNEL }}
     strategy:
       fail-fast: false
