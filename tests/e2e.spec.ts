@@ -2,13 +2,15 @@ import type {ElectronApplication, JSHandle} from 'playwright';
 import {_electron as electron} from 'playwright';
 import {expect, test} from '@playwright/test';
 import type {BrowserWindow} from 'electron';
+import {globSync} from 'glob';
 
 let electronApp: ElectronApplication;
 
+const executablePaths = globSync('dist/*-unpacked/@vite-electron-builderroot*');
 
 test.beforeAll(async () => {
   electronApp = await electron.launch({
-    executablePath: 'dist/win-unpacked/@vite-electron-builderroot.exe',
+    executablePath: executablePaths[0],
   });
 });
 
