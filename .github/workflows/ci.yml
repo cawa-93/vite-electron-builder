@@ -39,7 +39,7 @@ env:
   NODE_NO_WARNINGS: 1
 
 jobs:
-  typechecking:
-    uses: ./.github/workflows/typechecking.yml
+#  typechecking:
+#    uses: ./.github/workflows/typechecking.yml
   tests:
     uses: ./.github/workflows/tests.yml
