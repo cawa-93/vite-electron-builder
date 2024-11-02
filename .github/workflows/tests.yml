@@ -15,6 +15,8 @@ defaults:
 env:
   NODE_NO_WARNINGS: 1
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+  npm_config_audit: false
+  npm_config_fund: false
 
 jobs:
   typeckeck:
@@ -35,7 +37,7 @@ jobs:
           restore-keys: |
             npm-${{ runner.os }}-${{ inputs.renderer-template }}-
 
-      - run: npm install --no-audit
+      - run: npm install
         env:
           ELECTRON_SKIP_BINARY_DOWNLOAD: 1
       - run: npm run typecheck --if-present
@@ -66,7 +68,7 @@ jobs:
           restore-keys: |
             npm-${{ runner.os }}-${{ inputs.renderer-template }}-
 
-      - run: npm install --no-audit
+      - run: npm install
       - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}} --dir
       - run: rm -rf packages/renderer
       - run: rm -rf packages/main

@@ -19,6 +19,8 @@ defaults:
 env:
   NODE_NO_WARNINGS: 1
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+  npm_config_audit: false
+  npm_config_fund: false
 
 jobs:
   release:
@@ -49,7 +51,7 @@ jobs:
           restore-keys: |
             npm-${{ runner.os }}-${{ inputs.renderer-template }}-
 
-      - run: npm install --no-audit
+      - run: npm install
       - run: npm run compile -- --publish 'always' -c.extraMetadata.version=${{inputs.app-version}} -c.extraMetadata.name=${{inputs.renderer-template}}
         env:
           # Code Signing params
