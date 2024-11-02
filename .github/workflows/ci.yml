@@ -9,9 +9,7 @@ on:
     paths-ignore:
       - '.github/**'
       - '!.github/workflows/ci.yml'
-      - '!.github/workflows/typechecking.yml'
       - '!.github/workflows/tests.yml'
-      - '!.github/workflows/release.yml'
       - '**.md'
       - .editorconfig
       - .gitignore
@@ -21,9 +19,7 @@ on:
     paths-ignore:
       - '.github/**'
       - '!.github/workflows/ci.yml'
-      - '!.github/workflows/typechecking.yml'
       - '!.github/workflows/tests.yml'
-      - '!.github/workflows/release.yml'
       - '**.md'
       - .editorconfig
       - .gitignore
@@ -34,11 +30,6 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
-
-
-
 jobs:
-#  typechecking:
-#    uses: ./.github/workflows/typechecking.yml
   tests:
     uses: ./.github/workflows/tests.yml

@@ -11,8 +11,6 @@ defaults:
 
 env:
   NODE_NO_WARNINGS: 1
-  DEBUG: pw:browser
-
 
 jobs:
   tests:
@@ -25,21 +23,21 @@ jobs:
           - macos-latest
         renderer-template:
           - vanilla
-#          - vanilla-ts
-#          - vue
-#          - vue-ts
-#          - react
-#          - react-ts
-#          - react-swc
-#          - react-swc-ts
-#          - preact
-#          - preact-ts
-#          - lit
-#          - lit-ts
-#          - svelte
-#          - svelte-ts
-#          - solid
-#          - solid-ts
+          - vanilla-ts
+          - vue
+          - vue-ts
+          - react
+          - react-ts
+          - react-swc
+          - react-swc-ts
+          - preact
+          - preact-ts
+          - lit
+          - lit-ts
+          - svelte
+          - svelte-ts
+          - solid
+          - solid-ts
 #          Qwik Has unresolved upstream issue. So I disable it from tests
 #          - qwik
 #          - qwik-ts
@@ -52,6 +50,7 @@ jobs:
 
       - run: npm run create-renderer -- -- --template ${{matrix.renderer-template}}
         name: Create renderer for ${{matrix.renderer-template}}
+      - run: npm run typecheck --if-present
       - run: npm start --workspace @vite-electron-builder/integrate-renderer
       - run: npm install
         env:
