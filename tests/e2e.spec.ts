@@ -7,25 +7,25 @@ import {platform} from 'node:process';
 
 let electronApp: ElectronApplication;
 
-let executablePattern = 'dist/*/root{,.*}';
+let executablePattern = 'dist/*/@vite-electron-builderroot{,.*}';
 if (platform === 'darwin') {
-  executablePattern += '/Contents/*/root';
+  executablePattern += '/Contents/*/@vite-electron-builderroot';
 }
 
-const executablePath = globSync(executablePattern);
+const [executablePath] = globSync(executablePattern);
 if (!executablePath) {
   throw new Error('App Executable path not found');
 }
 
 test.beforeAll(async () => {
   electronApp = await electron.launch({
-    executablePath: executablePath[0],
+    executablePath: executablePath,
   });
 });
 
-// test.afterAll(async () => {
-//   await electronApp.close();
-// });
+test.afterAll(async () => {
+  await electronApp.close();
+});
 
 
 test('Main window state', async () => {
