@@ -34,7 +34,12 @@ Follow these steps to get started with the template:
 
 ❤️ **If you like this template, give a ⭐ or [send support](https://www.buymeacoffee.com/kozack/)!**
 
-## Tech Stack
+
+## Features
+
+### Light
+When designing this template, I tried to keep ше minimal,
+using the platform's native features to the maximum and minimizing the number of third-party dependencies.
 
 ### Electron [![Electron version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/electron?label=%20)][electron]
 
@@ -43,21 +48,7 @@ Follow these steps to get started with the template:
   security [guides](https://www.electronjs.org/docs/tutorial/security) and best practices.
 - The latest version of the [electron-builder] is used to package the application.
 
-### Vite [![Vite version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vite?label=%20&filename=packages%2Frenderer%2Fpackage.json)][vite]
-
-- [Vite] is used to bundle all source codes. It's an extremely fast bundler, that has a vast array of amazing features.
-  You can learn more about how it is arranged in [this](https://www.youtube.com/watch?v=xXrhg26VCSc) video.
-- Vite [supports](https://vitejs.dev/guide/env-and-mode.html) reading `.env` files. You can also specify the types of
-  your environment variables in [`types/env.d.ts`](types/env.d.ts).
-- Automatic hot-reloads for the `Main` and `Renderer` processes.
-
-_I try to keep this template lightweight 😁_
-
-## Features
-
 ### Automatic tests
-
-Automatic End-to-end tests for each commit and Pull Request.
 
 - End-to-end are placed in the root [`tests`](tests) directory and use [playwright].
 - You may write any unit tests inside each package and use whatever you ~~want~~ need.
@@ -69,7 +60,7 @@ Automatic End-to-end tests for each commit and Pull Request.
 
 ### Auto-update
 
-Each time you push changes to the `main` branch, the [`ci`](.github/workflows/ci.yml) workflow starts.
+Each time you push changes to the `main` branch, the [`ci`](.github/workflows/ci.yml) workflow starts to create and deploy new application version with then will be downloaded and applied by each app instance.
 
 ## Project Structure
 
@@ -119,7 +110,7 @@ this.
 > Find more in [electron-builder docs](https://www.electron.build/configuration/publish).
 
 
-### Working with dependencies
+### Working with third-paty dependencies
 
 Because the `renderer` works and builds like a _regular web application_, you can only use dependencies that support the
 browser or compile to a browser-friendly format.
