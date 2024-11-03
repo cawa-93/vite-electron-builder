@@ -2,7 +2,7 @@
 > [!Important]
 > This project is maintained by developer from Ukraine 🇺🇦
 > 
-> I do my best but, due to the ongoing Russia's full-scale invasion of Ukraine, I barely have the energy to support open source projects.
+> I do my best, but due to Russia's ongoing full-scale invasion of Ukraine, I barely have the energy to support open source projects.
 >
 > If my work has been useful to you, please consider [supporting Ukraine](https://stand-with-ukraine.pp.ua/) or [me personally](https://send.monobank.ua/6SmojkkR9i). Even your **$1** has an impact!
 
@@ -13,8 +13,6 @@
 
 This is a template for secure electron applications. Written following the latest safety requirements, recommendations
 and best practices.
-
-Under the hood is [Vite] — A next-generation blazing fast bundler, and [electron-builder] for packaging.
 
 ## Get started
 
@@ -56,7 +54,9 @@ using the platform's native features to the maximum and minimizing the number of
 
 ### Auto-update
 
-Each time you push changes to the `main` branch, the [`ci`](.github/workflows/ci.yml) workflow starts to create and deploy new application version with then will be downloaded and applied by each app instance.
+Each time you push changes to the `main` branch,
+the [`ci`](.github/workflows/ci.yml) workflow starts to create
+and deploy a new application version with then will be downloaded and applied by each app instance.
 
 ## Project Structure
 
@@ -84,7 +84,7 @@ There is only one requirement: the template expects to import renderer by `@vite
 
 > [!NOTE]
 > If you are using a bundler other than vite,
-> you may need to slightly change the [watch.js](scripts%2Fwatch.js) script to run it correctly.
+> you may need to slightly change the [watch.js](scripts/watch.js) script to run it correctly.
 
 ## How It works
 
@@ -97,7 +97,7 @@ this.
 - You can compile application locally by `npm run compile`.
   In this case, you will get executable that you cat share, but
   it will not support auto-updates out-of-box.
-- To have auto-updater, you should compile an application and publish it to one or more supported sources for distribution. In this case, all application instances will download and apply all new updates. This is done by GitHub action in [release.yml](.github%2Fworkflows%2Frelease.yml).
+- To have auto-updater, you should compile an application and publish it to one or more supported sources for distribution. In this case, all application instances will download and apply all new updates. This is done by GitHub action in [release.yml](.github/workflows/release.yml).
 
 > [!TIP]
 > This template is configured to use GitHub Releases to distribute updates, but you can configure whatever you need.
