@@ -88,7 +88,7 @@ There is only one requirement: the template expects to import renderer by `@vite
 
 > [!NOTE]
 > If you are using a bundler other than vite,
-> you may need to adjust the supervisor [watch.js](scripts%2Fwatch.js) to run correctly.
+> you may need to slightly change the [watch.js](scripts%2Fwatch.js) script to run it correctly.
 
 ## How It works
 
