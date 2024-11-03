@@ -81,10 +81,8 @@ It's just for you to make it easier to understand the architecture.
 
 Initially, the repository contains only three packages:
 
-- [`packages/main`](packages/main) - Implementation of Electron's [**main script
-  **](https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file).
-- [`packages/preload`](packages/preload) - Implementation of Electron's [**preload scripts
-  **](https://www.electronjs.org/docs/latest/tutorial/tutorial-preload).
+- [`packages/main`](packages/main) - Implementation of Electron's [**main script**](https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file).
+- [`packages/preload`](packages/preload) - Implementation of Electron's [**preload scripts**](https://www.electronjs.org/docs/latest/tutorial/tutorial-preload).
 - [`packages/integrate-renderer`](packages/integrate-renderer) - A helper package that is not included in the runtime.
   It is used in `npm run init` to configure a new interface package.
 
@@ -114,7 +112,7 @@ this.
 - You can compile application locally by `npm run compile`.
   In this case, you will get executable that you cat share, but
   it will not support auto-updates out-of-box.
-- To have auto-updater, you should compile an application and publish it to one or more supported sources for distribution. In this case, all application instances will download and apply all new updates.
+- To have auto-updater, you should compile an application and publish it to one or more supported sources for distribution. In this case, all application instances will download and apply all new updates. This is done by GitHub action in [release.yml](.github%2Fworkflows%2Frelease.yml).
 
 > [!TIP]
 > This template is configured to use GitHub Releases to distribute updates, but you can configure whatever you need.
