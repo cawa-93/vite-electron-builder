@@ -26,12 +26,8 @@ jobs:
             exit 1
           fi
 
-      - run: gh release list --limit 1000 --repo cawa-93/vite-electron-builder
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - uses: actions/checkout@v2
       - name: Delete All Releases
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: $ gh release list --limit 1000 --repo cawa-93/vite-electron-builder | sed 's/|/ /' | awk '{print $3}' | while read -r line; do gh release delete "$line" --cleanup-tag -y --repo cawa-93/vite-electron-builder; done
+        run: gh release list --limit 1000 --repo cawa-93/vite-electron-builder | sed 's/|/ /' | awk '{print $3}' | while read -r line; do gh release delete "$line" --cleanup-tag -y --repo cawa-93/vite-electron-builder; done
