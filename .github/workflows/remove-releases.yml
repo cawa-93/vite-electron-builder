@@ -31,7 +31,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          releases=$(gh release list | awk '{print $1}')
+          releases=$(gh release list | awk -F '\t' '{print $3}')
           for release in $releases; do
             gh release delete $release -y --cleanup-tag
           done
