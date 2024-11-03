@@ -30,8 +30,4 @@ jobs:
       - name: Delete All Releases
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          releases=$(gh release list | awk -F '\t' '{print $3}')
-          for release in $releases; do
-            gh release delete $release -y --cleanup-tag
-          done
+        run: $ gh release list | sed 's/|/ /' | awk '{print $1, $8}' | while read -r line; do gh release delete --cleanup-tag -y "$line"; done
