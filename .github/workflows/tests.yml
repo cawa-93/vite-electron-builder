@@ -58,7 +58,7 @@ jobs:
           node-version: 'latest'
 
       - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
-      - run: npm start --workspace @vite-electron-builder/integrate-renderer
+      - run: npm run integrate-renderer
 
       - name: Cache Dependencies
         uses: actions/cache@v4
@@ -70,8 +70,7 @@ jobs:
 
       - run: npm install
       - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}} --dir
-      - run: rm -rf packages/renderer
-      - run: rm -rf packages/main
+      - run: rm -rf packages
 
       # I ran into problems trying to run an electron window in ubuntu due to a missing graphics server.
       # That's why this special command for Ubuntu is here
