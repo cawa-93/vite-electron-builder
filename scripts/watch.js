@@ -24,7 +24,7 @@ function setupMainPackageWatcher({resolvedUrls}) {
 
   /** @type {ChildProcess | null} */
   let electronApp = null;
-  console.log(path.resolve('packages/main'));
+
   return build({
     mode,
     logLevel,
@@ -40,14 +40,14 @@ function setupMainPackageWatcher({resolvedUrls}) {
       {
         name: 'reload-app-on-main-package-change',
         writeBundle() {
-          /** Kill electron if process already exist */
+          /** Kill electron if a process already exists */
           if (electronApp !== null) {
             electronApp.removeListener('exit', process.exit);
             electronApp.kill('SIGINT');
             electronApp = null;
           }
 
-          /** Spawn new electron process */
+          /** Spawn a new electron process */
           electronApp = spawn(String(electronPath), ['--inspect', '.'], {
             stdio: 'inherit',
           });
