@@ -26,7 +26,7 @@ jobs:
             exit 1
           fi
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Delete All Releases
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
