@@ -32,5 +32,5 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release list --limit 1000 --repo cawa-93/vite-electron-builder | sed 's/|/ /' | awk '{print $3}' | while read -r tag; do
-            gh release delete "$tag" --cleanup-tag -y --repo cawa-93/vite-electron-builder
+            gh release delete "$tag" -y --repo cawa-93/vite-electron-builder
           done
