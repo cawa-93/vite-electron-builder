@@ -1,4 +1,4 @@
-import type {AppInitConfig} from '/@/AppInitConfig.js';
+import type {AppInitConfig} from './AppInitConfig.js';
 import {BrowserWindow} from 'electron';
 
 export function createWindowManager({

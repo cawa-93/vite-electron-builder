@@ -1,23 +1,15 @@
-import {join} from 'node:path';
 import {resolveModuleExportNames} from 'mlly';
 
-const PACKAGE_ROOT = __dirname;
-const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
-
-/**
+export default /**
  * @type {import('vite').UserConfig}
  * @see https://vitejs.dev/config/
  */
-const config = {
-  mode: process.env.MODE,
-  root: PACKAGE_ROOT,
-  envDir: PROJECT_ROOT,
+({
   build: {
     ssr: true,
     sourcemap: 'inline',
     outDir: 'dist',
     assetsDir: '.',
-    minify: process.env.MODE !== 'development',
     lib: {
       entry: ['src/exposed.ts', 'virtual:browser.js'],
     },
@@ -34,7 +26,7 @@ const config = {
     reportCompressedSize: false,
   },
   plugins: [mockExposed()],
-};
+});
 
 /**
  * This plugin creates a browser (renderer) version of `preload` package.
@@ -42,15 +34,15 @@ const config = {
  * expecting that real values were exposed by `electron.contextBridge.exposeInMainWorld()`
  *
  * Example:
- * ```typescript
+ * ```ts
  * // index.ts
  * export const someVar = 'my-value';
  * ```
  *
  * Output
- * ```
+ * ```js
  * // _virtual_browser.mjs
- * export const someVar = globalThis[EXPOSED_PREFIX + 'someVar']
+ * export const someVar = globalThis[<hash>] // 'my-value'
  * ```
  */
 function mockExposed() {
@@ -81,5 +73,3 @@ function mockExposed() {
     },
   };
 }
-
-export default config;

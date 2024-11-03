@@ -2,8 +2,8 @@ import {app} from 'electron';
 import './security-restrictions';
 import {platform} from 'node:process';
 import updater from 'electron-updater';
-import type {AppInitConfig} from '/@/AppInitConfig.js';
-import {createWindowManager} from '/@/createWindowManager.js';
+import type {AppInitConfig} from './AppInitConfig.js';
+import {createWindowManager} from './createWindowManager.js';
 
 // Used in packages/entry-point.js
 export function initApp(initConfig: AppInitConfig) {
