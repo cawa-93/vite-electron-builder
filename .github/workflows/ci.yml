@@ -126,6 +126,8 @@ jobs:
 #  Please remove it.
   remove-releases:
     if: github.repository == 'cawa-93/vite-electron-builder' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs:
+      - tests
     uses: ./.github/workflows/remove-releases.yml
     permissions:
       contents: write # Allows this job to create releases
