@@ -81,9 +81,7 @@ As you may have noticed, the repository does **not** contain a package that impl
 The reason is that since the entire application is a mono-repository,
 you can use any web application based on any framework or bundler as a package for the interface.
 
-There is only one requirement:
-
-- The template expects to import renderer by `@vite-electron-builder/renderer` name.
+There is only one requirement: the template expects to import renderer by `@vite-electron-builder/renderer` name.
 
 > [!TIP]
 > You can create new renderer package in interactive mode by `npm run init`.
