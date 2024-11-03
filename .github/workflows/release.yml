@@ -1,69 +1,64 @@
-name: Release
 on:
   workflow_call:
     inputs:
-      dry-run:
-        description: 'Compiles the app but not upload artifacts to distribution server'
-        default: false
+      renderer-template:
+        required: true
+        type: string
+      app-version:
+        required: true
+        type: string
+      app-channel:
         required: false
-        type: boolean
-
-concurrency:
-  group: release-${{ github.ref }}
-  cancel-in-progress: true
-
+        type: string
+        default: latest
 
 defaults:
   run:
     shell: 'bash'
 
+env:
+  NODE_NO_WARNINGS: 1
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+  npm_config_audit: false
+  npm_config_fund: false
 
 jobs:
-  draft_release:
-
+  release:
     permissions:
       contents: write # Allows this job to create releases
-
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
-        os: [ macos-latest, ubuntu-latest, windows-latest ]
-
+        os:
+          - windows-latest
+          - ubuntu-latest
+          - macos-latest
     runs-on: ${{ matrix.os }}
-
     steps:
       - uses: actions/checkout@v4
-
-      - run: sudo snap install snapcraft --classic
-        if: matrix.os == 'ubuntu-latest'
-
       - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
           node-version: 'latest'
 
-      - run: npm ci
-        env:
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+      - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
+      - run: npm start --workspace @vite-electron-builder/integrate-renderer
 
-      - run: npm run build
-
-      - name: Compile artifacts ${{ inputs.dry-run && '' || 'and upload them to github release' }}
-        # I use this action because it is capable of retrying multiple times if there are any issues with the distribution server
-        uses: nick-fields/retry@v3
+      - name: Cache Dependencies
+        uses: actions/cache@v4
         with:
-          timeout_minutes: 15
-          max_attempts: 6
-          retry_wait_seconds: 15
-          retry_on: error
-          shell: 'bash'
-          # Due to this issue https://github.com/electron-userland/electron-builder/issues/6411 the build with npx when rebuilding native dependencies hangs forever
-          # see https://github.com/cawa-93/vite-electron-builder/pull/953
-          command: ./node_modules/.bin/electron-builder --config electron-builder.mjs --publish ${{ inputs.dry-run && 'never' || 'always' }} -c.snap.publish=github
+          path: node_modules
+          key: npm-${{ runner.os }}-${{ inputs.renderer-template }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-${{ inputs.renderer-template }}-
+
+      - run: npm install
+      - run: npm run compile -- --publish 'always' -c.extraMetadata.version=${{inputs.app-version}} -c.extraMetadata.name=${{inputs.renderer-template}}
         env:
           # Code Signing params
           # See https://www.electron.build/code-signing
           # CSC_LINK: ''
           # CSC_KEY_PASSWORD: ''
           # Publishing artifacts
-          GH_TOKEN: ${{ secrets.github_token }} # GitHub token, automatically provided (No need to define this secret in the repo settings)
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub token, automatically provided (No need to define this secret in the repo settings)
+          EP_PRE_RELEASE: ${{ inputs.app-channel == 'beta' || inputs.app-channel == 'alpha' }}
+          EP_RELEASE: ${{ inputs.app-channel == 'latest' }}

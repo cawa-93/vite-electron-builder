@@ -1,36 +1,81 @@
-name: Tests
-on: [ workflow_call ]
-
-concurrency:
-  group: tests-${{ github.ref }}
-  cancel-in-progress: true
+on:
+  workflow_call:
+    inputs:
+      renderer-template:
+        required: true
+        type: string
+      app-version:
+        required: true
+        type: string
 
 defaults:
   run:
     shell: 'bash'
 
+env:
+  NODE_NO_WARNINGS: 1
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+  npm_config_audit: false
+  npm_config_fund: false
+
 jobs:
+  typeckeck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 'latest'
+
+      - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
+      - run: npm start --workspace @vite-electron-builder/integrate-renderer
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: npm-${{ runner.os }}-${{ inputs.renderer-template }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-${{ inputs.renderer-template }}-
+
+      - run: npm install
+        env:
+          ELECTRON_SKIP_BINARY_DOWNLOAD: 1
+      - run: npm run typecheck --if-present
+
   tests:
     strategy:
       fail-fast: false
       matrix:
-        os: [ windows-latest, ubuntu-latest, macos-latest ]
+        os:
+          - windows-latest
+          - ubuntu-latest
+          - macos-latest
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          cache: 'npm'
-      - run: npm ci
-        env:
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-      - run: npm run build
-      - run: npm run test
+          node-version: 'latest'
+
+      - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
+      - run: npm run integrate-renderer
+
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: npm-${{ runner.os }}-${{ inputs.renderer-template }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-${{ inputs.renderer-template }}-
+
+      - run: npm install
+      - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}} --dir
+      - run: rm -rf packages
 
       # I ran into problems trying to run an electron window in ubuntu due to a missing graphics server.
       # That's why this special command for Ubuntu is here
-      - run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npm run test:e2e --if-present
+      - run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npm run test --if-present
         if: matrix.os == 'ubuntu-latest'
 
-      - run: npm run test:e2e --if-present
+      - run: npm run test --if-present
         if: matrix.os != 'ubuntu-latest'

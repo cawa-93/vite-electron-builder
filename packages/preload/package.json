@@ -3,13 +3,8 @@
   "type": "module",
   "scripts": {
     "build": "vite build",
-    "test": "vitest run --passWithNoTests",
-    "typecheck": "tsc --noEmit",
-    "format": "npx prettier --check \"**/*.{js,mjs,cjs,ts,mts,cts,vue,json}\""
+    "typecheck": "tsc --noEmit"
   },
-  "files": [
-    "dist/**"
-  ],
   "types": "./src/index.ts",
   "exports": {
     ".": "./dist/_virtual_browser.mjs",
@@ -17,7 +12,6 @@
   },
   "devDependencies": {
     "mlly": "1.7.2",
-    "vite": "5.4.10",
-    "vitest": "2.1.4"
+    "vite": "5.4.10"
   }
 }

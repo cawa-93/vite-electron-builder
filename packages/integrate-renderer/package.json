@@ -1,0 +1,10 @@
+{
+  "name": "@vite-electron-builder/integrate-renderer",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js --no-warnings"
+  },
+  "files": []
+}

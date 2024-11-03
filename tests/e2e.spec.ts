@@ -1,21 +1,61 @@
 import type {ElectronApplication, JSHandle} from 'playwright';
 import {_electron as electron} from 'playwright';
-import {afterAll, beforeAll, expect, test} from 'vitest';
-import {createHash} from 'crypto';
+import {expect, test as base} from '@playwright/test';
 import type {BrowserWindow} from 'electron';
+import {globSync} from 'glob';
+import {platform} from 'node:process';
+import {createHash} from 'node:crypto';
 
-let electronApp: ElectronApplication;
+// Declare the types of your fixtures.
+type TestFixtures = {
+  electronApp: ElectronApplication;
+  electronVersions: NodeJS.ProcessVersions;
+};
 
-beforeAll(async () => {
-  electronApp = await electron.launch({args: ['.']});
+const test = base.extend<TestFixtures>({
+  electronApp: [async ({}, use) => {
+    let executablePattern = 'dist/*/root{,.*}';
+    if (platform === 'darwin') {
+      executablePattern += '/Contents/*/root';
+    }
+
+    const [executablePath] = globSync(executablePattern);
+    if (!executablePath) {
+      throw new Error('App Executable path not found');
+    }
+
+    const electronApp = await electron.launch({
+      executablePath: executablePath,
+    });
+
+    await use(electronApp);
+
+    // This code runs after all the tests in the worker process.
+    await electronApp.close();
+  }, {scope: 'worker', auto: true} as any],
+
+  page: async ({electronApp}, use) => {
+    const page = await electronApp.firstWindow();
+    // capture errors
+    page.on('pageerror', (error) => {
+      console.error(error);
+    });
+    // capture console messages
+    page.on('console', (msg) => {
+      console.log(msg.text());
+    });
+
+    await page.waitForLoadState('load');
+    await use(page);
+  },
+
+  electronVersions: async ({electronApp}, use) => {
+    await use(await electronApp.evaluate(() => process.versions));
+  },
 });
 
-afterAll(async () => {
-  await electronApp.close();
-});
 
-test('Main window state', async () => {
-  const page = await electronApp.firstWindow();
+test('Main window state', async ({electronApp, page}) => {
   const window: JSHandle<BrowserWindow> = await electronApp.browserWindow(page);
   const windowState = await window.evaluate(
     (mainWindow): Promise<{isVisible: boolean; isDevToolsOpened: boolean; isCrashed: boolean}> => {
@@ -32,65 +72,82 @@ test('Main window state', async () => {
          */
         if (mainWindow.isVisible()) {
           resolve(getState());
-        } else mainWindow.once('ready-to-show', () => resolve(getState()));
+        } else {
+          mainWindow.once('ready-to-show', () => resolve(getState()));
+        }
       });
     },
   );
 
-  console.log('await window.evaluate');
-
-  expect(windowState.isCrashed, 'The app has crashed').toBeFalsy();
-  expect(windowState.isVisible, 'The main window was not visible').toBeTruthy();
-  expect(windowState.isDevToolsOpened, 'The DevTools panel was open').toBeFalsy();
+  expect(windowState.isCrashed, 'The app has crashed').toEqual(false);
+  expect(windowState.isVisible, 'The main window was not visible').toEqual(true);
+  expect(windowState.isDevToolsOpened, 'The DevTools panel was open').toEqual(false);
 });
 
-test('Main window web content', async () => {
-  const page = await electronApp.firstWindow();
-  const element = await page.$('#app', {strict: true});
-  expect(element, 'Was unable to find the root element').toBeDefined();
-  expect((await element.innerHTML()).trim(), 'Window content was empty').not.equal('');
+test.describe('Main window web content', async () => {
+
+  test('The main window has an interactive button', async ({page}) => {
+    const element = page.getByRole('button');
+    await expect(element).toBeVisible();
+    await expect(element).toHaveText('count is 0');
+    await element.click();
+    await expect(element).toHaveText('count is 1');
+  });
+
+  test('The main window has a vite logo', async ({page}) => {
+    const element = page.getByAltText('Vite logo');
+    await expect(element).toBeVisible();
+    await expect(element).toHaveRole('img');
+    const imgState = await element.evaluate((img: HTMLImageElement) => img.complete);
+    const imgNaturalWidth = await element.evaluate((img: HTMLImageElement) => img.naturalWidth);
+
+    expect(imgState).toEqual(true);
+    expect(imgNaturalWidth).toBeGreaterThan(0);
+  });
 });
 
-test('Preload versions', async () => {
-  const page = await electronApp.firstWindow();
-  const versionsElement = page.locator('#process-versions');
-  expect(await versionsElement.count(), 'expect find one element #process-versions').toStrictEqual(
-    1,
-  );
+test.describe('Preload context should be exposed', async () => {
+  test.describe(`versions should be exposed`, async () => {
+    test('with same type`', async ({page}) => {
+      const type = await page.evaluate(() => typeof globalThis[btoa('versions')]);
+      expect(type).toEqual('object');
+    });
 
-  /**
-   * In this test we check only text value and don't care about formatting. That's why here we remove any space symbols
-   */
-  const renderedVersions = (await versionsElement.innerText()).replace(/\s/g, '');
-  const expectedVersions = await electronApp.evaluate(() => process.versions);
+    test('with same value', async ({page, electronVersions}) => {
+      const value = await page.evaluate(() => globalThis[btoa('versions')]);
+      expect(value).toEqual(electronVersions);
+    });
+  });
 
-  for (const expectedVersionsKey in expectedVersions) {
-    expect(renderedVersions).include(
-      `${expectedVersionsKey}:v${expectedVersions[expectedVersionsKey]}`,
-    );
-  }
-});
+  test.describe(`sha256sum should be exposed`, async () => {
+    test('with same type`', async ({page}) => {
+      const type = await page.evaluate(() => typeof globalThis[btoa('sha256sum')]);
+      expect(type).toEqual('function');
+    });
 
-test('Preload nodeCrypto', async () => {
-  const page = await electronApp.firstWindow();
+    test('with same behavior', async ({page}) => {
+      const testString = btoa(`${Date.now() * Math.random()}`);
+      const expectedValue = createHash('sha256').update(testString).digest('hex');
+      const value = await page.evaluate((str) => globalThis[btoa('sha256sum')](str), testString);
+      expect(value).toEqual(expectedValue);
+    });
+  });
 
-  // Test hashing a random string
-  const testString = Math.random().toString(36).slice(2, 7);
+  test.describe(`send should be exposed`, async () => {
+    test('with same type`', async ({page}) => {
+      const type = await page.evaluate(() => typeof globalThis[btoa('send')]);
+      expect(type).toEqual('function');
+    });
 
-  const rawInput = page.locator('input#reactive-hash-raw-value');
-  expect(
-    await rawInput.count(),
-    'expect find one element input#reactive-hash-raw-value',
-  ).toStrictEqual(1);
+    test('with same behavior', async ({page, electronApp}) => {
+      await electronApp.evaluate(async ({ipcMain}) => {
+        ipcMain.handle('test', (event, message) => btoa(message));
+      });
 
-  const hashedInput = page.locator('input#reactive-hash-hashed-value');
-  expect(
-    await hashedInput.count(),
-    'expect find one element input#reactive-hash-hashed-value',
-  ).toStrictEqual(1);
-
-  await rawInput.fill(testString);
-  const renderedHash = await hashedInput.inputValue();
-  const expectedHash = createHash('sha256').update(testString).digest('hex');
-  expect(renderedHash).toEqual(expectedHash);
+      const testString = btoa(`${Date.now() * Math.random()}`);
+      const expectedValue = btoa(testString);
+      const value = await page.evaluate(async (str) => await globalThis[btoa('send')]('test', str), testString);
+      expect(value).toEqual(expectedValue);
+    });
+  });
 });

@@ -1,15 +1,17 @@
 import {app} from 'electron';
 import './security-restrictions';
-import {restoreOrCreateWindow} from '/@/mainWindow.js';
 import {platform} from 'node:process';
 import updater from 'electron-updater';
-
-// Export for tests
-export {restoreOrCreateWindow};
+import type {AppInitConfig} from './AppInitConfig.js';
+import {createWindowManager} from './createWindowManager.js';
 
 // Used in packages/entry-point.js
-// noinspection JSUnusedGlobalSymbols
-export function initApp() {
+export function initApp(initConfig: AppInitConfig) {
+  const {restoreOrCreateWindow} = createWindowManager({
+    preload: initConfig.preload,
+    renderer: initConfig.renderer,
+  });
+
   /**
    * Prevent electron from running multiple instances.
    */
@@ -78,10 +80,10 @@ export function initApp() {
    * if you compile production app without publishing it to distribution server.
    * Like `npm run compile` does. It's ok 😅
    */
-  if (import.meta.env.PROD) {
-    app
-      .whenReady()
-      .then(() => updater.autoUpdater.checkForUpdatesAndNotify())
-      .catch(e => console.error('Failed check and install updates:', e));
-  }
+  // if (import.meta.env.PROD) {
+  //   app
+  //     .whenReady()
+  //     .then(() => updater.autoUpdater.checkForUpdatesAndNotify())
+  //     .catch(e => console.error('Failed check and install updates:', e));
+  // }
 }

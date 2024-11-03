@@ -1,26 +1,24 @@
 import pkg from './package.json' with {type: 'json'};
 import mapWorkspaces from '@npmcli/map-workspaces';
-import {resolve, matchesGlob, sep, join} from 'node:path';
+import {join} from 'node:path';
 import {pathToFileURL} from 'node:url';
-import {readdirSync} from 'node:fs';
 
-/**
- * Export electron-builder config
- */
-export default {
+export default /** @type import('electron-builder').Configuration */
+({
   directories: {
     output: 'dist',
     buildResources: 'buildResources',
   },
-  linux:{
+  generateUpdatesFilesForAllChannels: true,
+  linux: {
     target: ['deb'],
   },
   files: [
     'packages/entry-point.js',
-    ...await findFilesThatShouldBeExcluded(),
+    '!node_modules/@vite-electron-builder/**',
+    ...await getListOfFilesFromEachWorkspace(),
   ],
-};
-
+});
 
 /**
  * By default, electron-builder copies each package into the output compilation entirety,
@@ -80,7 +78,7 @@ export default {
  * └── package.json
  * ```
  */
-async function findFilesThatShouldBeExcluded() {
+async function getListOfFilesFromEachWorkspace() {
 
   /**
    * @type {Map<string, string>}
@@ -93,44 +91,13 @@ async function findFilesThatShouldBeExcluded() {
   const allFilesToExclude = [];
 
   for (const [name, path] of workspaces) {
-
-    const pkgPath = resolve(path, 'package.json');
+    const pkgPath = join(path, 'package.json');
     const {default: workspacePkg} = await import(pathToFileURL(pkgPath), {with: {type: 'json'}});
 
-    let patterns = workspacePkg.files || [];
-    patterns.push('package.json');
+    let patterns = workspacePkg.files || ['dist/**', 'package.json'];
 
-    patterns = patterns.map(p => resolve(path, p));
-
-    let filesToExclude = getFiles(
-      path,
-      patterns,
-    );
-
-    filesToExclude = filesToExclude.map(f => join('!node_modules', name, f.replace(path + sep, '')));
-    allFilesToExclude.push(...filesToExclude);
-  }
-
-  function getFiles(directory, patterns) {
-    let results = [];
-    const files = readdirSync(directory, {withFileTypes: true});
-
-    fileLoop: for (const file of files) {
-      const fileFullPath = resolve(directory, file.name);
-      if (file.isDirectory()) {
-        results = results.concat(getFiles(fileFullPath, patterns));
-      } else {
-        for (const pattern of patterns) {
-          if (matchesGlob(fileFullPath, pattern)) {
-            continue fileLoop;
-          }
-        }
-
-        results.push(fileFullPath);
-      }
-    }
-
-    return results;
+    patterns = patterns.map(p => join('node_modules', name, p));
+    allFilesToExclude.push(...patterns);
   }
 
   return allFilesToExclude;

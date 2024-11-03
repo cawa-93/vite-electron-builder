@@ -1,26 +1,15 @@
-import {chrome} from '../../.electron-vendors.cache.json';
-import {join} from 'node:path';
-import {EXPOSED_PREFIX} from './src/exposed-prefix.js';
 import {resolveModuleExportNames} from 'mlly';
 
-const PACKAGE_ROOT = __dirname;
-const PROJECT_ROOT = join(PACKAGE_ROOT, '../..');
-
-/**
+export default /**
  * @type {import('vite').UserConfig}
  * @see https://vitejs.dev/config/
  */
-const config = {
-  mode: process.env.MODE,
-  root: PACKAGE_ROOT,
-  envDir: PROJECT_ROOT,
+({
   build: {
     ssr: true,
     sourcemap: 'inline',
-    target: `chrome${chrome}`,
     outDir: 'dist',
     assetsDir: '.',
-    minify: process.env.MODE !== 'development',
     lib: {
       entry: ['src/exposed.ts', 'virtual:browser.js'],
     },
@@ -37,7 +26,7 @@ const config = {
     reportCompressedSize: false,
   },
   plugins: [mockExposed()],
-};
+});
 
 /**
  * This plugin creates a browser (renderer) version of `preload` package.
@@ -45,15 +34,15 @@ const config = {
  * expecting that real values were exposed by `electron.contextBridge.exposeInMainWorld()`
  *
  * Example:
- * ```typescript
+ * ```ts
  * // index.ts
  * export const someVar = 'my-value';
  * ```
  *
  * Output
- * ```
+ * ```js
  * // _virtual_browser.mjs
- * export const someVar = globalThis[EXPOSED_PREFIX + 'someVar']
+ * export const someVar = globalThis[<hash>] // 'my-value'
  * ```
  */
 function mockExposed() {
@@ -69,18 +58,18 @@ function mockExposed() {
     },
     async load(id) {
       if (id === resolvedVirtualModuleId) {
-        const exportedNames = await resolveModuleExportNames('./src/index.ts');
-        return exportedNames.reduce(
-          (s, key) =>
+        const exportedNames = await resolveModuleExportNames('./src/index.ts', {
+          url: import.meta.url,
+        });
+        return exportedNames.reduce((s, key) => {
+          return (
             s +
             (key === 'default'
-              ? `export default globalThis.${EXPOSED_PREFIX}${key};\n`
-              : `export const ${key} = globalThis.${EXPOSED_PREFIX}${key};\n`),
-          '',
-        );
+              ? `export default globalThis['${btoa(key)}'];\n`
+              : `export const ${key} = globalThis['${btoa(key)}'];\n`)
+          );
+        }, '');
       }
     },
   };
 }
-
-export default config;

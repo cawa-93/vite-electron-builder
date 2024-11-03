@@ -4,10 +4,11 @@
 > Due to the ongoing war resulting from Russia's full-scale invasion of Ukraine,
 > I currently lack the time for the full development of this open-source project.
 > My primary focus is on ensuring the well-being of myself and my family.
-> 
+>
 > I'll prioritize and review all new contributions as soon as possible.
 >
-> If you can, please consider [supporting Ukraine](https://stand-with-ukraine.pp.ua/) or [me personally](https://www.buymeacoffee.com/kozack).
+> If you can, please consider [supporting Ukraine](https://stand-with-ukraine.pp.ua/)
+> or [me personally](https://www.buymeacoffee.com/kozack).
 >
 > Thank you for your understanding and support.
 ---
@@ -25,16 +26,20 @@ Follow these steps to get started with the template:
 
 1. Click the **[Use this template](https://github.com/cawa-93/vite-electron-builder/generate)** button (you must be
    logged in) or just clone this repo.
-2. _Optional_: Run `git config core.hooksPath .git-hooks` if you want to enable local pre-commit checks.
-
-That's all you need. 😉
+2. Go to project folder and run `npm run init`
+3. _Optional_: Run `git config core.hooksPath .git-hooks` if you want to enable
+   local [pre-commit](.git-hooks/pre-commit) checks.
+   That's all you need.
+   😉
 
 ❤️ **If you like this template, give a ⭐ or [send support](https://www.buymeacoffee.com/kozack/)!**
 
-> [!NOTE]
-> I'm trying to work on the next major update. If you're interested, you can [try it now](https://github.com/cawa-93/vite-electron-builder/pull/1019).
 
-## Tech Stack
+## Features
+
+### Lightweight
+When designing this template, I tried to keep ше minimal,
+using the platform's native features to the maximum and minimizing the number of third-party dependencies.
 
 ### Electron [![Electron version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/electron?label=%20)][electron]
 
@@ -43,140 +48,67 @@ That's all you need. 😉
   security [guides](https://www.electronjs.org/docs/tutorial/security) and best practices.
 - The latest version of the [electron-builder] is used to package the application.
 
-### Vite [![Vite version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vite?label=%20&filename=packages%2Frenderer%2Fpackage.json)][vite]
-
-- [Vite] is used to bundle all source codes. It's an extremely fast bundler, that has a vast array of amazing features.
-  You can learn more about how it is arranged in [this](https://www.youtube.com/watch?v=xXrhg26VCSc) video.
-- Vite [supports](https://vitejs.dev/guide/env-and-mode.html) reading `.env` files. You can also specify the types of
-  your environment variables in [`types/env.d.ts`](types/env.d.ts).
-- Automatic hot-reloads for the `Main` and `Renderer` processes.
-
-Vite provides many useful features, such as: `TypeScript`, `TSX/JSX`, `CSS/JSON Importing`, `CSS Modules`
-, `Web Assembly` and much more.
-
-> [See all Vite features](https://vitejs.dev/guide/features.html).
-
-### TypeScript [![TypeScript version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/typescript?label=%20&filename=packages%2Frenderer%2Fpackage.json)][typescript] (optional)
-
-- The latest version of TypeScript is used for all the source code.
-- **Vite** supports TypeScript out of the box. However, it does not support type checking.
-- Code formatting rules follow the latest TypeScript recommendations and best practices thanks
-  to [@typescript-eslint/eslint-plugin](https://www.npmjs.com/package/@typescript-eslint/eslint-plugin).
-
-> [Guide to disable typescript and remove dependencies](https://github.com/cawa-93/vite-electron-builder/discussions/339)
-
-### Vue [![Vue version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/vue?label=%20&filename=packages%2Frenderer%2Fpackage.json)][vue] (optional)
-
-- By default, web pages are built using [Vue]. 
-  However, you can change that. 
-  Or not use additional frameworks at all.
-- Code formatting rules follow the latest Vue recommendations and best practices thanks to [eslint-plugin-vue].
-
-> [!TIP]
-> Find more forks 🔱 for other frameworks or setups on [discussions](https://github.com/cawa-93/vite-electron-builder/discussions/categories/forks)
-
-## Features
-
 ### Automatic tests
-Automatic tests for each commit and Pull Request
-- Unit tests are placed within each package and are ran separately. Implemented by [vitest].
-- End-to-end tests are placed in the root [`tests`](tests) directory and use [playwright].
+
+- End-to-end are placed in the root [`tests`](tests) directory and use [playwright].
+- You may write any unit tests inside each package and use whatever you ~~want~~ need.
 
 ### Continuous Integration
 
 - The configured workflow will check the types for each push and PR.
-- The configured workflow will check the code style for each push and PR.
-- Code signing supported. See [`release` workflow](.github/workflows/release.yml).
+- Code signing supported. See [code-signing documentation](https://www.electron.build/code-signing.html).
 
 ### Auto-update
-Each time you push changes to the `main` branch, the [`release`](.github/workflows/release.yml) workflow starts,
-which creates a new draft release.
-For each next commit will be created and replaced artifacts.
-That way you will always have draft with the latest artifacts, and the release can be published once it is ready.
+
+Each time you push changes to the `main` branch, the [`ci`](.github/workflows/ci.yml) workflow starts to create and deploy new application version with then will be downloaded and applied by each app instance.
+
+## Project Structure
+
+The project is designed as monorepo where each part of the application is an independent package.
+Each package could have own tech stack, tests, dependencies, frameworks, etc.
+All internal names are prefixed by `@vite-electron-builder/*`.
+There are no technical reasons for this.
+It's just for you to make it easier to understand the architecture.
+
+Initially, the repository contains only three packages:
+
+- [`packages/main`](packages/main) - Implementation of Electron's [**main script**](https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file).
+- [`packages/preload`](packages/preload) - Implementation of Electron's [**preload scripts**](https://www.electronjs.org/docs/latest/tutorial/tutorial-preload).
+- [`packages/integrate-renderer`](packages/integrate-renderer) - A helper package that is not included in the runtime.
+  It is used in `npm run init` to configure a new interface package.
+
+As you may have noticed, the repository does **not** contain a package that implements the application interface.
+The reason is that since the entire application is a mono-repository,
+you can use any web application based on any framework or bundler as a package for the interface.
+
+There is only one requirement: the template expects to import renderer by `@vite-electron-builder/renderer` name.
 
 > [!TIP]
-> This template is configured only for GitHub public
-> repository, but electron-builder also supports other update distribution servers.
+> You can create new renderer package in interactive mode by `npm run init`.
+
+> [!NOTE]
+> If you are using a bundler other than vite,
+> you may need to slightly change the [watch.js](scripts%2Fwatch.js) script to run it correctly.
+
+## How It works
+
+### Compile executable
+
+When an application is ready to distribute, you need to compile it into executable.
+We are using [electron-builder] for
+this.
+
+- You can compile application locally by `npm run compile`.
+  In this case, you will get executable that you cat share, but
+  it will not support auto-updates out-of-box.
+- To have auto-updater, you should compile an application and publish it to one or more supported sources for distribution. In this case, all application instances will download and apply all new updates. This is done by GitHub action in [release.yml](.github%2Fworkflows%2Frelease.yml).
+
+> [!TIP]
+> This template is configured to use GitHub Releases to distribute updates, but you can configure whatever you need.
 > Find more in [electron-builder docs](https://www.electron.build/configuration/publish).
 
-## How it works
 
-The template requires a minimum number of [dependencies](package.json).
-Only **Vite** is used for building, nothing more.
-
-### Project Structure
-
-The structure of this template is very similar to a monorepo.
-The entire source code of the project is divided into three modules (packages) that are each bundled independently:
-
-- [`packages/renderer`](packages/renderer). Responsible for the contents of the application window. In fact, it is a
-  regular web application. In developer mode, you can even open it in a browser. The development and build process is
-  the same as for classic web applications. Access to low-level API electrons or Node.js is done through the _preload_
-  layer.
-- [`packages/preload`](packages/preload).
-  Contain Electron [**preload scripts**](https://www.electronjs.org/docs/latest/tutorial/tutorial-preload). 
-  Acts as an intermediate bridge between the
-  _renderer_ process and the API
-  exposed by electron and Node.js. Runs in an _isolated browser context_, but has direct access to the full Node.js
-  functionality.
-- [`packages/main`](packages/main)
-  Contain Electron [**main script**](https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file).
-  This is the main process that powers the application.
-  It manages to create and handling the spawned BrowserWindow, setting and
-  enforcing secure permissions and request handlers.
-  You can also configure it to do much more as per your need, such
-  as logging, reporting statistics and health status among others.
-
-Schematically, the structure of the application and the method of communication between packages can be depicted as
-follows:
-
-```mermaid
-flowchart TB;
-
-packages/preload <-. IPC Messages .-> packages/main
-
-    subgraph packages/main["packages/main (Shared between all windows)"]
-    M[index.ts] --> EM[Electron Main Process Modules]
-    M --> N2[Node.js API]
-    end
-
-subgraph Window["Browser Window"]
-    subgraph packages/preload["packages/preload (Works in isolated context)"]
-    P[index.ts] --> N[Node.js API]
-    P --> ED[External dependencies]
-    P --> ER[Electron Renderer Process Modules]
-    end
-
-
-    subgraph packages/renderer
-    R[index.html] --> W[Web API]
-    R --> BD[Bundled dependencies]
-    R --> F[Web Frameworks]
-    end
-    end
-
-packages/renderer -- Call Exposed API --> P
-```
-
-### Build web resources
-
-The `main` and `preload` packages are built in [library mode](https://vitejs.dev/guide/build.html#library-mode) as it is
-simple JavaScript.
-The `renderer` package builds as a regular web app.
-
-### Compile App
-
-The next step is to package a "ready to distribute" Electron app for macOS, Windows and Linux with "auto update" support
-out of the box.
-
-To do this, use [electron-builder]:
-
-- Using the npm script `compile`: This script is configured to compile the application as quickly as possible. It is not
-  ready for distribution, it is compiled only for the current platform and is used for debugging.
-- Using GitHub Actions: The application is compiled for any platform and ready-to-distribute files are automatically
-  added as a draft to the GitHub releases page.
-
-### Working with dependencies
+### Working with third-party dependencies
 
 Because the `renderer` works and builds like a _regular web application_, you can only use dependencies that support the
 browser or compile to a browser-friendly format.
@@ -211,7 +143,7 @@ interface UserData {
   prop: string
 }
 
-// Will call `electron.contextBridge.exposeInMainWorld(EXPOSED_PREFIX + 'getUserData', getUserData)`
+// Will call `electron.contextBridge.exposeInMainWorld('getUserData', getUserData)`
 export function getUserData(): Promise<UserData> {
   return readFile('/path/to/file/in/user/filesystem.json', {encoding: 'utf8'}).then(JSON.parse);
 }
@@ -224,12 +156,13 @@ Now you can import and call the method in renderer
 import {getUserData} from '@vite-electron-builder/preload'
 
 // Method will came from exposed context
-// const userData = globalThis[EXPOSED_PREFIX + 'getUserData']
+// const userData = globalThis['getUserData']
 const userData = await getUserData()
 ```
 
-> [!TIP] 
-> Find more in [Context Isolation tutorial](https://www.electronjs.org/docs/tutorial/context-isolation#security-considerations).
+> [!TIP]
+> Find more
+> in [Context Isolation tutorial](https://www.electronjs.org/docs/tutorial/context-isolation#security-considerations).
 
 ### Working with Electron API
 
@@ -237,7 +170,8 @@ Although the preload has access to all of Node.js API, it **still runs in the Br
 electron modules are available in it.
 
 > [!TIP]
-> Check the [electron docs](https://www.electronjs.org/ru/docs/latest/api/clipboard) for the full list of available methods.
+> Check the [electron docs](https://www.electronjs.org/ru/docs/latest/api/clipboard) for the full list of available
+> methods.
 
 All other electron methods can be invoked in the `main`.
 
@@ -302,6 +236,65 @@ will not.
 
 > [!TIP]
 > You can change that prefix or add another. See [`envPrefix`](https://vitejs.dev/config/shared-options.html#envprefix).
+
+### NPM Scripts
+
+```sh
+npm run build
+```
+
+Runs the `build` command in all workspaces if present.
+
+```sh
+npm run compile
+```
+
+First runs the `build` script,
+then compiles the project into executable using `electron-builder` with the specified configuration.
+
+```sh
+npm run compile -- --dir -c.asar=false
+```
+
+Same as `npm run compile` but pass to `electron-builder` additional parameters to disable asar archive and installer
+creating.
+Useful for debugging compiled application.
+
+```sh
+npm run test
+```
+
+Executes end-to-end tests on **compiled app** using Playwright.
+
+```sh
+npm run watch
+```
+
+Start application in development more with hot-reload.
+
+```sh
+npm run typecheck
+```
+
+Runs the `typecheck` command in all workspaces if present.
+
+```sh
+npm run create-renderer
+```
+
+Initializes a new Vite project named `renderer`. Basically same as `npm create vite`.
+
+```sh
+npm run integrate-renderer
+```
+
+Starts the integration process of the renderer using the Vite Electron builder.
+
+```sh
+npm run init
+```
+
+Set up the initial environment by creating a new renderer, integrating it, and installing the necessary packages.
 
 ## Contribution
 

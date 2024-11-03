@@ -9,7 +9,6 @@ on:
     paths-ignore:
       - '.github/**'
       - '!.github/workflows/ci.yml'
-      - '!.github/workflows/typechecking.yml'
       - '!.github/workflows/tests.yml'
       - '!.github/workflows/release.yml'
       - '**.md'
@@ -21,7 +20,6 @@ on:
     paths-ignore:
       - '.github/**'
       - '!.github/workflows/ci.yml'
-      - '!.github/workflows/typechecking.yml'
       - '!.github/workflows/tests.yml'
       - '!.github/workflows/release.yml'
       - '**.md'
@@ -29,21 +27,91 @@ on:
       - .gitignore
       - '.idea/**'
       - '.vscode/**'
-
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ${{github.workflow}}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  typechecking:
-    uses: ./.github/workflows/typechecking.yml
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      COMMIT_TIMESTAMP: ${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}
+      APP_CHANNEL: ${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}
+      APP_VERSION: ${{ steps.APP_VERSION.outputs.APP_VERSION }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: COMMIT_TIMESTAMP
+        run: echo "COMMIT_TIMESTAMP=$(git show -s --format=%ct ${{ github.sha }})" >> $GITHUB_OUTPUT
+      - id: APP_CHANNEL
+        run: echo "APP_CHANNEL=$(if [[ "${{ github.ref }}" == 'refs/heads/develop' ]]; then echo 'beta'; else echo 'latest'; fi)" >> $GITHUB_OUTPUT
+      - id: APP_VERSION
+        run: echo "APP_VERSION=3.0.${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}$(if [[ "${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}" != 'latest' ]]; then echo '-${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}'; else echo ''; fi)" >> $GITHUB_OUTPUT
+      - run: |
+          echo "- \`COMMIT_TIMESTAMP\`: ${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}" >> $GITHUB_STEP_SUMMARY
+          echo "- \`APP_CHANNEL\`: ${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}" >> $GITHUB_STEP_SUMMARY
+          echo "- \`APP_VERSION\`: ${{ steps.APP_VERSION.outputs.APP_VERSION }}" >> $GITHUB_STEP_SUMMARY
   tests:
+    needs:
+      - prepare
     uses: ./.github/workflows/tests.yml
-  draft_release:
+    with:
+      renderer-template: ${{ matrix.renderer-template }}
+      app-version: ${{ needs.prepare.outputs.APP_VERSION }}-${{ matrix.renderer-template }}
+    strategy:
+      fail-fast: false
+      matrix:
+        renderer-template:
+          - vanilla
+          - vanilla-ts
+          - vue
+          - vue-ts
+          - react
+          - react-ts
+          - react-swc
+          - react-swc-ts
+          - preact
+          - preact-ts
+          - lit
+          - lit-ts
+          - svelte
+          - svelte-ts
+          - solid
+          - solid-ts
+#          Qwik Has unresolved upstream issue. So I decided to torn it off for now
+#          - qwik
+#          - qwik-ts
+  release:
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
     permissions:
       contents: write # Allows this job to create releases
-    with:
-      dry-run: ${{ github.event_name != 'push' || github.ref_name != 'main' }}
-    needs: [ typechecking, tests ]
+    needs:
+      - prepare
+      - tests
     uses: ./.github/workflows/release.yml
-
+    with:
+      renderer-template: ${{ matrix.renderer-template }}
+      app-version: ${{ needs.prepare.outputs.APP_VERSION }}-${{ matrix.renderer-template }}
+      app-channel: ${{ needs.prepare.outputs.APP_CHANNEL }}
+    strategy:
+      fail-fast: false
+      matrix:
+        renderer-template:
+          - vanilla
+          - vanilla-ts
+          - vue
+          - vue-ts
+          - react
+          - react-ts
+          - react-swc
+          - react-swc-ts
+          - preact
+          - preact-ts
+          - lit
+          - lit-ts
+          - svelte
+          - svelte-ts
+          - solid
+          - solid-ts
+#          Qwik Has unresolved upstream issue. So I decided to torn it off for now
+#          - qwik
+#          - qwik-ts
