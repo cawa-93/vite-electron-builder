@@ -37,7 +37,7 @@ Follow these steps to get started with the template:
 
 ## Features
 
-### Light
+### Lightweight
 When designing this template, I tried to keep ше minimal,
 using the platform's native features to the maximum and minimizing the number of third-party dependencies.
 
@@ -108,7 +108,7 @@ this.
 > Find more in [electron-builder docs](https://www.electron.build/configuration/publish).
 
 
-### Working with third-paty dependencies
+### Working with third-party dependencies
 
 Because the `renderer` works and builds like a _regular web application_, you can only use dependencies that support the
 browser or compile to a browser-friendly format.
