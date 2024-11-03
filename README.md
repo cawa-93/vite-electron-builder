@@ -13,6 +13,9 @@
 > Thank you for your understanding and support.
 ---
 
+![IMG_0875](https://github.com/user-attachments/assets/590de304-e2c4-4935-9814-c18ade52fd8e)
+
+
 # Vite Electron Builder Boilerplate
 
 This is a template for secure electron applications. Written following the latest safety requirements, recommendations
