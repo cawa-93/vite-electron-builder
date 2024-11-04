@@ -15,7 +15,7 @@ export default /** @type import('electron-builder').Configuration */
   },
   publish: {
     provider: 'github',
-    releaseType: 'release',
+    releaseType: 'prerelease',
   },
   files: [
     'packages/entry-point.js',
