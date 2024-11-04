@@ -81,42 +81,44 @@ jobs:
 #          - qwik
 #          - qwik-ts
 
-  release:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    permissions:
-      contents: write # Allows this job to create releases
-    needs:
-      - prepare
-      - tests
-#      - remove-releases
-    uses: ./.github/workflows/release.yml
-    with:
-      renderer-template: ${{ matrix.renderer-template }}
-      app-version: ${{ needs.prepare.outputs.APP_VERSION }}-$(echo "${{ matrix.renderer-template }}" | sed 's/-//g')
-      app-channel: ${{ needs.prepare.outputs.APP_CHANNEL }}
-    strategy:
-      fail-fast: false
-      matrix:
-        renderer-template:
-          - vanilla
-          - vanilla-ts
-          - vue
-          - vue-ts
-          - react
-          - react-ts
-          - react-swc
-          - react-swc-ts
-          - preact
-          - preact-ts
-          - lit
-          - lit-ts
-          - svelte
-          - svelte-ts
-          - solid
-          - solid-ts
-#          Qwik Has unresolved upstream issue. So I decided to torn it off for now
-#          - qwik
-#          - qwik-ts
+
+# TODO: Need to be improved
+#  release:
+#    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+#    permissions:
+#      contents: write # Allows this job to create releases
+#    needs:
+#      - prepare
+#      - tests
+##      - remove-releases
+#    uses: ./.github/workflows/release.yml
+#    with:
+#      renderer-template: ${{ matrix.renderer-template }}
+#      app-version: ${{ needs.prepare.outputs.APP_VERSION }}-${{ matrix.renderer-template }}
+#      app-channel: ${{ needs.prepare.outputs.APP_CHANNEL }}
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        renderer-template:
+#          - vanilla
+#          - vanilla-ts
+#          - vue
+#          - vue-ts
+#          - react
+#          - react-ts
+#          - react-swc
+#          - react-swc-ts
+#          - preact
+#          - preact-ts
+#          - lit
+#          - lit-ts
+#          - svelte
+#          - svelte-ts
+#          - solid
+#          - solid-ts
+##          Qwik Has unresolved upstream issue. So I decided to torn it off for now
+##          - qwik
+##          - qwik-ts
 
 
 
@@ -130,7 +132,7 @@ jobs:
 #      - tests
 #    uses: ./.github/workflows/remove-releases.yml
 #    permissions:
-#      contents: write # Allows this job to create releases
+#      contents: write
 
 
   dependabot:
