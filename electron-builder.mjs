@@ -13,7 +13,7 @@ export default /** @type import('electron-builder').Configuration */
   linux: {
     target: ['deb'],
   },
-  publish: {
+  github: {
     releaseType: 'release',
   },
   files: [
