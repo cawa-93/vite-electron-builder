@@ -58,7 +58,7 @@ jobs:
         run: echo "RELEASE_TYPE=$( if [[ '${{ inputs.app-channel }}' == 'beta' || '${{ inputs.app-channel }}' == 'alpha' ]]; then echo 'prerelease'; else echo 'release'; fi )" >> $GITHUB_ENV
 
 
-      - run: npm run compile -- --publish 'always' -c.extraMetadata.version=${{inputs.app-version}} -c.extraMetadata.name=${{inputs.renderer-template}} -c.releaseType=${{ env.RELEASE_TYPE }}
+      - run: npm run compile -- --publish 'always' -c.extraMetadata.version=${{inputs.app-version}} -c.extraMetadata.name=${{inputs.renderer-template}} -c.github.releaseType=${{ env.RELEASE_TYPE }}
         env:
           # Code Signing params
           # See https://www.electron.build/code-signing
