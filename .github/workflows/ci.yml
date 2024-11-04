@@ -126,13 +126,13 @@ jobs:
 #  This job is required for the needs of the template itself
 #  and should not be part of the application.
 #  Please remove it.
-#  remove-releases:
-#    if: github.repository == 'cawa-93/vite-electron-builder' && github.event_name == 'push' && github.ref == 'refs/heads/main'
-#    needs:
-#      - tests
-#    uses: ./.github/workflows/remove-releases.yml
-#    permissions:
-#      contents: write
+  remove-releases:
+    if: github.repository == 'cawa-93/vite-electron-builder' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs:
+      - tests
+    uses: ./.github/workflows/remove-releases.yml
+    permissions:
+      contents: write
 
 
   dependabot:
