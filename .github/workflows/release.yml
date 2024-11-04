@@ -52,7 +52,13 @@ jobs:
             npm-${{ runner.os }}-${{ inputs.renderer-template }}-
 
       - run: npm install
-      - run: npm run compile -- --publish 'always' -c.extraMetadata.version=${{inputs.app-version}} -c.extraMetadata.name=${{inputs.renderer-template}}
+
+      - name: Set release type based on app channel
+        id: set-release-type
+        run: echo "RELEASE_TYPE=$( if [[ '${{ inputs.app-channel }}' == 'beta' || '${{ inputs.app-channel }}' == 'alpha' ]]; then echo 'prerelease'; else echo 'release'; fi )" >> $GITHUB_ENV
+
+
+      - run: npm run compile -- --publish 'always' -c.extraMetadata.version=${{inputs.app-version}} -c.extraMetadata.name=${{inputs.renderer-template}} -c.releaseType=${{ env.RELEASE_TYPE }}
         env:
           # Code Signing params
           # See https://www.electron.build/code-signing
@@ -60,5 +66,3 @@ jobs:
           # CSC_KEY_PASSWORD: ''
           # Publishing artifacts
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub token, automatically provided (No need to define this secret in the repo settings)
-          EP_PRE_RELEASE: ${{ inputs.app-channel == 'beta' || inputs.app-channel == 'alpha' }}
-          EP_RELEASE: ${{ inputs.app-channel == 'latest' }}
