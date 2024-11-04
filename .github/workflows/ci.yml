@@ -131,3 +131,19 @@ jobs:
     uses: ./.github/workflows/remove-releases.yml
     permissions:
       contents: write # Allows this job to create releases
+
+
+  dependabot:
+    permissions:
+      contents: write
+      pull-requests: write
+    needs:
+      - tests
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'cawa-93/vite-electron-builder'
+    steps:
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --merge "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
