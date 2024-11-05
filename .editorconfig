@@ -16,3 +16,4 @@ indent_style = space
 
 [*.md]
 trim_trailing_whitespace = false
+max_line_length = 200
