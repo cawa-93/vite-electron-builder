@@ -1,34 +1,18 @@
 # Contributing
 
-First and foremost, thank you! We appreciate that you want to contribute to vite-electron-builder, your time is
-valuable, and your contributions mean a lot to us.
+First and foremost, thank you! We appreciate that you want to contribute to vite-electron-builder.
 
 ## Issues
+- All reports of bugs, problems, and flaws are welcome.
+- Improvements of documentation are welcome as well.
+- If you have a question or a request for help, please prefer to create it in the discussion section.
 
-Do not create issues about bumping dependencies unless a bug has been identified, and you can demonstrate that it
-effects this library.
-
-**Help us to help you**
-
-Remember that we’re here to help, but not to make guesses about what you need help with:
-
-- Whatever bug or issue you're experiencing, assume that it will not be as obvious to the maintainers as it is to you.
-- Spell it out completely. Keep in mind that maintainers need to think about _all potential use cases_ of a library.
-  It's important that you explain how you're using a library so that maintainers can make that connection and solve the
-  issue.
-
-_It can't be understated how frustrating and draining it can be to maintainers to have to ask clarifying questions on
-the most basic things, before it's even possible to start debugging. Please try to make the best use of everyone's time
-involved, including yourself, by providing this information up front._
-
-## Repo Setup
-
-The package manager used to install and link dependencies must be npm v7 or later.
-
-1. Clone repo
-1. `npm run watch` start electron app in watch mode.
-1. `npm run compile` build app but for local debugging only.
-1. `npm run lint` lint your code.
-1. `npm run typecheck` Run typescript check.
-1. `npm run test` Run app test.
-1. `npm run format` Reformat all codebase to project code style.
+## Pull Requests
+- Developing this template is no different from using it to develop an end application. Just follow the [README.md](README.md) for instructions to set up. 
+  It also describes the structure of the template and the available commands.
+- Save your time. Before proposing any changes to the main repository, create an issue for discussion a proposal.
+- When creating this template, I try to stick to minimalism. Please prefer to use the native features of the platform and avoid adding third-party dependencies without a really good reason.
+- I follow the idea that code style should be left to the end template-user, so this repo does not contain any linters or formatters by default.
+  I also don't make any requirements for strict adherence to the code style.
+  That's up to you. Try to keep things consistent and don't go crazy.
+- This repo has configured end-to-end tests. If you can't run tests locally - make a PR in draft.

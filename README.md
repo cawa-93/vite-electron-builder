@@ -18,26 +18,22 @@ and best practices.
 
 Follow these steps to get started with the template:
 
-1. Click the **[Use this template](https://github.com/cawa-93/vite-electron-builder/generate)** button (you must be
-   logged in) or just clone this repo.
+1. Click the **[Use this template](https://github.com/cawa-93/vite-electron-builder/generate)** button (you must be logged in) or just clone this repo.
 2. Go to project folder and run `npm run init`
  
 That's all you need. 😉
 
 ❤️ **If you like this template, give a ⭐ or [send support](https://www.buymeacoffee.com/kozack/)!**
 
-
 ## Features
 
 ### Lightweight
-When designing this template, I tried to keep ше minimal,
-using the platform's native features to the maximum and minimizing the number of third-party dependencies.
+When designing this template, I tried to keep ше minimal, using the platform's native features to the maximum and minimizing the number of third-party dependencies.
 
 ### Electron [![Electron version](https://img.shields.io/github/package-json/dependency-version/cawa-93/vite-electron-builder/dev/electron?label=%20)][electron]
 
 - This template uses the latest electron version with all the latest security patches.
-- The architecture of the application is built according to the
-  security [guides](https://www.electronjs.org/docs/tutorial/security) and best practices.
+- The architecture of the application is built according to the security [guides](https://www.electronjs.org/docs/tutorial/security) and best practices.
 - The latest version of the [electron-builder] is used to package the application.
 
 ### Automatic tests
@@ -53,8 +49,7 @@ using the platform's native features to the maximum and minimizing the number of
 ### Auto-update
 
 Each time you push changes to the `main` branch,
-the [`ci`](.github/workflows/ci.yml) workflow starts to create
-and deploy a new application version with then will be downloaded and applied by each app instance.
+the [`ci`](.github/workflows/ci.yml) workflow starts to create and deploy a new application version with then will be downloaded and applied by each app instance.
 
 ## Project Structure
 
@@ -93,8 +88,7 @@ We are using [electron-builder] for
 this.
 
 - You can compile application locally by `npm run compile`.
-  In this case, you will get executable that you cat share, but
-  it will not support auto-updates out-of-box.
+  In this case, you will get executable that you cat share, but it will not support auto-updates out-of-box.
 - To have auto-updater, you should compile an application and publish it to one or more supported sources for distribution. In this case, all application instances will download and apply all new updates. This is done by GitHub action in [release.yml](.github/workflows/release.yml).
 
 > [!TIP]
