@@ -1,15 +1,8 @@
 import {execSync} from 'node:child_process';
-import electron from 'electron';
-
-/**
- * Outside electron context, the `electron` package return path to executable
- * @type {string}
- */
-const electronPath = electron.toString();
 
 function getElectronEnv() {
   return JSON.parse(execSync(
-    `${electronPath} -p JSON.stringify(process.versions)`,
+    `npx electron -p "JSON.stringify(process.versions)"`,
     {
       encoding: 'utf-8',
       env: {
