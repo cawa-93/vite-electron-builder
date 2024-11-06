@@ -1,4 +1,5 @@
 import {resolveModuleExportNames} from 'mlly';
+import {getChromeMajorVersion} from '@vite-electron-builder/electron-versions';
 
 export default /**
  * @type {import('vite').UserConfig}
@@ -9,6 +10,7 @@ export default /**
     ssr: true,
     sourcemap: 'inline',
     outDir: 'dist',
+    target: `chrome${getChromeMajorVersion()}`,
     assetsDir: '.',
     lib: {
       entry: ['src/exposed.ts', 'virtual:browser.js'],
