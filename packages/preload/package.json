@@ -11,6 +11,7 @@
     "./exposed.mjs": "./dist/exposed.mjs"
   },
   "devDependencies": {
+    "@vite-electron-builder/electron-versions": "*",
     "mlly": "1.7.2",
     "vite": "5.4.10"
   }
