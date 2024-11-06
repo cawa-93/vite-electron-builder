@@ -17,7 +17,6 @@
     "electron-updater": "6.3.9"
   },
   "devDependencies": {
-    "@vite-electron-builder/electron-versions": "*",
     "vite": "5.4.10"
   }
 }

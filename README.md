@@ -59,20 +59,12 @@ All internal names are prefixed by `@vite-electron-builder/*`.
 There are no technical reasons for this.
 It's just for you to make it easier to understand the architecture.
 
-Initially, the repository contains only a few packages.4
-
-### Packages with building tools:
-
-- [`packages/integrate-renderer`](packages/integrate-renderer) - A helper package that is not included in the runtime.
-  It is used in `npm run init` to configure a new interface package.
-- [`packages/electron-versions`](packages/electron-versions) - A set of helper functions to get the versions of internal components bundled within Electron.
-
-### Packages with app logic:
+Initially, the repository contains only three packages:
 
 - [`packages/main`](packages/main) - Implementation of Electron's [**main script**](https://www.electronjs.org/docs/tutorial/quick-start#create-the-main-script-file).
 - [`packages/preload`](packages/preload) - Implementation of Electron's [**preload scripts**](https://www.electronjs.org/docs/latest/tutorial/tutorial-preload).
-
-### Renderer is not included
+- [`packages/integrate-renderer`](packages/integrate-renderer) - A helper package that is not included in the runtime.
+  It is used in `npm run init` to configure a new interface package.
 
 As you may have noticed, the repository does **not** contain a package that implements the application interface.
 The reason is that since the entire application is a mono-repository,
