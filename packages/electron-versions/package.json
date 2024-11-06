@@ -1,0 +1,7 @@
+{
+  "name": "@vite-electron-builder/electron-versions",
+  "type": "module",
+  "files": [],
+  "main": "./index.js",
+  "description": "A set of helper functions to get the versions of internal components bundled within Electron"
+}
