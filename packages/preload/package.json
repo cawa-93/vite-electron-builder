@@ -5,10 +5,15 @@
     "build": "vite build",
     "typecheck": "tsc --noEmit"
   },
-  "types": "./src/index.ts",
   "exports": {
-    ".": "./dist/_virtual_browser.mjs",
-    "./exposed.mjs": "./dist/exposed.mjs"
+    ".": {
+      "default": "./dist/_virtual_browser.mjs",
+      "types": "./src/index.ts"
+    },
+    "./exposed.mjs": {
+      "default": "./dist/exposed.mjs",
+      "types": "./src/exposed.d.ts"
+    }
   },
   "devDependencies": {
     "@vite-electron-builder/electron-versions": "*",

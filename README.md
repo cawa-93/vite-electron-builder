@@ -19,7 +19,9 @@ and best practices.
 Follow these steps to get started with the template:
 
 1. Click the **[Use this template](https://github.com/cawa-93/vite-electron-builder/generate)** button (you must be logged in) or just clone this repo.
-2. Go to project folder and run `npm run init`
+2. Go to project folder and run `npm run init`.
+3. Start application in development mode by `npm start`.
+4. Compile executable by `npm run compile`.
  
 That's all you need. 😉
 
@@ -85,7 +87,7 @@ There is only one requirement: the template expects to import renderer by `@vite
 
 > [!NOTE]
 > If you are using a bundler other than vite,
-> you may need to slightly change the [watch.js](scripts/watch.js) script to run it correctly.
+> you may need to slightly change the [dev-mode.js](packages/dev-mode.js) script to run it correctly.
 
 ## How It works
 
@@ -205,7 +207,7 @@ that need to be loaded.
 By default, there are two modes:
 
 - `production` is used by default
-- `development` is used by `npm run watch` script
+- `development` is used by `npm start` script
 
 When running the build script, the environment variables are loaded from the following files in your project root:
 
@@ -236,60 +238,59 @@ will not.
 ### NPM Scripts
 
 ```sh
+npm start
+```
+Start application in development more with hot-reload.
+
+---
+```sh
 npm run build
 ```
-
 Runs the `build` command in all workspaces if present.
 
+---
 ```sh
 npm run compile
 ```
-
 First runs the `build` script,
 then compiles the project into executable using `electron-builder` with the specified configuration.
 
+---
 ```sh
 npm run compile -- --dir -c.asar=false
 ```
-
 Same as `npm run compile` but pass to `electron-builder` additional parameters to disable asar archive and installer
 creating.
 Useful for debugging compiled application.
 
+---
 ```sh
 npm run test
 ```
-
 Executes end-to-end tests on **compiled app** using Playwright.
 
-```sh
-npm run watch
-```
-
-Start application in development more with hot-reload.
-
+---
 ```sh
 npm run typecheck
 ```
-
 Runs the `typecheck` command in all workspaces if present.
 
+---
 ```sh
 npm run create-renderer
 ```
-
 Initializes a new Vite project named `renderer`. Basically same as `npm create vite`.
 
+---
 ```sh
 npm run integrate-renderer
 ```
-
 Starts the integration process of the renderer using the Vite Electron builder.
 
+---
 ```sh
 npm run init
 ```
-
 Set up the initial environment by creating a new renderer, integrating it, and installing the necessary packages.
 
 ## Contribution
@@ -303,20 +304,4 @@ See [Contributing Guide](contributing.md).
 
 [electron-builder]: https://github.com/electron-userland/electron-builder
 
-[vue]: https://github.com/vuejs/vue-next
-
-[vue-router]: https://github.com/vuejs/vue-router-next/
-
-[typescript]: https://github.com/microsoft/TypeScript/
-
 [playwright]: https://playwright.dev
-
-[vitest]: https://vitest.dev
-
-[vue-tsc]: https://github.com/johnsoncodehk/vue-tsc
-
-[eslint-plugin-vue]: https://github.com/vuejs/eslint-plugin-vue
-
-[cawa-93-github]: https://github.com/cawa-93/
-
-[cawa-93-sponsor]: https://www.patreon.com/Kozack/
