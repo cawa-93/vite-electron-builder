@@ -27,8 +27,9 @@ export default /**
     emptyOutDir: true,
     reportCompressedSize: false,
   },
-  plugins: [mockExposed()],
+  plugins: [mockExposed(), handleHotReload()],
 });
+
 
 /**
  * This plugin creates a browser (renderer) version of `preload` package.
@@ -72,6 +73,49 @@ function mockExposed() {
           );
         }, '');
       }
+    },
+  };
+}
+
+
+/**
+ * Implement Electron webview reload when some file was changed
+ * @return {import('vite').Plugin}
+ */
+function handleHotReload() {
+  /** @type {import('vite').ViteDevServer|null} */
+  let rendererWatchServer = null;
+
+  return {
+    name: '@vite-electron-builder/preload-process-hot-reload',
+
+    config(config, env) {
+      if (env.mode !== 'development') {
+        return;
+      }
+
+      const rendererWatchServerProvider = config.plugins.find(p => p.name === '@vite-electron-builder/renderer-watch-server-provider');
+      if (!rendererWatchServerProvider) {
+        throw new Error('Renderer watch server provider not found');
+      }
+
+      rendererWatchServer = rendererWatchServerProvider.api.provideRendererWatchServer();
+
+      return {
+        build: {
+          watch: {},
+        },
+      };
+    },
+
+    writeBundle() {
+      if (!rendererWatchServer) {
+        return;
+      }
+
+      rendererWatchServer.ws.send({
+        type: 'full-reload',
+      });
     },
   };
 }
