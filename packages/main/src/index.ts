@@ -1,9 +1,9 @@
 import {app} from 'electron';
 import './security-restrictions';
 import {platform} from 'node:process';
-import updater from 'electron-updater';
 import type {AppInitConfig} from './AppInitConfig.js';
 import {createWindowManager} from './createWindowManager.js';
+import {runAutoUpdater} from './auto-updater.js';
 
 // Used in packages/entry-point.js
 export function initApp(initConfig: AppInitConfig) {
@@ -50,7 +50,7 @@ export function initApp(initConfig: AppInitConfig) {
     .catch(e => console.error('Failed create window:', e));
 
   /**
-   * Install Vue.js or any other extension in development mode only.
+   * Install any extension in development mode only.
    * Note: You must install `electron-devtools-installer` manually
    */
   // if (import.meta.env.DEV) {
@@ -71,19 +71,5 @@ export function initApp(initConfig: AppInitConfig) {
   //     .catch(e => console.error('Failed install extension:', e));
   // }
 
-  /**
-   * Check for app updates, install it in background and notify user that new version was installed.
-   * No reason run this in non-production build.
-   * @see https://www.electron.build/auto-update.html#quick-setup-guide
-   *
-   * Note: It may throw "ENOENT: no such file app-update.yml"
-   * if you compile production app without publishing it to distribution server.
-   * Like `npm run compile` does. It's ok 😅
-   */
-  // if (import.meta.env.PROD) {
-  //   app
-  //     .whenReady()
-  //     .then(() => updater.autoUpdater.checkForUpdatesAndNotify())
-  //     .catch(e => console.error('Failed check and install updates:', e));
-  // }
+  runAutoUpdater();
 }
