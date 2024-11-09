@@ -1,75 +1,56 @@
-import {app} from 'electron';
-import './security-restrictions';
-import {platform} from 'node:process';
 import type {AppInitConfig} from './AppInitConfig.js';
-import {createWindowManager} from './createWindowManager.js';
-import {runAutoUpdater} from './auto-updater.js';
+import {createModuleRunner} from './ModuleRunner.js';
+import {createSingleInstanceApp} from './modules/SingleInstanceApp.js';
+import {createWindowManagerModule} from './modules/WindowManager.js';
+import {createApplicationTerminatorOnLastWindowCloseModule} from './modules/ApplicationTerminatorOnLastWindowClose.js';
+import {createHardwareAccelerationModule} from './modules/HarfwareAccelerationModule.js';
+import {createAutoUpdaterModule} from './modules/AutoUpdater.js';
+import {createChromeDevToolsExtensionModule} from './modules/ChromeDevToolsExtension.js';
+import {createBlockNotAllowedOrigins} from './modules/security/BlockNotAllowdOrigins.js';
+import {createPermissionsForOrigin} from './modules/security/PermissionsForOrigin.js';
+import {createExternalUrlsModule} from './modules/ExternalUrls.js';
+
 
 // Used in packages/entry-point.js
-export function initApp(initConfig: AppInitConfig) {
-  const {restoreOrCreateWindow} = createWindowManager({
-    preload: initConfig.preload,
-    renderer: initConfig.renderer,
-  });
+export async function initApp(initConfig: AppInitConfig) {
+  const moduleRunner = createModuleRunner()
+    .enable(createWindowManagerModule({initConfig}))
+    .enable(createSingleInstanceApp())
+    .enable(createApplicationTerminatorOnLastWindowCloseModule())
+    .enable(createHardwareAccelerationModule({enable: false}))
+    .enable(createAutoUpdaterModule())
+    .enable(createChromeDevToolsExtensionModule({extension: 'VUEJS3_DEVTOOLS'}))
+
+    // Security
+    .enable(createBlockNotAllowedOrigins(
+      new Set(initConfig.renderer instanceof URL ? [initConfig.renderer.origin] : []),
+    ));
+
 
   /**
-   * Prevent electron from running multiple instances.
+   * Special rules for development mode
    */
-  const isSingleInstance = app.requestSingleInstanceLock();
-  if (!isSingleInstance) {
-    app.quit();
-    process.exit(0);
+  if (initConfig.renderer instanceof URL) {
+    moduleRunner.enable(
+      createPermissionsForOrigin(
+        initConfig.renderer.origin,
+        new Set(['openExternal']),
+      ),
+    )
+      .enable(
+        createExternalUrlsModule(
+          new Set([
+            'https://vite.dev',
+            'https://developer.mozilla.org',
+            'https://solidjs.com',
+            'https://qwik.dev',
+            'https://lit.dev',
+            'https://react.dev',
+            'https://preactjs.com',
+            'https://www.typescriptlang.org',
+            'https://vuejs.org',
+          ]),
+        ),
+      );
   }
-  app.on('second-instance', restoreOrCreateWindow);
-
-  /**
-   * Disable Hardware Acceleration to save more system resources.
-   */
-  app.disableHardwareAcceleration();
-
-  /**
-   * Shout down background process if all windows was closed
-   */
-  app.on('window-all-closed', () => {
-    if (platform !== 'darwin') {
-      app.quit();
-    }
-  });
-
-  /**
-   * @see https://www.electronjs.org/docs/latest/api/app#event-activate-macos Event: 'activate'.
-   */
-  app.on('activate', restoreOrCreateWindow);
-
-  /**
-   * Create the application window when the background process is ready.
-   */
-  app
-    .whenReady()
-    .then(restoreOrCreateWindow)
-    .catch(e => console.error('Failed create window:', e));
-
-  /**
-   * Install any extension in development mode only.
-   * Note: You must install `electron-devtools-installer` manually
-   */
-  // if (import.meta.env.DEV) {
-  //   app
-  //     .whenReady()
-  //     .then(() => import('electron-devtools-installer'))
-  //     .then(module => {
-  //       const {default: installExtension, VUEJS_DEVTOOLS} =
-  //         //@ts-expect-error Hotfix for https://github.com/cawa-93/vite-electron-builder/issues/915
-  //         typeof module.default === 'function' ? module : (module.default as typeof module);
-  //
-  //       return installExtension(VUEJS_DEVTOOLS, {
-  //         loadExtensionOptions: {
-  //           allowFileAccess: true,
-  //         },
-  //       });
-  //     })
-  //     .catch(e => console.error('Failed install extension:', e));
-  // }
-
-  runAutoUpdater();
 }
