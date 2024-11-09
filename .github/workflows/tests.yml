@@ -67,7 +67,7 @@ jobs:
             npm-${{ runner.os }}-${{ inputs.renderer-template }}-
 
       - run: npm install
-      - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}} --dir
+      - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}}
       - run: rm -rf packages
 
       # I ran into problems trying to run an electron window in ubuntu due to a missing graphics server.
