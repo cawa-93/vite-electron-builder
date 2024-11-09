@@ -6,6 +6,8 @@ import {globSync} from 'glob';
 import {platform} from 'node:process';
 import {createHash} from 'node:crypto';
 
+process.env.PLAYWRIGHT_TEST = 'true';
+
 // Declare the types of your fixtures.
 type TestFixtures = {
   electronApp: ElectronApplication;
@@ -14,6 +16,10 @@ type TestFixtures = {
 
 const test = base.extend<TestFixtures>({
   electronApp: [async ({}, use) => {
+
+    /**
+     * Executable path depends on root package name!
+     */
     let executablePattern = 'dist/*/root{,.*}';
     if (platform === 'darwin') {
       executablePattern += '/Contents/*/root';
@@ -26,6 +32,12 @@ const test = base.extend<TestFixtures>({
 
     const electronApp = await electron.launch({
       executablePath: executablePath,
+    });
+
+    electronApp.on('console', (msg) => {
+      if (msg.type() === 'error') {
+        console.error(`[electron][${msg.type()}] ${msg.text()}`);
+      }
     });
 
     await use(electronApp);
