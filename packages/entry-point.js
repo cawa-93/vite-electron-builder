@@ -11,6 +11,7 @@ if (process.env.NODE_ENV === 'development' || process.env.PLAYWRIGHT_TEST === 't
   process.on('unhandledRejection', showAndExit);
 }
 
+// noinspection JSIgnoredPromiseFromCall
 /**
  * We resolve '@vite-electron-builder/renderer' and '@vite-electron-builder/preload'
  * here and not in '@vite-electron-builder/main'

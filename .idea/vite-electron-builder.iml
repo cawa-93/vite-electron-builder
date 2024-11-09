@@ -9,6 +9,7 @@
       <excludeFolder url="file://$MODULE_DIR$/packages/main/node_modules" />
       <excludeFolder url="file://$MODULE_DIR$/packages/_renderer/dist" />
       <excludeFolder url="file://$MODULE_DIR$/test-results" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/renderer" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
