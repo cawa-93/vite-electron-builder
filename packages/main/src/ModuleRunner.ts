@@ -13,7 +13,7 @@ class ModuleRunner implements PromiseLike<void> {
         return this.#promise.then(onfulfilled, onrejected);
     }
 
-  enable(module: AppModule) {
+  init(module: AppModule) {
     const p = module.enable(this.#createModuleContext());
 
     if (p instanceof Promise) {

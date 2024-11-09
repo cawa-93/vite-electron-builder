@@ -1,45 +1,33 @@
 import type {AppInitConfig} from './AppInitConfig.js';
 import {createModuleRunner} from './ModuleRunner.js';
-import {createSingleInstanceApp} from './modules/SingleInstanceApp.js';
+import {disallowMultipleAppInstance} from './modules/SingleInstanceApp.js';
 import {createWindowManagerModule} from './modules/WindowManager.js';
-import {createApplicationTerminatorOnLastWindowCloseModule} from './modules/ApplicationTerminatorOnLastWindowClose.js';
-import {createHardwareAccelerationModule} from './modules/HarfwareAccelerationModule.js';
-import {createAutoUpdaterModule} from './modules/AutoUpdater.js';
-import {createChromeDevToolsExtensionModule} from './modules/ChromeDevToolsExtension.js';
-import {createBlockNotAllowedOrigins} from './modules/security/BlockNotAllowdOrigins.js';
-import {createPermissionsForOrigin} from './modules/security/PermissionsForOrigin.js';
-import {createExternalUrlsModule} from './modules/ExternalUrls.js';
+import {terminateAppOnLastWindowClose} from './modules/ApplicationTerminatorOnLastWindowClose.js';
+import {hardwareAccelerationMode} from './modules/HardwareAccelerationModule.js';
+import {autoUpdater} from './modules/AutoUpdater.js';
+import {allowInternalOrigins} from './modules/BlockNotAllowdOrigins.js';
+import {allowExternalUrls} from './modules/ExternalUrls.js';
 
 
-// Used in packages/entry-point.js
 export async function initApp(initConfig: AppInitConfig) {
   const moduleRunner = createModuleRunner()
-    .enable(createWindowManagerModule({initConfig}))
-    .enable(createSingleInstanceApp())
-    .enable(createApplicationTerminatorOnLastWindowCloseModule())
-    .enable(createHardwareAccelerationModule({enable: false}))
-    .enable(createAutoUpdaterModule())
-    .enable(createChromeDevToolsExtensionModule({extension: 'VUEJS3_DEVTOOLS'}))
+    .init(createWindowManagerModule({initConfig, openDevTools: import.meta.env.DEV}))
+    .init(disallowMultipleAppInstance())
+    .init(terminateAppOnLastWindowClose())
+    .init(hardwareAccelerationMode({enable: false}))
+    .init(autoUpdater())
+
+    // Install DevTools extension if needed
+    // .init(chromeDevToolsExtension({extension: 'VUEJS3_DEVTOOLS'}))
 
     // Security
-    .enable(createBlockNotAllowedOrigins(
+    .init(allowInternalOrigins(
       new Set(initConfig.renderer instanceof URL ? [initConfig.renderer.origin] : []),
-    ));
-
-
-  /**
-   * Special rules for development mode
-   */
-  if (initConfig.renderer instanceof URL) {
-    moduleRunner.enable(
-      createPermissionsForOrigin(
-        initConfig.renderer.origin,
-        new Set(['openExternal']),
-      ),
-    )
-      .enable(
-        createExternalUrlsModule(
-          new Set([
+    ))
+    .init(allowExternalUrls(
+      new Set(
+        initConfig.renderer instanceof URL
+          ? [
             'https://vite.dev',
             'https://developer.mozilla.org',
             'https://solidjs.com',
@@ -49,8 +37,10 @@ export async function initApp(initConfig: AppInitConfig) {
             'https://preactjs.com',
             'https://www.typescriptlang.org',
             'https://vuejs.org',
-          ]),
-        ),
-      );
-  }
+          ]
+          : [],
+      )),
+    );
+
+  await moduleRunner;
 }

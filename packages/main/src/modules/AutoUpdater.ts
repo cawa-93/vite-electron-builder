@@ -53,6 +53,6 @@ export class AutoUpdater implements AppModule {
 }
 
 
-export function createAutoUpdaterModule(...args: ConstructorParameters<typeof AutoUpdater>) {
+export function autoUpdater(...args: ConstructorParameters<typeof AutoUpdater>) {
   return new AutoUpdater(...args);
 }

@@ -8,6 +8,6 @@ class ApplicationTerminatorOnLastWindowClose implements AppModule {
 }
 
 
-export function createApplicationTerminatorOnLastWindowCloseModule(...args: ConstructorParameters<typeof ApplicationTerminatorOnLastWindowClose>) {
+export function terminateAppOnLastWindowClose(...args: ConstructorParameters<typeof ApplicationTerminatorOnLastWindowClose>) {
   return new ApplicationTerminatorOnLastWindowClose(...args);
 }

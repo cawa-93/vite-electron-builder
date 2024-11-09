@@ -6,10 +6,12 @@ import type {AppInitConfig} from '../AppInitConfig.js';
 class WindowManager implements AppModule {
   readonly #preload: {path: string};
   readonly #renderer: {path: string} | URL;
+  readonly #openDevTools;
 
-  constructor({initConfig}: {initConfig: AppInitConfig}) {
+  constructor({initConfig, openDevTools = false}: {initConfig: AppInitConfig, openDevTools?: boolean}) {
     this.#preload = initConfig.preload;
     this.#renderer = initConfig.renderer;
+    this.#openDevTools = openDevTools;
   }
 
   async enable({app}: ModuleContext): Promise<void> {
@@ -57,7 +59,7 @@ class WindowManager implements AppModule {
 
     window?.show();
 
-    if (import.meta.env.DEV) {
+    if (this.#openDevTools) {
       window?.webContents.openDevTools();
     }
 

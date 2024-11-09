@@ -16,6 +16,6 @@ export class HardwareAccelerationModule implements AppModule {
   }
 }
 
-export function createHardwareAccelerationModule(...args: ConstructorParameters<typeof HardwareAccelerationModule>) {
+export function hardwareAccelerationMode(...args: ConstructorParameters<typeof HardwareAccelerationModule>) {
   return new HardwareAccelerationModule(...args);
 }

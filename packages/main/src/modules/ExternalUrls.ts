@@ -30,6 +30,6 @@ export class ExternalUrls implements AppModule {
 }
 
 
-export function createExternalUrlsModule(...args: ConstructorParameters<typeof ExternalUrls>) {
+export function allowExternalUrls(...args: ConstructorParameters<typeof ExternalUrls>) {
   return new ExternalUrls(...args);
 }

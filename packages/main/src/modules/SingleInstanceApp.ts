@@ -1,6 +1,5 @@
 import {AppModule} from '../AppModule.js';
 import * as Electron from 'electron';
-import {app} from 'electron';
 
 class SingleInstanceApp implements AppModule {
   enable({app}: {app: Electron.App}): void {
@@ -13,6 +12,6 @@ class SingleInstanceApp implements AppModule {
 }
 
 
-export function createSingleInstanceApp(...args: ConstructorParameters<typeof SingleInstanceApp>) {
+export function disallowMultipleAppInstance(...args: ConstructorParameters<typeof SingleInstanceApp>) {
   return new SingleInstanceApp(...args);
 }

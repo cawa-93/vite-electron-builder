@@ -37,6 +37,6 @@ export class BlockNotAllowedOrigins extends AbstractSecurityRule {
 }
 
 
-export function createBlockNotAllowedOrigins(...args: ConstructorParameters<typeof BlockNotAllowedOrigins>): BlockNotAllowedOrigins {
+export function allowInternalOrigins(...args: ConstructorParameters<typeof BlockNotAllowedOrigins>): BlockNotAllowedOrigins {
   return new BlockNotAllowedOrigins(...args);
 }

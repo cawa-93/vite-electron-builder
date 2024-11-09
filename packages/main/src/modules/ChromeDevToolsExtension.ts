@@ -44,6 +44,6 @@ export class ChromeDevToolsExtension implements AppModule {
   }
 }
 
-export function createChromeDevToolsExtensionModule(...args: ConstructorParameters<typeof ChromeDevToolsExtension>) {
+export function chromeDevToolsExtension(...args: ConstructorParameters<typeof ChromeDevToolsExtension>) {
   return new ChromeDevToolsExtension(...args);
 }
