@@ -51,7 +51,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
-      - uses: .github/actions/init-template-with-renderer
+      - uses: ./.github/actions/init-template-with-renderer
         with:
           renderer-template: ${{inputs.renderer-template}}
       - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}}
