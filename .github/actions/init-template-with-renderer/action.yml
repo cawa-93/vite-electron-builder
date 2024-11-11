@@ -1,0 +1,36 @@
+name: 'Init template with all dependencies renderer'
+description: 'Install all necessary dependencies and init a renderer package'
+inputs:
+  renderer-template:
+    description: 'type of renderer package to init'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - if: ${{ runner.os == 'Linux' }}
+      shell: bash
+      run: |
+        Xvfb :99 -screen 0 1280x960x24 &
+        echo "DISPLAY=:99" >> $GITHUB_ENV
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 'latest'
+
+    - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
+      shell: bash
+
+    - run: npm start --workspace @vite-electron-builder/integrate-renderer
+      shell: bash
+
+    - name: Cache Dependencies
+      uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: npm-${{ runner.os }}-${{ inputs.renderer-template }}-${{ hashFiles('**/package.json') }}
+        restore-keys: |
+          npm-${{ runner.os }}-${{ inputs.renderer-template }}-
+
+    - run: npm install
+      shell: bash
