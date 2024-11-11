@@ -9,6 +9,7 @@ runs:
   using: "composite"
   steps:
     - if: ${{ runner.os == 'Linux' }}
+      shell: bash
       run: |
         Xvfb :99 -screen 0 1280x960x24 &
         echo "DISPLAY=:99" >> $GITHUB_ENV
@@ -18,7 +19,11 @@ runs:
         node-version: 'latest'
 
     - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
+      shell: bash
+
     - run: npm start --workspace @vite-electron-builder/integrate-renderer
+      shell: bash
+
     - name: Cache Dependencies
       uses: actions/cache@v4
       with:
@@ -28,3 +33,4 @@ runs:
           npm-${{ runner.os }}-${{ inputs.renderer-template }}-
 
     - run: npm install
+      shell: bash
