@@ -23,21 +23,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: ./.github/actions/init-template-with-renderer
         with:
-          node-version: 'latest'
-
-      - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
-      - run: npm start --workspace @vite-electron-builder/integrate-renderer
-      - name: Cache Dependencies
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: npm-${{ runner.os }}-${{ inputs.renderer-template }}-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            npm-${{ runner.os }}-${{ inputs.renderer-template }}-
-
-      - run: npm install
+          renderer-template: ${{inputs.renderer-template}}
       - run: npm run typecheck --if-present
 
   tests:
