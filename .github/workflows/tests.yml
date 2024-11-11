@@ -24,6 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/init-template-with-renderer
+        name: Init template with "${{inputs.renderer-template}}" renderer
         with:
           renderer-template: ${{inputs.renderer-template}}
       - run: npm run typecheck --if-present
@@ -40,6 +41,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/init-template-with-renderer
+        name: Init template with "${{inputs.renderer-template}}" renderer
         with:
           renderer-template: ${{inputs.renderer-template}}
       - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}}
