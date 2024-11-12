@@ -53,6 +53,12 @@ jobs:
     with:
       renderer-template: ${{ matrix.renderer-template }}
       app-version: ${{ needs.prepare.outputs.APP_VERSION }}
+    strategy:
+      fail-fast: false
+      matrix:
+        renderer-template:
+          - vanilla
+          - vanilla-ts
 #  tests:
 #    needs:
 #      - prepare
