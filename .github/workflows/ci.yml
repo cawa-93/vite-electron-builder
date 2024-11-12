@@ -47,10 +47,10 @@ jobs:
           echo "- \`APP_VERSION\`: ${{ steps.APP_VERSION.outputs.APP_VERSION }}" >> $GITHUB_STEP_SUMMARY
           echo "- \`APP_FULL_VERSION\`: ${{ steps.APP_FULL_VERSION.outputs.APP_FULL_VERSION }}" >> $GITHUB_STEP_SUMMARY
 
-  compile:
+  compile-and-test:
     needs:
       - prepare
-    uses: ./.github/workflows/compile.yml
+    uses: ./.github/workflows/compile-and-test.yml
     with:
       renderer-template: ${{ matrix.renderer-template }}
       app-version: ${{ needs.prepare.outputs.APP_FULL_VERSION }}
@@ -60,36 +60,20 @@ jobs:
         renderer-template:
           - vanilla
           - vanilla-ts
-  tests:
+  deploy:
     needs:
-      - compile
-    uses: ./.github/workflows/tests.yml
+      - compile-and-test
+    uses: ./.github/workflows/compile-and-test.yml
     with:
       renderer-template: ${{ matrix.renderer-template }}
+      app-version: ${{ needs.prepare.outputs.APP_FULL_VERSION }}
     strategy:
       fail-fast: false
       matrix:
         renderer-template:
           - vanilla
           - vanilla-ts
-#          - vue
-#          - vue-ts
-#          - react
-#          - react-ts
-#          - react-swc
-#          - react-swc-ts
-#          - preact
-#          - preact-ts
-#          - lit
-#          - lit-ts
-#          - svelte
-#          - svelte-ts
-#          - solid
-#          - solid-ts
-#          Qwik Has unresolved upstream issue. So I decided to torn it off for now
-#          - qwik
-#          - qwik-ts
-#
+
 #
 #  dependabot:
 #    permissions:

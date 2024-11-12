@@ -1,0 +1,34 @@
+name: Deploy
+
+on:
+  workflow_call:
+    inputs:
+      renderer-template:
+        required: true
+        type: string
+      app-version:
+        required: true
+        type: string
+
+defaults:
+  run:
+    shell: 'bash'
+
+env:
+  NODE_NO_WARNINGS: 1
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+  npm_config_audit: false
+  npm_config_fund: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{inputs.renderer-template}}
+    steps:
+      - name: Download compiled app
+        uses: actions/download-artifact@v4
+        with:
+          pattern: *-${{inputs.renderer-template}}
+          path: dist
+          merge-multiple: true
+      - run: gh release create v${{inputs.app-version}}-${{inputs.renderer-template}} dist/*${{inputs.renderer-template}}* dist/*.yml --draft
