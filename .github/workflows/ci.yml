@@ -33,9 +33,7 @@ jobs:
   prepare:
     runs-on: ubuntu-latest
     outputs:
-      COMMIT_TIMESTAMP: ${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}
-      APP_CHANNEL: ${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}
-      APP_VERSION: ${{ steps.APP_VERSION.outputs.APP_VERSION }}
+      APP_FULL_VERSION: ${{ steps.APP_VERSION.outputs.APP_FULL_VERSION }}
     steps:
       - uses: actions/checkout@v4
       - id: COMMIT_TIMESTAMP
@@ -55,7 +53,7 @@ jobs:
     uses: ./.github/workflows/compile.yml
     with:
       renderer-template: ${{ matrix.renderer-template }}
-      app-version: ${{ needs.prepare.outputs.APP_VERSION }}
+      app-version: ${{ needs.prepare.outputs.APP_FULL_VERSION }}
     strategy:
       fail-fast: false
       matrix:
