@@ -27,7 +27,9 @@ runs:
       shell: bash
       if: inputs.renderer-template != ''
 
-    - run: echo "{\"name\":\"@vite-electron-builder/renderer\"}" > packages/renderer/package.json
+    - run: |
+        mkdir packages/renderer
+        echo "{\"name\":\"@vite-electron-builder/renderer\"}" > packages/renderer/package.json
       shell: bash
       if: inputs.renderer-template == ''
 

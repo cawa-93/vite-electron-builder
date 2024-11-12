@@ -40,7 +40,6 @@ jobs:
       - uses: ./.github/actions/init-template-with-renderer
         name: Init template with empty renderer
 
-
       - run: rm -rf packages/renderer
 
       - name: Download compiled app
