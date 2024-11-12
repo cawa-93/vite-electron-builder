@@ -34,13 +34,12 @@ jobs:
         name: Init template with "${{inputs.renderer-template}}" renderer
         with:
           renderer-template: ${{inputs.renderer-template}}
-      - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}}
+      - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}}-${{inputs.renderer-template}}
         env:
           VITE_DISTRIBUTION_CHANNEL: ${{inputs.renderer-template}}
 
-      - name: Upload compilation artifacts
+      - name: Upload compiled app
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.os }}-${{inputs.app-version}}-${{inputs.renderer-template}}
-          path: |
-            dist
+          path: dist

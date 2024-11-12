@@ -41,9 +41,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/init-template-with-renderer
-        name: Init template with "${{inputs.renderer-template}}" renderer
+        name: Init template
+
+      - name: Download compiled app
+        uses: actions/download-artifact@v4
         with:
-          renderer-template: ${{inputs.renderer-template}}
-      - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}}
-      - run: rm -rf packages
+          name: ${{ matrix.os }}-${{inputs.app-version}}-${{inputs.renderer-template}}
+
       - run: npm run test --if-present

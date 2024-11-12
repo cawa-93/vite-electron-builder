@@ -41,7 +41,7 @@ jobs:
       - id: COMMIT_TIMESTAMP
         run: echo "COMMIT_TIMESTAMP=$(git show -s --format=%ct ${{ github.sha }})" >> $GITHUB_OUTPUT
       - id: APP_VERSION
-        run: echo "APP_VERSION=3.0.${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}$(if [[ "${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}" != 'latest' ]]; then echo '-${{ steps.APP_CHANNEL.outputs.APP_CHANNEL }}'; else echo ''; fi)" >> $GITHUB_OUTPUT
+        run: echo "APP_VERSION=3.0.${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}" >> $GITHUB_OUTPUT
       - run: |
           echo "- \`COMMIT_TIMESTAMP\`: ${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}" >> $GITHUB_STEP_SUMMARY
           echo "- \`APP_VERSION\`: ${{ steps.APP_VERSION.outputs.APP_VERSION }}" >> $GITHUB_STEP_SUMMARY
@@ -59,19 +59,20 @@ jobs:
         renderer-template:
           - vanilla
           - vanilla-ts
-#  tests:
-#    needs:
-#      - prepare
-#    uses: ./.github/workflows/tests.yml
-#    with:
-#      renderer-template: ${{ matrix.renderer-template }}
-#      app-version: ${{ needs.prepare.outputs.APP_VERSION }}
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        renderer-template:
-#          - vanilla
-#          - vanilla-ts
+  tests:
+    needs:
+      - prepare
+      - compile
+    uses: ./.github/workflows/tests.yml
+    with:
+      renderer-template: ${{ matrix.renderer-template }}
+      app-version: ${{ needs.prepare.outputs.APP_VERSION }}
+    strategy:
+      fail-fast: false
+      matrix:
+        renderer-template:
+          - vanilla
+          - vanilla-ts
 #          - vue
 #          - vue-ts
 #          - react
@@ -86,9 +87,9 @@ jobs:
 #          - svelte-ts
 #          - solid
 #          - solid-ts
-##          Qwik Has unresolved upstream issue. So I decided to torn it off for now
-##          - qwik
-##          - qwik-ts
+#          Qwik Has unresolved upstream issue. So I decided to torn it off for now
+#          - qwik
+#          - qwik-ts
 #
 #
 #  dependabot:
