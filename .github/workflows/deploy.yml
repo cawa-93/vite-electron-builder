@@ -42,6 +42,6 @@ jobs:
           pattern: "*-${{inputs.renderer-template}}"
           path: dist
           merge-multiple: true
-      - run: gh release create v${{inputs.app-version}}-${{inputs.renderer-template}}.${{inputs.build-number}} dist/*${{inputs.renderer-template}}* dist/*latest.yml --draft --repo ${{github.repository}}
+      - run: gh release create v${{inputs.app-version}}-${{inputs.renderer-template}}.${{inputs.build-number}} dist/*${{inputs.renderer-template}}* dist/*latest.yml --repo ${{github.repository}}
         env:
           GH_TOKEN: ${{ github.token }}

@@ -80,7 +80,7 @@ jobs:
     uses: ./.github/workflows/deploy.yml
     with:
       renderer-template: ${{ matrix.renderer-template }}
-      app-version: ${{ needs.prepare.outputs.APP_FULL_VERSION }}
+      app-version: ${{ needs.prepare.outputs.APP_VERSION }}
       build-number: ${{ needs.prepare.outputs.COMMIT_TIMESTAMP }}
     strategy:
       fail-fast: false
