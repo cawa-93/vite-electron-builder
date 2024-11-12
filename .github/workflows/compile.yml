@@ -34,7 +34,10 @@ jobs:
         name: Init template with "${{inputs.renderer-template}}" renderer
         with:
           renderer-template: ${{inputs.renderer-template}}
-      - run: npm run compile -- --publish 'never' -c.extraMetadata.version="${{inputs.app-version}}-${{inputs.renderer-template}}"
+
+      - run: |
+          sed -i 's/"version": "[^"]*"/"version": "${{inputs.app-version}}-${{inputs.renderer-template}}"/' package.json
+      - run: npm run compile -- --publish 'never'
         env:
           VITE_DISTRIBUTION_CHANNEL: ${{inputs.renderer-template}}
 
