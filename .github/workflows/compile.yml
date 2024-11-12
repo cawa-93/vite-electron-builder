@@ -41,5 +41,5 @@ jobs:
       - name: Upload compiled app
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}-${{inputs.app-version}}-${{inputs.renderer-template}}
+          name: ${{ matrix.os }}-${{inputs.renderer-template}}
           path: dist
