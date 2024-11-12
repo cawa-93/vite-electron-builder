@@ -51,7 +51,7 @@ jobs:
           renderer-template: ${{inputs.renderer-template}}
 
       - run: npm version "${{inputs.app-version}}-${{inputs.renderer-template}}.${{inputs.build-number}}" --no-git-tag-version
-      - run: npm run compile -- -c.extraMetadata -c.productName=${{inputs.renderer-template}} -p never
+      - run: npm run compile -- -p never
         env:
           VITE_DISTRIBUTION_CHANNEL: ${{inputs.renderer-template}}
           BUILD_NUMBER: ${{inputs.build-number}}
