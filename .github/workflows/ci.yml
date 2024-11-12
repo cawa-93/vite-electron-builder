@@ -33,7 +33,7 @@ jobs:
   prepare:
     runs-on: ubuntu-latest
     outputs:
-      APP_FULL_VERSION: ${{ steps.APP_VERSION.outputs.APP_FULL_VERSION }}
+      APP_FULL_VERSION: ${{ steps.APP_FULL_VERSION.outputs.APP_FULL_VERSION }}
     steps:
       - uses: actions/checkout@v4
       - id: COMMIT_TIMESTAMP
