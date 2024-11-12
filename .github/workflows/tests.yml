@@ -48,8 +48,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ matrix.os }}-${{inputs.renderer-template}}
-          merge-multiple: true
+          path: dist
 
-      - run: ls -R
-      - run: ls -R dist
       - run: npm run test --if-present
