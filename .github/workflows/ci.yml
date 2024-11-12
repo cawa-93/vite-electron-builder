@@ -6,23 +6,14 @@ on:
     branches:
       - main
     paths-ignore:
-      - '.github/**'
-      - '!.github/workflows/ci.yml'
-      - '!.github/workflows/tests.yml'
-      - '!.github/workflows/release.yml'
       - '**.md'
       - .editorconfig
-      - .gitignore
       - '.idea/**'
       - '.vscode/**'
   pull_request:
     paths-ignore:
-      - '!.github/workflows/ci.yml'
-      - '!.github/workflows/tests.yml'
-      - '!.github/workflows/release.yml'
       - '**.md'
       - .editorconfig
-      - .gitignore
       - '.idea/**'
       - '.vscode/**'
 concurrency:
