@@ -38,9 +38,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/init-template-with-renderer
-        name: Init template with "${{inputs.renderer-template}}" renderer
-        with:
-          renderer-template: ${{inputs.renderer-template}}
+        name: Init template with empty renderer
+
 
       - run: rm -rf packages/renderer
 
@@ -50,4 +49,5 @@ jobs:
           name: ${{ matrix.os }}-${{inputs.renderer-template}}
           path: dist
 
+      - run: chmod -R 777 dist
       - run: npm run test --if-present

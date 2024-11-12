@@ -27,6 +27,10 @@ runs:
       shell: bash
       if: inputs.renderer-template != ''
 
+    - run: echo "{\"name\":\"@vite-electron-builder/renderer\"}" > packages/renderer/package.json
+      shell: bash
+      if: inputs.renderer-template == ''
+
     - name: Cache Dependencies
       uses: actions/cache@v4
       with:
