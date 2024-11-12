@@ -1,3 +1,5 @@
+name: Compile and test
+
 on:
   workflow_call:
     inputs:
@@ -5,6 +7,9 @@ on:
         required: true
         type: string
       app-version:
+        required: true
+        type: string
+      build-number:
         required: true
         type: string
 
@@ -29,9 +34,9 @@ jobs:
           renderer-template: ${{inputs.renderer-template}}
       - run: npm run typecheck --if-present
 
-  tests:
+  compile:
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         os:
           - windows-latest
@@ -44,6 +49,16 @@ jobs:
         name: Init template with "${{inputs.renderer-template}}" renderer
         with:
           renderer-template: ${{inputs.renderer-template}}
-      - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}}
-      - run: rm -rf packages
+
+      - run: npm version "${{inputs.app-version}}-${{inputs.renderer-template}}.${{inputs.build-number}}" --no-git-tag-version
+      - run: npm run compile
+        env:
+          VITE_DISTRIBUTION_CHANNEL: ${{inputs.renderer-template}}
+
       - run: npm run test --if-present
+
+      - name: Upload compiled app
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }}-${{inputs.renderer-template}}
+          path: dist
