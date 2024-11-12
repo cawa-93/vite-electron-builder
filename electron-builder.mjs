@@ -18,7 +18,6 @@ export default /** @type import('electron-builder').Configuration */
     '!node_modules/@vite-electron-builder/**',
     ...await getListOfFilesFromEachWorkspace(),
   ],
-  publish: 'never',
 });
 
 /**
