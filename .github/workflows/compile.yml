@@ -35,9 +35,8 @@ jobs:
         with:
           renderer-template: ${{inputs.renderer-template}}
 
-      - run: |
-          sed -i 's/"version": "[^"]*"/"version": "${{inputs.app-version}}-${{inputs.renderer-template}}"/' package.json
-      - run: npm run compile -- --publish 'never'
+      - run: npm version "${{inputs.app-version}}-${{inputs.renderer-template}}" --no-git-tag-version
+      - run: npm run compile
         env:
           VITE_DISTRIBUTION_CHANNEL: ${{inputs.renderer-template}}
 
