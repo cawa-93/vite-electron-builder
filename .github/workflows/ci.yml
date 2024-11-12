@@ -63,7 +63,7 @@ jobs:
   deploy:
     needs:
       - compile-and-test
-    uses: ./.github/workflows/compile-and-test.yml
+    uses: ./.github/workflows/deploy.yml
     with:
       renderer-template: ${{ matrix.renderer-template }}
       app-version: ${{ needs.prepare.outputs.APP_FULL_VERSION }}
