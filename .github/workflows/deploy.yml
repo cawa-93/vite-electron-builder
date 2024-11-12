@@ -23,7 +23,9 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{inputs.renderer-template}}
+    environment:
+      name: ${{inputs.renderer-template}}
+      url: https://github.com/${{github.repository}}/releases/tag/v${{inputs.app-version}}-${{inputs.renderer-template}}
     steps:
       - name: Set pattern variable
         run: echo "pattern=*-${{inputs.renderer-template}}" >> $GITHUB_ENV
@@ -33,6 +35,6 @@ jobs:
           pattern: "*-${{inputs.renderer-template}}"
           path: dist
           merge-multiple: true
-      - run: gh release create v${{inputs.app-version}}-${{inputs.renderer-template}} dist/*${{inputs.renderer-template}}* dist/*.yml --draft
+      - run: gh release create v${{inputs.app-version}}-${{inputs.renderer-template}} dist/*${{inputs.renderer-template}}* dist/*.yml --draft --repo ${{github.repository}}
         env:
           GH_TOKEN: ${{ github.token }}
