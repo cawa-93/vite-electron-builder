@@ -25,10 +25,14 @@ jobs:
     runs-on: ubuntu-latest
     environment: ${{inputs.renderer-template}}
     steps:
+      - name: Set pattern variable
+        run: echo "pattern=*-${{inputs.renderer-template}}" >> $GITHUB_ENV
       - name: Download compiled app
         uses: actions/download-artifact@v4
         with:
-          pattern: "*-${{ inputs.renderer-template }}*"
+          pattern: "*-${{inputs.renderer-template}}"
           path: dist
           merge-multiple: true
       - run: gh release create v${{inputs.app-version}}-${{inputs.renderer-template}} dist/*${{inputs.renderer-template}}* dist/*.yml --draft
+        env:
+          GH_TOKEN: ${{ github.token }}
