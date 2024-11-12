@@ -43,5 +43,4 @@ jobs:
         with:
           name: ${{ matrix.os }}-${{inputs.app-version}}-${{inputs.renderer-template}}
           path: |
-            dist/*latest.yml
-            dist/*-${{inputs.app-version}}-${{inputs.renderer-template}}*
+            dist
