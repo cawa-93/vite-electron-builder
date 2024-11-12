@@ -30,7 +30,7 @@ jobs:
       - name: Download compiled app
         uses: actions/download-artifact@v4
         with:
-          pattern: "*-${{inputs.renderer-template}}"
+          pattern: "*-${{inputs.renderer-template}}*"
           path: dist
           merge-multiple: true
       - run: gh release create v${{inputs.app-version}}-${{inputs.renderer-template}} dist/*${{inputs.renderer-template}}* dist/*.yml --draft
