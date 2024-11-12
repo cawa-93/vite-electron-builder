@@ -33,19 +33,17 @@ jobs:
   prepare:
     runs-on: ubuntu-latest
     outputs:
-      APP_FULL_VERSION: ${{ steps.APP_FULL_VERSION.outputs.APP_FULL_VERSION }}
+      APP_VERSION: ${{ steps.APP_VERSION.outputs.APP_VERSION }}
+      COMMIT_TIMESTAMP: ${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}
     steps:
       - uses: actions/checkout@v4
       - id: COMMIT_TIMESTAMP
         run: echo "COMMIT_TIMESTAMP=$(git show -s --format=%ct ${{ github.sha }})" >> $GITHUB_OUTPUT
       - id: APP_VERSION
         run: echo "APP_VERSION=$(jq -r .version package.json)" >> $GITHUB_OUTPUT
-      - id: APP_FULL_VERSION
-        run: echo "APP_FULL_VERSION=${{ steps.APP_VERSION.outputs.APP_VERSION }}.${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}" >> $GITHUB_OUTPUT
       - run: |
           echo "- \`COMMIT_TIMESTAMP\`: ${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}" >> $GITHUB_STEP_SUMMARY
           echo "- \`APP_VERSION\`: ${{ steps.APP_VERSION.outputs.APP_VERSION }}" >> $GITHUB_STEP_SUMMARY
-          echo "- \`APP_FULL_VERSION\`: ${{ steps.APP_FULL_VERSION.outputs.APP_FULL_VERSION }}" >> $GITHUB_STEP_SUMMARY
 
   compile-and-test:
     needs:
@@ -53,7 +51,8 @@ jobs:
     uses: ./.github/workflows/compile-and-test.yml
     with:
       renderer-template: ${{ matrix.renderer-template }}
-      app-version: ${{ needs.prepare.outputs.APP_FULL_VERSION }}
+      app-version: ${{ needs.prepare.outputs.APP_VERSION }}
+      build-number: ${{ needs.prepare.outputs.COMMIT_TIMESTAMP }}
     strategy:
       fail-fast: false
       matrix:
@@ -86,6 +85,7 @@ jobs:
     with:
       renderer-template: ${{ matrix.renderer-template }}
       app-version: ${{ needs.prepare.outputs.APP_FULL_VERSION }}
+      build-number: ${{ needs.prepare.outputs.COMMIT_TIMESTAMP }}
     strategy:
       fail-fast: false
       matrix:

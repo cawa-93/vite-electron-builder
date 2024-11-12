@@ -9,6 +9,9 @@ on:
       app-version:
         required: true
         type: string
+      build-number:
+        required: true
+        type: string
 
 defaults:
   run:
@@ -47,7 +50,7 @@ jobs:
         with:
           renderer-template: ${{inputs.renderer-template}}
 
-      - run: npm version "${{inputs.app-version}}-${{inputs.renderer-template}}" --no-git-tag-version
+      - run: npm version "${{inputs.app-version}}-${{inputs.renderer-template}}.${{inputs-build-number}}" --no-git-tag-version
       - run: npm run compile
         env:
           VITE_DISTRIBUTION_CHANNEL: ${{inputs.renderer-template}}
