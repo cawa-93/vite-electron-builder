@@ -20,6 +20,9 @@ concurrency:
   group: ${{github.workflow}}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: write
+
 jobs:
   prepare:
     runs-on: ubuntu-latest
@@ -69,6 +72,8 @@ jobs:
 #          - qwik-ts
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
     needs:
       - prepare
       - compile-and-test

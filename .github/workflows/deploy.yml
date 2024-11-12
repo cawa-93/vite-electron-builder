@@ -13,6 +13,9 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: write
+
 defaults:
   run:
     shell: 'bash'
@@ -22,6 +25,7 @@ env:
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
   npm_config_audit: false
   npm_config_fund: false
+
 
 jobs:
   deploy:
