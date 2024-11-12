@@ -1,0 +1,31 @@
+on:
+  workflow_call:
+    inputs:
+      renderer-template:
+        required: true
+        type: string
+      app-version:
+        required: true
+        type: string
+
+defaults:
+  run:
+    shell: 'bash'
+
+env:
+  NODE_NO_WARNINGS: 1
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+  npm_config_audit: false
+  npm_config_fund: false
+
+jobs:
+  deploy:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - windows-latest
+          - ubuntu-latest
+          - macos-latest
+    environment: ${{inputs.renderer-template}}
+    runs-on: ${{ matrix.os }}

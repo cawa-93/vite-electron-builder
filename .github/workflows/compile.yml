@@ -1,0 +1,49 @@
+on:
+  workflow_call:
+    inputs:
+      renderer-template:
+        required: true
+        type: string
+      app-version:
+        required: true
+        type: string
+
+defaults:
+  run:
+    shell: 'bash'
+
+env:
+  NODE_NO_WARNINGS: 1
+  PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
+  npm_config_audit: false
+  npm_config_fund: false
+
+jobs:
+  compile:
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - windows-latest
+          - ubuntu-latest
+          - macos-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/init-template-with-renderer
+        name: Init template with "${{inputs.renderer-template}}" renderer
+        with:
+          renderer-template: ${{inputs.renderer-template}}
+      - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}}
+      - run: rm -rf packages
+      - run: npm run compile -- -c.extraMetadata.version=${{inputs.app-version}}-${{inputs.renderer-template}}
+        env:
+          VITE_DISTRIBUTION_CHANNEL: ${{inputs.renderer-template}}
+
+      - name: Upload compilation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }}-${{inputs.app-version}}-${{inputs.renderer-template}}
+          path: |
+            dist/*latest.yml
+            dist/*-${{inputs.app-version}}-${{inputs.renderer-template}}*
