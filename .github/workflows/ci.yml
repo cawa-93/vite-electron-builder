@@ -60,7 +60,25 @@ jobs:
         renderer-template:
           - vanilla
           - vanilla-ts
+          - vue
+          - vue-ts
+          - react
+          - react-ts
+          - react-swc
+          - react-swc-ts
+          - preact
+          - preact-ts
+          - lit
+          - lit-ts
+          - svelte
+          - svelte-ts
+          - solid
+          - solid-ts
+#          Qwik Has unresolved upstream issue. So I decided to torn it off for now
+#          - qwik
+#          - qwik-ts
   deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     needs:
       - prepare
       - compile-and-test
@@ -74,19 +92,36 @@ jobs:
         renderer-template:
           - vanilla
           - vanilla-ts
+          - vue
+          - vue-ts
+          - react
+          - react-ts
+          - react-swc
+          - react-swc-ts
+          - preact
+          - preact-ts
+          - lit
+          - lit-ts
+          - svelte
+          - svelte-ts
+          - solid
+          - solid-ts
+#          Qwik Has unresolved upstream issue. So I decided to torn it off for now
+#          - qwik
+#          - qwik-ts
 
-#
-#  dependabot:
-#    permissions:
-#      contents: write
-#      pull-requests: write
-#    needs:
-#      - tests
-#    runs-on: ubuntu-latest
-#    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'cawa-93/vite-electron-builder'
-#    steps:
-#      - name: Enable auto-merge for Dependabot PRs
-#        run: gh pr merge --auto --rebase "$PR_URL"
-#        env:
-#          PR_URL: ${{github.event.pull_request.html_url}}
-#          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+  dependabot:
+    permissions:
+      contents: write
+      pull-requests: write
+    needs:
+      - compile-and-test
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'cawa-93/vite-electron-builder'
+    steps:
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --rebase "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
