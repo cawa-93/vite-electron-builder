@@ -35,7 +35,6 @@ jobs:
         with:
           renderer-template: ${{inputs.renderer-template}}
       - run: npm run compile -- --publish 'never' -c.extraMetadata.version=${{inputs.app-version}}
-      - run: rm -rf packages
         env:
           VITE_DISTRIBUTION_CHANNEL: ${{inputs.renderer-template}}
 
