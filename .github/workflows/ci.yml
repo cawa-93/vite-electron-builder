@@ -70,7 +70,41 @@ jobs:
 #          Qwik Has unresolved upstream issue. So I decided to torn it off for now
 #          - qwik
 #          - qwik-ts
-
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    needs:
+      - prepare
+      - compile-and-test
+    uses: ./.github/workflows/deploy.yml
+    with:
+      renderer-template: ${{ matrix.renderer-template }}
+      app-version: ${{ needs.prepare.outputs.APP_VERSION }}
+      build-number: ${{ needs.prepare.outputs.COMMIT_TIMESTAMP }}
+    strategy:
+      fail-fast: false
+      matrix:
+        renderer-template:
+          - vanilla
+          - vanilla-ts
+          - vue
+          - vue-ts
+          - react
+          - react-ts
+          - react-swc
+          - react-swc-ts
+          - preact
+          - preact-ts
+          - lit
+          - lit-ts
+          - svelte
+          - svelte-ts
+          - solid
+          - solid-ts
+#          Qwik Has unresolved upstream issue. So I decided to torn it off for now
+#          - qwik
+#          - qwik-ts
 
 
   dependabot:
