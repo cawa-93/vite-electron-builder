@@ -1,23 +1,20 @@
 # This workflow is the entry point for all CI processes.
 # It is from here that all other workflows are launched.
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '**.md'
-      - .editorconfig
-      - '.idea/**'
-      - '.vscode/**'
-  pull_request:
-    paths-ignore:
-      - '**.md'
-      - .editorconfig
-      - '.idea/**'
-      - '.vscode/**'
+  workflow_call:
+    inputs:
+      distribution-channel:
+        description: Distribution channel for release. It can be `beta`, `alpha` or any string.
+        type: string
+        required: true
+      renderer-template:
+        description: Define what vite template should be used to create renderer in case if renderer package doesn't exist
+        required: false
+        type: string
+        default: ''
+
 concurrency:
-  group: ${{github.workflow}}-${{ github.ref }}
+  group: ${{github.workflow}}-${{ github.ref }}-${{inputs.distribution-channel}}
   cancel-in-progress: true
 
 permissions:
@@ -25,51 +22,34 @@ permissions:
 
 jobs:
   prepare:
+    name: Prepare shared data for multi-platform compilation
     runs-on: ubuntu-latest
     outputs:
       APP_VERSION: ${{ steps.APP_VERSION.outputs.APP_VERSION }}
       COMMIT_TIMESTAMP: ${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}
+      APP_FULL_VERSION: ${{ steps.APP_FULL_VERSION.outputs.APP_FULL_VERSION }}
     steps:
       - uses: actions/checkout@v4
       - id: COMMIT_TIMESTAMP
         run: echo "COMMIT_TIMESTAMP=$(git show -s --format=%ct ${{ github.sha }})" >> $GITHUB_OUTPUT
       - id: APP_VERSION
         run: echo "APP_VERSION=$(jq -r .version package.json)" >> $GITHUB_OUTPUT
+      - id: APP_FULL_VERSION
+        run: echo "APP_FULL_VERSION=${{ steps.APP_VERSION.outputs.APP_VERSION }}-${{inputs.distribution-channel}}.${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}" >> $GITHUB_OUTPUT
       - run: |
           echo "- \`COMMIT_TIMESTAMP\`: ${{ steps.COMMIT_TIMESTAMP.outputs.COMMIT_TIMESTAMP }}" >> $GITHUB_STEP_SUMMARY
           echo "- \`APP_VERSION\`: ${{ steps.APP_VERSION.outputs.APP_VERSION }}" >> $GITHUB_STEP_SUMMARY
+          echo "- \`APP_FULL_VERSION\`: ${{ steps.APP_FULL_VERSION.outputs.APP_FULL_VERSION }}" >> $GITHUB_STEP_SUMMARY
 
   compile-and-test:
     needs:
       - prepare
     uses: ./.github/workflows/compile-and-test.yml
     with:
-      renderer-template: ${{ matrix.renderer-template }}
-      app-version: ${{ needs.prepare.outputs.APP_VERSION }}
-      build-number: ${{ needs.prepare.outputs.COMMIT_TIMESTAMP }}
-    strategy:
-      fail-fast: false
-      matrix:
-        renderer-template:
-          - vanilla
-          - vanilla-ts
-          - vue
-          - vue-ts
-          - react
-          - react-ts
-          - react-swc
-          - react-swc-ts
-          - preact
-          - preact-ts
-          - lit
-          - lit-ts
-          - svelte
-          - svelte-ts
-          - solid
-          - solid-ts
-#          Qwik Has unresolved upstream issue. So I decided to torn it off for now
-#          - qwik
-#          - qwik-ts
+      renderer-template: ${{ inputs.renderer-template }}
+      app-version: ${{ needs.prepare.outputs.APP_FULL_VERSION }}
+      distribution-channel: ${{inputs.distribution-channel}}
+
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
@@ -79,45 +59,5 @@ jobs:
       - compile-and-test
     uses: ./.github/workflows/deploy.yml
     with:
-      renderer-template: ${{ matrix.renderer-template }}
-      app-version: ${{ needs.prepare.outputs.APP_VERSION }}
-      build-number: ${{ needs.prepare.outputs.COMMIT_TIMESTAMP }}
-    strategy:
-      fail-fast: false
-      matrix:
-        renderer-template:
-          - vanilla
-          - vanilla-ts
-          - vue
-          - vue-ts
-          - react
-          - react-ts
-          - react-swc
-          - react-swc-ts
-          - preact
-          - preact-ts
-          - lit
-          - lit-ts
-          - svelte
-          - svelte-ts
-          - solid
-          - solid-ts
-#          Qwik Has unresolved upstream issue. So I decided to torn it off for now
-#          - qwik
-#          - qwik-ts
-
-
-  dependabot:
-    permissions:
-      contents: write
-      pull-requests: write
-    needs:
-      - compile-and-test
-    runs-on: ubuntu-latest
-    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'cawa-93/vite-electron-builder'
-    steps:
-      - name: Enable auto-merge for Dependabot PRs
-        run: gh pr merge --auto --rebase "$PR_URL"
-        env:
-          PR_URL: ${{github.event.pull_request.html_url}}
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      distribution-channel: ${{ inputs.renderer-template }}
+      app-version: ${{ needs.prepare.outputs.APP_FULL_VERSION }}

@@ -1,10 +1,10 @@
-name: 'Init template with all dependencies renderer'
-description: 'Install all necessary dependencies and init a renderer package'
+name: Setup boilerplate
 inputs:
   renderer-template:
-    description: 'type of renderer package to init'
+    description: Define what vite template should be used to create renderer in case if renderer package doesn't exist
     required: false
     default: ''
+
 
 runs:
   using: "composite"
@@ -19,19 +19,21 @@ runs:
       with:
         node-version: 'latest'
 
-    - run: npm run create-renderer -- -- --template ${{inputs.renderer-template}}
+    - name: Check if renderer directory exists
+      id: check-renderer
+      run: >-
+        if [ -d "packages/renderer" ]; then
+          echo "RENDERER_EXIST=true" >> $GITHUB_OUTPUT
+        else
+          echo "RENDERER_EXIST=false" >> $GITHUB_OUTPUT
+        fi
       shell: bash
-      if: inputs.renderer-template != ''
-
-    - run: npm start --workspace @vite-electron-builder/integrate-renderer
-      shell: bash
-      if: inputs.renderer-template != ''
 
     - run: |
-        mkdir packages/renderer
-        echo "{\"name\":\"@vite-electron-builder/renderer\"}" > packages/renderer/package.json
+        npm run create-renderer -- -- --template ${{inputs.renderer-template}}
+        npm start --workspace @vite-electron-builder/integrate-renderer
       shell: bash
-      if: inputs.renderer-template == ''
+      if: inputs.renderer-template != '' && steps.check-renderer.outputs.RENDERER_EXIST == 'false'
 
     - name: Cache Dependencies
       uses: actions/cache@v4
@@ -41,5 +43,11 @@ runs:
         restore-keys: |
           npm-${{ runner.os }}-${{ inputs.renderer-template }}-
 
-    - run: npm install
+    - name: Install Dependencies
+      run: >-
+        if [ "${{ steps.check-renderer.outputs.RENDERER_EXIST }}" == "true" ] && [ -f "package-lock.json" ]; then
+          npm ci
+        else
+          npm install
+        fi
       shell: bash

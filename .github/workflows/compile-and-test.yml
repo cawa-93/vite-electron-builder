@@ -4,12 +4,14 @@ on:
   workflow_call:
     inputs:
       renderer-template:
-        required: true
+        description: Define what vite template should be used to create renderer in case if renderer package doesn't exist
+        required: false
         type: string
+        default: ''
       app-version:
         required: true
         type: string
-      build-number:
+      distribution-channel:
         required: true
         type: string
 
@@ -29,7 +31,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/init-template-with-renderer
-        name: Init template with "${{inputs.renderer-template}}" renderer
+        name: Setup boilerplate
         with:
           renderer-template: ${{inputs.renderer-template}}
       - run: npm run typecheck --if-present
@@ -46,20 +48,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/init-template-with-renderer
-        name: Init template with "${{inputs.renderer-template}}" renderer
+        name: Setup boilerplate
         with:
           renderer-template: ${{inputs.renderer-template}}
 
-      - run: npm version "${{inputs.app-version}}-${{inputs.renderer-template}}.${{inputs.build-number}}" --no-git-tag-version
+      - run: npm version "${{inputs.app-version}}" --no-git-tag-version
       - run: npm run compile -- -p never
         env:
-          VITE_DISTRIBUTION_CHANNEL: ${{inputs.renderer-template}}
-          BUILD_NUMBER: ${{inputs.build-number}}
+          VITE_DISTRIBUTION_CHANNEL: ${{inputs.distribution-channel}}
 
       - run: npm run test --if-present
 
       - name: Upload compiled app
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.os }}-${{inputs.renderer-template}}
+          name: ${{ matrix.os }}-${{inputs.distribution-channel}}
           path: dist

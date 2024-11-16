@@ -1,0 +1,71 @@
+# This file serves as a boilerplate template rather than an end-application script.
+# The final application is likely to delete this file and use `ci.yml` as the entry point.
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - .editorconfig
+      - '.idea/**'
+      - '.vscode/**'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - .editorconfig
+      - '.idea/**'
+      - '.vscode/**'
+
+concurrency:
+  group: ${{github.workflow}}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  run-ci-for-template:
+    name: ci.yml
+    uses: ./.github/workflows/ci.yml
+    with:
+      renderer-template: ${{ matrix.renderer-template }}
+      distribution-channel: ${{ matrix.renderer-template }}
+    strategy:
+      fail-fast: false
+      matrix:
+        renderer-template:
+          - vanilla
+          - vanilla-ts
+          - vue
+          - vue-ts
+          - react
+          - react-ts
+          - react-swc
+          - react-swc-ts
+          - preact
+          - preact-ts
+          - lit
+          - lit-ts
+          - svelte
+          - svelte-ts
+          - solid
+          - solid-ts
+#          - qwik
+#          - qwik-ts
+
+  dependabot:
+    permissions:
+      contents: write
+      pull-requests: write
+    needs:
+      - run-ci-for-template
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'cawa-93/vite-electron-builder'
+    steps:
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --rebase "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
