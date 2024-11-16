@@ -57,6 +57,8 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       contents: write
+      id-token: write
+      attestations: write
     needs:
       - prepare
       - compile-and-test
