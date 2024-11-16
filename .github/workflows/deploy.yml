@@ -3,13 +3,10 @@ name: Deploy
 on:
   workflow_call:
     inputs:
-      renderer-template:
-        required: true
-        type: string
       app-version:
         required: true
         type: string
-      build-number:
+      distribution-channel:
         required: true
         type: string
 
@@ -26,22 +23,19 @@ env:
   npm_config_audit: false
   npm_config_fund: false
 
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
     environment:
-      name: ${{inputs.renderer-template}}
-      url: https://github.com/${{github.repository}}/releases/tag/v${{inputs.app-version}}-${{inputs.renderer-template}}.${{inputs.build-number}}
+      name: ${{inputs.distribution-channel}}
+      url: https://github.com/${{github.repository}}/releases/tag/v${{inputs.app-version}}
     steps:
-      - name: Set pattern variable
-        run: echo "pattern=*-${{inputs.renderer-template}}" >> $GITHUB_ENV
       - name: Download compiled app
         uses: actions/download-artifact@v4
         with:
-          pattern: "*-${{inputs.renderer-template}}"
+          pattern: "*-${{inputs.distribution-channel}}"
           path: dist
           merge-multiple: true
-      - run: gh release create v${{inputs.app-version}}-${{inputs.renderer-template}}.${{inputs.build-number}} dist/*${{inputs.renderer-template}}* dist/latest*.yml --repo ${{github.repository}}
+      - run: gh release create v${{inputs.app-version}} dist/root* dist/latest*.yml --repo ${{github.repository}}
         env:
           GH_TOKEN: ${{ github.token }}
