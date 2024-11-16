@@ -22,10 +22,10 @@ runs:
     - name: Check if renderer directory exists
       id: check-renderer
       run: |
-        if [ -d "packages/renderer" ]; then
-          echo "RENDERER_EXIST=true" >> $GITHUB_OUTPUT
-        else
-          echo "RENDERER_EXIST=false" >> $GITHUB_OUTPUT
+        if [ -d "packages/renderer" ]; then \
+          echo "RENDERER_EXIST=true" >> $GITHUB_OUTPUT \
+        else \
+          echo "RENDERER_EXIST=false" >> $GITHUB_OUTPUT \
       shell: bash
 
     - run: |
@@ -44,9 +44,9 @@ runs:
 
     - name: Install Dependencies
       run: |
-        if [ "$(steps.check-renderer.outputs.RENDERER_EXIST)" == "true" ] && [ -f "package-lock.json" ]; then
-          npm ci
-        else
-          npm install
+        if [ "$(steps.check-renderer.outputs.RENDERER_EXIST)" == "true" ] && [ -f "package-lock.json" ]; then \
+          npm ci \
+        else \
+          npm install \
         fi
       shell: bash
