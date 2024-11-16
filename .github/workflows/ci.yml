@@ -14,7 +14,7 @@ on:
         default: ''
 
 concurrency:
-  group: ${{github.workflow}}-${{ github.ref }}-${{inputs.channel}}
+  group: ${{github.workflow}}-${{ github.ref }}-${{inputs.distribution-channel}}
   cancel-in-progress: true
 
 permissions:

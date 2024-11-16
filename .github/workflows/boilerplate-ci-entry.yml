@@ -27,6 +27,7 @@ permissions:
 
 jobs:
   run-ci-for-template:
+    name: ci.yml
     uses: ./.github/workflows/ci.yml
     with:
       renderer-template: ${{ matrix.renderer-template }}
