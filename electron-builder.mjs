@@ -13,6 +13,7 @@ export default /** @type import('electron-builder').Configuration */
   linux: {
     target: ['deb'],
   },
+  artifactName: '${productName}-${version}-${os}-${arch}.${ext}',
   files: [
     'packages/entry-point.js',
     '!node_modules/@vite-electron-builder/**',
