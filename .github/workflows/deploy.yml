@@ -36,6 +36,9 @@ jobs:
           pattern: "*-${{inputs.distribution-channel}}"
           path: dist
           merge-multiple: true
+      - uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: "dist/root*, dist/latest*.yml"
       - run: gh release create v${{inputs.app-version}} dist/root* dist/latest*.yml --repo ${{github.repository}}
         env:
           GH_TOKEN: ${{ github.token }}
