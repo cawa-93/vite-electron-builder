@@ -1,6 +1,7 @@
 # This file serves as a boilerplate template rather than an end-application script.
 # The final application is likely to delete this file and use `ci.yml` as the entry point.
 
+name: Run entry ci.yml for each vite starter template
 on:
   workflow_dispatch:
   push:
@@ -32,6 +33,10 @@ jobs:
     with:
       renderer-template: ${{ matrix.renderer-template }}
       distribution-channel: ${{ matrix.renderer-template }}
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
     strategy:
       fail-fast: false
       matrix:
