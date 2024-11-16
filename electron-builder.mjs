@@ -13,6 +13,10 @@ export default /** @type import('electron-builder').Configuration */
   linux: {
     target: ['deb'],
   },
+  /**
+   * It is recommended to avoid using non-standard characters such as spaces in artifact names,
+   * as they can unpredictably change during deployment, making them impossible to locate and download for update.
+   */
   artifactName: '${productName}-${version}-${os}-${arch}.${ext}',
   files: [
     'packages/entry-point.js',
