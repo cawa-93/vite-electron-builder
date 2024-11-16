@@ -26,6 +26,7 @@ runs:
           echo "RENDERER_EXIST=true" >> $GITHUB_OUTPUT
         else
           echo "RENDERER_EXIST=false" >> $GITHUB_OUTPUT
+        fi
       shell: bash
 
     - run: |
