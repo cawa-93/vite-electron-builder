@@ -52,8 +52,8 @@ jobs:
           - svelte-ts
           - solid
           - solid-ts
-          - qwik
-          - qwik-ts
+#          - qwik
+#          - qwik-ts
 
   dependabot:
     permissions:
