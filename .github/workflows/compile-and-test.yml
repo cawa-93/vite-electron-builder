@@ -19,6 +19,11 @@ defaults:
   run:
     shell: 'bash'
 
+permissions:
+  contents: write
+  id-token: write
+  attestations: write
+
 env:
   NODE_NO_WARNINGS: 1
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
@@ -58,6 +63,10 @@ jobs:
           VITE_DISTRIBUTION_CHANNEL: ${{inputs.distribution-channel}}
 
       - run: npm run test --if-present
+
+      - uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: "dist/root*, dist/latest*.yml"
 
       - name: Upload compiled app
         uses: actions/upload-artifact@v4

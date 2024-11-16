@@ -47,6 +47,10 @@ jobs:
   compile-and-test:
     needs:
       - prepare
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
     uses: ./.github/workflows/compile-and-test.yml
     with:
       renderer-template: ${{ inputs.renderer-template }}
@@ -57,8 +61,6 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       contents: write
-      id-token: write
-      attestations: write
     needs:
       - prepare
       - compile-and-test
