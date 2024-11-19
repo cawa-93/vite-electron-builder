@@ -33,7 +33,7 @@
     "electron": "33.2.0",
     "electron-builder": "26.0.0-alpha.6",
     "glob": "11.0.0",
-    "playwright": "1.48.2"
+    "playwright": "1.49.0"
   },
   "dependencies": {
     "@vite-electron-builder/main": "*"
