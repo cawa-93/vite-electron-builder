@@ -27,7 +27,7 @@
     "init": "npm run create-renderer && npm run integrate-renderer && npm install"
   },
   "devDependencies": {
-    "@npmcli/map-workspaces": "4.0.1",
+    "@npmcli/map-workspaces": "4.0.2",
     "@playwright/test": "1.49.0",
     "@types/node": "22.9.1",
     "electron": "33.2.0",
