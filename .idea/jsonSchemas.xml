@@ -12,10 +12,10 @@
               <option name="patterns">
                 <list>
                   <Item>
-                    <option name="path" value=".github/workflows/release.yml" />
+                    <option name="path" value=".github/workflows/ci.yml" />
                   </Item>
                   <Item>
-                    <option name="path" value=".github/workflows/ci.yml" />
+                    <option name="path" value=".github/workflows/release.yml" />
                   </Item>
                 </list>
               </option>
