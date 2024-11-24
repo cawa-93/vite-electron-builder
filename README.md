@@ -31,6 +31,11 @@ Follow these steps to get started with the template:
  
 That's all you need. 😉
 
+> [!TIP]
+> You can explore the demo application for various frameworks and operating systems in the [Deployment](https://github.com/cawa-93/vite-electron-builder/deployments) section.
+> This will allow you to see how the application performs across different environments.
+> Additionally, you can verify the auto-update functionality by installing an outdated version of the application.
+
 ❤️ **If you like this template, give a ⭐ or [send support](https://www.buymeacoffee.com/kozack/)!**
 
 ## Features
