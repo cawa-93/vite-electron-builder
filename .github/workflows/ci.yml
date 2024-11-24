@@ -57,6 +57,13 @@ jobs:
       app-version: ${{ needs.prepare.outputs.APP_FULL_VERSION }}
       distribution-channel: ${{inputs.distribution-channel}}
 
+  approve-pr:
+    needs:
+      - compile-and-test
+    steps:
+      - name: Approve PR
+        run: gh pr review --approve "${{github.event.pull_request.html_url}}"
+
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
