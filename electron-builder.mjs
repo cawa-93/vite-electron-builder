@@ -19,6 +19,7 @@ export default /** @type import('electron-builder').Configuration */
    */
   artifactName: '${productName}-${version}-${os}-${arch}.${ext}',
   files: [
+    'LICENSE*',
     'packages/entry-point.js',
     '!node_modules/@vite-electron-builder/**',
     ...await getListOfFilesFromEachWorkspace(),
