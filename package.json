@@ -31,7 +31,7 @@
     "@playwright/test": "1.49.0",
     "@types/node": "22.9.1",
     "electron": "33.2.0",
-    "electron-builder": "26.0.0-alpha.6",
+    "electron-builder": "26.0.0-alpha.7",
     "glob": "11.0.0",
     "playwright": "1.49.0"
   },
