@@ -306,7 +306,7 @@ Set up the initial environment by creating a new renderer, integrating it, and i
 
 ## Contribution
 
-See [Contributing Guide](contributing.md).
+See [Contributing Guide](CONTRIBUTING.md).
 
 
 [vite]: https://github.com/vitejs/vite/
