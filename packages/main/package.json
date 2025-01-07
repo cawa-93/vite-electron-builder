@@ -7,8 +7,8 @@
   },
   "exports": {
     ".": {
-      "default": "./dist/index.js",
-      "types": "./src/index.ts"
+      "types": "./src/index.ts",
+      "default": "./dist/index.js"
     }
   },
   "dependencies": {
