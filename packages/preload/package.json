@@ -19,6 +19,6 @@
     "@vite-electron-builder/electron-versions": "*",
     "mlly": "1.7.3",
     "typescript": "^5.7.2",
-    "vite": "6.0.6"
+    "vite": "6.2.0"
   }
 }
