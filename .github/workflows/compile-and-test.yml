@@ -43,7 +43,7 @@ jobs:
 
   compile:
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os:
           - windows-latest
@@ -63,6 +63,10 @@ jobs:
           VITE_DISTRIBUTION_CHANNEL: ${{inputs.distribution-channel}}
 
       - run: npm run test --if-present
+        if: matrix.os != 'ubuntu-latest'
+
+      - run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npm run test --if-present
+        if: matrix.os == 'ubuntu-latest'
 
       - uses: actions/attest-build-provenance@v2
         with:
