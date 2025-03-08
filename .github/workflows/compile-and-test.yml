@@ -67,8 +67,6 @@ jobs:
 
       - run: xvfb-run --auto-servernum --server-args="-screen 0 1280x960x24" -- npm run test --if-present
         if: matrix.os == 'ubuntu-latest'
-        env:
-          NODE_ENV: 'development'
 
       - uses: actions/attest-build-provenance@v2
         with:
