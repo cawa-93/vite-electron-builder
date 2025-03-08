@@ -32,6 +32,9 @@ const test = base.extend<TestFixtures>({
 
     const electronApp = await electron.launch({
       executablePath: executablePath,
+      env: {
+        NODE_ENV: 'development'
+      }
     });
 
     electronApp.on('console', (msg) => {
