@@ -1,4 +1,4 @@
-import {getNodeMajorVersion} from '@vite-electron-builder/electron-versions';
+import {getNodeMajorVersion} from '@app/electron-versions';
 import {spawn} from 'child_process';
 import electronPath from 'electron';
 
@@ -44,14 +44,14 @@ function handleHotReload() {
   let rendererWatchServer = null;
 
   return {
-    name: '@vite-electron-builder/main-process-hot-reload',
+    name: '@app/main-process-hot-reload',
 
     config(config, env) {
       if (env.mode !== 'development') {
         return;
       }
 
-      const rendererWatchServerProvider = config.plugins.find(p => p.name === '@vite-electron-builder/renderer-watch-server-provider');
+      const rendererWatchServerProvider = config.plugins.find(p => p.name === '@app/renderer-watch-server-provider');
       if (!rendererWatchServerProvider) {
         throw new Error('Renderer watch server provider not found');
       }

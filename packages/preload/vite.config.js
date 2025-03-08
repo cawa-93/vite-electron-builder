@@ -1,5 +1,5 @@
 import {resolveModuleExportNames} from 'mlly';
-import {getChromeMajorVersion} from '@vite-electron-builder/electron-versions';
+import {getChromeMajorVersion} from '@app/electron-versions';
 
 export default /**
  * @type {import('vite').UserConfig}
@@ -87,14 +87,14 @@ function handleHotReload() {
   let rendererWatchServer = null;
 
   return {
-    name: '@vite-electron-builder/preload-process-hot-reload',
+    name: '@app/preload-process-hot-reload',
 
     config(config, env) {
       if (env.mode !== 'development') {
         return;
       }
 
-      const rendererWatchServerProvider = config.plugins.find(p => p.name === '@vite-electron-builder/renderer-watch-server-provider');
+      const rendererWatchServerProvider = config.plugins.find(p => p.name === '@app/renderer-watch-server-provider');
       if (!rendererWatchServerProvider) {
         throw new Error('Renderer watch server provider not found');
       }

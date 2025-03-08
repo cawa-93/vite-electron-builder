@@ -31,7 +31,7 @@ runs:
 
     - run: |
         npm run create-renderer -- -- --template ${{inputs.renderer-template}}
-        npm start --workspace @vite-electron-builder/integrate-renderer
+        npm start --workspace @app/integrate-renderer
       shell: bash
       if: inputs.renderer-template != '' && steps.check-renderer.outputs.RENDERER_EXIST == 'false'
 

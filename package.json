@@ -9,7 +9,7 @@
     "name": "Alex Kozack",
     "url": "https://kozack.me"
   },
-  "main": "packages/entry-point.js",
+  "main": "packages/entry-point.mjs",
   "workspaces": [
     "packages/*"
   ],
@@ -23,19 +23,19 @@
     "start": "node packages/dev-mode.js",
     "typecheck": "npm run typecheck -ws --if-present",
     "create-renderer": "cd packages && npm create vite@latest renderer",
-    "integrate-renderer": "npm start --workspace @vite-electron-builder/integrate-renderer",
+    "integrate-renderer": "npm start --workspace @app/integrate-renderer",
     "init": "npm run create-renderer && npm run integrate-renderer && npm install"
   },
   "devDependencies": {
     "@npmcli/map-workspaces": "4.0.2",
-    "@playwright/test": "1.49.0",
-    "@types/node": "22.10.2",
-    "electron": "33.2.1",
-    "electron-builder": "26.0.0-alpha.8",
+    "@playwright/test": "1.51.0",
+    "@types/node": "22.13.10",
+    "electron": "35.0.0",
+    "electron-builder": "26.0.10",
     "glob": "11.0.0",
-    "playwright": "1.49.0"
+    "playwright": "^1.51.0"
   },
   "dependencies": {
-    "@vite-electron-builder/main": "*"
+    "@app/main": "*"
   }
 }

@@ -68,7 +68,7 @@ the [`ci`](.github/workflows/ci.yml) workflow starts to create and deploy a new 
 
 The project is designed as monorepo where each part of the application is an independent package.
 Each package could have own tech stack, tests, dependencies, frameworks, etc.
-All internal names are prefixed by `@vite-electron-builder/*`.
+All internal names are prefixed by `@app/*`.
 There are no technical reasons for this.
 It's just for you to make it easier to understand the architecture.
 
@@ -91,7 +91,7 @@ As you may have noticed, the repository does **not** contain a package that impl
 The reason is that since the entire application is a mono-repository,
 you can use any web application based on any framework or bundler as a package for the interface.
 
-There is only one requirement: the template expects to import renderer by `@vite-electron-builder/renderer` name.
+There is only one requirement: the template expects to import renderer by `@app/renderer` name.
 
 > [!TIP]
 > You can create new renderer package in interactive mode by `npm run init`.
@@ -162,7 +162,7 @@ Now you can import and call the method in renderer
 
 ```ts
 // renderer/src/anywere/component.ts
-import {getUserData} from '@vite-electron-builder/preload'
+import {getUserData} from '@app/preload'
 
 // Method will came from exposed context
 // const userData = globalThis['getUserData']

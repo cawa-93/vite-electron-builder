@@ -5,7 +5,7 @@ import * as fs from 'node:fs';
 const step = createStepLogger();
 
 await step(
-  'Changing renderer package name to "@vite-electron-builder/renderer"',
+  'Changing renderer package name to "@app/renderer"',
   changeRendererPackageName,
 );
 
@@ -15,7 +15,7 @@ await step(
 );
 
 await step(
-  'Change the "main" property to "./dist/index.html"',
+  'Change the "main" and "exports" property to "./dist/index.html"',
   addTheMainProperty,
 );
 
@@ -23,10 +23,10 @@ await step(
 
 
 function changeRendererPackageName() {
-  if (pkgJson?.name === '@vite-electron-builder/renderer') {
+  if (pkgJson?.name === '@app/renderer') {
     return;
   }
-  pkgJson.name = '@vite-electron-builder/renderer';
+  pkgJson.name = '@app/renderer';
   savePkg();
 }
 
@@ -57,6 +57,7 @@ function addTheMainProperty() {
   }
 
   pkgJson.main = './dist/index.html';
+  pkgJson.exports = {...(pkgJson?.exports ?? {}), '.': {'default': pkgJson.main}};
   savePkg();
 }
 

@@ -11,8 +11,8 @@
     "types": ["node"],
     "baseUrl": ".",
     "paths": {
-      "@vite-electron-builder/preload": ["../preload"],
-      "@vite-electron-builder/renderer": ["../renderer"]
+      "@app/preload": ["../preload"],
+      "@app/renderer": ["../renderer"]
     }
   },
   "include": ["src/**/*.ts", "../../types/**/*.d.ts"],
