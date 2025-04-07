@@ -41,7 +41,7 @@ That's all you need. 😉
 ## Features
 
 ### Lightweight
-When designing this template, I tried to keep ше minimal, using the platform's native features to the maximum and minimizing the number of third-party dependencies.
+When designing this template, I tried to keep it minimal, using the platform's native features to the maximum and minimizing the number of third-party dependencies.
 
 ### Electron
 
