@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "@npmcli/map-workspaces": "4.0.2",
-    "@playwright/test": "1.51.1",
+    "@playwright/test": "1.52.0",
     "@types/node": "22.14.1",
     "electron": "35.1.5",
     "electron-builder": "26.0.12",
