@@ -19,6 +19,6 @@
     "@app/electron-versions": "*",
     "mlly": "1.7.4",
     "typescript": "5.8.3",
-    "vite": "6.3.1"
+    "vite": "6.3.2"
   }
 }
