@@ -33,7 +33,7 @@
     "electron": "35.1.5",
     "electron-builder": "26.0.12",
     "glob": "11.0.1",
-    "playwright": "^1.51.1"
+    "playwright": "^1.52.0"
   },
   "dependencies": {
     "@app/main": "*"
