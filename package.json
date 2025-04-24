@@ -32,7 +32,7 @@
     "@types/node": "22.14.1",
     "electron": "35.2.1",
     "electron-builder": "26.0.12",
-    "glob": "11.0.1",
+    "glob": "11.0.2",
     "playwright": "^1.52.0"
   },
   "dependencies": {
