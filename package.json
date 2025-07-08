@@ -22,15 +22,16 @@
     "test": "npx playwright test ./tests/e2e.spec.ts",
     "start": "node packages/dev-mode.js",
     "typecheck": "npm run typecheck -ws --if-present",
-    "create-renderer": "cd packages && npm create vite@latest renderer",
+    "create-renderer": "cd packages && node ./integrate-renderer/create-renderer.js",
     "integrate-renderer": "npm start --workspace @app/integrate-renderer",
     "init": "npm run create-renderer && npm run integrate-renderer && npm install"
   },
   "devDependencies": {
     "@npmcli/map-workspaces": "4.0.2",
-    "@playwright/test": "1.53.1",
-    "@types/node": "24.0.3",
-    "electron": "36.5.0",
+    "@playwright/test": "1.53.2",
+    "@types/node": "24.0.10",
+    "create-vite": "7.0.1",
+    "electron": "37.2.0",
     "electron-builder": "26.0.12",
     "glob": "11.0.3",
     "playwright": "^1.53.1"
