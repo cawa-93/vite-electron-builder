@@ -55,8 +55,10 @@ jobs:
           - lit-ts
           - svelte
           - svelte-ts
-          - solid
-          - solid-ts
+
+#            qwik and solid plugins doesnt support view v7 at the moment
+#          - solid
+#          - solid-ts
 #          - qwik
 #          - qwik-ts
 
