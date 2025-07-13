@@ -1,5 +1,5 @@
 {
-  "name": "renderer",
+  "name": "@app/renderer",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -42,5 +42,11 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.8.2"
+  },
+  "main": "./dist/index.html",
+  "exports": {
+    ".": {
+      "default": "./dist/index.html"
+    }
   }
 }
