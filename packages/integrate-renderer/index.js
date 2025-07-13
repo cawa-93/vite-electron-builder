@@ -1,5 +1,20 @@
-import pkgJson from '../renderer/package.json' with {type: 'json'};
 import * as fs from 'node:fs';
+
+// Validate that renderer package.json exists before starting
+const RENDERER_PACKAGE_PATH = '../renderer/package.json';
+if (!fs.existsSync(RENDERER_PACKAGE_PATH)) {
+  console.error('❌ Renderer package.json not found at:', RENDERER_PACKAGE_PATH);
+  console.error('Please run "npm run create-renderer" first and ensure it completes successfully.');
+  process.exit(1);
+}
+
+let pkgJson;
+try {
+  pkgJson = JSON.parse(fs.readFileSync(RENDERER_PACKAGE_PATH, 'utf8'));
+} catch (error) {
+  console.error('❌ Failed to read renderer package.json:', error.message);
+  process.exit(1);
+}
 
 
 const step = createStepLogger();
