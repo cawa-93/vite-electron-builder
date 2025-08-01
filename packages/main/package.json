@@ -19,7 +19,7 @@
   "devDependencies": {
     "@app/electron-versions": "*",
     "electron-devtools-installer": "4.0.0",
-    "typescript": "5.8.3",
+    "typescript": "5.9.2",
     "vite": "7.0.6"
   }
 }
