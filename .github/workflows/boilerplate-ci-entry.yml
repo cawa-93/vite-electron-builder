@@ -55,12 +55,11 @@ jobs:
           - lit-ts
           - svelte
           - svelte-ts
-
-#            qwik and solid plugins doesnt support view v7 at the moment
-#          - solid
-#          - solid-ts
+          - solid
+          - solid-ts
           - qwik
           - qwik-ts
+
 
   dependabot:
     permissions:
