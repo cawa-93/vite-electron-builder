@@ -30,7 +30,7 @@
     "@npmcli/map-workspaces": "4.0.2",
     "@playwright/test": "1.54.2",
     "@types/node": "24.2.0",
-    "create-vite": "7.0.3",
+    "create-vite": "7.1.0",
     "electron": "37.2.6",
     "electron-builder": "26.0.12",
     "glob": "11.0.3",
