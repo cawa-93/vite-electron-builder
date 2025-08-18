@@ -31,7 +31,7 @@ jobs:
       url: https://github.com/${{github.repository}}/releases/tag/v${{inputs.app-version}}
     steps:
       - name: Download compiled app
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v5
         with:
           pattern: "*-${{inputs.distribution-channel}}"
           path: dist
