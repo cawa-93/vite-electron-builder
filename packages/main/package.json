@@ -14,7 +14,7 @@
   "dependencies": {
     "@app/preload": "*",
     "@app/renderer": "*",
-    "electron-updater": "6.6.2"
+    "electron-updater": "6.7.3"
   },
   "devDependencies": {
     "@app/electron-versions": "*",
