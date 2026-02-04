@@ -33,7 +33,7 @@
     "create-vite": "8.2.0",
     "electron": "40.1.0",
     "electron-builder": "26.7.0",
-    "glob": "13.0.0",
+    "glob": "13.0.1",
     "playwright": "^1.58.1"
   },
   "dependencies": {
