@@ -29,7 +29,7 @@
   "devDependencies": {
     "@npmcli/map-workspaces": "5.0.3",
     "@playwright/test": "1.58.2",
-    "@types/node": "25.2.1",
+    "@types/node": "25.2.3",
     "create-vite": "8.3.0",
     "electron": "40.2.1",
     "electron-builder": "26.7.0",
