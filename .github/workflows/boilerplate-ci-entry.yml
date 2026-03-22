@@ -65,6 +65,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      workflows: write
     needs:
       - run-ci-for-template
     runs-on: ubuntu-latest
