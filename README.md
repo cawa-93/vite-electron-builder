@@ -109,7 +109,7 @@ We are using [electron-builder] for
 this.
 
 - You can compile application locally by `npm run compile`.
-  In this case, you will get executable that you cat share, but it will not support auto-updates out-of-box.
+  In this case, you will get executable that you can share, but it will not support auto-updates out-of-box.
 - To have auto-updater, you should compile an application and publish it to one or more supported sources for distribution. In this case, all application instances will download and apply all new updates. This is done by GitHub action in [release.yml](.github/workflows/release.yml).
 
 > [!TIP]
