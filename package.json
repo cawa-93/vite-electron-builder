@@ -24,7 +24,7 @@
     "typecheck": "npm run typecheck -ws --if-present",
     "create-renderer": "cd packages && node ./integrate-renderer/create-renderer.js",
     "integrate-renderer": "npm start --workspace @app/integrate-renderer",
-    "init": "npm run create-renderer && npm run integrate-renderer && npm install"
+    "init": "npm run create-renderer && npm run integrate-renderer && npm install --ignore-scripts"
   },
   "devDependencies": {
     "@npmcli/map-workspaces": "5.0.3",
